@@ -143,12 +143,12 @@ try {
         <h2>Install the adoption tools</h2>
         <p>
           Install the CLI from{' '}
-          <a href="https://www.npmjs.com/package/ruagentic/v/0.1.0-draft.5">
-            npm
+          <a href="https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.5">
+            GitHub releases
           </a>{' '}
           with Node 24, then initialize or validate a profile.
         </p>
-        <pre className="code-block">{`npm install -g ruagentic@0.1.0-draft.5
+        <pre className="code-block">{`npm install -g https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.5/ruagentic-0.1.0-draft.5.tgz
 agentic init --origin https://your-service.example
 agentic validate agentic.json openapi.json`}</pre>
         <p>

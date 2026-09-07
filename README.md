@@ -5,7 +5,7 @@ Version: 0.1.0-draft. Status: project reference implementation; not an adopted s
 Project home: https://ruagentic.org
 Repository: https://github.com/sam1siam/agentic
 
-Install the [CLI from npm](https://www.npmjs.com/package/ruagentic/v/0.1.0-draft.5) with `npm install -g ruagentic@0.1.0-draft.5` (Node 24+), then run `agentic`. See [Get started](https://ruagentic.org/adopt/) for generation, validation, and agent connections.
+Install the [CLI from GitHub releases](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.5) with `npm install -g https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.5/ruagentic-0.1.0-draft.5.tgz` (Node 24+), then run `agentic`. See [Get started](https://ruagentic.org/adopt/) for generation, validation, and agent connections.
 
 ## What it does
 A service creates a ticket, then the response is lost. The Agentic client uses its saved request ID to reconcile the original action and verify the ticket. It does not automatically repeat an ambiguous write.
