@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Get started with Agentic
+    url: https://ruagentic.org/adopt/
+    about: Generate files, install the CLI, and integrate your service.
+  - name: Connect an agent
+    url: https://ruagentic.org/connect/
+    about: MCP, WebMCP, A2A, and Agent Auth setup.

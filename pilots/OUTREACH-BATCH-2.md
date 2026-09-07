@@ -1,5 +1,7 @@
 # Pilot outreach: batch 2
 
+> Archived on 2026-09-07: the project owner retired the managed pilot program and further outreach. The text below is a historical record, not an active invitation or work plan. Use [Get started](https://ruagentic.org/adopt/) for direct access.
+
 The account owner authorized additional invitations on 2026-09-07. Eight individually adapted invitations were delivered from sam1siam after checking project guidance and related discussions. Two messages continue existing relevant issues; four use project discussion categories; two request specification/integration review.
 
 These are invitations, not independent pilots or endorsements. No acceptance is implied. Exact messages, timestamps, and delivery URLs are in [the JSON record](OUTREACH-BATCH-2.json).

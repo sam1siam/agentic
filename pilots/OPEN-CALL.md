@@ -1,5 +1,7 @@
 # Open call: independent clients and service pilots for Agentic 0.1
 
+> Archived on 2026-09-07: the project owner retired the managed pilot program and further outreach. The text below is a historical record, not an active invitation or work plan. Use [Get started](https://ruagentic.org/adopt/) for direct access.
+
 Agentic is an experimental JSON profile for reconciling uncertain action submissions and verifying their outcomes through existing OpenAPI operations.
 
 We are opening the first pilot cohort for independently implemented consumers and service owners with one suitable sandbox action. This is a request for evidence and critique, not an adoption announcement.

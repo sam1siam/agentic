@@ -26,7 +26,7 @@ python reference/service/server.py --fault response-lost
 Second terminal:
 
 ```sh
-npm run client -- http://127.0.0.1:4318 pilot-001 "Pilot ticket"
+npm run client -- http://127.0.0.1:4318 example-001 "Example ticket"
 ```
 
 The service commits one ticket, then closes the connection before delivering its first response. The client reconciles the request, reads the ticket, verifies its identity and subject, and prints a JSON receipt with `outcome: succeeded`.
@@ -36,7 +36,7 @@ Repeat the exact client command. It returns the saved receipt without creating a
 The Python client can run the same operation:
 
 ```sh
-python reference/python/client.py http://127.0.0.1:4318 python-pilot-001 "Python pilot ticket"
+python reference/python/client.py http://127.0.0.1:4318 python-example-001 "Python example ticket"
 ```
 
 ## Create a profile for your service
@@ -57,10 +57,10 @@ Publish the file on the service origin as `/agentic.json` with `Content-Type: ap
 ```sh
 npm test
 npm run typecheck
-npm run pilot -- --adapter pilots/adapters/node-reference.json --out .agentic-state/pilot-report.json
+npm run conformance -- --adapter pilots/adapters/node-reference.json --out .agentic-state/compatibility-report.json
 ```
 
-The first command exercises the project tests. The pilot runner can also drive your own client; see [PILOT-RUNNER.md](PILOT-RUNNER.md). Project-authored runs are reference checks, not independent adoption.
+The first command exercises the project tests. The compatibility runner can also drive your own client; see [COMPATIBILITY.md](COMPATIBILITY.md). Project-authored runs are reference checks, not independent adoption.
 
 ## Troubleshooting
 

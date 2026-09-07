@@ -115,7 +115,7 @@ const connection = await client.connectAgent({
   provider: 'https://ruagentic.org',
   mode: 'autonomous',
   capabilities: ['agentic.sandbox.run'],
-  name: 'My recovery pilot'
+  name: 'My recovery client'
 });
 try {
   const report = await client.executeCapability({

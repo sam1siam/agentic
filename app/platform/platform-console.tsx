@@ -425,7 +425,7 @@ export default function PlatformConsole() {
         )}
         <div className="doc-utilities">
           <Link href="/connect">MCP, WebMCP, A2A and Agent Auth setup →</Link>
-          <Link href="/adopt">Independent pilot program →</Link>
+          <Link href="/adopt">Install tools and integrate →</Link>
         </div>
       </section>
     </main>

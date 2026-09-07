@@ -1,17 +1,13 @@
-# Adoption roadmap
-Targets, not forecasts or completed adoption claims.
+# Product roadmap
 
-| Period | Target | Evidence |
+Agentic is available for direct use. Work follows concrete bugs, integration needs, and contributions rather than a managed pilot program or enrollment targets.
+
+| Area | Available now | Next work when needed |
 | --- | --- | --- |
-| Days 1–14 | Five consumer and five service interviews | At least three consumer teams want to pilot the same solution |
-| Days 15–30 | Initial draft, validator, service, adapter, and failure harness | Verified recovery of a committed write with a lost response |
-| Days 31–60 | Three to five pilots and a separately authored client | Independent code passes the same behavioral tests |
-| Days 61–90 | Aim for ten active service integrations and two independent consuming apps | Repeat use and measured value over current workflows |
-| Months 4–6 | Outside maintainers, stable compatibility rules, governance review | Sustained contributions and operational experience |
-| Later | Decide 1.0 and suitable neutral governance | Independent interoperability; no unresolved material issues |
+| Files | Draft specification, schemas, OpenAPI and discovery generators | Resolve focused specification issues through versioned changes |
+| Tools | Validator, CLI release, GitHub Action, and agent skill | Improve setup and distribution based on installation feedback |
+| Hosted services | Recovery sandbox, URL auditor, report history, MCP, A2A, and Agent Auth | Maintain availability, dependencies, and operational controls |
+| Integrations | Node and Python reference clients, local service, compatibility runner | Accept optional implementation reports and focused adapters |
+| Governance | Open source, public issues, documented change process | Consider 1.0 only with sufficient interoperability evidence and resolved material issues |
 
-The starter implementation is available. Interview, pilot, production adoption, neutral-governance admission, and standardization targets remain open.
-
-Track active consumer applications, services actually used by them, verified task outcomes, duplicates, false success reports, unresolved results, latency and calls under real workloads, integration effort, and maintenance cost. File counts and stars are secondary.
-
-Do not promise universal agent support, AI search ranking gains, automatic certification, or exactly-once effects.
+Public availability is not a claim of universal agent support, independent adoption, certification, or exactly-once effects. The profile remains a versioned draft. There is no requirement to enroll or publish a report before using it.

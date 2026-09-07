@@ -38,7 +38,7 @@ const guides = [
     'Testing',
     'Compatibility runner',
     'Test a separately implemented client through a small process interface and publish evidence.',
-    '/docs/PILOT-RUNNER.md',
+    '/docs/COMPATIBILITY.md',
   ],
   [
     'Protocol',
@@ -56,11 +56,11 @@ const guides = [
 const faq = [
   [
     'Is this an adopted standard?',
-    'No. Agentic is an experimental proposal. The project publishes reference code and is recruiting outside implementers. A stable version needs independent compatibility evidence.',
+    'No. Agentic is an experimental proposal. The specification and tools are freely available to use. A stable version needs independent compatibility evidence.',
   ],
   [
     'Will agents discover agentic.json automatically?',
-    'Only clients that implement this convention can use it. Pass the profile URL explicitly during a pilot. Publishing the file alone does not add support to an agent.',
+    'Only clients that implement this convention can use it. Pass the profile URL explicitly to your supporting client. Publishing the file alone does not add support to an agent.',
   ],
   [
     'What does a service need?',
@@ -84,7 +84,7 @@ const faq = [
   ],
   [
     'Can my team try it without publishing private data?',
-    'Yes. Run a local or sandbox pilot. Share redacted results and aggregate counts; do not upload tokens, customer inputs, private receipts, or ledgers.',
+    'Yes. Run the local example or hosted sandbox. Share redacted results and aggregate counts; do not upload tokens, customer inputs, private receipts, or ledgers.',
   ],
 ];
 export default function DocsPage() {
@@ -131,7 +131,7 @@ export default function DocsPage() {
         <p>In a second terminal, from the same repository:</p>
         <CodeSample
           value={
-            'npm run client -- http://127.0.0.1:4318 pilot-001 "Pilot ticket"\n# Repeat the exact command to return the saved receipt.'
+            'npm run client -- http://127.0.0.1:4318 example-001 "Example ticket"\n# Repeat the exact command to return the saved receipt.'
           }
         />
         <p>

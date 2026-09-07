@@ -6,4 +6,4 @@ Scenarios include a lost response, unavailable status, stale resource read, mism
 
 The deterministic [comparison report](https://ruagentic.org/reports/benchmark.json) also includes a competent existing verification workflow. That workflow can achieve the same result. The proposed benefit of a shared profile must be tested as reduced integration or maintenance effort, not assumed from the simulation.
 
-For actual HTTP disconnection and persistent SQLite recovery, run the [quick start](QUICKSTART.md). For an independently written consumer, use the [compatibility runner](PILOT-RUNNER.md). Browser simulation results are not production reliability estimates or independent adoption.
+For actual HTTP disconnection and persistent SQLite recovery, run the [quick start](QUICKSTART.md). For an independently written consumer, use the [compatibility runner](COMPATIBILITY.md). Browser simulation results are not production reliability estimates or independent adoption.

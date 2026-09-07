@@ -115,8 +115,8 @@ export default function ExamplesPage() {
           mismatched evidence, pending work, and process restart.
         </p>
         <div className="doc-utilities">
-          <a href="/docs/PILOT-RUNNER.md">Compatibility runner →</a>
-          <Link href="/adopt">Pilot enrollment →</Link>
+          <a href="/docs/COMPATIBILITY.md">Compatibility runner →</a>
+          <Link href="/adopt">Get started →</Link>
         </div>
       </section>
     </main>

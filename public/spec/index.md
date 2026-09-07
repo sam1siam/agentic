@@ -105,4 +105,4 @@ Structural validity, binding validity, behavioral test results, and independent 
 
 The project has Node and Python reference consumers from the same authorship. These do not establish independent adoption. A stable release requires separate implementers, publicly reproducible compatibility evidence, and resolution of material draft issues.
 
-Future work includes Arazzo profile mapping, richer retry contracts, preview/commit binding, and another protocol binding when pilots justify it. These are not supported features of 0.1.
+Future work includes Arazzo profile mapping, richer retry contracts, preview/commit binding, and another protocol binding when implementation feedback justifies it. These are not supported features of 0.1.

@@ -50,7 +50,7 @@ The server uses the official MCP TypeScript SDK 2.0.0. Tools read local bundled 
 
 Open /generate/, /validate/, or /lab/ in a compatible browser. Each page registers its tool through `document.modelContext.registerTool` when available and unregisters on unmount using an abort signal. This follows the current WebMCP draft; earlier browser experiments may expose a different API. The regular page controls work without WebMCP.
 
-The generator returns profile data without changing the page. Validation and lab tools update the visible result. The lab remains a browser simulation, not an HTTP pilot. Registration is conditional and is not a claim that a particular agent host can invoke these tools.
+The generator returns profile data without changing the page. Validation and lab tools update the visible result. The lab remains a browser simulation, not an HTTP execution test. Registration is conditional and is not a claim that a particular agent host can invoke these tools.
 
 The site's /agents.txt and /agents.json advertise these three pages, the public MCP endpoint, the A2A card and Agent Auth discovery from one source configuration.
 
@@ -73,7 +73,7 @@ For another service, deploy an A2A implementation using the official SDK and pub
 
 For Agent Auth, implement the server flow and persistent identity/grant storage described by the upstream protocol. Validate signatures, audience, expiry, permissions, approval, and revocation before protecting any action with it. Scope the Agentic ledger by the authenticated principal and environment. Renewing credentials must not create a new logical request or trigger a repeat write. A revoked agent must not bypass authorization through a status or resource read.
 
-The hosted sandbox provides the concrete service for an autonomous authorization pilot. It isolates agents by identity and limits grants to validation and synthetic recovery tests. A customer-facing human delegation pilot would require that customer's account and approval model.
+The hosted sandbox provides the concrete service for autonomous authorization testing. It isolates agents by identity and limits grants to validation and synthetic recovery tests. A customer-facing human delegation integration would require that customer's account and approval model.
 
 ## Primary references
 

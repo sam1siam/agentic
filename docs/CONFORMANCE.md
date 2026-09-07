@@ -17,7 +17,7 @@ Tests exercise committed-write response loss, stale reads, unavailable status, i
 Both consumers are authored in this project. Their agreement tests portability but does not count as two independent adopters.
 
 ## External-client runner
-Run `npm run pilot -- --adapter pilots/adapters/node-reference.json` for seven real HTTP scenarios, including process restart. The [runner guide](PILOT-RUNNER.md) documents the process interface for separately implemented clients. The runner observes submissions, reads, receipts, and stored resource counts. It rejects a claimed success with no service interaction.
+Run `npm run conformance -- --adapter pilots/adapters/node-reference.json` for seven real HTTP scenarios, including process restart. The [runner guide](COMPATIBILITY.md) documents the process interface for separately implemented clients. The runner observes submissions, reads, receipts, and stored resource counts. It rejects a claimed success with no service interaction.
 
 [The published reference run](https://ruagentic.org/reports/reference-pilot.json) is project-authored evidence for release `v0.1.0-draft.2`. It is a local single-principal behavior subset, not production or independent compatibility evidence. The runner always leaves independent authorship unverified for later review.
 

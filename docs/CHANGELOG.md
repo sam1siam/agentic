@@ -1,5 +1,12 @@
 # Changelog
 
+## Direct-use production launch — 2026-09-07
+
+- Replace pilot enrollment and cohort counters with a getting-started page for generators, hosted tools, CLI installation, the GitHub Action, and agent skill.
+- Retire the pilot issue form and outreach program. Keep existing documentation links working and preserve historical records as archived.
+- Publish the compatibility guide and `npm run conformance` command; retain the old command as an alias.
+- Update human documentation and agent-readable discovery to the direct-use flow. The profile version and runtime behavior are unchanged.
+
 ## Site spacing and outreach review — 2026-09-07
 
 - Give every action row 24px of separation from preceding copy, inputs, selects, or code; preserve 12px gaps between buttons.

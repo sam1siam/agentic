@@ -41,7 +41,7 @@ export default function RootLayout({
               <Link href="/validate">Validator</Link>
               <Link href="/platform">Platform</Link>
               <Link href="/docs">Docs</Link>
-              <Link href="/adopt">Pilots</Link>
+              <Link href="/adopt">Get started</Link>
               <a
                 className="nav-github"
                 href="https://github.com/sam1siam/agentic"

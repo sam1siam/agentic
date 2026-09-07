@@ -4,6 +4,8 @@
 
 ## Start here
 
+- [Get started](https://ruagentic.org/docs/GETTING-STARTED.md): Generate files, install tools, and connect an agent.
+
 - [Quick start](https://ruagentic.org/docs/QUICKSTART.md): Installation, synthetic ticket action, recovery, and troubleshooting.
 - [Generator](https://ruagentic.org/docs/GENERATOR.md): Browser and local profile creation.
 - [Hosted platform](https://ruagentic.org/docs/PLATFORM.md): HTTP recovery tests, public URL audits, private history, sharing and operations.
@@ -17,13 +19,12 @@
 - [Protocol setup](https://ruagentic.org/docs/PROTOCOLS.md): Public MCP, WebMCP tools, A2A testing tasks, and autonomous Agent Auth.
 - [Validator](https://ruagentic.org/docs/VALIDATOR.md): Structure and binding checks.
 - [Recovery lab](https://ruagentic.org/docs/LAB.md): Browser scenarios and their limitations.
-- [Compatibility runner](https://ruagentic.org/docs/PILOT-RUNNER.md): Run independently written client code.
+- [Compatibility runner](https://ruagentic.org/docs/COMPATIBILITY.md): Run independently written client code.
 - [Conformance](https://ruagentic.org/docs/CONFORMANCE.md): Evidence levels and test limits.
 - [Security](https://ruagentic.org/docs/SECURITY.md): Operational controls and remaining gaps.
 
-## Participate
+## Contribute
 
-- [Pilot kit](https://ruagentic.org/docs/PILOT-KIT.md): Enrollment, interviews, experiment, and acceptance.
 - [Governance](https://ruagentic.org/docs/GOVERNANCE.md): Change process and stability criteria.
 - [Roadmap](https://ruagentic.org/docs/ROADMAP.md): Adoption milestones.
 - [Changelog](https://ruagentic.org/docs/CHANGELOG.md): Published changes.
@@ -41,4 +42,4 @@ python -m pip install -r reference/python/requirements.txt
 python reference/service/server.py --fault response-lost
 ```
 
-In a second terminal, run `npm run client -- http://127.0.0.1:4318 pilot-001 "Pilot ticket"`. Repeating the exact command returns the saved receipt. See the quick start for requirements and troubleshooting.
+In a second terminal, run `npm run client -- http://127.0.0.1:4318 example-001 "Example ticket"`. Repeating the exact command returns the saved receipt. See the quick start for requirements and troubleshooting.

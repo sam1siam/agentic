@@ -36,6 +36,6 @@ Treat receipts as observations. Store them privately, preserve their timestamps,
 
 No reciprocal support, partnership, or endorsement from these projects is implied. This is a proposed integration path, not an interoperability claim.
 
-## Pilot decision
+## Evaluate your integration
 
 Compare against the team's competent existing recovery workflow. Measure implementation effort, maintenance burden, duplicate resources, false success, and unresolved outcomes. If the shared file saves no meaningful work, report that result and consider contributing a narrower extension to an existing convention instead.

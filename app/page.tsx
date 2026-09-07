@@ -67,13 +67,13 @@ export default function Home() {
           profile, connected to your existing API.
         </p>
         <div className="actions">
-          <Link className="action primary" href="/spec">
-            Read the specification <ArrowRight size={17} />
+          <Link className="action primary" href="/generate">
+            Generate your files <ArrowRight size={17} />
           </Link>
-          <Link className="action secondary" href="/generate">
-            Build a profile
+          <Link className="action secondary" href="/connect">
+            Connect an agent
           </Link>
-          <Link className="action secondary" href="/platform">Run a live test</Link>
+          <Link className="action secondary" href="/platform">Open the platform</Link>
         </div>
         <p className="micro">
           Open source · No registry required · Experimental proposal
@@ -170,15 +170,15 @@ export default function Home() {
       </section>
       <section className="bottom-callout">
         <div>
-          <p className="eyebrow">Independent pilot cohort</p>
-          <h2>Help put the proposal to the test.</h2>
+          <p className="eyebrow">Build with Agentic</p>
+          <h2>Start with your next integration.</h2>
           <p>
-            Bring a client or a service. Compare it with your current workflow
-            and publish what works, what breaks, and what should change.
+            Generate your files, connect the hosted tools, or install the CLI
+            and add profile validation to your workflow.
           </p>
         </div>
         <Link href="/adopt" className="action primary">
-          Join a pilot <ArrowRight size={17} />
+          Get started <ArrowRight size={17} />
         </Link>
       </section>
     </main>

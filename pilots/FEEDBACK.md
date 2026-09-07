@@ -1,5 +1,7 @@
 # Outreach feedback and evaluation changes
 
+> Archived on 2026-09-07: the project owner retired the managed pilot program and further outreach. The text below is a historical record, not an active invitation or work plan. Use [Get started](https://ruagentic.org/adopt/) for direct access.
+
 Reviewed against the public GitHub issues and comment APIs on 2026-09-07. Ten invitations have been delivered. Confirmed external pilots and verified independent implementations remain zero.
 
 ## Current responses

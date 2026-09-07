@@ -33,7 +33,7 @@ const routeDocs = {
   spec: 'SPEC.md',
   lab: 'LAB.md',
   validate: 'VALIDATOR.md',
-  adopt: 'PILOT-KIT.md',
+  adopt: 'GETTING-STARTED.md',
   generate: 'GENERATOR.md',
   examples: 'EXAMPLES.md',
   docs: 'README.md',
@@ -67,6 +67,7 @@ const index = [
   '- [Connect an agent](https://ruagentic.org/connect/): MCP, WebMCP, A2A and Agent Auth setup.',
   '',
   '## Start here',
+  '- [Get started](' + site + '/docs/GETTING-STARTED.md): Generate files, install tools, and integrate a service.',
   '- [Quick start](' +
     site +
     '/docs/QUICKSTART.md): Install and run a real interrupted HTTP action.',
@@ -98,17 +99,11 @@ const index = [
     site +
     '/docs/PROTOCOLS.md): MCP tools, conditional WebMCP, and A2A / Agent Auth discovery status.',
   '',
-  '## Evidence and participation',
+  '## Testing and contributions',
   '- [Compatibility runner](' +
     site +
-    '/docs/PILOT-RUNNER.md): Exercise independently written clients.',
+    '/docs/COMPATIBILITY.md): Exercise independently written clients.',
   '- [Conformance](' + site + '/docs/CONFORMANCE.md): Checks and limits.',
-  '- [Pilot kit](' +
-    site +
-    '/docs/PILOT-KIT.md): Enrollment and experiment method.',
-  '- [Pilot registry](' +
-    site +
-    '/pilots/registry.json): Evidence status without inferred adoption.',
   '- [Security](' + site + '/docs/SECURITY.md): Operational controls and gaps.',
   '- [Repository](https://github.com/sam1siam/agentic): Source and public coordination.',
   '',
@@ -151,5 +146,5 @@ await writeFile(
   'User-agent: *\nAllow: /\nSitemap: ' + site + '/sitemap.xml\n',
 );
 console.log(
-  'Prepared schemas, documentation, ten Markdown page alternatives, examples, brand assets, and pilot registry.',
+  'Prepared schemas, documentation, ten Markdown page alternatives, examples, brand assets, and archived program status.',
 );

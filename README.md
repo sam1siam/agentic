@@ -20,7 +20,7 @@ npm test
 npm run dev
 ```
 
-The site includes the draft, OpenAPI import and discovery generators, validator, browser lab, and pilot enrollment. The [hosted platform](https://ruagentic.org/platform/) adds real HTTP/PostgreSQL recovery tests, read-only public URL audits, private report history and sharing. [Connect an agent](https://ruagentic.org/connect/) through MCP, WebMCP, A2A 1.0 or autonomous Agent Auth. The static site and Node API deploy together on Vercel; see [platform operations](docs/PLATFORM.md). Start with [the quick start](docs/QUICKSTART.md).
+The site includes the draft, OpenAPI import and discovery generators, validator, browser lab, and a [getting started guide](https://ruagentic.org/adopt/). The [hosted platform](https://ruagentic.org/platform/) adds real HTTP/PostgreSQL recovery tests, read-only public URL audits, private report history and sharing. [Connect an agent](https://ruagentic.org/connect/) through MCP, WebMCP, A2A 1.0 or autonomous Agent Auth. The static site and Node API deploy together on Vercel; see [platform operations](docs/PLATFORM.md). Start with [the quick start](docs/QUICKSTART.md).
 
 ## Real HTTP recovery example
 Start the loopback-only SQLite service in one terminal:
@@ -59,14 +59,14 @@ npm run init -- --origin https://your-service.example --out agentic.json
 
 This creates a ticket-contract starter and refuses to overwrite an existing file. Adapt its operations and evidence to your service. The [browser generator](https://ruagentic.org/generate/) also imports OpenAPI and downloads a complete starter ZIP. The standalone CLI tarball is distributed through [GitHub releases](https://github.com/sam1siam/agentic/releases); see [CLI usage](packages/cli/README.md). A reusable [GitHub Action](action.yml) and [adoption skill](skills/agentic-adoption/SKILL.md) are included.
 
-## Independent pilots
-Enrollment is open through the [pilot application](https://github.com/sam1siam/agentic/issues/new?template=pilot.yml). No external participants are confirmed yet.
+## Test your implementation
+Use the compatibility runner directly. No enrollment or managed program is required.
 
 ```sh
-npm run pilot -- --adapter pilots/adapters/node-reference.json
+npm run conformance -- --adapter pilots/adapters/node-reference.json
 ```
 
-The [compatibility runner](docs/PILOT-RUNNER.md) can invoke independently written clients through a documented process interface. Seven scenarios check real HTTP behavior and SQLite resource counts. The included adapter is project-authored. [The registry](pilots/registry.json) records independent evidence separately from reference code.
+The [compatibility runner](docs/COMPATIBILITY.md) can invoke independently written clients through a documented process interface. Seven scenarios check real HTTP behavior and SQLite resource counts. The included adapter is project-authored.
 
 ## Evidence
 ```sh
@@ -88,7 +88,7 @@ Both reference consumers are project-authored. They are not two independent impl
 - tests/ — behavioral and integration tests.
 - reports/ — reproducible deterministic comparison.
 - app/ — website, validator, and recovery lab.
-- docs/PILOT-KIT.md — interview guide and unsent outreach draft.
+- docs/GETTING-STARTED.md — installation, hosted tools, and integration.
 - docs/GOVERNANCE.md — open change process and stability criteria.
 
 ## Contribute

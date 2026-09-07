@@ -8,7 +8,7 @@ The [production verification record](https://ruagentic.org/reports/platform-live
 
 Start a test to create an isolated private session. Choose normal completion, response failure after commit, interruption after submission, status outage, mismatched evidence, or pending status. Only the fixed synthetic ticket input is used by the console.
 
-The response-failure scenario returns HTTP 503 after the resource commit. It does not claim to reproduce a physical network disconnect. The interruption scenario stops client execution after submission. Resume starts a fresh HTTP invocation and reconstructs the client from the persisted PostgreSQL ledger, with no repeat submission. The local pilot harness additionally tests actual process termination.
+The response-failure scenario returns HTTP 503 after the resource commit. It does not claim to reproduce a physical network disconnect. The interruption scenario stops client execution after submission. Resume starts a fresh HTTP invocation and reconstructs the client from the persisted PostgreSQL ledger, with no repeat submission. The local compatibility runner additionally tests actual process termination.
 
 Each report includes observed HTTP responses, a recovery trace, the receipt, committed-write count, resource count, and status reads. A structure pass, project-authored test, or synthetic result is not independent certification.
 

@@ -1,5 +1,7 @@
 # Pilot invitations and delivery status
 
+> Archived on 2026-09-07: the project owner retired the managed pilot program and further outreach. The text below is a historical record, not an active invitation or work plan. Use [Get started](https://ruagentic.org/adopt/) for direct access.
+
 Prepared on 2026-09-07. The account owner approved the two GitHub proposals, which were posted from sam1siam on 2026-09-07. The AWP email remains unsent. These projects are candidates for critique or a pilot, not adopters or committed participants. No maintainer has agreed to the proposed work.
 
 The account owner subsequently authorized more invitations. Eight additional individual invitations were sent on 2026-09-07; see [batch 2 delivery log](OUTREACH-BATCH-2.md) and [exact messages and machine-readable delivery records](OUTREACH-BATCH-2.json). Total delivered: ten. Delivery is not acceptance or adoption.

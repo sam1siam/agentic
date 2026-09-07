@@ -7,11 +7,11 @@ Agentic's tools are publicly available at [ruagentic.org](https://ruagentic.org)
 1. Open the [generator](https://ruagentic.org/generate/). Import your OpenAPI document or adapt the ticket example.
 2. Bind the existing submit, request-status, and resource-read operations. The service must implement the behavior described by the profile.
 3. Download the files and check them with the [validator](https://ruagentic.org/validate/).
-4. Follow the [integration guide](https://ruagentic.org/docs/INTEGRATIONS.md) to connect your authorized client and publish the profile on your service origin.
+4. Follow the [integration guide](INTEGRATIONS.md) to connect your authorized client and publish the profile on your service origin.
 
 ## Use the hosted platform
 
-The [platform](https://ruagentic.org/platform/) offers synthetic HTTP recovery checks, read-only public URL audits, and private report history with optional sharing. [Connect an agent](https://ruagentic.org/docs/PROTOCOLS.md) through the public MCP endpoint, supported WebMCP browser tools, A2A tasks, or autonomous Agent Auth.
+The [platform](https://ruagentic.org/platform/) offers synthetic HTTP recovery checks, read-only public URL audits, and private report history with optional sharing. [Connect an agent](PROTOCOLS.md) through the public MCP endpoint, supported WebMCP browser tools, A2A tasks, or autonomous Agent Auth.
 
 The hosted ticket service operates on synthetic data. Your own business actions run on your service under your host's authorization and operational controls.
 
@@ -42,6 +42,6 @@ An [agent skill](https://github.com/sam1siam/agentic/releases/download/v0.1.0-dr
 
 ## Build and contribute
 
-Use the [local HTTP quick start](https://ruagentic.org/docs/QUICKSTART.md) and [compatibility runner](https://ruagentic.org/docs/COMPATIBILITY.md) to exercise your client. Report bugs, suggest improvements, or share implementations through [GitHub issues](https://github.com/sam1siam/agentic/issues/new/choose). Contributions and public reports are optional.
+Use the [local HTTP quick start](QUICKSTART.md) and [compatibility runner](COMPATIBILITY.md) to exercise your client. Report bugs, suggest improvements, or share implementations through [GitHub issues](https://github.com/sam1siam/agentic/issues/new/choose). Contributions and public reports are optional.
 
 The profile remains `0.1.0-draft`. Pin versions and review the specification's service and host requirements when integrating. Public availability does not imply a stable standard or universal agent support.

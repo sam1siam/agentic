@@ -24,7 +24,8 @@
     "pilot": "python scripts/pilot.py",
     "client": "node reference/node/client.ts",
     "benchmark": "node scripts/benchmark.ts",
-    "postbuild": "node scripts/check-export.mjs"
+    "postbuild": "node scripts/check-export.mjs",
+    "conformance": "python scripts/pilot.py"
   },
   "dependencies": {
     "@a2a-js/sdk": "1.1.0",

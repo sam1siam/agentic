@@ -7,6 +7,7 @@ This is a draft specification and project-authored reference implementation. No 
 - [Connect an agent](https://ruagentic.org/connect/): MCP, WebMCP, A2A and Agent Auth setup.
 
 ## Start here
+- [Get started](https://ruagentic.org/docs/GETTING-STARTED.md): Generate files, install tools, and integrate a service.
 - [Quick start](https://ruagentic.org/docs/QUICKSTART.md): Install and run a real interrupted HTTP action.
 - [Documentation](https://ruagentic.org/docs/index.md): Guides and reference index.
 - [FAQ](https://ruagentic.org/docs/FAQ.md): Requirements, limitations, and draft status.
@@ -20,11 +21,9 @@ This is a draft specification and project-authored reference implementation. No 
 - [Integration guide](https://ruagentic.org/docs/INTEGRATIONS.md): Host and service responsibilities.
 - [Protocol setup](https://ruagentic.org/docs/PROTOCOLS.md): MCP tools, conditional WebMCP, and A2A / Agent Auth discovery status.
 
-## Evidence and participation
-- [Compatibility runner](https://ruagentic.org/docs/PILOT-RUNNER.md): Exercise independently written clients.
+## Testing and contributions
+- [Compatibility runner](https://ruagentic.org/docs/COMPATIBILITY.md): Exercise independently written clients.
 - [Conformance](https://ruagentic.org/docs/CONFORMANCE.md): Checks and limits.
-- [Pilot kit](https://ruagentic.org/docs/PILOT-KIT.md): Enrollment and experiment method.
-- [Pilot registry](https://ruagentic.org/pilots/registry.json): Evidence status without inferred adoption.
 - [Security](https://ruagentic.org/docs/SECURITY.md): Operational controls and gaps.
 - [Repository](https://github.com/sam1siam/agentic): Source and public coordination.
 

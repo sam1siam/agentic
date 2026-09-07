@@ -11,7 +11,7 @@ This inventory distinguishes browser tools, hosted services and the separate loc
 | /validate/ | Local structure and optional OpenAPI binding validation |
 | /lab/ | In-memory recovery comparison; no production API calls |
 | /docs/ | Guide index, quick start, FAQ, and reference links |
-| /adopt/ | Pilot enrollment, evidence policy, and comparison results |
+| /adopt/ | Getting started, CLI installation, GitHub Action, and integration guides |
 | /platform/ | Hosted recovery tests, URL auditor, Agent Auth demo and private/shared reports |
 | /connect/ | Public MCP, WebMCP, A2A and Agent Auth client setup |
 | /mcp | Read-only Streamable HTTP MCP tools |
@@ -26,7 +26,7 @@ This inventory distinguishes browser tools, hosted services and the separate loc
 | /docs/*.md | Plain Markdown source documents |
 | /schemas/*.json | Versioned profile and receipt schemas |
 | /examples/tickets/* | Static illustrative example files |
-| /pilots/registry.json | Project-authored references and independently reviewed pilot status |
+| /pilots/registry.json | Archived program status; enrollment is closed |
 | /brand/*.svg | Downloadable identity assets |
 | /sitemap.xml | Human page inventory |
 | /robots.txt | Public crawl guidance |
