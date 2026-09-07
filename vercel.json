@@ -4,7 +4,9 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist/client",
   "cleanUrls": true,
-  "trailingSlash": true,
+  "redirects": [
+    { "source": "/:page(spec|lab|validate|adopt|generate|examples|docs|platform|connect)", "destination": "/:page/", "permanent": true }
+  ],
   "functions": {
     "api/platform.ts": { "maxDuration": 60, "includeFiles": "docs/SPEC.md" }
   },
