@@ -17,15 +17,15 @@ The hosted ticket service operates on synthetic data. Your own business actions 
 
 ## Install the CLI
 
-Requires Node 24. The package is distributed as a versioned GitHub release asset:
+Requires Node 24. Install the versioned [ruagentic package from npm](https://www.npmjs.com/package/ruagentic/v/0.1.0-draft.4):
 
 ```sh
-npm install -g https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.4/ruagentic-0.1.0-draft.4.tgz
+npm install -g ruagentic@0.1.0-draft.4
 agentic init --origin https://your-service.example
 agentic validate agentic.json openapi.json
 ```
 
-The initializer creates a ticket-contract starter. Adapt it to your service and supply its OpenAPI document before validating. [Release files and checksums](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.4) are available on GitHub; registry publishing is separate from this installation path.
+The initializer creates a ticket-contract starter. Adapt it to your service and supply its OpenAPI document before validating. The identical tarball and its checksums are also available in the [GitHub release](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.4).
 
 ## Add validation to GitHub Actions
 

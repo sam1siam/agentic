@@ -28,7 +28,7 @@ Yes. The specification, generators, validator, CLI, and hosted tools are availab
 Use a sandbox and keep customer information, tokens, receipts, and ledgers private. Share only approved redacted evidence. Public attribution is optional; an unreviewable private implementation cannot be counted as publicly verified independent compatibility.
 
 ## Is there an npm package?
-The standalone `ruagentic` CLI is distributed as a versioned GitHub release tarball and can be installed directly with npm. See [Get started](GETTING-STARTED.md). It has not yet been published to the npm registry; `npx agentic` is not this project's installation command.
+Yes. Install the standalone [ruagentic CLI](https://www.npmjs.com/package/ruagentic/v/0.1.0-draft.4) with `npm install -g ruagentic@0.1.0-draft.4`, then run `agentic`. Node 24 or newer is required. The identical tarball is also available from GitHub releases. See [Get started](GETTING-STARTED.md).
 
 ## Are integrations with AWP, agents.txt, MCP, or Arazzo complete?
 No standardized cross-project Agentic binding is claimed. The integration guide describes coexistence and proposed evaluation paths. Public MCP, A2A testing tasks, and autonomous Agent Auth are implemented on the hosted platform. WebMCP page hooks require browser support. See [protocol setup](PROTOCOLS.md) for the supported scope.

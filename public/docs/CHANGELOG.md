@@ -2,6 +2,7 @@
 
 ## 0.1.0-draft.4 — 2026-09-07
 
+- Publish `ruagentic@0.1.0-draft.4` to npm with the same tarball as the GitHub release; verify a fresh registry installation and update the installation guides.
 - Refresh the CLI documentation, downloadable agent skill, and generated starter README for direct use and compatibility testing.
 - Correct the conformance guide to distinguish hosted MCP, A2A, Agent Auth, and PostgreSQL coverage from remaining implementation gaps.
 - Include the production getting-started flow and retired enrollment status in a versioned release.

@@ -142,13 +142,13 @@ try {
       <section className="example-section">
         <h2>Install the adoption tools</h2>
         <p>
-          Download the CLI tarball from the{' '}
-          <a href="https://github.com/sam1siam/agentic/releases">
-            GitHub releases
+          Install the CLI from{' '}
+          <a href="https://www.npmjs.com/package/ruagentic/v/0.1.0-draft.4">
+            npm
           </a>
-          . Install it with Node 24, then initialize or validate a profile.
+          {' '}with Node 24, then initialize or validate a profile.
         </p>
-        <pre className="code-block">{`npm install -g ./ruagentic-0.1.0-draft.4.tgz
+        <pre className="code-block">{`npm install -g ruagentic@0.1.0-draft.4
 agentic init --origin https://your-service.example
 agentic validate agentic.json openapi.json`}</pre>
         <p>
