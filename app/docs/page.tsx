@@ -11,6 +11,12 @@ export const metadata = {
 };
 const guides = [
   [
+    'Protocols',
+    'MCP, WebMCP, A2A, and Agent Auth',
+    'Connect the local MCP tools, generate discovery files, and see which integrations are implemented.',
+    '/docs/PROTOCOLS.md',
+  ],
+  [
     'Start here',
     'Quick start',
     'Run the ticket service, lose a response, and recover the original result.',

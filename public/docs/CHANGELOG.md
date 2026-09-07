@@ -1,5 +1,14 @@
 # Changelog
 
+## Generator and protocol tooling update — 2026-09-07
+
+- Add space between code, buttons, headings, and example explanations; simplify instructional copy.
+- Add companion agents.txt, agents.json, and llms.txt generation with optional MCP, WebMCP, A2A, and Agent Auth declarations.
+- Add a local MCP stdio server using the official SDK and a real client/server integration test.
+- Add a WebMCP generation tool and a protocol status / setup guide.
+
+Agentic protocol fields and action-execution behavior are unchanged. A2A and Agent Auth are discovery options, not hosted services.
+
 ## 0.1.0-draft.2 — 2026-09-07
 
 - New ink-and-blue visual identity and downloadable bracket/check logo.

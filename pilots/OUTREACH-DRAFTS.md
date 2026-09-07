@@ -2,6 +2,8 @@
 
 Prepared on 2026-09-07. The account owner approved the two GitHub proposals, which were posted from sam1siam on 2026-09-07. The AWP email remains unsent. These projects are candidates for critique or a pilot, not adopters or committed participants. No maintainer has agreed to the proposed work.
 
+The account owner subsequently authorized more invitations. Eight additional individual invitations were sent on 2026-09-07; see [batch 2 delivery log](OUTREACH-BATCH-2.md) and [exact messages and machine-readable delivery records](OUTREACH-BATCH-2.json). Total delivered: ten. Delivery is not acceptance or adoption.
+
 | Candidate | Delivery | Participation |
 | --- | --- | --- |
 | Pydantic AI Harness | [Proposal #814](https://github.com/pydantic/pydantic-ai-harness/issues/814), sent 2026-09-07 | Awaiting response |
@@ -55,4 +57,4 @@ Source: https://github.com/sam1siam/agentic
 
 ## Sending and follow-up
 
-These are bounded, individual invitations. Further sending requires account-owner authorization for the recipient and channel. The two approved GitHub proposals are delivered; wait for a reply. Do not post a speculative implementation PR, repeatedly follow up without a response, or count delivery as pilot acceptance. Move a team into the confirmed pilot registry only after explicit agreement.
+These are bounded, individual invitations sent under the account owner's authorization. The initial two proposals and the eight batch 2 invitations are delivered; wait for replies. Do not post a speculative implementation PR, repeatedly follow up without a response, or count delivery as pilot acceptance. Move a team into the confirmed pilot registry only after explicit agreement.

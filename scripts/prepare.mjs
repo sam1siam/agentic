@@ -1,9 +1,24 @@
 import { cp, mkdir, readFile, writeFile, readdir } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
+import discovery from '../site-discovery.mjs';
 execFileSync(process.execPath, ['scripts/compile-validators.mjs'], {
   stdio: 'inherit',
 });
 await mkdir('public', { recursive: true });
+await writeFile(
+  'public/agents.json',
+  JSON.stringify(discovery, null, 2) + '\n',
+);
+await writeFile(
+  'public/agents.txt',
+  [
+    '# agents.txt',
+    '# Standard: https://agents-txt.com',
+    '# JSON: https://ruagentic.org/agents.json',
+    ...discovery.webmcp.map((page) => 'WebMCP: ' + page.url),
+    '',
+  ].join('\n'),
+);
 for (const dir of ['schemas', 'docs', 'examples', 'reports', 'brand'])
   await cp(dir, 'public/' + dir, { recursive: true });
 await mkdir('public/pilots', { recursive: true });
@@ -72,6 +87,9 @@ const index = [
   '- [Integration guide](' +
     site +
     '/docs/INTEGRATIONS.md): Host and service responsibilities.',
+  '- [Protocol setup](' +
+    site +
+    '/docs/PROTOCOLS.md): MCP tools, conditional WebMCP, and A2A / Agent Auth discovery status.',
   '',
   '## Evidence and participation',
   '- [Compatibility runner](' +

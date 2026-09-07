@@ -1,7 +1,7 @@
 import ProfileGenerator from './profile-generator';
 export const dynamic = 'force-static';
 export const metadata = {
-  title: 'Profile generator',
+  title: 'Agent file generators',
   alternates: {
     canonical: 'https://ruagentic.org/generate/',
     types: { 'text/markdown': '/generate/index.md' },

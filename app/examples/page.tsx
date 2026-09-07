@@ -40,8 +40,8 @@ export default function ExamplesPage() {
       <section className="example-section">
         <h2>1. Describe the action</h2>
         <p className="muted">
-          This complete profile binds a ticket creation request to status lookup
-          and resource verification.
+          The profile connects three operations: create a ticket, check the
+          request, and read the resulting ticket.
         </p>
         <CodeSample value={profile} />
         <div className="doc-utilities">
@@ -82,9 +82,9 @@ export default function ExamplesPage() {
           </table>
         </div>
         <p className="muted" style={{ marginTop: 18 }}>
-          A successful submission response alone is insufficient. The client
-          uses authoritative status and verifies the request ID, resource ID,
-          state, and subject.
+          After submission, the client checks the request status and reads the
+          ticket. It confirms that the ticket ID, request ID, state, and subject
+          match before reporting success.
         </p>
         <div className="doc-utilities">
           <a href="/examples/tickets/openapi.json" download>

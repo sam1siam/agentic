@@ -1,0 +1,26 @@
+// Advertise only browser tools implemented by this documentation site.
+// The local stdio MCP server has no public HTTP endpoint to declare.
+export default {
+  version: '1.0',
+  standard: 'https://agents-txt.com',
+  site: {
+    name: 'Agentic',
+    url: 'https://ruagentic.org',
+    description:
+      'Experimental action-recovery profile, documentation, and developer tools.',
+  },
+  webmcp: [
+    {
+      url: 'https://ruagentic.org/generate/',
+      description: 'Generate an Agentic profile in a compatible browser.',
+    },
+    {
+      url: 'https://ruagentic.org/validate/',
+      description: 'Validate supplied profile and OpenAPI JSON locally.',
+    },
+    {
+      url: 'https://ruagentic.org/lab/',
+      description: 'Run the local browser recovery simulation.',
+    },
+  ],
+};

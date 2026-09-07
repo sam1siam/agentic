@@ -13,6 +13,7 @@
 
 - [Normative specification](https://ruagentic.org/docs/SPEC.md): Protocol requirements.
 - [Integration guide](https://ruagentic.org/docs/INTEGRATIONS.md): Client, service, and adjacent-convention integration.
+- [Protocol setup](https://ruagentic.org/docs/PROTOCOLS.md): MCP server, WebMCP tools, A2A and Agent Auth discovery, and implementation status.
 - [Validator](https://ruagentic.org/docs/VALIDATOR.md): Structure and binding checks.
 - [Recovery lab](https://ruagentic.org/docs/LAB.md): Browser scenarios and their limitations.
 - [Compatibility runner](https://ruagentic.org/docs/PILOT-RUNNER.md): Run independently written client code.

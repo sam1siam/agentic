@@ -13,6 +13,7 @@
 
 - [Normative specification](SPEC.md): Protocol requirements.
 - [Integration guide](INTEGRATIONS.md): Client, service, and adjacent-convention integration.
+- [Protocol setup](PROTOCOLS.md): MCP server, WebMCP tools, A2A and Agent Auth discovery, and implementation status.
 - [Validator](VALIDATOR.md): Structure and binding checks.
 - [Recovery lab](LAB.md): Browser scenarios and their limitations.
 - [Compatibility runner](PILOT-RUNNER.md): Run independently written client code.

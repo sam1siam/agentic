@@ -2,6 +2,8 @@
 
 The initial Agentic binding supports one POST submission and two GET operations in an OpenAPI 3.1 document. It intentionally does not replace authentication, endpoint discovery, or an agent runtime's permission model.
 
+For runnable MCP tools, WebMCP pages, and A2A / Agent Auth discovery configuration, see [Protocol setup and implementation status](PROTOCOLS.md).
+
 ## Service checklist
 
 1. Choose one record-creation operation in a sandbox.

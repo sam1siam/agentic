@@ -16,6 +16,7 @@ This is a draft specification and project-authored reference implementation. No 
 - [Receipt schema](https://ruagentic.org/schemas/receipt-0.1.schema.json): Outcome observation format.
 - [Examples](https://ruagentic.org/docs/EXAMPLES.md): Complete profile, OpenAPI, and illustrative receipt.
 - [Integration guide](https://ruagentic.org/docs/INTEGRATIONS.md): Host and service responsibilities.
+- [Protocol setup](https://ruagentic.org/docs/PROTOCOLS.md): MCP tools, conditional WebMCP, and A2A / Agent Auth discovery status.
 
 ## Evidence and participation
 - [Compatibility runner](https://ruagentic.org/docs/PILOT-RUNNER.md): Exercise independently written clients.
