@@ -13,7 +13,7 @@ const guides = [
   [
     'Protocols',
     'MCP, WebMCP, A2A, and Agent Auth',
-    'Connect the local MCP tools, generate discovery files, and see which integrations are implemented.',
+    'Connect MCP tools, WebMCP pages, A2A, and Agent Auth through their documented endpoints.',
     '/docs/PROTOCOLS.md',
   ],
   [
@@ -67,8 +67,8 @@ const faq = [
     'One JSON POST operation, an authoritative request-status GET, and a resource GET in OpenAPI 3.1, plus atomic request tracking and idempotency scoped to the authenticated principal and action.',
   ],
   [
-    'How does this relate to other agent files?',
-    'llms.txt guides agents to documentation. Discovery manifests describe capabilities and endpoints. Agentic proposes a narrower contract for reconciling an attempted action and verifying its result. See the integration guide for coexistence patterns.',
+    'Does Agentic require other agent files?',
+    'No. Use agentic.json with its referenced OpenAPI document. llms.txt is an optional documentation index. MCP, WebMCP, A2A, and Agent Auth connect through their documented endpoints.',
   ],
   [
     'Does the profile make an API safe to call?',

@@ -17,28 +17,28 @@ The hosted ticket service operates on synthetic data. Your own business actions 
 
 ## Install the CLI
 
-Requires Node 24. Install the versioned [ruagentic package from npm](https://www.npmjs.com/package/ruagentic/v/0.1.0-draft.4):
+Requires Node 24. Install the versioned [ruagentic package from npm](https://www.npmjs.com/package/ruagentic/v/0.1.0-draft.5):
 
 ```sh
-npm install -g ruagentic@0.1.0-draft.4
+npm install -g ruagentic@0.1.0-draft.5
 agentic init --origin https://your-service.example
 agentic validate agentic.json openapi.json
 ```
 
-The initializer creates a ticket-contract starter. Adapt it to your service and supply its OpenAPI document before validating. The identical tarball and its checksums are also available in the [GitHub release](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.4).
+The initializer creates a ticket-contract starter. Adapt it to your service and supply its OpenAPI document before validating. The identical tarball and its checksums are also available in the [GitHub release](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.5).
 
 ## Add validation to GitHub Actions
 
 After checking out your repository, add:
 
 ```yaml
-- uses: sam1siam/agentic@v0.1.0-draft.4
+- uses: sam1siam/agentic@v0.1.0-draft.5
   with:
     profile: agentic.json
     openapi: openapi.json
 ```
 
-An [agent skill](https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.4/agentic-adoption-skill.zip) is also available. It guides a coding agent through file generation, validation, and implementation checks.
+An [agent skill](https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.5/agentic-adoption-skill.zip) is also available. It guides a coding agent through file generation, validation, and implementation checks.
 
 ## Build and contribute
 

@@ -28,7 +28,8 @@ for (const route of routes) {
     (m) => m[1],
   );
   for (const link of links) {
-    if (/^\/(?:api\/platform\/|mcp\/?$|a2a\/?$|\.well-known\/)/.test(link)) continue;
+    if (/^\/(?:api\/platform\/|mcp\/?$|a2a\/?$|\.well-known\/)/.test(link))
+      continue;
     const target = 'dist/client' + link;
     if (link.endsWith('/')) await access(target + 'index.html');
     else if (!link.split('/').at(-1).includes('.'))
@@ -48,14 +49,19 @@ for (const file of [
   'reports/benchmark.json',
   'llms.txt',
   'llms-full.txt',
-  'agents.txt',
-  'agents.json',
   'docs/PROTOCOLS.md',
   'pilots/registry.json',
   'brand/agentic-mark.svg',
   'examples/tickets/receipt.json',
 ])
   await access('dist/client/' + file);
+for (const file of ['agents.txt', 'agents.json']) {
+  const exists = await access('dist/client/' + file).then(
+    () => true,
+    () => false,
+  );
+  if (exists) throw new Error('Removed companion file still exported: ' + file);
+}
 console.log(
   'Verified all ten exported pages, local links, Markdown alternatives, assets, and core downloads.',
 );

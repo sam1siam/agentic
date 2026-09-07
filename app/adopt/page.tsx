@@ -12,9 +12,9 @@ export const metadata: Metadata = {
 };
 export const dynamic = 'force-static';
 const release =
-  'https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.4';
+  'https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.5';
 const cli =
-  'https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.4/ruagentic-0.1.0-draft.4.tgz';
+  'https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.5/ruagentic-0.1.0-draft.5.tgz';
 
 export default function AdoptPage() {
   return (
@@ -74,11 +74,11 @@ export default function AdoptPage() {
       <section className="example-section" id="install">
         <h2>Install the CLI</h2>
         <p>
-          Requires Node 24. Install the versioned package from npm, then generate
-          and validate a profile.
+          Requires Node 24. Install the versioned package from npm, then
+          generate and validate a profile.
         </p>
         <CodeSample
-          value={`npm install -g ruagentic@0.1.0-draft.4
+          value={`npm install -g ruagentic@0.1.0-draft.5
 agentic init --origin https://your-service.example
 agentic validate agentic.json openapi.json`}
         />
@@ -87,7 +87,9 @@ agentic validate agentic.json openapi.json`}
           service and provide its OpenAPI document before validating.
         </p>
         <div className="doc-utilities">
-          <a href="https://www.npmjs.com/package/ruagentic/v/0.1.0-draft.4">View on npm ↗</a>
+          <a href="https://www.npmjs.com/package/ruagentic/v/0.1.0-draft.5">
+            View on npm ↗
+          </a>
           <a href={cli}>Download CLI ↓</a>
           <a href={release}>Release files and checksums ↗</a>
           <a href="/docs/GETTING-STARTED.md">Read as Markdown ↗</a>
@@ -100,7 +102,7 @@ agentic validate agentic.json openapi.json`}
           your profile and its OpenAPI operation bindings.
         </p>
         <CodeSample
-          value={`- uses: sam1siam/agentic@v0.1.0-draft.4
+          value={`- uses: sam1siam/agentic@v0.1.0-draft.5
   with:
     profile: agentic.json
     openapi: openapi.json`}
@@ -109,7 +111,7 @@ agentic validate agentic.json openapi.json`}
           <a href="https://github.com/sam1siam/agentic/blob/main/action.yml">
             Action reference ↗
           </a>
-          <a href="https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.4/agentic-adoption-skill.zip">
+          <a href="https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.5/agentic-adoption-skill.zip">
             Download the agent skill ↓
           </a>
         </div>

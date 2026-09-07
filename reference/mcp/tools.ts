@@ -7,7 +7,7 @@ import { validateProfile } from '../../lib/validation.ts';
 export function createTools(options?: { readSpec?: () => Promise<string> }) {
   const server = new McpServer({
     name: 'agentic-tools',
-    version: '0.1.0-draft.4',
+    version: '0.1.0-draft.5',
   });
   const annotations = {
     readOnlyHint: true,

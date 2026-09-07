@@ -1,6 +1,6 @@
 {
   "name": "agentic-action-profile",
-  "version": "0.1.0-draft.4",
+  "version": "0.1.0-draft.5",
   "private": true,
   "engines": {
     "node": "24.x"

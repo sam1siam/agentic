@@ -6,7 +6,7 @@ This inventory distinguishes browser tools, hosted services and the separate loc
 | --- | --- |
 | / | Project overview and complete starting profile |
 | /spec/ | Human reading guide to the normative draft |
-| /generate/ | Action profile and companion discovery generators, copy/download, conditional WebMCP tool |
+| /generate/ | Action profile, OpenAPI import and optional llms.txt generators, copy/download, conditional WebMCP tool |
 | /examples/ | Profile, OpenAPI, and synthetic receipt examples |
 | /validate/ | Local structure and optional OpenAPI binding validation |
 | /lab/ | In-memory recovery comparison; no production API calls |
@@ -21,7 +21,6 @@ This inventory distinguishes browser tools, hosted services and the separate loc
 | /api/platform/* | Isolated sandbox, auditing, sessions and evidence reports |
 | /api/auth/* | Official Agent Auth registration, grants, execution and revocation |
 | /llms.txt | Concise Markdown documentation index |
-| /agents.txt and /agents.json | Public MCP, A2A, Agent Auth and conditional WebMCP discovery |
 | /llms-full.txt | Optional combined documentation bundle |
 | /docs/*.md | Plain Markdown source documents |
 | /schemas/*.json | Versioned profile and receipt schemas |

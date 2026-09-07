@@ -12,7 +12,7 @@ import {
 import { validateProfile } from '@/lib/validation';
 import { registerPageTool } from '@/lib/webmcp';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import DiscoveryGenerator from './discovery-generator';
+import DocumentationGenerator from './documentation-generator';
 import OpenapiImport from './openapi-import';
 
 const basics: [keyof StarterSettings, string][] = [
@@ -114,14 +114,14 @@ export default function ProfileGenerator() {
           Generate your <span>agent files.</span>
         </h1>
         <p>
-          Create an action profile or companion discovery files. Edit, copy, and
-          download locally. Your inputs stay in this browser.
+          Create an action profile or an optional documentation index. Edit,
+          copy, and download locally. Your inputs stay in this browser.
         </p>
       </div>
       <Tabs defaultValue="profile" className="generator-tabs">
         <TabsList aria-label="Generator type">
           <TabsTrigger value="profile">Action profile</TabsTrigger>
-          <TabsTrigger value="discovery">Discovery files</TabsTrigger>
+          <TabsTrigger value="documentation">Documentation index</TabsTrigger>
           <TabsTrigger value="openapi">Import OpenAPI</TabsTrigger>
         </TabsList>
         <TabsContent value="profile">
@@ -213,10 +213,12 @@ export default function ProfileGenerator() {
             </section>
           </div>
         </TabsContent>
-        <TabsContent value="discovery">
-          <DiscoveryGenerator />
+        <TabsContent value="documentation">
+          <DocumentationGenerator />
         </TabsContent>
-        <TabsContent value="openapi"><OpenapiImport /></TabsContent>
+        <TabsContent value="openapi">
+          <OpenapiImport />
+        </TabsContent>
       </Tabs>
       <section className="example-section" id="protocols">
         <h2>What is connected today?</h2>
@@ -238,7 +240,8 @@ export default function ProfileGenerator() {
                 <td>MCP</td>
                 <td>Public HTTP and local stdio tool servers</td>
                 <td>
-                  Specification, generation, validation, and read-only URL audits.
+                  Specification, generation, validation, and read-only URL
+                  audits.
                 </td>
               </tr>
               <tr>

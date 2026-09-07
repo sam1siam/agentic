@@ -5,45 +5,28 @@ import { resolve } from 'node:path';
 import { Client } from '@modelcontextprotocol/client';
 import { StdioClientTransport } from '@modelcontextprotocol/client/stdio';
 import {
-  buildDiscovery,
-  discoveryDefaults,
-} from '../lib/discovery-generator.ts';
+  buildDocumentation,
+  documentationDefaults,
+} from '../lib/documentation-generator.ts';
 
-test('discovery output preserves protocol boundaries and rejects unsafe declarations', () => {
-  const empty = JSON.parse(buildDiscovery(discoveryDefaults)['agents.json']);
-  for (const key of ['mcp', 'webmcp', 'a2a', 'authorization', 'agentic'])
-    assert.equal(key in empty, false);
-  const settings = {
-    ...discoveryDefaults,
-    mcp: 'https://support.example/mcp',
-    webmcp: 'https://support.example/tools/',
-    a2a: 'https://support.example/.well-known/agent-card.json',
-    auth: 'https://support.example/.well-known/agent-configuration',
-  };
-  const files = buildDiscovery(settings);
-  const manifest = JSON.parse(files['agents.json']);
-  for (const [key, directive] of [
-    ['mcp', 'MCP'],
-    ['webmcp', 'WebMCP'],
-    ['a2a', 'A2A'],
-  ])
-    assert.ok(
-      files['agents.txt'].includes(`${directive}: ${manifest[key][0].url}`),
-    );
-  assert.equal(
-    manifest.authorization.discovery,
-    '/.well-known/agent-configuration',
+test('documentation starter links the profile without protocol declarations', () => {
+  const files = buildDocumentation(documentationDefaults);
+  assert.deepEqual(Object.keys(files), ['llms.txt']);
+  assert.ok(
+    files['llms.txt'].includes('(https://support.example/agentic.json)'),
   );
-  assert.ok(files['agents.txt'].includes('Authorization: agent-auth'));
+  assert.ok(files['llms.txt'].includes('(https://support.example/docs/)'));
   for (const patch of [
-    { name: 'One\nMCP: https://injected.example' },
-    { mcp: 'http://example.com/mcp' },
-    { mcp: 'https://user:secret@example.com' },
-    { a2a: 'javascript:alert(1)' },
-    { auth: 'https://different.example/auth' },
+    { name: 'One\nInjected section' },
+    { description: 'Hidden\u202econtent' },
+    { name: '' },
+    { origin: 'https://user:secret@example.com' },
+    { origin: 'javascript:alert(1)' },
     { origin: 'https://example.com/path' },
   ])
-    assert.throws(() => buildDiscovery({ ...settings, ...patch }));
+    assert.throws(() =>
+      buildDocumentation({ ...documentationDefaults, ...patch }),
+    );
 });
 
 test(

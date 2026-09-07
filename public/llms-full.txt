@@ -36,6 +36,13 @@ Source: https://ruagentic.org/docs/CHANGELOG.md
 
 # Changelog
 
+## 0.1.0-draft.5 — 2026-09-07
+
+- Remove agents.txt and agents.json publishing, generator outputs, and auditor requests. Keep llms.txt as an optional documentation index.
+- Simplify the generator to an Agentic action profile, OpenAPI import, and an optional llms.txt starter.
+- Preserve direct MCP, WebMCP, A2A, and Agent Auth connections and the existing action-profile schema.
+- Update the bundled CLI auditor to match the hosted auditor. Older release artifacts remain historical snapshots.
+
 ## 0.1.0-draft.4 — 2026-09-07
 
 - Publish `ruagentic@0.1.0-draft.4` to npm with the same tarball as the GitHub release; verify a fresh registry installation and update the installation guides.
@@ -321,9 +328,12 @@ Yes. The specification, generators, validator, CLI, and hosted tools are availab
 Use a sandbox and keep customer information, tokens, receipts, and ledgers private. Share only approved redacted evidence. Public attribution is optional; an unreviewable private implementation cannot be counted as publicly verified independent compatibility.
 
 ## Is there an npm package?
-Yes. Install the standalone [ruagentic CLI](https://www.npmjs.com/package/ruagentic/v/0.1.0-draft.4) with `npm install -g ruagentic@0.1.0-draft.4`, then run `agentic`. Node 24 or newer is required. The identical tarball is also available from GitHub releases. See [Get started](https://ruagentic.org/docs/GETTING-STARTED.md).
+Yes. Install the standalone [ruagentic CLI](https://www.npmjs.com/package/ruagentic/v/0.1.0-draft.5) with `npm install -g ruagentic@0.1.0-draft.5`, then run `agentic`. Node 24 or newer is required. The identical tarball is also available from GitHub releases. See [Get started](https://ruagentic.org/docs/GETTING-STARTED.md).
 
-## Are integrations with AWP, agents.txt, MCP, or Arazzo complete?
+## Does Agentic require other agent files?
+No. The action contract is agentic.json plus its referenced OpenAPI document. llms.txt is an optional documentation index. This site does not publish or generate agents.txt or agents.json. MCP, WebMCP, A2A, and Agent Auth use their documented connection paths.
+
+## Are integrations with other protocols complete?
 No standardized cross-project Agentic binding is claimed. The integration guide describes coexistence and proposed evaluation paths. Public MCP, A2A testing tasks, and autonomous Agent Auth are implemented on the hosted platform. WebMCP page hooks require browser support. See [protocol setup](https://ruagentic.org/docs/PROTOCOLS.md) for the supported scope.
 
 
@@ -347,7 +357,7 @@ Local equivalent:
 npm run init -- --origin https://service.example --out agentic.json
 ```
 
-Optional `--action-id` changes the action identifier. Other ticket bindings remain unchanged until you edit the generated JSON. The initializer refuses to overwrite an existing path. `--help` shows supported flags. Node 24 is required. A standalone CLI tarball is also provided in [GitHub releases](https://github.com/sam1siam/agentic/releases).
+Optional `--action-id` changes the action identifier. Other ticket bindings remain unchanged until you edit the generated JSON. The initializer refuses to overwrite an existing path. `--help` shows supported flags. Node 24 is required. Install the standalone CLI using the [getting-started guide](https://ruagentic.org/docs/GETTING-STARTED.md).
 
 ## Import OpenAPI
 
@@ -355,13 +365,13 @@ Select **Import OpenAPI** and upload or paste an OpenAPI 3.1 JSON document, up t
 
 The preview validates the generated profile against the imported API. Resolve unsupported operation shapes and evidence requirements before downloading. **Download starter ZIP** includes `agentic.json`, the imported `openapi.json`, and an implementation checklist. It never uploads the file or infers durable tracking from the API description.
 
-## Discovery files
+## Optional documentation index
 
-Select **Discovery files** in the browser generator to create agents.txt, agents.json, and an llms.txt starter. Configure the service name, origin, description, and optional MCP server, WebMCP page, A2A AgentCard, and Agent Auth discovery URLs. Each output can be copied or downloaded separately.
+Select **Documentation index** to create an llms.txt starter. Enter your service name, origin, and description, then copy or download the file. It links to /docs/ and /agentic.json on that origin; edit the links to match your published files. The generator makes no network calls and does not enable protocols or grant authorization.
 
-All protocols start disabled. Enabling an option declares an existing capability; it does not deploy a server, generate cryptographic keys, register an agent, or grant permission. URLs are syntax-checked, not contacted. Check the generated links and use the upstream schemas before publishing. The documentation starter assumes /docs/ and /agentic.json exist.
+The generator produces Agentic profiles, OpenAPI starter bundles, and this optional documentation index. It does not produce agents.txt or agents.json.
 
-See [Protocol setup and status](https://ruagentic.org/docs/PROTOCOLS.md) for the working local MCP server, conditional WebMCP tools, and the service work required for A2A and Agent Auth. The action profile and discovery files remain separate formats.
+See [Protocol setup and status](https://ruagentic.org/docs/PROTOCOLS.md) for direct MCP, WebMCP, A2A, and Agent Auth connections. Agentic does not require another project's discovery manifest.
 
 
 ---
@@ -387,28 +397,28 @@ The hosted ticket service operates on synthetic data. Your own business actions 
 
 ## Install the CLI
 
-Requires Node 24. Install the versioned [ruagentic package from npm](https://www.npmjs.com/package/ruagentic/v/0.1.0-draft.4):
+Requires Node 24. Install the versioned [ruagentic package from npm](https://www.npmjs.com/package/ruagentic/v/0.1.0-draft.5):
 
 ```sh
-npm install -g ruagentic@0.1.0-draft.4
+npm install -g ruagentic@0.1.0-draft.5
 agentic init --origin https://your-service.example
 agentic validate agentic.json openapi.json
 ```
 
-The initializer creates a ticket-contract starter. Adapt it to your service and supply its OpenAPI document before validating. The identical tarball and its checksums are also available in the [GitHub release](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.4).
+The initializer creates a ticket-contract starter. Adapt it to your service and supply its OpenAPI document before validating. The identical tarball and its checksums are also available in the [GitHub release](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.5).
 
 ## Add validation to GitHub Actions
 
 After checking out your repository, add:
 
 ```yaml
-- uses: sam1siam/agentic@v0.1.0-draft.4
+- uses: sam1siam/agentic@v0.1.0-draft.5
   with:
     profile: agentic.json
     openapi: openapi.json
 ```
 
-An [agent skill](https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.4/agentic-adoption-skill.zip) is also available. It guides a coding agent through file generation, validation, and implementation checks.
+An [agent skill](https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.5/agentic-adoption-skill.zip) is also available. It guides a coding agent through file generation, validation, and implementation checks.
 
 ## Build and contribute
 
@@ -468,11 +478,12 @@ Treat receipts as observations. Store them privately, preserve their timestamps,
 
 ## Alongside other conventions
 
+These are optional coexistence patterns. Agentic does not require agents.txt, agents.json, or llms.txt. Configure protocol clients with the direct endpoints in the connection guide.
+
 | Existing convention | Coexistence approach |
 | --- | --- |
 | [llms.txt](https://llmstxt.org/) | Link to a Markdown integration guide. Offer page Markdown alternates and `describedby` links to the documentation index. |
 | [agent.json / AWP](https://www.agent-json.org/) | Keep capability and authentication discovery there. Pass the Agentic profile URL explicitly to your adapter; no standardized Agentic binding is claimed. |
-| [agents.txt / agents.json](https://agents-txt.com/) | Keep supported protocol declarations in those files. Discuss an extension with that project's maintainers before presenting a new Agentic field as interoperable. |
 | OpenAPI | Keep operation schemas in OpenAPI; reference IDs instead of duplicating endpoints in Agentic. The 0.1 subset is intentionally limited. |
 | Arazzo | Compare existing workflow verification and recovery with the profile. An Arazzo mapping remains proposed work, not an implemented adapter. |
 | MCP and other tool runtimes | Wrap an authorized host operation around the same execution contract. Tool descriptions or annotations alone do not establish the service's behavior. |
@@ -563,7 +574,7 @@ The service profile is at https://ruagentic.org/api/platform/service/agentic.jso
 
 ## Public URL auditor
 
-The auditor reads a supplied HTTPS profile URL, same-origin OpenAPI bindings, and agents.txt, agents.json, and llms.txt. It reports content types, sizes, and status codes. It makes no action submissions and does not prove runtime idempotency, authorization, retention, or recovery behavior.
+The auditor reads a supplied HTTPS profile URL, same-origin OpenAPI bindings, and the optional llms.txt documentation index. It reports content types, sizes, and status codes. It makes no action submissions and does not prove runtime idempotency, authorization, retention, or recovery behavior.
 
 Only public HTTPS on port 443 is accepted. All resolved IP addresses must be public. Connections pin the resolved address while retaining TLS hostname verification. Redirects, compressed responses, private networks, credentials in URLs, oversized bodies, and long requests are rejected. The profile limit is 64 KiB; OpenAPI is 256 KiB per document, up to five documents.
 
@@ -668,20 +679,13 @@ Open /generate/, /validate/, or /lab/ in a compatible browser. Each page registe
 
 The generator returns profile data without changing the page. Validation and lab tools update the visible result. The lab remains a browser simulation, not an HTTP execution test. Registration is conditional and is not a claim that a particular agent host can invoke these tools.
 
-The site's /agents.txt and /agents.json advertise these three pages, the public MCP endpoint, the A2A card and Agent Auth discovery from one source configuration.
+## Documentation and direct connections
 
-## Generate companion discovery files
+Use the endpoint URLs above and the [connection guide](https://ruagentic.org/connect/) to configure a client. A2A publishes its own AgentCard, and Agent Auth publishes its own provider discovery document. Neither requires a separate agents.txt or agents.json manifest on this site.
 
-In the [generator](https://ruagentic.org/generate/), select **Discovery files**, enter the service origin, and select only implemented capabilities. The output follows the agents.txt project's v1.0 field names:
+The optional /llms.txt index links to Agentic documentation and connection instructions. In the [generator](https://ruagentic.org/generate/), select **Documentation index** to create an llms.txt starter for your service. Edit its /docs/ and /agentic.json links to match your published files. The generator makes no network calls.
 
-- MCP: the HTTPS Streamable HTTP server URL.
-- WebMCP: the URL of a page that registers browser tools.
-- A2A: the AgentCard URL, not the message endpoint.
-- Agent Auth: a same-origin discovery URL, normally `/.well-known/agent-configuration`.
-
-Copy or download agents.txt, agents.json, and the llms.txt starter separately. Optional protocols are omitted by default. This generator checks input syntax and cross-file URL consistency; it does not fetch endpoints or certify external protocol conformance. Use the upstream schemas and validators before publishing. The llms.txt starter assumes /docs/ and /agentic.json exist; edit its links if your deployment differs.
-
-Do not add protocol fields to agentic.json: unknown fields are rejected by the 0.1 schema. There is no registered Agentic directive in agents.txt. Pass the action profile URL explicitly or link it from documentation.
+The Agentic profile remains a separate action contract. Do not add protocol fields to agentic.json: unknown fields are rejected by the 0.1 schema. Pass the profile URL explicitly or link it from documentation.
 
 ## Implement A2A and Agent Auth
 
@@ -698,8 +702,6 @@ The hosted sandbox provides the concrete service for autonomous authorization te
 - [A2A specification](https://a2a-protocol.org/latest/specification/)
 - [Agent Auth discovery](https://agent-auth-protocol.com/docs/discovery)
 - [Agent Auth server implementation](https://agent-auth-protocol.com/docs/server)
-- [agents.txt specification and source](https://github.com/agents-txt/agents-txt)
-- [agents.txt generator](https://agents-txt.com/demo/generate/)
 
 References reviewed on 2026-09-07. These projects have not endorsed Agentic or confirmed compatibility.
 
@@ -884,7 +886,7 @@ This inventory distinguishes browser tools, hosted services and the separate loc
 | --- | --- |
 | / | Project overview and complete starting profile |
 | /spec/ | Human reading guide to the normative draft |
-| /generate/ | Action profile and companion discovery generators, copy/download, conditional WebMCP tool |
+| /generate/ | Action profile, OpenAPI import and optional llms.txt generators, copy/download, conditional WebMCP tool |
 | /examples/ | Profile, OpenAPI, and synthetic receipt examples |
 | /validate/ | Local structure and optional OpenAPI binding validation |
 | /lab/ | In-memory recovery comparison; no production API calls |
@@ -899,7 +901,6 @@ This inventory distinguishes browser tools, hosted services and the separate loc
 | /api/platform/* | Isolated sandbox, auditing, sessions and evidence reports |
 | /api/auth/* | Official Agent Auth registration, grants, execution and revocation |
 | /llms.txt | Concise Markdown documentation index |
-| /agents.txt and /agents.json | Public MCP, A2A, Agent Auth and conditional WebMCP discovery |
 | /llms-full.txt | Optional combined documentation bundle |
 | /docs/*.md | Plain Markdown source documents |
 | /schemas/*.json | Versioned profile and receipt schemas |

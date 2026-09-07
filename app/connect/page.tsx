@@ -143,12 +143,12 @@ try {
         <h2>Install the adoption tools</h2>
         <p>
           Install the CLI from{' '}
-          <a href="https://www.npmjs.com/package/ruagentic/v/0.1.0-draft.4">
+          <a href="https://www.npmjs.com/package/ruagentic/v/0.1.0-draft.5">
             npm
-          </a>
-          {' '}with Node 24, then initialize or validate a profile.
+          </a>{' '}
+          with Node 24, then initialize or validate a profile.
         </p>
-        <pre className="code-block">{`npm install -g ruagentic@0.1.0-draft.4
+        <pre className="code-block">{`npm install -g ruagentic@0.1.0-draft.5
 agentic init --origin https://your-service.example
 agentic validate agentic.json openapi.json`}</pre>
         <p>
@@ -162,7 +162,7 @@ agentic validate agentic.json openapi.json`}</pre>
           </a>
           .
         </p>
-        <pre className="code-block">{`- uses: sam1siam/agentic@v0.1.0-draft.4
+        <pre className="code-block">{`- uses: sam1siam/agentic@v0.1.0-draft.5
   with:
     profile: agentic.json
     openapi: openapi.json`}</pre>

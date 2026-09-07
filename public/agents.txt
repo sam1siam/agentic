@@ -1,9 +1,0 @@
-# agents.txt
-# Standard: https://agents-txt.com
-# JSON: https://ruagentic.org/agents.json
-MCP: https://ruagentic.org/mcp
-WebMCP: https://ruagentic.org/generate/
-WebMCP: https://ruagentic.org/validate/
-WebMCP: https://ruagentic.org/lab/
-A2A: https://ruagentic.org/.well-known/agent-card.json
-Authorization: agent-auth

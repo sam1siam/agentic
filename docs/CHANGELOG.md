@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0-draft.5 — 2026-09-07
+
+- Remove agents.txt and agents.json publishing, generator outputs, and auditor requests. Keep llms.txt as an optional documentation index.
+- Simplify the generator to an Agentic action profile, OpenAPI import, and an optional llms.txt starter.
+- Preserve direct MCP, WebMCP, A2A, and Agent Auth connections and the existing action-profile schema.
+- Update the bundled CLI auditor to match the hosted auditor. Older release artifacts remain historical snapshots.
+
 ## 0.1.0-draft.4 — 2026-09-07
 
 - Publish `ruagentic@0.1.0-draft.4` to npm with the same tarball as the GitHub release; verify a fresh registry installation and update the installation guides.

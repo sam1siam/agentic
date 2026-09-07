@@ -14,7 +14,7 @@ Local equivalent:
 npm run init -- --origin https://service.example --out agentic.json
 ```
 
-Optional `--action-id` changes the action identifier. Other ticket bindings remain unchanged until you edit the generated JSON. The initializer refuses to overwrite an existing path. `--help` shows supported flags. Node 24 is required. A standalone CLI tarball is also provided in [GitHub releases](https://github.com/sam1siam/agentic/releases).
+Optional `--action-id` changes the action identifier. Other ticket bindings remain unchanged until you edit the generated JSON. The initializer refuses to overwrite an existing path. `--help` shows supported flags. Node 24 is required. Install the standalone CLI using the [getting-started guide](GETTING-STARTED.md).
 
 ## Import OpenAPI
 
@@ -22,10 +22,10 @@ Select **Import OpenAPI** and upload or paste an OpenAPI 3.1 JSON document, up t
 
 The preview validates the generated profile against the imported API. Resolve unsupported operation shapes and evidence requirements before downloading. **Download starter ZIP** includes `agentic.json`, the imported `openapi.json`, and an implementation checklist. It never uploads the file or infers durable tracking from the API description.
 
-## Discovery files
+## Optional documentation index
 
-Select **Discovery files** in the browser generator to create agents.txt, agents.json, and an llms.txt starter. Configure the service name, origin, description, and optional MCP server, WebMCP page, A2A AgentCard, and Agent Auth discovery URLs. Each output can be copied or downloaded separately.
+Select **Documentation index** to create an llms.txt starter. Enter your service name, origin, and description, then copy or download the file. It links to /docs/ and /agentic.json on that origin; edit the links to match your published files. The generator makes no network calls and does not enable protocols or grant authorization.
 
-All protocols start disabled. Enabling an option declares an existing capability; it does not deploy a server, generate cryptographic keys, register an agent, or grant permission. URLs are syntax-checked, not contacted. Check the generated links and use the upstream schemas before publishing. The documentation starter assumes /docs/ and /agentic.json exist.
+The generator produces Agentic profiles, OpenAPI starter bundles, and this optional documentation index. It does not produce agents.txt or agents.json.
 
-See [Protocol setup and status](PROTOCOLS.md) for the working local MCP server, conditional WebMCP tools, and the service work required for A2A and Agent Auth. The action profile and discovery files remain separate formats.
+See [Protocol setup and status](PROTOCOLS.md) for direct MCP, WebMCP, A2A, and Agent Auth connections. Agentic does not require another project's discovery manifest.

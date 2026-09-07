@@ -25,11 +25,12 @@ Treat receipts as observations. Store them privately, preserve their timestamps,
 
 ## Alongside other conventions
 
+These are optional coexistence patterns. Agentic does not require agents.txt, agents.json, or llms.txt. Configure protocol clients with the direct endpoints in the connection guide.
+
 | Existing convention | Coexistence approach |
 | --- | --- |
 | [llms.txt](https://llmstxt.org/) | Link to a Markdown integration guide. Offer page Markdown alternates and `describedby` links to the documentation index. |
 | [agent.json / AWP](https://www.agent-json.org/) | Keep capability and authentication discovery there. Pass the Agentic profile URL explicitly to your adapter; no standardized Agentic binding is claimed. |
-| [agents.txt / agents.json](https://agents-txt.com/) | Keep supported protocol declarations in those files. Discuss an extension with that project's maintainers before presenting a new Agentic field as interoperable. |
 | OpenAPI | Keep operation schemas in OpenAPI; reference IDs instead of duplicating endpoints in Agentic. The 0.1 subset is intentionally limited. |
 | Arazzo | Compare existing workflow verification and recovery with the profile. An Arazzo mapping remains proposed work, not an implemented adapter. |
 | MCP and other tool runtimes | Wrap an authorized host operation around the same execution contract. Tool descriptions or annotations alone do not establish the service's behavior. |

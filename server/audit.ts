@@ -179,12 +179,10 @@ export async function auditUrl(profileUrl: string) {
       });
     }
   }
-  for (const path of ['/agents.txt', '/agents.json', '/llms.txt']) {
-    try {
-      await read(new URL(path, url.origin).href, 65536);
-    } catch {
-      /* Optional discovery failures remain visible. */
-    }
+  try {
+    await read(new URL('/llms.txt', url.origin).href, 65536);
+  } catch {
+    /* Optional documentation index failures remain visible. */
   }
   return {
     reportVersion: '1',
@@ -197,6 +195,6 @@ export async function auditUrl(profileUrl: string) {
     observations,
     behavioralTesting: false,
     limitation:
-      'Read-only structure, operation bindings, discovery availability and response headers. Service behavior and authorization were not tested.',
+      'Read-only structure, operation bindings, optional llms.txt availability and response headers. Service behavior and authorization were not tested.',
   };
 }

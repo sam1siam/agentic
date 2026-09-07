@@ -2,7 +2,7 @@
 
 Experimental tools for the Agentic Action Profile. Node 24 or newer is required.
 
-Install from npm with `npm install -g ruagentic@0.1.0-draft.4`. The identical tarball is also available in the [GitHub release](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.4).
+Install from npm with `npm install -g ruagentic@0.1.0-draft.5`. The identical tarball is also available in the [GitHub release](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.5).
 
 ```sh
 agentic init --origin https://your-service.example

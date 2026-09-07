@@ -52,20 +52,13 @@ Open /generate/, /validate/, or /lab/ in a compatible browser. Each page registe
 
 The generator returns profile data without changing the page. Validation and lab tools update the visible result. The lab remains a browser simulation, not an HTTP execution test. Registration is conditional and is not a claim that a particular agent host can invoke these tools.
 
-The site's /agents.txt and /agents.json advertise these three pages, the public MCP endpoint, the A2A card and Agent Auth discovery from one source configuration.
+## Documentation and direct connections
 
-## Generate companion discovery files
+Use the endpoint URLs above and the [connection guide](https://ruagentic.org/connect/) to configure a client. A2A publishes its own AgentCard, and Agent Auth publishes its own provider discovery document. Neither requires a separate agents.txt or agents.json manifest on this site.
 
-In the [generator](https://ruagentic.org/generate/), select **Discovery files**, enter the service origin, and select only implemented capabilities. The output follows the agents.txt project's v1.0 field names:
+The optional /llms.txt index links to Agentic documentation and connection instructions. In the [generator](https://ruagentic.org/generate/), select **Documentation index** to create an llms.txt starter for your service. Edit its /docs/ and /agentic.json links to match your published files. The generator makes no network calls.
 
-- MCP: the HTTPS Streamable HTTP server URL.
-- WebMCP: the URL of a page that registers browser tools.
-- A2A: the AgentCard URL, not the message endpoint.
-- Agent Auth: a same-origin discovery URL, normally `/.well-known/agent-configuration`.
-
-Copy or download agents.txt, agents.json, and the llms.txt starter separately. Optional protocols are omitted by default. This generator checks input syntax and cross-file URL consistency; it does not fetch endpoints or certify external protocol conformance. Use the upstream schemas and validators before publishing. The llms.txt starter assumes /docs/ and /agentic.json exist; edit its links if your deployment differs.
-
-Do not add protocol fields to agentic.json: unknown fields are rejected by the 0.1 schema. There is no registered Agentic directive in agents.txt. Pass the action profile URL explicitly or link it from documentation.
+The Agentic profile remains a separate action contract. Do not add protocol fields to agentic.json: unknown fields are rejected by the 0.1 schema. Pass the profile URL explicitly or link it from documentation.
 
 ## Implement A2A and Agent Auth
 
@@ -82,7 +75,5 @@ The hosted sandbox provides the concrete service for autonomous authorization te
 - [A2A specification](https://a2a-protocol.org/latest/specification/)
 - [Agent Auth discovery](https://agent-auth-protocol.com/docs/discovery)
 - [Agent Auth server implementation](https://agent-auth-protocol.com/docs/server)
-- [agents.txt specification and source](https://github.com/agents-txt/agents-txt)
-- [agents.txt generator](https://agents-txt.com/demo/generate/)
 
 References reviewed on 2026-09-07. These projects have not endorsed Agentic or confirmed compatibility.
