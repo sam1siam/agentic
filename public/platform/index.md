@@ -2,6 +2,8 @@
 
 The [Agentic platform](https://ruagentic.org/platform/) runs synthetic recovery tests over HTTP with a PostgreSQL service and request ledger. This is separate from the browser lab simulation and the loopback Python reference service.
 
+The [production verification record](https://ruagentic.org/reports/platform-live.json) records the live checks performed by the project. It is not an independent pilot result.
+
 ## Recovery sandbox
 
 Start a test to create an isolated private session. Choose normal completion, response failure after commit, interruption after submission, status outage, mismatched evidence, or pending status. Only the fixed synthetic ticket input is used by the console.

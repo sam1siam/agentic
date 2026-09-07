@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0-draft.3 — 2026-09-07
+
+- Hosted recovery sandbox with real HTTP, PostgreSQL state, six scenarios and durable restart/resume.
+- Read-only public HTTPS auditor with same-origin OpenAPI binding checks and network restrictions.
+- Public MCP tools and A2A 1.0 testing tasks with persisted evidence artifacts.
+- Official Agent Auth provider with autonomous registration, grants, signed execution, persistent replay checks and revocation.
+- Private session history, downloadable versioned reports, optional share links and rate limits.
+- OpenAPI import and downloadable starter ZIP, standalone CLI tarball, reusable GitHub Action and adoption skill.
+- Free Neon database connected to the Vercel deployment; migrations, direct connections, secret-protected cleanup and runtime logging.
+
+Validation: 28 automated checks passed, including real HTTP/PostgreSQL and official MCP, A2A and Agent Auth clients. Production checks passed on ruagentic.org; see the [hosted verification record](https://ruagentic.org/reports/platform-live.json). The website exports ten human routes with Markdown alternatives.
+
+The Agentic profile remains `0.1.0-draft`. Tests are project-authored, and no independent adoption or certification is claimed. Human account delegation and payments are not part of this sandbox.
+
 ## Generator and protocol tooling update — 2026-09-07
 
 - Add space between code, buttons, headings, and example explanations; simplify instructional copy.

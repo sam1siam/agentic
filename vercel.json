@@ -5,7 +5,11 @@
   "outputDirectory": "dist/client",
   "cleanUrls": true,
   "redirects": [
-    { "source": "/:page(spec|lab|validate|adopt|generate|examples|docs|platform|connect)", "destination": "/:page/", "permanent": true }
+    {
+      "source": "/:page(spec|lab|validate|adopt|generate|examples|docs|platform|connect)",
+      "destination": "/:page/",
+      "permanent": true
+    }
   ],
   "functions": {
     "api/platform.ts": { "maxDuration": 60, "includeFiles": "docs/SPEC.md" }
@@ -26,6 +30,17 @@
   ],
   "crons": [{ "path": "/api/platform/cleanup", "schedule": "0 5 * * *" }],
   "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        { "key": "Link", "value": "</llms.txt>; rel=\"describedby\"" }
+      ]
+    },
     {
       "source": "/platform/",
       "headers": [
@@ -50,17 +65,6 @@
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "*" },
         { "key": "Cache-Control", "value": "public, max-age=300" }
-      ]
-    },
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        },
-        { "key": "Link", "value": "</llms.txt>; rel=\"describedby\"" }
       ]
     },
     {

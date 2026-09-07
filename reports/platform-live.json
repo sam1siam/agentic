@@ -1,0 +1,41 @@
+{
+  "reportVersion": "1",
+  "origin": "https://ruagentic.org",
+  "observedAt": "2026-09-07T19:06:17.260Z",
+  "implementation": "Project-authored hosted platform",
+  "independentImplementation": false,
+  "checks": [
+    {
+      "name": "Production database health",
+      "passed": true
+    },
+    {
+      "name": "Recovery after HTTP 503 following one commit",
+      "passed": true
+    },
+    {
+      "name": "Fresh invocation resumes PostgreSQL ledger without a new write",
+      "passed": true
+    },
+    {
+      "name": "Public HTTPS auditor and OpenAPI binding checks",
+      "passed": true
+    },
+    {
+      "name": "Live Agent Auth registration, grant, execution and revocation",
+      "passed": true
+    },
+    {
+      "name": "Official MCP client and bundled specification over HTTPS",
+      "passed": true
+    },
+    {
+      "name": "Official A2A client, persistent task and evidence artifact",
+      "passed": true
+    },
+    {
+      "name": "Private report history",
+      "passed": true
+    }
+  ]
+}
