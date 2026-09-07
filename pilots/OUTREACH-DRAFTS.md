@@ -2,14 +2,16 @@
 
 > Archived on 2026-09-07: the project owner retired the managed pilot program and further outreach. The text below is a historical record, not an active invitation or work plan. Use [Get started](https://ruagentic.org/adopt/) for direct access.
 
+All ten invitations were withdrawn with account-owner approval on 2026-09-07. See the [verified submission updates](SUBMISSION-UPDATE-DRAFTS.md).
+
 Prepared on 2026-09-07. The account owner approved the two GitHub proposals, which were posted from sam1siam on 2026-09-07. The AWP email remains unsent. These projects are candidates for critique or a pilot, not adopters or committed participants. No maintainer has agreed to the proposed work.
 
 The account owner subsequently authorized more invitations. Eight additional individual invitations were sent on 2026-09-07; see [batch 2 delivery log](OUTREACH-BATCH-2.md) and [exact messages and machine-readable delivery records](OUTREACH-BATCH-2.json). Total delivered: ten. Delivery is not acceptance or adoption.
 
 | Candidate | Delivery | Participation |
 | --- | --- | --- |
-| Pydantic AI Harness | [Proposal #814](https://github.com/pydantic/pydantic-ai-harness/issues/814), sent 2026-09-07 | Automated triage: not actionable; maintainer discussion required. Issue remains open; no pilot agreement. |
-| Mastra | [Proposal #23256](https://github.com/mastra-ai/mastra/issues/23256), sent 2026-09-07 | Awaiting maintainer triage; no PR until the triage/approval label is removed. |
+| Pydantic AI Harness | [Proposal #814](https://github.com/pydantic/pydantic-ai-harness/issues/814), sent 2026-09-07 | Withdrawn on 2026-09-07; notice verified; proposal issue closed as not planned. |
+| Mastra | [Proposal #23256](https://github.com/mastra-ai/mastra/issues/23256), sent 2026-09-07 | Withdrawn on 2026-09-07; notice verified; proposal issue closed as not planned. |
 | Agent Web Protocol | Email draft only | Not contacted |
 
 The messages below are the reviewed drafts. The linked posts contain their final template-aligned text and relevant references found during duplicate checks.

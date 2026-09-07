@@ -4,7 +4,9 @@
 
 Reviewed against the public GitHub issues and comment APIs on 2026-09-07. Ten invitations have been delivered. Confirmed external pilots and verified independent implementations remain zero.
 
-## Current responses
+All ten invitations have since been withdrawn and the four proposal issues closed with account-owner approval. See the [verified submission updates](SUBMISSION-UPDATE-DRAFTS.md). The responses below describe the earlier review, before withdrawal.
+
+## Responses at the earlier review
 
 - **Mastra:** [the triage bot](https://github.com/mastra-ai/mastra/issues/23256#issuecomment-5573647122) acknowledges the proposal and requires waiting for maintainers to remove triage/approval labels before a PR. The issue remains open with `status: needs triage`. No follow-up or upstream PR is due now.
 - **Pydantic AI Harness:** [automated triage](https://github.com/pydantic/pydantic-ai-harness/issues/814#issuecomment-5574154802) calls the issue non-actionable and describes the existing recovery semantics as intentional. It directs the optional service-side reconciliation question to maintainer discussion. The issue remains open; a bot recommendation to close is not a completed closure or a human maintainer decision. The bot excluded external artifacts from its evidence; its use of “untrusted” does not establish a security defect in this project. No independent pilot, compatible implementation, or acceptance is established by this automated investigation.

@@ -6,10 +6,17 @@
     "title": "RFC discussion: linking an experimental action-recovery profile without adding a core directive",
     "body": "Your protocol-agnostic discovery boundary is a useful fit for a question we are testing in Agentic: how can a service describe request-status lookup and correlated resource verification after a write response is lost?\n\nAgentic references three existing OpenAPI operations and leaves protocol discovery and authorization elsewhere. We currently pass its profile URL explicitly or link it from documentation; we have not invented a registered Agentic directive or added fields to your schema.\n\nWould you be open to a small overlap review or independent service pilot? In particular, should this remain a documentation link, become a separately namespaced experiment, or be folded into an existing convention? This is an issue-first scope discussion under your contribution guide, not a request to accept a new standard or an upstream PR.\n\nThe reproducible pilot uses one synthetic ticket service and seven HTTP/restart scenarios. An outside client can participate through a JSON stdin/stdout adapter: https://ruagentic.org/docs/PILOT-RUNNER.md\n\nThis is an experimental proposal; the existing Node and Python clients share project authorship. No independent adoption or framework compatibility is claimed. We would value a small independent trial and comparison with the existing recovery workflow, including negative findings.\n\nProject: https://github.com/sam1siam/agentic\n\nDisclosure: this invitation was prepared with an AI assistant for the Agentic project.",
     "status": "sent",
-    "participation": "Awaiting response",
+    "participation": "Invitation withdrawn",
     "prepared_at": "2026-09-07",
     "url": "https://github.com/agents-txt/agents-txt/issues/3",
-    "sent_at": "2026-09-07T17:36:34Z"
+    "sent_at": "2026-09-07T17:36:34Z",
+    "participation_before_withdrawal": "Awaiting response",
+    "withdrawal": {
+      "date": "2026-09-07",
+      "notice_verified": true,
+      "proposal_issue_closed": true,
+      "record": "SUBMISSION-UPDATE-DRAFTS.md"
+    }
   },
   {
     "project": "Agent Auth Protocol",
@@ -18,10 +25,17 @@
     "title": "Integration discussion: principal-scoped recovery after an interrupted authorized action",
     "body": "Agent Auth's identity and capability model raises a concrete recovery question: an authorized write commits, the client loses the response, and the agent resumes after credential renewal or grant revocation.\n\nWe are testing a narrow OpenAPI action profile called Agentic. Its host must isolate request ledgers by authenticated principal and environment, preserve request identity across restart, and authorize both status and resource reads. It does not implement Agent Auth or confer authorization itself.\n\nWould an independent sandbox pilot or review of that boundary be useful? The questions are how renewal preserves the logical principal, how revoked grants affect reconciliation reads, and how to avoid turning failed authorization into an automatic repeat write. Our current anonymous ticket fixture cannot establish those properties; an authenticated pilot would need additional tests.\n\nThe reproducible pilot uses one synthetic ticket service and seven HTTP/restart scenarios. An outside client can participate through a JSON stdin/stdout adapter: https://ruagentic.org/docs/PILOT-RUNNER.md\n\nThis is an experimental proposal; the existing Node and Python clients share project authorship. No independent adoption or framework compatibility is claimed. We would value a small independent trial and comparison with the existing recovery workflow, including negative findings.\n\nProject: https://github.com/sam1siam/agentic\n\nDisclosure: this invitation was prepared with an AI assistant for the Agentic project.",
     "status": "sent",
-    "participation": "Awaiting response",
+    "participation": "Invitation withdrawn",
     "prepared_at": "2026-09-07",
     "url": "https://github.com/better-auth/agent-auth-protocol/issues/30",
-    "sent_at": "2026-09-07T17:36:37Z"
+    "sent_at": "2026-09-07T17:36:37Z",
+    "participation_before_withdrawal": "Awaiting response",
+    "withdrawal": {
+      "date": "2026-09-07",
+      "notice_verified": true,
+      "proposal_issue_closed": true,
+      "record": "SUBMISSION-UPDATE-DRAFTS.md"
+    }
   },
   {
     "project": "Agno",
@@ -32,10 +46,17 @@
     "title": "Independent pilot invitation: recover a tool action after its HTTP response is lost",
     "body": "Sharing a small external experiment for Agno tool authors: Agentic describes one record-creation action using an existing OpenAPI POST plus request-status and resource-read operations.\n\nThe proposed trial wraps a single sandbox tool and keeps its request identity outside a transient agent run. If the service commits and the reply disappears, the adapter reconciles the original request and checks the resulting record. We want to compare the implementation effort with an Agno application's current durable execution approach; this is not an assertion that Agno lacks recovery support.\n\nWould an interested tool author try a separately implemented adapter? The first scope would be one synthetic action, without changing Agno core.\n\nThe reproducible pilot uses one synthetic ticket service and seven HTTP/restart scenarios. An outside client can participate through a JSON stdin/stdout adapter: https://ruagentic.org/docs/PILOT-RUNNER.md\n\nThis is an experimental proposal; the existing Node and Python clients share project authorship. No independent adoption or framework compatibility is claimed. We would value a small independent trial and comparison with the existing recovery workflow, including negative findings.\n\nProject: https://github.com/sam1siam/agentic\n\nDisclosure: this invitation was prepared with an AI assistant for the Agentic project.",
     "status": "sent",
-    "participation": "Awaiting response",
+    "participation": "Invitation withdrawn",
     "prepared_at": "2026-09-07",
     "url": "https://github.com/agno-agi/agno/discussions/10035",
-    "sent_at": "2026-09-07T17:36:41Z"
+    "sent_at": "2026-09-07T17:36:41Z",
+    "participation_before_withdrawal": "Awaiting response",
+    "withdrawal": {
+      "date": "2026-09-07",
+      "notice_verified": true,
+      "proposal_issue_closed": false,
+      "record": "SUBMISSION-UPDATE-DRAFTS.md"
+    }
   },
   {
     "project": "CrewAI",
@@ -44,12 +65,19 @@
     "issue": 5802,
     "body": "The pre-claim work in #5822 and #6048 addresses a useful part of this boundary. A complementary test case is: the provider commits, the response is lost before a result is saved, and the worker restarts. The client needs to distinguish an unresolved claim from a verified original result.\n\nFor contributors evaluating that case, we have a small experimental Agentic runner that records actual POST/status/resource reads and checks one submission, original request/resource correlation, and pending/unknown outcomes. It does not claim to fix CrewAI or provide an operator-independent signed receipt. Our local ledger also does not survive loss of the originating storage.\n\nWould anyone working on the guards be interested in an independent adapter or exchanging the response-loss/restart case? The comparison should preserve intentional identical actions as distinct requests rather than deduplicating solely by arguments.\n\nThe reproducible pilot uses one synthetic ticket service and seven HTTP/restart scenarios. An outside client can participate through a JSON stdin/stdout adapter: https://ruagentic.org/docs/PILOT-RUNNER.md\n\nThis is an experimental proposal; the existing Node and Python clients share project authorship. No independent adoption or framework compatibility is claimed. We would value a small independent trial and comparison with the existing recovery workflow, including negative findings.\n\nProject: https://github.com/sam1siam/agentic\n\nDisclosure: this invitation was prepared with an AI assistant for the Agentic project.",
     "status": "sent",
-    "participation": "Related ledger suggestion from an outside participant; no maintainer or pilot acceptance",
+    "participation": "Invitation withdrawn",
     "prepared_at": "2026-09-07",
     "url": "https://github.com/crewAIInc/crewAI/issues/5802#issuecomment-5574016473",
     "sent_at": "2026-09-07T17:36:45Z",
     "feedback_url": "https://github.com/crewAIInc/crewAI/issues/5802#issuecomment-5574749095",
-    "reviewed_at": "2026-09-07"
+    "reviewed_at": "2026-09-07",
+    "participation_before_withdrawal": "Related ledger suggestion from an outside participant; no maintainer or pilot acceptance",
+    "withdrawal": {
+      "date": "2026-09-07",
+      "notice_verified": true,
+      "proposal_issue_closed": false,
+      "record": "SUBMISSION-UPDATE-DRAFTS.md"
+    }
   },
   {
     "project": "BeeAI Framework",
@@ -60,10 +88,17 @@
     "title": "Pilot idea: an independent tool adapter for interrupted HTTP actions",
     "body": "BeeAI's Python and TypeScript tool surfaces would be useful independent consumers for an experiment we are running: can a small shared action profile reduce the custom code needed to reconcile a write after its response is lost?\n\nThe proposed adapter would authorize one sandbox action, persist its request identity before submission, then use the service's status and resource reads to resolve it after restart. It would return pending or unknown when evidence is insufficient. The profile references OpenAPI operation IDs rather than defining a new tool transport.\n\nWould a contributor be interested in a separate adapter and an effort comparison against their existing BeeAI workflow? We are seeking evidence before proposing any upstream integration.\n\nThe reproducible pilot uses one synthetic ticket service and seven HTTP/restart scenarios. An outside client can participate through a JSON stdin/stdout adapter: https://ruagentic.org/docs/PILOT-RUNNER.md\n\nThis is an experimental proposal; the existing Node and Python clients share project authorship. No independent adoption or framework compatibility is claimed. We would value a small independent trial and comparison with the existing recovery workflow, including negative findings.\n\nProject: https://github.com/sam1siam/agentic\n\nDisclosure: this invitation was prepared with an AI assistant for the Agentic project.",
     "status": "sent",
-    "participation": "Awaiting response",
+    "participation": "Invitation withdrawn",
     "prepared_at": "2026-09-07",
     "url": "https://github.com/i-am-bee/beeai-framework/discussions/1641",
-    "sent_at": "2026-09-07T17:36:48Z"
+    "sent_at": "2026-09-07T17:36:48Z",
+    "participation_before_withdrawal": "Awaiting response",
+    "withdrawal": {
+      "date": "2026-09-07",
+      "notice_verified": true,
+      "proposal_issue_closed": false,
+      "record": "SUBMISSION-UPDATE-DRAFTS.md"
+    }
   },
   {
     "project": "smolagents",
@@ -74,10 +109,17 @@
     "title": "External tool experiment: independent evaluation of interrupted-action recovery",
     "body": "Following smolagents' preference for primitives in core and integrations maintained externally, we are looking for someone interested in evaluating a standalone Tool adapter rather than adding a built-in integration.\n\nAgentic is a small draft profile for one existing OpenAPI action: submit once, look up the original request, and verify the resulting resource. The interesting case is a tool whose service commits successfully but the agent never receives the response. The next run must preserve request identity and reconcile instead of silently issuing a new write.\n\nWould an external smolagents tool author try an independent adapter? A useful result would compare code and maintenance effort against their current workflow and report where the profile adds no value.\n\nThe reproducible pilot uses one synthetic ticket service and seven HTTP/restart scenarios. An outside client can participate through a JSON stdin/stdout adapter: https://ruagentic.org/docs/PILOT-RUNNER.md\n\nThis is an experimental proposal; the existing Node and Python clients share project authorship. No independent adoption or framework compatibility is claimed. We would value a small independent trial and comparison with the existing recovery workflow, including negative findings.\n\nProject: https://github.com/sam1siam/agentic\n\nDisclosure: this invitation was prepared with an AI assistant for the Agentic project.",
     "status": "sent",
-    "participation": "Awaiting response",
+    "participation": "Invitation withdrawn",
     "prepared_at": "2026-09-07",
     "url": "https://github.com/huggingface/smolagents/discussions/2766",
-    "sent_at": "2026-09-07T17:36:53Z"
+    "sent_at": "2026-09-07T17:36:53Z",
+    "participation_before_withdrawal": "Awaiting response",
+    "withdrawal": {
+      "date": "2026-09-07",
+      "notice_verified": true,
+      "proposal_issue_closed": false,
+      "record": "SUBMISSION-UPDATE-DRAFTS.md"
+    }
   },
   {
     "project": "Microsoft Agent Framework",
@@ -86,10 +128,17 @@
     "issue": 3938,
     "body": "The recommendation to put idempotency at the executor boundary makes sense. One complementary service-level case to test is a committed write whose response is lost before a per-tool result can be checkpointed: resuming the executor should reconcile the same logical request, and preserve unknown if it cannot establish the outcome.\n\nWe are evaluating a small experimental OpenAPI profile (Agentic) for that mapping. Our runner observes actual HTTP submission/status/resource reads and checks response loss plus process restart. It does not claim to change the framework's superstep semantics or replace Durable Task guarantees.\n\nWould a Python or .NET contributor interested in this issue try an independent adapter or compare the fixture with an existing executor-level solution? We would keep the pilot external and measure whether sharing the operation bindings actually saves integration work.\n\nThe reproducible pilot uses one synthetic ticket service and seven HTTP/restart scenarios. An outside client can participate through a JSON stdin/stdout adapter: https://ruagentic.org/docs/PILOT-RUNNER.md\n\nThis is an experimental proposal; the existing Node and Python clients share project authorship. No independent adoption or framework compatibility is claimed. We would value a small independent trial and comparison with the existing recovery workflow, including negative findings.\n\nProject: https://github.com/sam1siam/agentic\n\nDisclosure: this invitation was prepared with an AI assistant for the Agentic project.",
     "status": "sent",
-    "participation": "Awaiting response",
+    "participation": "Invitation withdrawn",
     "prepared_at": "2026-09-07",
     "url": "https://github.com/microsoft/agent-framework/issues/3938#issuecomment-5574018026",
-    "sent_at": "2026-09-07T17:36:56Z"
+    "sent_at": "2026-09-07T17:36:56Z",
+    "participation_before_withdrawal": "Awaiting response",
+    "withdrawal": {
+      "date": "2026-09-07",
+      "notice_verified": true,
+      "proposal_issue_closed": false,
+      "record": "SUBMISSION-UPDATE-DRAFTS.md"
+    }
   },
   {
     "project": "LlamaIndex",
@@ -100,9 +149,16 @@
     "title": "External pilot invitation: a recoverable action tool with correlated result verification",
     "body": "LlamaIndex's contribution guide directs new integrations to their own repositories. We are following that route for a proposed independent FunctionTool or workflow adapter, with no request to add a package to this monorepo.\n\nThe experiment is Agentic: a narrow profile that maps an existing OpenAPI action to submission, request-status lookup, and resource verification. A workflow restart would reuse the saved request identity and read the original result after response loss; ambiguous cases remain pending or unknown.\n\nWould an external integration author be interested in testing one sandbox record-creation action? The aim is to compare the adapter with their existing workflow persistence and service idempotency design, including the engineering cost of maintaining the mapping.\n\nThe reproducible pilot uses one synthetic ticket service and seven HTTP/restart scenarios. An outside client can participate through a JSON stdin/stdout adapter: https://ruagentic.org/docs/PILOT-RUNNER.md\n\nThis is an experimental proposal; the existing Node and Python clients share project authorship. No independent adoption or framework compatibility is claimed. We would value a small independent trial and comparison with the existing recovery workflow, including negative findings.\n\nProject: https://github.com/sam1siam/agentic\n\nDisclosure: this invitation was prepared with an AI assistant for the Agentic project.",
     "status": "sent",
-    "participation": "Awaiting response",
+    "participation": "Invitation withdrawn",
     "prepared_at": "2026-09-07",
     "url": "https://github.com/run-llama/llama_index/discussions/22987",
-    "sent_at": "2026-09-07T17:37:00Z"
+    "sent_at": "2026-09-07T17:37:00Z",
+    "participation_before_withdrawal": "Awaiting response",
+    "withdrawal": {
+      "date": "2026-09-07",
+      "notice_verified": true,
+      "proposal_issue_closed": false,
+      "record": "SUBMISSION-UPDATE-DRAFTS.md"
+    }
   }
 ]
