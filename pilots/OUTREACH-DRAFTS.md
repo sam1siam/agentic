@@ -1,6 +1,14 @@
-# Pilot invitations — prepared, not sent
+# Pilot invitations and delivery status
 
-Prepared on 2026-09-07. These projects are candidates for critique or a pilot, not adopters or committed participants. No maintainer has agreed to the proposed work.
+Prepared on 2026-09-07. The account owner approved the two GitHub proposals, which were posted from sam1siam on 2026-09-07. The AWP email remains unsent. These projects are candidates for critique or a pilot, not adopters or committed participants. No maintainer has agreed to the proposed work.
+
+| Candidate | Delivery | Participation |
+| --- | --- | --- |
+| Pydantic AI Harness | [Proposal #814](https://github.com/pydantic/pydantic-ai-harness/issues/814), sent 2026-09-07 | Awaiting response |
+| Mastra | [Proposal #23256](https://github.com/mastra-ai/mastra/issues/23256), sent 2026-09-07 | Awaiting response |
+| Agent Web Protocol | Email draft only | Not contacted |
+
+The messages below are the reviewed drafts. The linked posts contain their final template-aligned text and relevant references found during duplicate checks.
 
 ## 1. Pydantic AI Harness: independent consumer evaluation
 
@@ -47,4 +55,4 @@ Source: https://github.com/sam1siam/agentic
 
 ## Sending and follow-up
 
-These are bounded, individual invitations. Send only after the account owner authorizes the recipients and channels. Record the sent URL/date, then wait for a reply. Do not post a speculative implementation PR, repeatedly follow up without a response, or count delivery as pilot acceptance. Move a team into the confirmed pilot registry only after explicit agreement.
+These are bounded, individual invitations. Further sending requires account-owner authorization for the recipient and channel. The two approved GitHub proposals are delivered; wait for a reply. Do not post a speculative implementation PR, repeatedly follow up without a response, or count delivery as pilot acceptance. Move a team into the confirmed pilot registry only after explicit agreement.
