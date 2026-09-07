@@ -44,10 +44,12 @@
     "issue": 5802,
     "body": "The pre-claim work in #5822 and #6048 addresses a useful part of this boundary. A complementary test case is: the provider commits, the response is lost before a result is saved, and the worker restarts. The client needs to distinguish an unresolved claim from a verified original result.\n\nFor contributors evaluating that case, we have a small experimental Agentic runner that records actual POST/status/resource reads and checks one submission, original request/resource correlation, and pending/unknown outcomes. It does not claim to fix CrewAI or provide an operator-independent signed receipt. Our local ledger also does not survive loss of the originating storage.\n\nWould anyone working on the guards be interested in an independent adapter or exchanging the response-loss/restart case? The comparison should preserve intentional identical actions as distinct requests rather than deduplicating solely by arguments.\n\nThe reproducible pilot uses one synthetic ticket service and seven HTTP/restart scenarios. An outside client can participate through a JSON stdin/stdout adapter: https://ruagentic.org/docs/PILOT-RUNNER.md\n\nThis is an experimental proposal; the existing Node and Python clients share project authorship. No independent adoption or framework compatibility is claimed. We would value a small independent trial and comparison with the existing recovery workflow, including negative findings.\n\nProject: https://github.com/sam1siam/agentic\n\nDisclosure: this invitation was prepared with an AI assistant for the Agentic project.",
     "status": "sent",
-    "participation": "Awaiting response",
+    "participation": "Related ledger suggestion from an outside participant; no maintainer or pilot acceptance",
     "prepared_at": "2026-09-07",
     "url": "https://github.com/crewAIInc/crewAI/issues/5802#issuecomment-5574016473",
-    "sent_at": "2026-09-07T17:36:45Z"
+    "sent_at": "2026-09-07T17:36:45Z",
+    "feedback_url": "https://github.com/crewAIInc/crewAI/issues/5802#issuecomment-5574749095",
+    "reviewed_at": "2026-09-07"
   },
   {
     "project": "BeeAI Framework",

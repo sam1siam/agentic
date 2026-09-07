@@ -1,5 +1,11 @@
 # Changelog
 
+## Site spacing and outreach review — 2026-09-07
+
+- Give every action row 24px of separation from preceding copy, inputs, selects, or code; preserve 12px gaps between buttons.
+- Allow button labels to wrap and keep 20px between platform actions and their explanatory text.
+- Record the Mastra triage notice, Pydantic automated assessment, and CrewAI participant comment in the [outreach feedback log](https://github.com/sam1siam/agentic/blob/main/pilots/FEEDBACK.md). None establishes an independent pilot.
+
 ## 0.1.0-draft.3 — 2026-09-07
 
 - Hosted recovery sandbox with real HTTP, PostgreSQL state, six scenarios and durable restart/resume.

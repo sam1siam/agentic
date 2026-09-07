@@ -182,12 +182,16 @@ h1 span {
   flex-wrap: wrap;
   align-items: center;
 }
-.code-block + .actions,
-.error-list + .actions {
-  margin-top: 20px;
+/* Every action row needs separation from its preceding text or form field. */
+* + .actions {
+  margin-top: 24px;
 }
 .actions [data-slot='button'] {
   min-height: 40px;
+  height: auto;
+  max-width: 100%;
+  white-space: normal;
+  padding-block: 9px;
   padding-inline: 16px;
 }
 .action {
@@ -548,6 +552,8 @@ td {
 .platform-panel { padding:28px; }
 .platform-panel h2 { font-size:24px; margin-bottom:14px; }
 .platform-panel > p { max-width:78ch; line-height:1.7; margin:14px 0 22px; }
+.platform-panel > .actions + p { margin-top:20px; }
+.platform-panel > p:last-child { margin-bottom:0; }
 .platform-select { display:block; width:100%; border:1px solid var(--border); background:var(--background); color:var(--foreground); border-radius:7px; padding:11px 13px; font:inherit; }
 .platform-status { min-height:24px; margin:20px 0; color:var(--primary); }
 .platform-result .section-head { flex-wrap:wrap; gap:12px; margin-bottom:24px; }

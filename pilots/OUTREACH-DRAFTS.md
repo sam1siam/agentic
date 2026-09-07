@@ -6,11 +6,13 @@ The account owner subsequently authorized more invitations. Eight additional ind
 
 | Candidate | Delivery | Participation |
 | --- | --- | --- |
-| Pydantic AI Harness | [Proposal #814](https://github.com/pydantic/pydantic-ai-harness/issues/814), sent 2026-09-07 | Awaiting response |
-| Mastra | [Proposal #23256](https://github.com/mastra-ai/mastra/issues/23256), sent 2026-09-07 | Awaiting response |
+| Pydantic AI Harness | [Proposal #814](https://github.com/pydantic/pydantic-ai-harness/issues/814), sent 2026-09-07 | Automated triage: not actionable; maintainer discussion required. Issue remains open; no pilot agreement. |
+| Mastra | [Proposal #23256](https://github.com/mastra-ai/mastra/issues/23256), sent 2026-09-07 | Awaiting maintainer triage; no PR until the triage/approval label is removed. |
 | Agent Web Protocol | Email draft only | Not contacted |
 
 The messages below are the reviewed drafts. The linked posts contain their final template-aligned text and relevant references found during duplicate checks.
+
+Responses were checked on 2026-09-07. See [feedback and evaluation changes](FEEDBACK.md) for source comments, their limits, and the revised pilot approach. Automated triage and comments from other issue participants are not maintainer acceptance.
 
 ## 1. Pydantic AI Harness: independent consumer evaluation
 
