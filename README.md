@@ -1,5 +1,5 @@
 # Agentic
-**Actions need outcomes.** An experimental open convention for AI agents to track actions, verify results, and recover when a request is interrupted.
+**A verifiable outcome for agent actions.** An experimental open convention for AI agents to track actions, verify results, and recover when a request is interrupted.
 
 Version: 0.1.0-draft. Status: project reference implementation; not an adopted standard.
 Project home: https://ruagentic.org
@@ -20,7 +20,7 @@ npm test
 npm run dev
 ```
 
-The site includes the draft, validator, browser recovery lab, comparison report, and pilot materials. It exports static assets for Vercel; see docs/DEPLOYMENT.md.
+The site includes the draft, profile generator, examples, documentation hub, validator, browser recovery lab, comparison report, and pilot enrollment. It exports static assets for Vercel; see docs/DEPLOYMENT.md. Start with [the quick start](docs/QUICKSTART.md).
 
 ## Real HTTP recovery example
 Start the loopback-only SQLite service in one terminal:
@@ -51,6 +51,22 @@ npm run validate -- examples/tickets/agentic.json examples/tickets/openapi.json
 ```
 
 The validator never fetches a remote schema or executes advertised operations. The example origin support.example is a reserved example domain, not a live integration.
+
+## Generate a starter
+```sh
+npm run init -- --origin https://your-service.example --out agentic.json
+```
+
+This creates a ticket-contract starter and refuses to overwrite an existing file. Adapt its operations and evidence to your service. The same starting contract is available in the [browser generator](https://ruagentic.org/generate/). No npm package has been published.
+
+## Independent pilots
+Enrollment is open through the [pilot application](https://github.com/sam1siam/agentic/issues/new?template=pilot.yml). No external participants are confirmed yet.
+
+```sh
+npm run pilot -- --adapter pilots/adapters/node-reference.json
+```
+
+The [compatibility runner](docs/PILOT-RUNNER.md) can invoke independently written clients through a documented process interface. Seven scenarios check real HTTP behavior and SQLite resource counts. The included adapter is project-authored. [The registry](pilots/registry.json) records independent evidence separately from reference code.
 
 ## Evidence
 ```sh

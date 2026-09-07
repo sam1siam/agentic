@@ -2,7 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowDownToLine, ArrowUpRight } from 'lucide-react';
 import sample from '@/examples/tickets/agentic.json';
-export const metadata: Metadata = { title: 'Specification · 0.1 draft' };
+export const metadata: Metadata = {
+  title: 'Specification · 0.1 draft',
+  alternates: {
+    canonical: 'https://ruagentic.org/spec/',
+    types: { 'text/markdown': '/spec/index.md' },
+  },
+};
 export const dynamic = 'force-static';
 const fields = [
   ['agentic', 'The exact profile version.'],

@@ -1,0 +1,52 @@
+name: Join the independent pilot cohort
+description: Propose one sandbox action or an independently written consumer.
+title: '[Pilot application] '
+labels: [pilot]
+body:
+  - type: markdown
+    attributes:
+      value: 'Enrollment is open. Applying does not imply acceptance, endorsement, or conformance. Everything in this issue is public: do not include tokens, customer data, private receipts, or email addresses.'
+  - type: dropdown
+    id: role
+    attributes:
+      label: Participation
+      options:
+        - Independent consumer implementation
+        - Service-side sandbox pilot
+        - Both client and service
+        - Protocol overlap and design feedback
+    validations:
+      required: true
+  - type: input
+    id: project
+    attributes:
+      label: Project or team and public source link
+    validations:
+      required: true
+  - type: textarea
+    id: action
+    attributes:
+      label: Proposed action and existing service capabilities
+      description: Describe idempotency, request-status lookup, correlated resource evidence, and the sandbox boundary. State any missing behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: comparison
+    attributes:
+      label: Current recovery workflow and what you want to compare
+    validations:
+      required: true
+  - type: textarea
+    id: availability
+    attributes:
+      label: Availability and desired outcome
+      description: Suggest a two-week window and the result that would make the experiment useful.
+  - type: checkboxes
+    id: declarations
+    attributes:
+      label: Public participation
+      options:
+        - label: I am authorized to share these project details publicly.
+          required: true
+        - label: This implementation will be written by a team independent of the Agentic project.
+        - label: I can publish a redacted report and tested source revision for review.

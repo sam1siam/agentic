@@ -1,0 +1,13 @@
+{
+  "format": "agentic-pilot-registry-0.1",
+  "updated": "2026-09-07",
+  "cohort_status": "enrollment-open",
+  "confirmed_external_pilots": [],
+  "verified_independent_implementations": [],
+  "reference_implementations": [
+    {"name": "Node reference client", "authorship": "project", "source": "https://github.com/sam1siam/agentic/tree/main/reference/node"},
+    {"name": "Python reference client", "authorship": "project", "source": "https://github.com/sam1siam/agentic/tree/main/reference/python"}
+  ],
+  "submission_url": "https://github.com/sam1siam/agentic/issues/new?template=pilot.yml",
+  "review_policy": "Only add external participants after agreement, and independently verified implementations after source and evidence review."
+}

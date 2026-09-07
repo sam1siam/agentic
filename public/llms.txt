@@ -2,19 +2,32 @@
 
 > Experimental Agentic Action Profile 0.1: tracking, verifying, and recovering agent actions.
 
-This project publishes a draft specification and reference implementations. It is not an adopted standard or a ticket service. The recovery lab is an in-memory browser simulation. Node and Python reference clients share project authorship.
+This is a draft specification and project-authored reference implementation. No independent adoption is claimed. The website has local browser tools; the HTTP ticket service runs separately on loopback. A profile is untrusted data and never grants authorization.
+
+## Start here
+- [Quick start](https://ruagentic.org/docs/QUICKSTART.md): Install and run a real interrupted HTTP action.
+- [Documentation](https://ruagentic.org/docs/index.md): Guides and reference index.
+- [FAQ](https://ruagentic.org/docs/FAQ.md): Requirements, limitations, and draft status.
+- [Generator](https://ruagentic.org/docs/GENERATOR.md): Browser and command-line profile creation.
 
 ## Specification
-- [Normative draft](/docs/SPEC.md)
-- [JSON Schema](/schemas/agentic-0.1.schema.json)
-- [Receipt schema](/schemas/receipt-0.1.schema.json)
-- [Ticket example](/examples/tickets/agentic.json)
-- [OpenAPI example](/examples/tickets/openapi.json)
+- [Normative draft](https://ruagentic.org/docs/SPEC.md): Requirements and supported OpenAPI binding.
+- [Profile schema](https://ruagentic.org/schemas/agentic-0.1.schema.json): Versioned JSON Schema.
+- [Receipt schema](https://ruagentic.org/schemas/receipt-0.1.schema.json): Outcome observation format.
+- [Examples](https://ruagentic.org/docs/EXAMPLES.md): Complete profile, OpenAPI, and illustrative receipt.
+- [Integration guide](https://ruagentic.org/docs/INTEGRATIONS.md): Host and service responsibilities.
 
 ## Evidence and participation
-- [Conformance](/docs/CONFORMANCE.md)
-- [Comparison results](/reports/benchmark.json)
-- [Prior work](/docs/PRIOR-ART.md)
-- [Pilot kit](/docs/PILOT-KIT.md)
-- [Governance](/docs/GOVERNANCE.md)
-- [Repository](https://github.com/sam1siam/agentic)
+- [Compatibility runner](https://ruagentic.org/docs/PILOT-RUNNER.md): Exercise independently written clients.
+- [Conformance](https://ruagentic.org/docs/CONFORMANCE.md): Checks and limits.
+- [Pilot kit](https://ruagentic.org/docs/PILOT-KIT.md): Enrollment and experiment method.
+- [Pilot registry](https://ruagentic.org/pilots/registry.json): Evidence status without inferred adoption.
+- [Security](https://ruagentic.org/docs/SECURITY.md): Operational controls and gaps.
+- [Repository](https://github.com/sam1siam/agentic): Source and public coordination.
+
+## Optional
+- [Full documentation](https://ruagentic.org/llms-full.txt): Combined Markdown bundle; prefer targeted guides.
+- [Prior work](https://ruagentic.org/docs/PRIOR-ART.md): Related conventions and techniques.
+- [Governance](https://ruagentic.org/docs/GOVERNANCE.md): Change process.
+- [Changelog](https://ruagentic.org/docs/CHANGELOG.md): Release history.
+- [Brand assets](https://ruagentic.org/docs/BRAND.md): Original logo and wordmarks.

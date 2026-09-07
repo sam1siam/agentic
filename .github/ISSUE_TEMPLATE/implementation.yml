@@ -1,6 +1,6 @@
 name: Implementation or pilot report
 description: Share a concrete implementation and its compatibility evidence.
-title: "[Implementation] "
+title: '[Implementation] '
 body:
   - type: input
     id: implementation
@@ -22,6 +22,17 @@ body:
       description: Include profile version, service/client versions, scenarios, and test commands. Do not include credentials or private data.
     validations:
       required: true
+  - type: input
+    id: source
+    attributes:
+      label: Public source repository and tested commit
+    validations:
+      required: true
+  - type: textarea
+    id: runner
+    attributes:
+      label: Compatibility runner report
+      description: Attach the redacted JSON report or explain why the runner cannot exercise your implementation. Self-declared independence requires maintainer review.
   - type: textarea
     id: value
     attributes:

@@ -2,14 +2,17 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import Link from 'next/link';
 import './globals.css';
+import { BrandMark } from './brand';
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
 });
 export const metadata: Metadata = {
+  metadataBase: new URL('https://ruagentic.org'),
+  icons: { icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }] },
   title: {
-    default: 'Agentic — Actions need outcomes',
+    default: 'Agentic — A verifiable outcome for agent actions',
     template: '%s · Agentic',
   },
   description:
@@ -24,18 +27,29 @@ export default function RootLayout({
         <a className="skip-link" href="#content">
           Skip to content
         </a>
-        <header className="site-header wrap">
-          <Link className="wordmark" href="/" aria-label="Agentic home">
-            <span className="brand-mark">a›</span>agentic
-            <span className="draft-tag">DRAFT</span>
-          </Link>
-          <nav aria-label="Main navigation">
-            <Link href="/spec">Specification</Link>
-            <Link href="/lab">Recovery lab</Link>
-            <Link href="/validate">Validator</Link>
-            <Link href="/adopt">Get involved ↗</Link>
-          </nav>
-        </header>
+        <div className="header-shell">
+          <header className="site-header wrap">
+            <Link className="wordmark" href="/" aria-label="Agentic home">
+              <BrandMark />
+              <span>
+                agentic<span className="extension">.json</span>
+              </span>
+            </Link>
+            <nav aria-label="Main navigation">
+              <Link href="/spec">Specification</Link>
+              <Link href="/examples">Examples</Link>
+              <Link href="/validate">Validator</Link>
+              <Link href="/docs">Docs</Link>
+              <Link href="/adopt">Pilots</Link>
+              <a
+                className="nav-github"
+                href="https://github.com/sam1siam/agentic"
+              >
+                GitHub ↗
+              </a>
+            </nav>
+          </header>
+        </div>
         <div id="content">{children}</div>
         <footer className="site-footer wrap">
           <div>
@@ -45,9 +59,10 @@ export default function RootLayout({
             <p>Experimental proposal. Open for implementation and critique.</p>
           </div>
           <div className="footer-links">
-            <a href="/docs/SPEC.md">Draft source</a>
+            <a href="/llms.txt">llms.txt</a>
+            <a href="/docs/CHANGELOG.md">Changelog</a>
             <a href="/docs/GOVERNANCE.md">Governance</a>
-            <a href="/docs/PRIOR-ART.md">Prior work</a>
+            <a href="/docs/BRAND.md">Brand assets</a>
           </div>
         </footer>
       </body>

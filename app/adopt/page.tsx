@@ -2,7 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowUpRight, Download, Terminal } from 'lucide-react';
 import report from '@/reports/benchmark.json';
-export const metadata: Metadata = { title: 'Implement and contribute' };
+import registry from '@/pilots/registry.json';
+export const metadata: Metadata = {
+  title: 'Independent pilots',
+  alternates: {
+    canonical: 'https://ruagentic.org/adopt/',
+    types: { 'text/markdown': '/adopt/index.md' },
+  },
+};
 export const dynamic = 'force-static';
 export default function AdoptPage() {
   const loss = report.rows.find((r) => r.scenario === 'response-lost');
@@ -11,9 +18,9 @@ export default function AdoptPage() {
       <div className="page-heading">
         <p className="eyebrow">Implementation / participation</p>
         <h1>
-          Build it.
+          Bring your implementation.
           <br />
-          <span>Try to break it.</span>
+          <span>Test the shared contract.</span>
         </h1>
         <p>
           Start with the ticket example, compare it with your current workflow,
@@ -22,9 +29,9 @@ export default function AdoptPage() {
         <div className="actions">
           <a
             className="action primary"
-            href="https://github.com/sam1siam/agentic"
+            href="https://github.com/sam1siam/agentic/issues/new?template=pilot.yml"
           >
-            View the repository <ArrowUpRight size={17} />
+            Apply for a pilot <ArrowUpRight size={17} />
           </a>
           <a
             className="action secondary"
@@ -35,6 +42,40 @@ export default function AdoptPage() {
           </a>
         </div>
       </div>
+      <div className="stats-strip" aria-label="Pilot program status">
+        <div>
+          <strong>{registry.confirmed_external_pilots.length}</strong>
+          <span>Confirmed external pilots</span>
+        </div>
+        <div>
+          <strong>
+            {registry.verified_independent_implementations.length}
+          </strong>
+          <span>Verified independent implementations</span>
+        </div>
+        <div>
+          <strong>Open</strong>
+          <span>Enrollment for the first cohort</span>
+        </div>
+      </div>
+      <section className="docs-banner" style={{ marginBottom: 35 }}>
+        <h2>A small, two-week pilot</h2>
+        <p>
+          After your team agrees to participate, choose one sandbox action. Run
+          the seven compatibility scenarios, compare with your existing
+          workflow, and share redacted results. Source review and reproducible
+          evidence come before an independent implementation is listed.
+        </p>
+        <div className="doc-utilities">
+          <a href="/docs/PILOT-RUNNER.md">
+            Connect your client to the runner →
+          </a>
+          <a href="/pilots/registry.json">Public evidence registry ↗</a>
+          <a href="https://github.com/sam1siam/agentic/issues">
+            Pilot coordination on GitHub ↗
+          </a>
+        </div>
+      </section>
       <section className="two-col">
         <div className="panel">
           <p className="eyebrow">
@@ -84,6 +125,10 @@ export default function AdoptPage() {
             </a>
             <a href="/docs/PILOT-KIT.md">
               <span>Pilot kit and interview guide</span>
+              <span>↗</span>
+            </a>
+            <a href="/docs/PILOT-RUNNER.md">
+              <span>External-client compatibility runner</span>
               <span>↗</span>
             </a>
             <a href="/docs/GOVERNANCE.md">
@@ -168,8 +213,11 @@ export default function AdoptPage() {
             Choose a record-creation operation with existing idempotency and
             status lookup. Compare Agentic with your current recovery flow.
           </p>
-          <a className="text-link" href="/docs/PILOT-KIT.md">
-            Read the pilot guide <ArrowUpRight size={16} />
+          <a
+            className="text-link"
+            href="https://github.com/sam1siam/agentic/issues/new?template=pilot.yml"
+          >
+            Propose a sandbox pilot <ArrowUpRight size={16} />
           </a>
         </article>
       </section>

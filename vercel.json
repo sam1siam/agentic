@@ -6,7 +6,92 @@
   "cleanUrls": true,
   "trailingSlash": true,
   "headers": [
-    {"source":"/(.*)","headers":[{"key":"X-Content-Type-Options","value":"nosniff"},{"key":"Referrer-Policy","value":"strict-origin-when-cross-origin"}]},
-    {"source":"/schemas/(.*)","headers":[{"key":"Access-Control-Allow-Origin","value":"*"}]}
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        { "key": "Link", "value": "</llms.txt>; rel=\"describedby\"" }
+      ]
+    },
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</index.md>; rel=\"alternate\"; type=\"text/markdown\", </llms.txt>; rel=\"describedby\""
+        }
+      ]
+    },
+    {
+      "source": "/spec/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</spec/index.md>; rel=\"alternate\"; type=\"text/markdown\", </llms.txt>; rel=\"describedby\""
+        }
+      ]
+    },
+    {
+      "source": "/lab/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</lab/index.md>; rel=\"alternate\"; type=\"text/markdown\", </llms.txt>; rel=\"describedby\""
+        }
+      ]
+    },
+    {
+      "source": "/validate/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</validate/index.md>; rel=\"alternate\"; type=\"text/markdown\", </llms.txt>; rel=\"describedby\""
+        }
+      ]
+    },
+    {
+      "source": "/adopt/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</adopt/index.md>; rel=\"alternate\"; type=\"text/markdown\", </llms.txt>; rel=\"describedby\""
+        }
+      ]
+    },
+    {
+      "source": "/generate/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</generate/index.md>; rel=\"alternate\"; type=\"text/markdown\", </llms.txt>; rel=\"describedby\""
+        }
+      ]
+    },
+    {
+      "source": "/examples/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</examples/index.md>; rel=\"alternate\"; type=\"text/markdown\", </llms.txt>; rel=\"describedby\""
+        }
+      ]
+    },
+    {
+      "source": "/docs/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</docs/index.md>; rel=\"alternate\"; type=\"text/markdown\", </llms.txt>; rel=\"describedby\""
+        }
+      ]
+    },
+    {
+      "source": "/schemas/(.*)",
+      "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
+    }
   ]
 }

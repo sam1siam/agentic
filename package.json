@@ -1,6 +1,6 @@
 {
   "name": "agentic-action-profile",
-  "version": "0.1.0-draft.1",
+  "version": "0.1.0-draft.2",
   "private": true,
   "engines": {
     "node": "24.x"
@@ -13,9 +13,11 @@
     "format": "oxfmt",
     "prebuild": "node scripts/prepare.mjs",
     "prepare:artifacts": "node scripts/prepare.mjs",
-    "test": "node --test tests/protocol.test.ts",
+    "test": "node --test tests/protocol.test.ts tests/tooling.test.ts",
     "typecheck": "tsc --noEmit",
     "validate": "node scripts/validate.ts",
+    "init": "node scripts/init.ts",
+    "pilot": "python scripts/pilot.py",
     "client": "node reference/node/client.ts",
     "benchmark": "node scripts/benchmark.ts",
     "postbuild": "node scripts/check-export.mjs"

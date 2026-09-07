@@ -1,0 +1,17 @@
+{
+  "agentic": "0.1.0-draft",
+  "request_id": "illustrative-request-001",
+  "action_id": "create-ticket",
+  "origin": "https://support.example",
+  "outcome": "succeeded",
+  "observed_at": "2026-09-07T12:00:00.000Z",
+  "resource_id": "T-example-001",
+  "reason": "Illustrative receipt: original ticket verified against the request and input.",
+  "evidence": {
+    "url": "https://support.example/tickets/T-example-001",
+    "resource_id": "T-example-001",
+    "request_id": "illustrative-request-001",
+    "state": "open",
+    "matched": [{ "inputPointer": "/subject", "resourcePointer": "/subject" }]
+  }
+}

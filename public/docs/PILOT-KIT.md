@@ -1,5 +1,16 @@
 # Pilot kit
-Prepared materials. No interviews have been conducted and no organizations listed here have agreed to participate.
+Enrollment is open. No interviews have been conducted and no external organizations have yet agreed to participate.
+
+Apply through the [pilot application](https://github.com/sam1siam/agentic/issues/new?template=pilot.yml). Use the [external-client compatibility runner](PILOT-RUNNER.md) to prepare reproducible evidence. The [public registry](https://ruagentic.org/pilots/registry.json) lists only confirmed participants and reviewed independent implementations.
+
+## Two-week experiment after enrollment
+
+- Days 1–2: Agree on one sandbox action, the principal boundary, the current recovery workflow, and success criteria.
+- Days 3–5: Implement the profile or independent consumer. Record elapsed engineering time and any protocol changes needed.
+- Days 6–8: Run the seven compatibility scenarios and the team's existing competent workflow under the same conditions.
+- Days 9–10: Review false success, duplicates, unresolved outcomes, calls, integration effort, and maintenance cost. Publish an approved, redacted report or record why the proposal was not useful.
+
+These dates are relative to a participant's agreed start. No interview, integration, or independent result is counted before it occurs. A maintainer reviews public source, provenance, and reproducibility before recognizing independent compatibility.
 
 ## First cohort
 Seek five developers of agent consumers and five owners of SaaS APIs that create records such as support tickets. Prefer services already offering request IDs, status lookup, and idempotency. Recruit outside implementers rather than counting two clients written within this project as adoption.

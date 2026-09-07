@@ -2,6 +2,7 @@
 Binds only to loopback. Faults and inspection are test facilities, not production endpoints.
 """
 import argparse, json, os, socket, sqlite3, time, uuid
+from contextlib import contextmanager
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlparse, unquote
@@ -17,11 +18,16 @@ class Service(ThreadingHTTPServer):
         Path(database).parent.mkdir(parents=True, exist_ok=True)
         with self.connect() as db:
             db.executescript('PRAGMA journal_mode=WAL; CREATE TABLE IF NOT EXISTS requests (id TEXT PRIMARY KEY, subject TEXT NOT NULL, resource_id TEXT, outcome TEXT NOT NULL, created REAL NOT NULL); CREATE TABLE IF NOT EXISTS tickets (id TEXT PRIMARY KEY, request_id TEXT UNIQUE NOT NULL, subject TEXT NOT NULL, status TEXT NOT NULL);')
+    @contextmanager
     def connect(self):
         db = sqlite3.connect(self.database, timeout=5)
         db.row_factory = sqlite3.Row
         db.execute('PRAGMA synchronous=FULL')
-        return db
+        try:
+            with db:
+                yield db
+        finally:
+            db.close()
 
 class Handler(BaseHTTPRequestHandler):
     protocol_version = 'HTTP/1.1'

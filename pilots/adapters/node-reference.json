@@ -1,0 +1,5 @@
+{
+  "name": "Agentic Node reference client",
+  "authorship": "project",
+  "command": ["node", "reference/node/pilot-adapter.ts"]
+}

@@ -1,0 +1,175 @@
+{
+  "format": "agentic-pilot-report-0.1",
+  "profile_version": "0.1.0-draft",
+  "observed_at": "2026-09-07T16:47:10.042806Z",
+  "implementation": "Agentic Node reference client",
+  "revision": "v0.1.0-draft.2",
+  "authorship": "project",
+  "independence_verified": false,
+  "environment": {
+    "python": "3.13.13",
+    "platform": "Windows"
+  },
+  "scope": "Local synthetic single-principal behavior subset; not certification or production evidence.",
+  "passed": true,
+  "scenarios": [
+    {
+      "scenario": "normal",
+      "passed": true,
+      "checks": {
+        "adapter_exit_zero": true,
+        "receipt_schema": true,
+        "expected_outcome": true,
+        "request_identity": true,
+        "action_identity": true,
+        "origin_identity": true,
+        "exactly_one_submit": true,
+        "status_read": true,
+        "expected_resource_count": true,
+        "resource_read": true,
+        "resource_identity": true,
+        "evidence_identity": true,
+        "evidence_source": true,
+        "evidence_state": true,
+        "evidence_bindings": true,
+        "stored_input": true
+      },
+      "outcome": "succeeded",
+      "resources": 1,
+      "http_calls": 3
+    },
+    {
+      "scenario": "response-lost",
+      "passed": true,
+      "checks": {
+        "adapter_exit_zero": true,
+        "receipt_schema": true,
+        "expected_outcome": true,
+        "request_identity": true,
+        "action_identity": true,
+        "origin_identity": true,
+        "exactly_one_submit": true,
+        "status_read": true,
+        "expected_resource_count": true,
+        "resource_read": true,
+        "resource_identity": true,
+        "evidence_identity": true,
+        "evidence_source": true,
+        "evidence_state": true,
+        "evidence_bindings": true,
+        "stored_input": true
+      },
+      "outcome": "succeeded",
+      "resources": 1,
+      "http_calls": 3
+    },
+    {
+      "scenario": "status-unavailable",
+      "passed": true,
+      "checks": {
+        "adapter_exit_zero": true,
+        "receipt_schema": true,
+        "expected_outcome": true,
+        "request_identity": true,
+        "action_identity": true,
+        "origin_identity": true,
+        "exactly_one_submit": true,
+        "status_read": true,
+        "expected_resource_count": true
+      },
+      "outcome": "unknown",
+      "resources": 1,
+      "http_calls": 4
+    },
+    {
+      "scenario": "stale-read",
+      "passed": true,
+      "checks": {
+        "adapter_exit_zero": true,
+        "receipt_schema": true,
+        "expected_outcome": true,
+        "request_identity": true,
+        "action_identity": true,
+        "origin_identity": true,
+        "exactly_one_submit": true,
+        "status_read": true,
+        "expected_resource_count": true,
+        "resource_read": true,
+        "resource_identity": true,
+        "evidence_identity": true,
+        "evidence_source": true,
+        "evidence_state": true,
+        "evidence_bindings": true,
+        "stored_input": true
+      },
+      "outcome": "succeeded",
+      "resources": 1,
+      "http_calls": 5
+    },
+    {
+      "scenario": "wrong-evidence",
+      "passed": true,
+      "checks": {
+        "adapter_exit_zero": true,
+        "receipt_schema": true,
+        "expected_outcome": true,
+        "request_identity": true,
+        "action_identity": true,
+        "origin_identity": true,
+        "exactly_one_submit": true,
+        "status_read": true,
+        "expected_resource_count": true
+      },
+      "outcome": "unknown",
+      "resources": 1,
+      "http_calls": 7
+    },
+    {
+      "scenario": "pending",
+      "passed": true,
+      "checks": {
+        "adapter_exit_zero": true,
+        "receipt_schema": true,
+        "expected_outcome": true,
+        "request_identity": true,
+        "action_identity": true,
+        "origin_identity": true,
+        "exactly_one_submit": true,
+        "status_read": true,
+        "expected_resource_count": true
+      },
+      "outcome": "pending",
+      "resources": 0,
+      "http_calls": 4
+    },
+    {
+      "scenario": "restart-after-submit",
+      "passed": true,
+      "checks": {
+        "crash_hook_exit_86": true,
+        "one_write_before_crash": true,
+        "resource_committed_before_crash": true,
+        "adapter_exit_zero": true,
+        "receipt_schema": true,
+        "expected_outcome": true,
+        "request_identity": true,
+        "action_identity": true,
+        "origin_identity": true,
+        "exactly_one_submit": true,
+        "status_read": true,
+        "expected_resource_count": true,
+        "no_write_on_resume": true,
+        "resource_read": true,
+        "resource_identity": true,
+        "evidence_identity": true,
+        "evidence_source": true,
+        "evidence_state": true,
+        "evidence_bindings": true,
+        "stored_input": true
+      },
+      "outcome": "succeeded",
+      "resources": 1,
+      "http_calls": 3
+    }
+  ]
+}
