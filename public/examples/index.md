@@ -16,6 +16,6 @@ One synthetic record-creation action demonstrates the initial profile binding.
 
 The client uses `Idempotency-Key`, persists its request identity before sending, and correlates the resulting resource's ID, request ID, state, and subject. A successful HTTP submit response alone is insufficient for verified completion.
 
-The receipt file is illustrative and does not record a real customer action or independent pilot. It includes a request identity, origin, observation timestamp, outcome, resource, and evidence pointer pairs.
+The receipt file is illustrative and does not record a real customer action. It includes a request identity, origin, observation timestamp, outcome, resource, and evidence pointer pairs.
 
 Use [the generator](https://ruagentic.org/generate/) to customize the profile, [the validator](https://ruagentic.org/validate/) for structural checks, and [the recovery lab](https://ruagentic.org/lab/) to explore simulated failures. The [quick start](https://ruagentic.org/docs/QUICKSTART.md) runs a real local HTTP drop after a committed ticket.

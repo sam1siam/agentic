@@ -97,7 +97,7 @@ export default function ExamplesPage() {
         <h2>3. Keep a receipt</h2>
         <p className="muted">
           This synthetic receipt demonstrates the format. It is not a record of
-          a real customer action or an independent pilot.
+          a real customer action.
         </p>
         <CodeSample value={receipt} />
         <div className="doc-utilities">

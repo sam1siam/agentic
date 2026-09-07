@@ -148,7 +148,7 @@ try {
           </a>
           . Install it with Node 24, then initialize or validate a profile.
         </p>
-        <pre className="code-block">{`npm install -g ./ruagentic-0.1.0-draft.3.tgz
+        <pre className="code-block">{`npm install -g ./ruagentic-0.1.0-draft.4.tgz
 agentic init --origin https://your-service.example
 agentic validate agentic.json openapi.json`}</pre>
         <p>
@@ -162,7 +162,7 @@ agentic validate agentic.json openapi.json`}</pre>
           </a>
           .
         </p>
-        <pre className="code-block">{`- uses: sam1siam/agentic@v0.1.0-draft.3
+        <pre className="code-block">{`- uses: sam1siam/agentic@v0.1.0-draft.4
   with:
     profile: agentic.json
     openapi: openapi.json`}</pre>

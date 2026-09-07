@@ -1,6 +1,6 @@
 ---
 name: agentic-adoption
-description: Implement or review an experimental Agentic action-recovery profile for an existing OpenAPI service, including operation bindings, evidence validation, and isolated recovery pilots.
+description: Implement or review an experimental Agentic action-recovery profile for an existing OpenAPI service, including operation bindings, evidence validation, and isolated recovery tests.
 ---
 
 # Agentic adoption
@@ -17,13 +17,14 @@ For client implementation, persist the origin, action, complete profile/API iden
 
 Keep hosted test credentials, ledgers, and private receipts out of source control. Use the service's existing principal for request scoping; an authentication refresh must not create a second logical action.
 
-Run the real HTTP pilot harness only against the project sandbox or a service the user authorized for behavioral testing. URL auditing of other services is read-only. Report the exact implementation, scenario, request/commit counts, outcome, and evidence artifact. Label browser simulations and project-authored clients accurately. An invitation, structural pass, or internal test is not an independent adoption.
+Use the compatibility runner against its local project fixture. Only test another service when the user has authorized behavioral testing of that service. URL auditing of other services is read-only. Report the exact implementation, scenario, request/commit counts, outcome, and evidence artifact. Label browser simulations and project-authored clients accurately. An invitation, structural pass, or internal test is not an independent adoption.
 
 Useful project endpoints:
 
 - Hosted MCP: `https://ruagentic.org/mcp` for specification, generation, validation, and public URL auditing.
 - Hosted console: `https://ruagentic.org/platform/` for synthetic recovery evidence and saved reports.
-- Pilot kit: `https://ruagentic.org/docs/PILOT-KIT.md`.
+- Get started: `https://ruagentic.org/adopt/`.
+- Compatibility runner: `https://ruagentic.org/docs/COMPATIBILITY.md`.
 - Repository: `https://github.com/sam1siam/agentic`.
 
 Prefer the smallest complete implementation and evidence report for one action before expanding the profile.

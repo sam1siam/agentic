@@ -12,9 +12,9 @@ export const metadata: Metadata = {
 };
 export const dynamic = 'force-static';
 const release =
-  'https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.3';
+  'https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.4';
 const cli =
-  'https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.3/ruagentic-0.1.0-draft.3.tgz';
+  'https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.4/ruagentic-0.1.0-draft.4.tgz';
 
 export default function AdoptPage() {
   return (
@@ -99,7 +99,7 @@ agentic validate agentic.json openapi.json`}
           your profile and its OpenAPI operation bindings.
         </p>
         <CodeSample
-          value={`- uses: sam1siam/agentic@v0.1.0-draft.3
+          value={`- uses: sam1siam/agentic@v0.1.0-draft.4
   with:
     profile: agentic.json
     openapi: openapi.json`}
@@ -108,7 +108,7 @@ agentic validate agentic.json openapi.json`}
           <a href="https://github.com/sam1siam/agentic/blob/main/action.yml">
             Action reference ↗
           </a>
-          <a href="https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.3/agentic-adoption-skill.zip">
+          <a href="https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.4/agentic-adoption-skill.zip">
             Download the agent skill ↓
           </a>
         </div>

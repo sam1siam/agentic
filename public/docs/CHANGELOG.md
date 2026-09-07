@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0-draft.4 — 2026-09-07
+
+- Refresh the CLI documentation, downloadable agent skill, and generated starter README for direct use and compatibility testing.
+- Correct the conformance guide to distinguish hosted MCP, A2A, Agent Auth, and PostgreSQL coverage from remaining implementation gaps.
+- Include the production getting-started flow and retired enrollment status in a versioned release.
+- Preserve older release artifacts; the Agentic profile format and action-execution behavior are unchanged.
+
 ## Direct-use production launch — 2026-09-07
 
 - Replace pilot enrollment and cohort counters with a getting-started page for generators, hosted tools, CLI installation, the GitHub Action, and agent skill.
@@ -34,7 +41,7 @@ The Agentic profile remains `0.1.0-draft`. Tests are project-authored, and no in
 - Add a local MCP stdio server using the official SDK and a real client/server integration test.
 - Add a WebMCP generation tool and a protocol status / setup guide.
 
-Agentic protocol fields and action-execution behavior are unchanged. A2A and Agent Auth are discovery options, not hosted services.
+Agentic protocol fields and action-execution behavior are unchanged. At that release, A2A and Agent Auth were discovery options. Hosted implementations were subsequently added in draft.3.
 
 ## 0.1.0-draft.2 — 2026-09-07
 
