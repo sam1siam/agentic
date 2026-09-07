@@ -13,6 +13,7 @@ import { validateProfile } from '@/lib/validation';
 import { registerPageTool } from '@/lib/webmcp';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import DiscoveryGenerator from './discovery-generator';
+import OpenapiImport from './openapi-import';
 
 const basics: [keyof StarterSettings, string][] = [
   ['origin', 'Service origin'],
@@ -121,6 +122,7 @@ export default function ProfileGenerator() {
         <TabsList aria-label="Generator type">
           <TabsTrigger value="profile">Action profile</TabsTrigger>
           <TabsTrigger value="discovery">Discovery files</TabsTrigger>
+          <TabsTrigger value="openapi">Import OpenAPI</TabsTrigger>
         </TabsList>
         <TabsContent value="profile">
           <div className="two-col">
@@ -214,6 +216,7 @@ export default function ProfileGenerator() {
         <TabsContent value="discovery">
           <DiscoveryGenerator />
         </TabsContent>
+        <TabsContent value="openapi"><OpenapiImport /></TabsContent>
       </Tabs>
       <section className="example-section" id="protocols">
         <h2>What is connected today?</h2>
@@ -227,15 +230,15 @@ export default function ProfileGenerator() {
               <tr>
                 <th>Protocol</th>
                 <th>Available here</th>
-                <th>What remains</th>
+                <th>Scope</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>MCP</td>
-                <td>Runnable local tool server</td>
+                <td>Public HTTP and local stdio tool servers</td>
                 <td>
-                  Connect a host using the setup guide; no public MCP endpoint.
+                  Specification, generation, validation, and read-only URL audits.
                 </td>
               </tr>
               <tr>
@@ -245,19 +248,19 @@ export default function ProfileGenerator() {
               </tr>
               <tr>
                 <td>A2A</td>
-                <td>AgentCard discovery declaration generator</td>
-                <td>No hosted A2A agent or task transport.</td>
+                <td>Hosted testing agent and persistent tasks</td>
+                <td>A2A 1.0 JSON-RPC with private sandbox credentials.</td>
               </tr>
               <tr>
                 <td>Agent Auth</td>
-                <td>Discovery declaration generator and setup guide</td>
-                <td>No identity, grant, approval, or revocation service.</td>
+                <td>Registration, signed execution, grants, and revocation</td>
+                <td>Autonomous validation and isolated synthetic testing.</td>
               </tr>
             </tbody>
           </table>
         </div>
         <div className="doc-utilities">
-          <a href="/docs/PROTOCOLS.md">Connect protocols →</a>
+          <Link href="/connect">Connect protocols →</Link>
         </div>
       </section>
     </main>

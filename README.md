@@ -20,7 +20,7 @@ npm test
 npm run dev
 ```
 
-The site includes the draft, profile generator, examples, documentation hub, validator, browser recovery lab, comparison report, and pilot enrollment. It exports static assets for Vercel; see docs/DEPLOYMENT.md. Start with [the quick start](docs/QUICKSTART.md).
+The site includes the draft, OpenAPI import and discovery generators, validator, browser lab, and pilot enrollment. The [hosted platform](https://ruagentic.org/platform/) adds real HTTP/PostgreSQL recovery tests, read-only public URL audits, private report history and sharing. [Connect an agent](https://ruagentic.org/connect/) through MCP, WebMCP, A2A 1.0 or autonomous Agent Auth. The static site and Node API deploy together on Vercel; see [platform operations](docs/PLATFORM.md). Start with [the quick start](docs/QUICKSTART.md).
 
 ## Real HTTP recovery example
 Start the loopback-only SQLite service in one terminal:
@@ -57,7 +57,7 @@ The validator never fetches a remote schema or executes advertised operations. T
 npm run init -- --origin https://your-service.example --out agentic.json
 ```
 
-This creates a ticket-contract starter and refuses to overwrite an existing file. Adapt its operations and evidence to your service. The same starting contract is available in the [browser generator](https://ruagentic.org/generate/). No npm package has been published.
+This creates a ticket-contract starter and refuses to overwrite an existing file. Adapt its operations and evidence to your service. The [browser generator](https://ruagentic.org/generate/) also imports OpenAPI and downloads a complete starter ZIP. The standalone CLI tarball is distributed through [GitHub releases](https://github.com/sam1siam/agentic/releases); see [CLI usage](packages/cli/README.md). A reusable [GitHub Action](action.yml) and [adoption skill](skills/agentic-adoption/SKILL.md) are included.
 
 ## Independent pilots
 Enrollment is open through the [pilot application](https://github.com/sam1siam/agentic/issues/new?template=pilot.yml). No external participants are confirmed yet.

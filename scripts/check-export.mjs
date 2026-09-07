@@ -8,6 +8,8 @@ const routes = [
   'generate/',
   'examples/',
   'docs/',
+  'platform/',
+  'connect/',
 ];
 for (const route of routes) {
   const file = 'dist/client/' + route + 'index.html';
@@ -26,6 +28,7 @@ for (const route of routes) {
     (m) => m[1],
   );
   for (const link of links) {
+    if (/^\/(?:api\/platform\/|mcp\/?$|a2a\/?$|\.well-known\/)/.test(link)) continue;
     const target = 'dist/client' + link;
     if (link.endsWith('/')) await access(target + 'index.html');
     else if (!link.split('/').at(-1).includes('.'))
@@ -53,5 +56,5 @@ for (const file of [
 ])
   await access('dist/client/' + file);
 console.log(
-  'Verified all eight exported pages, local links, Markdown alternatives, assets, and core downloads.',
+  'Verified all ten exported pages, local links, Markdown alternatives, assets, and core downloads.',
 );

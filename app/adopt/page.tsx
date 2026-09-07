@@ -60,6 +60,7 @@ export default function AdoptPage() {
       </div>
       <section className="docs-banner" style={{ marginBottom: 35 }}>
         <h2>A small, two-week pilot</h2>
+        <div className="doc-utilities"><Link href="/platform">Try the hosted sandbox and save evidence →</Link><Link href="/connect">Connect your own agent →</Link></div>
         <p>
           After your team agrees to participate, choose one sandbox action. Run
           the seven compatibility scenarios, compare with your existing

@@ -1,5 +1,5 @@
 # GitHub, Vercel, and ruagentic.org
-The website exports static HTML, JavaScript, schemas, examples, and documentation. It needs no database, API key, environment secret, or runtime backend. The interactive lab is a browser simulation; the real HTTP/SQLite service is a separate local reference application.
+The website exports static HTML, JavaScript, schemas, examples and documentation. The hosted platform adds a Node 24 Vercel Function and a Neon PostgreSQL database. Its required secrets, migrations, direct-connection requirements, retention and cron setup are documented in [Platform operations](PLATFORM.md). The browser lab remains a simulation; the HTTP/SQLite reference service remains a separate loopback application.
 
 ## Vercel
 Import sam1siam/agentic into the intended Vercel account.
@@ -9,7 +9,7 @@ Import sam1siam/agentic into the intended Vercel account.
 - Build command: npm run build.
 - Output directory: dist/client.
 - Node.js: 24.x.
-vercel.json contains the build and output settings. The Vinext starter is retained with static export enabled; Vercel serves the output as a static site.
+vercel.json contains static output settings, API rewrites and a daily cleanup cron. Vinext exports the frontend; `api/platform.ts` serves the runtime endpoints. Production secrets are configured in Vercel, not in the exported files.
 
 Run npm test and npm run build before publishing changes. npm run build prepares public artifacts and exports the website. It does not run Python tests; CI runs those separately.
 

@@ -6,6 +6,23 @@
     "url": "https://ruagentic.org",
     "description": "Experimental action-recovery profile, documentation, and developer tools."
   },
+  "mcp": [
+    {
+      "url": "https://ruagentic.org/mcp",
+      "type": "streamable-http"
+    }
+  ],
+  "a2a": [
+    {
+      "url": "https://ruagentic.org/.well-known/agent-card.json"
+    }
+  ],
+  "authorization": {
+    "protocols": [
+      "agent-auth"
+    ],
+    "discovery": "/.well-known/agent-configuration"
+  },
   "webmcp": [
     {
       "url": "https://ruagentic.org/generate/",

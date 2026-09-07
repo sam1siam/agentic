@@ -39,6 +39,7 @@ export default function RootLayout({
               <Link href="/spec">Specification</Link>
               <Link href="/examples">Examples</Link>
               <Link href="/validate">Validator</Link>
+              <Link href="/platform">Platform</Link>
               <Link href="/docs">Docs</Link>
               <Link href="/adopt">Pilots</Link>
               <a

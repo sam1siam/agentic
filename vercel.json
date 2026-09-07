@@ -5,7 +5,44 @@
   "outputDirectory": "dist/client",
   "cleanUrls": true,
   "trailingSlash": true,
+  "functions": {
+    "api/platform.ts": { "maxDuration": 60, "includeFiles": "docs/SPEC.md" }
+  },
+  "rewrites": [
+    { "source": "/api/platform/:path*", "destination": "/api/platform" },
+    { "source": "/api/auth/:path*", "destination": "/api/platform" },
+    { "source": "/mcp", "destination": "/api/platform" },
+    { "source": "/a2a", "destination": "/api/platform" },
+    {
+      "source": "/.well-known/agent-card.json",
+      "destination": "/api/platform"
+    },
+    {
+      "source": "/.well-known/agent-configuration",
+      "destination": "/api/platform"
+    }
+  ],
+  "crons": [{ "path": "/api/platform/cleanup", "schedule": "0 5 * * *" }],
   "headers": [
+    {
+      "source": "/platform/",
+      "headers": [
+        { "key": "Referrer-Policy", "value": "no-referrer" },
+        {
+          "key": "Link",
+          "value": "</platform/index.md>; rel=\"alternate\"; type=\"text/markdown\", </llms.txt>; rel=\"describedby\""
+        }
+      ]
+    },
+    {
+      "source": "/connect/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</connect/index.md>; rel=\"alternate\"; type=\"text/markdown\", </llms.txt>; rel=\"describedby\""
+        }
+      ]
+    },
     {
       "source": "/agents.:ext(txt|json)",
       "headers": [

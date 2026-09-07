@@ -6,6 +6,7 @@
 
 - [Quick start](QUICKSTART.md): Installation, synthetic ticket action, recovery, and troubleshooting.
 - [Generator](GENERATOR.md): Browser and local profile creation.
+- [Hosted platform](PLATFORM.md): HTTP recovery tests, public URL audits, private history, sharing and operations.
 - [Examples](EXAMPLES.md): Complete profile, OpenAPI contract, and illustrative receipt.
 - [FAQ](FAQ.md): Support, service requirements, safety boundaries, and draft status.
 
@@ -13,7 +14,7 @@
 
 - [Normative specification](SPEC.md): Protocol requirements.
 - [Integration guide](INTEGRATIONS.md): Client, service, and adjacent-convention integration.
-- [Protocol setup](PROTOCOLS.md): MCP server, WebMCP tools, A2A and Agent Auth discovery, and implementation status.
+- [Protocol setup](PROTOCOLS.md): Public MCP, WebMCP tools, A2A testing tasks, and autonomous Agent Auth.
 - [Validator](VALIDATOR.md): Structure and binding checks.
 - [Recovery lab](LAB.md): Browser scenarios and their limitations.
 - [Compatibility runner](PILOT-RUNNER.md): Run independently written client code.

@@ -44,3 +44,12 @@ next-env.d.ts
 *.sqlite3-wal
 __pycache__/
 *.tsbuildinfo
+/packages/cli/dist/
+/packages/cli/SPEC.md
+/packages/cli/LICENSE
+*.tgz
+/.agents/
+/skills-lock.json
+
+.vercel
+.env*

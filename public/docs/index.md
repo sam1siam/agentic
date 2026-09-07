@@ -6,6 +6,7 @@
 
 - [Quick start](https://ruagentic.org/docs/QUICKSTART.md): Installation, synthetic ticket action, recovery, and troubleshooting.
 - [Generator](https://ruagentic.org/docs/GENERATOR.md): Browser and local profile creation.
+- [Hosted platform](https://ruagentic.org/docs/PLATFORM.md): HTTP recovery tests, public URL audits, private history, sharing and operations.
 - [Examples](https://ruagentic.org/docs/EXAMPLES.md): Complete profile, OpenAPI contract, and illustrative receipt.
 - [FAQ](https://ruagentic.org/docs/FAQ.md): Support, service requirements, safety boundaries, and draft status.
 
@@ -13,7 +14,7 @@
 
 - [Normative specification](https://ruagentic.org/docs/SPEC.md): Protocol requirements.
 - [Integration guide](https://ruagentic.org/docs/INTEGRATIONS.md): Client, service, and adjacent-convention integration.
-- [Protocol setup](https://ruagentic.org/docs/PROTOCOLS.md): MCP server, WebMCP tools, A2A and Agent Auth discovery, and implementation status.
+- [Protocol setup](https://ruagentic.org/docs/PROTOCOLS.md): Public MCP, WebMCP tools, A2A testing tasks, and autonomous Agent Auth.
 - [Validator](https://ruagentic.org/docs/VALIDATOR.md): Structure and binding checks.
 - [Recovery lab](https://ruagentic.org/docs/LAB.md): Browser scenarios and their limitations.
 - [Compatibility runner](https://ruagentic.org/docs/PILOT-RUNNER.md): Run independently written client code.

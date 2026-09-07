@@ -1,0 +1,13 @@
+{
+  "name": "ruagentic",
+  "version": "0.1.0-draft.3",
+  "description": "Experimental Agentic action-profile generator, validator, public URL auditor and MCP tools.",
+  "type": "module",
+  "bin": { "agentic": "dist/cli.mjs" },
+  "files": ["dist/", "SPEC.md", "LICENSE", "README.md"],
+  "engines": { "node": ">=24" },
+  "license": "Apache-2.0",
+  "homepage": "https://ruagentic.org",
+  "repository": { "type": "git", "url": "git+https://github.com/sam1siam/agentic.git", "directory": "packages/cli" },
+  "publishConfig": { "access": "public" }
+}

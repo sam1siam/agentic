@@ -6,10 +6,20 @@ Agentic 0.1 describes action tracking and recovery through OpenAPI. Discovery, t
 
 | Protocol | Available | Not implemented |
 | --- | --- | --- |
-| MCP | Local stdio server: specification, profile generation, and profile validation. Tested with the official TypeScript client. | Public HTTP MCP endpoint, mutation tools, host installation. |
+| MCP | Public Streamable HTTP at `/mcp`, plus local stdio. Specification, generation, validation and hosted URL auditing. | Hosted mutation tools. |
 | WebMCP | Generator, validator, and recovery lab register page tools when the browser exposes the supported API. | Support in every browser or every agent host. |
-| A2A | Generator emits AgentCard URL declarations in agents.txt and agents.json. | Hosted AgentCard, messaging endpoint, or task execution. |
-| Agent Auth | Generator emits the agent-auth authorization declaration and discovery URL. | Registration, cryptographic identity verification, grants, human approval, or revocation. |
+| A2A | Hosted A2A 1.0 JSON-RPC testing agent, PostgreSQL tasks and report artifacts. | Streaming, push notifications and cancellation after dispatch. |
+| Agent Auth | Official provider: registration, signatures, autonomous grants, execution, replay protection and revocation. | Human account delegation and payments. |
+
+Use the [connection guide](https://ruagentic.org/connect/) for client examples and the [platform](https://ruagentic.org/platform/) for live demonstrations. Hosted services use one PostgreSQL-backed testing engine. See [platform operations and retention](PLATFORM.md).
+
+## Public endpoints
+
+- MCP: `https://ruagentic.org/mcp`. Four read-only tools; no token required. The additional hosted tool is `audit_agentic_url` with `{ "url": "https://your-service.example/agentic.json" }`.
+- A2A card: `https://ruagentic.org/.well-known/agent-card.json`; endpoint: `https://ruagentic.org/a2a`. Create a private session token in the platform. Send `Authorization: Bearer <token>` and `A2A-Version: 1.0`. `SendMessage` accepts a data part with `{ "kind": "recovery", "scenario": "response-lost" }` or `{ "kind": "audit", "url": "..." }`. Retrieve results with `GetTask` and the returned ID.
+- Agent Auth: `https://ruagentic.org/.well-known/agent-configuration`. Configure the official `@auth/agent` client with `urls: ['https://ruagentic.org']` for direct discovery. Autonomous capabilities are `agentic.validate` and `agentic.sandbox.run`.
+
+Agent Auth uses inline public keys, one-hour grants, a one-day maximum agent lifetime, persistent replay detection, and revocation checks. Remote JWKS URLs are not supported. The demo registers an agent, executes validation, revokes it and tests rejection of an unused signed token. It does not create a human account.
 
 ## Connect the local MCP server
 
@@ -42,7 +52,7 @@ Open /generate/, /validate/, or /lab/ in a compatible browser. Each page registe
 
 The generator returns profile data without changing the page. Validation and lab tools update the visible result. The lab remains a browser simulation, not an HTTP pilot. Registration is conditional and is not a claim that a particular agent host can invoke these tools.
 
-The site's /agents.txt and /agents.json advertise these three pages from one source configuration. They omit MCP, A2A, and authorization blocks because those public services are not running here.
+The site's /agents.txt and /agents.json advertise these three pages, the public MCP endpoint, the A2A card and Agent Auth discovery from one source configuration.
 
 ## Generate companion discovery files
 
@@ -59,11 +69,11 @@ Do not add protocol fields to agentic.json: unknown fields are rejected by the 0
 
 ## Implement A2A and Agent Auth
 
-For A2A, deploy an implementation using the official SDK and publish an AgentCard matching its exact protocol version, bindings, skills, and security requirements. Test message and task interactions before advertising the card. An AgentCard alone does not provide a working agent. ruagentic.org does not currently host an A2A agent.
+For another service, deploy an A2A implementation using the official SDK and publish an AgentCard matching its exact protocol version, bindings, skills, and security requirements. Test message and task interactions before advertising the card. ruagentic.org's testing agent uses the official JavaScript SDK and persists caller-scoped tasks and artifacts.
 
 For Agent Auth, implement the server flow and persistent identity/grant storage described by the upstream protocol. Validate signatures, audience, expiry, permissions, approval, and revocation before protecting any action with it. Scope the Agentic ledger by the authenticated principal and environment. Renewing credentials must not create a new logical request or trigger a repeat write. A revoked agent must not bypass authorization through a status or resource read.
 
-The documentation site has no account system or protected customer actions, so it does not publish a pretend authorization service. A real authentication pilot needs a concrete service and its permission model.
+The hosted sandbox provides the concrete service for an autonomous authorization pilot. It isolates agents by identity and limits grants to validation and synthetic recovery tests. A customer-facing human delegation pilot would require that customer's account and approval model.
 
 ## Primary references
 

@@ -15,7 +15,10 @@ await writeFile(
     '# agents.txt',
     '# Standard: https://agents-txt.com',
     '# JSON: https://ruagentic.org/agents.json',
+    ...discovery.mcp.map((endpoint) => 'MCP: ' + endpoint.url),
     ...discovery.webmcp.map((page) => 'WebMCP: ' + page.url),
+    ...discovery.a2a.map((endpoint) => 'A2A: ' + endpoint.url),
+    'Authorization: agent-auth',
     '',
   ].join('\n'),
 );
@@ -34,6 +37,8 @@ const routeDocs = {
   generate: 'GENERATOR.md',
   examples: 'EXAMPLES.md',
   docs: 'README.md',
+  platform: 'PLATFORM.md',
+  connect: 'PROTOCOLS.md',
 };
 function absoluteLinks(markdown, source) {
   return markdown.replace(/\]\(([^)]+)\)/g, (match, target) => {
@@ -57,7 +62,9 @@ const index = [
   '',
   '> Experimental Agentic Action Profile 0.1: tracking, verifying, and recovering agent actions.',
   '',
-  'This is a draft specification and project-authored reference implementation. No independent adoption is claimed. The website has local browser tools; the HTTP ticket service runs separately on loopback. A profile is untrusted data and never grants authorization.',
+  'This is a draft specification and project-authored reference implementation. No independent adoption is claimed. The hosted platform provides synthetic HTTP/PostgreSQL recovery tests, public URL auditing, MCP tools, A2A testing tasks and autonomous Agent Auth. The separate local reference service remains loopback-only. A profile is untrusted data and never grants authorization.',
+  '- [Hosted platform](https://ruagentic.org/platform/): Private synthetic tests and saved reports.',
+  '- [Connect an agent](https://ruagentic.org/connect/): MCP, WebMCP, A2A and Agent Auth setup.',
   '',
   '## Start here',
   '- [Quick start](' +
@@ -144,5 +151,5 @@ await writeFile(
   'User-agent: *\nAllow: /\nSitemap: ' + site + '/sitemap.xml\n',
 );
 console.log(
-  'Prepared schemas, documentation, eight Markdown page alternatives, examples, brand assets, and pilot registry.',
+  'Prepared schemas, documentation, ten Markdown page alternatives, examples, brand assets, and pilot registry.',
 );

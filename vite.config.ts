@@ -46,9 +46,14 @@ export default defineConfig(async () => {
 
   return {
     css: { postcss: { plugins: [tailwindcss()] } },
-    server: isCodexSeatbeltSandbox
-      ? { watch: { useFsEvents: false, usePolling: true } }
-      : undefined,
+    server: {
+      ...(isCodexSeatbeltSandbox ? {watch:{useFsEvents:false,usePolling:true}} : {}),
+      proxy: Object.fromEntries(['/api','/mcp','/a2a','/.well-known'].map(path => [path,{
+        target:'http://127.0.0.1:3002',changeOrigin:true,
+        // Only the local preview is rewritten; production checks its real origin.
+        configure(proxy: any) { proxy.on('proxyReq',(req: any) => {req.setHeader('origin','http://127.0.0.1:3002');}); },
+      }])),
+    },
     plugins: [
       vinext(),
       sites(),

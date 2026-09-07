@@ -1,6 +1,6 @@
 # Published routes and capabilities
 
-This inventory distinguishes documentation and browser tools from the local reference API.
+This inventory distinguishes browser tools, hosted services and the separate local reference API.
 
 | Route | What is available |
 | --- | --- |
@@ -12,8 +12,16 @@ This inventory distinguishes documentation and browser tools from the local refe
 | /lab/ | In-memory recovery comparison; no production API calls |
 | /docs/ | Guide index, quick start, FAQ, and reference links |
 | /adopt/ | Pilot enrollment, evidence policy, and comparison results |
+| /platform/ | Hosted recovery tests, URL auditor, Agent Auth demo and private/shared reports |
+| /connect/ | Public MCP, WebMCP, A2A and Agent Auth client setup |
+| /mcp | Read-only Streamable HTTP MCP tools |
+| /a2a | Authenticated A2A 1.0 JSON-RPC testing tasks |
+| /.well-known/agent-card.json | A2A card matching the hosted agent |
+| /.well-known/agent-configuration | Live autonomous Agent Auth provider discovery |
+| /api/platform/* | Isolated sandbox, auditing, sessions and evidence reports |
+| /api/auth/* | Official Agent Auth registration, grants, execution and revocation |
 | /llms.txt | Concise Markdown documentation index |
-| /agents.txt and /agents.json | Discovery declarations for the three conditional WebMCP pages |
+| /agents.txt and /agents.json | Public MCP, A2A, Agent Auth and conditional WebMCP discovery |
 | /llms-full.txt | Optional combined documentation bundle |
 | /docs/*.md | Plain Markdown source documents |
 | /schemas/*.json | Versioned profile and receipt schemas |
@@ -25,4 +33,4 @@ This inventory distinguishes documentation and browser tools from the local refe
 
 Every human route has an `index.md` alternative. HTML metadata exposes `rel="alternate"` with `type="text/markdown"`; the deployment's Link header also identifies the relevant alternate and `/llms.txt` as `describedby`.
 
-The documentation website has no ticket-creation endpoint, hosted MCP endpoint, A2A agent, Agent Auth server, payment system, or production Agentic execution backend. A separate local stdio MCP server provides specification, generation, and validation tools; see [Protocol setup](PROTOCOLS.md). The local Python reference server serves `/agentic.json`, `/openapi.json`, `/tickets`, `/requests/{requestId}`, and `/tickets/{ticketId}` on loopback only. Optional WebMCP tools are registered on /generate/, /validate/, and /lab/ where supported; broad runtime compatibility has not been verified.
+The hosted runtime uses PostgreSQL and Node 24 Vercel Functions; see [platform operations](PLATFORM.md). It provides synthetic testing, not customer actions or payments. The separate local Python reference server still serves `/agentic.json`, `/openapi.json`, `/tickets`, `/requests/{requestId}`, and `/tickets/{ticketId}` on loopback only. Optional WebMCP tools remain conditional on browser support.

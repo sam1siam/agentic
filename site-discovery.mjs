@@ -1,5 +1,4 @@
-// Advertise only browser tools implemented by this documentation site.
-// The local stdio MCP server has no public HTTP endpoint to declare.
+// Public declarations must match tested, deployed runtime capabilities.
 export default {
   version: '1.0',
   standard: 'https://agents-txt.com',
@@ -9,6 +8,9 @@ export default {
     description:
       'Experimental action-recovery profile, documentation, and developer tools.',
   },
+  mcp: [{url:'https://ruagentic.org/mcp',type:'streamable-http'}],
+  a2a: [{url:'https://ruagentic.org/.well-known/agent-card.json'}],
+  authorization: {protocols:['agent-auth'],discovery:'/.well-known/agent-configuration'},
   webmcp: [
     {
       url: 'https://ruagentic.org/generate/',

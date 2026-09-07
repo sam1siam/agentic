@@ -119,7 +119,7 @@ No production traffic, independent security audit, statistical reliability estim
 Source: https://ruagentic.org/docs/DEPLOYMENT.md
 
 # GitHub, Vercel, and ruagentic.org
-The website exports static HTML, JavaScript, schemas, examples, and documentation. It needs no database, API key, environment secret, or runtime backend. The interactive lab is a browser simulation; the real HTTP/SQLite service is a separate local reference application.
+The website exports static HTML, JavaScript, schemas, examples and documentation. The hosted platform adds a Node 24 Vercel Function and a Neon PostgreSQL database. Its required secrets, migrations, direct-connection requirements, retention and cron setup are documented in [Platform operations](https://ruagentic.org/docs/PLATFORM.md). The browser lab remains a simulation; the HTTP/SQLite reference service remains a separate loopback application.
 
 ## Vercel
 Import sam1siam/agentic into the intended Vercel account.
@@ -129,7 +129,7 @@ Import sam1siam/agentic into the intended Vercel account.
 - Build command: npm run build.
 - Output directory: dist/client.
 - Node.js: 24.x.
-vercel.json contains the build and output settings. The Vinext starter is retained with static export enabled; Vercel serves the output as a static site.
+vercel.json contains static output settings, API rewrites and a daily cleanup cron. Vinext exports the frontend; `api/platform.ts` serves the runtime endpoints. Production secrets are configured in Vercel, not in the exported files.
 
 Run npm test and npm run build before publishing changes. npm run build prepares public artifacts and exports the website. It does not run Python tests; CI runs those separately.
 
@@ -217,7 +217,7 @@ Open [the browser generator](https://ruagentic.org/generate/) to customize a tic
 
 Editable settings: canonical HTTPS origin, action ID and description, OpenAPI path, submit/status/verify operation IDs, retention window, read path parameter names, resource/request/state JSON Pointers, accepted resource states, and one input/resource evidence pair. The full schema permits more evidence pairs and actions; edit the JSON for those cases.
 
-The generator keeps the 0.1 recovery defaults: three checks, a 100 ms check delay, a 3000 ms request timeout, and `never-automatically` for mutation retries. It validates structure and semantic profile constraints; it does not check your OpenAPI document or implement the server behavior.
+The manual generator keeps the 0.1 recovery defaults: three checks, a 100 ms check delay, a 3000 ms request timeout, and `never-automatically` for mutation retries. It validates structure and semantic profile constraints. The OpenAPI import mode also checks operation bindings. Neither implements service behavior.
 
 After generation, paste the profile and your actual OpenAPI document into [the validator](https://ruagentic.org/validate/), then run behavioral tests before publishing.
 
@@ -227,7 +227,13 @@ Local equivalent:
 npm run init -- --origin https://service.example --out agentic.json
 ```
 
-Optional `--action-id` changes the action identifier. Other ticket bindings remain unchanged until you edit the generated JSON. The initializer refuses to overwrite an existing path. `--help` shows supported flags. Node 24 is required; these are repository commands, not a published npm package.
+Optional `--action-id` changes the action identifier. Other ticket bindings remain unchanged until you edit the generated JSON. The initializer refuses to overwrite an existing path. `--help` shows supported flags. Node 24 is required. A standalone CLI tarball is also provided in [GitHub releases](https://github.com/sam1siam/agentic/releases).
+
+## Import OpenAPI
+
+Select **Import OpenAPI** and upload or paste an OpenAPI 3.1 JSON document, up to 256 KiB. Choose the POST submission, GET request-status operation and GET resource-read operation. Set the service origin, tracking window, successful states and evidence pointers. The importer derives each read path parameter from the selected operation.
+
+The preview validates the generated profile against the imported API. Resolve unsupported operation shapes and evidence requirements before downloading. **Download starter ZIP** includes `agentic.json`, the imported `openapi.json`, and an implementation checklist. It never uploads the file or infers durable tracking from the API description.
 
 ## Discovery files
 
@@ -481,6 +487,51 @@ The runner does not test production authentication, principal isolation, distrib
 
 ---
 
+Source: https://ruagentic.org/docs/PLATFORM.md
+
+# Hosted testing platform
+
+The [Agentic platform](https://ruagentic.org/platform/) runs synthetic recovery tests over HTTP with a PostgreSQL service and request ledger. This is separate from the browser lab simulation and the loopback Python reference service.
+
+## Recovery sandbox
+
+Start a test to create an isolated private session. Choose normal completion, response failure after commit, interruption after submission, status outage, mismatched evidence, or pending status. Only the fixed synthetic ticket input is used by the console.
+
+The response-failure scenario returns HTTP 503 after the resource commit. It does not claim to reproduce a physical network disconnect. The interruption scenario stops client execution after submission. Resume starts a fresh HTTP invocation and reconstructs the client from the persisted PostgreSQL ledger, with no repeat submission. The local pilot harness additionally tests actual process termination.
+
+Each report includes observed HTTP responses, a recovery trace, the receipt, committed-write count, resource count, and status reads. A structure pass, project-authored test, or synthetic result is not independent certification.
+
+The service profile is at https://ruagentic.org/api/platform/service/agentic.json and its OpenAPI document at https://ruagentic.org/api/platform/service/openapi.json. Service operations require the session bearer token or authenticated internal execution. Request IDs are scoped to the principal. The tracking window is 24 hours; retained tombstones prevent reuse of an old request ID from creating another resource.
+
+## Public URL auditor
+
+The auditor reads a supplied HTTPS profile URL, same-origin OpenAPI bindings, and agents.txt, agents.json, and llms.txt. It reports content types, sizes, and status codes. It makes no action submissions and does not prove runtime idempotency, authorization, retention, or recovery behavior.
+
+Only public HTTPS on port 443 is accepted. All resolved IP addresses must be public. Connections pin the resolved address while retaining TLS hostname verification. Redirects, compressed responses, private networks, credentials in URLs, oversized bodies, and long requests are rejected. The profile limit is 64 KiB; OpenAPI is 256 KiB per document, up to five documents.
+
+## Reports and sessions
+
+Private reports and A2A tasks are isolated by session or authenticated agent. The console shows up to 100 recent reports. Reports expire after 30 days. A daily cleanup removes expired reports, tasks and temporary cache entries. An explicit sharing action creates an unguessable report link; disabling sharing immediately invalidates it.
+
+Session credentials are random, stored as hashes, and delivered in an HttpOnly, SameSite cookie. Exporting a bearer token rotates the browser's credential. Revoking the session invalidates that token and private-history access. This anonymous sandbox does not offer customer account recovery or cross-device login. Do not submit secrets or personal information in audit URLs or uploaded profiles.
+
+## Agent connections
+
+See [Connect an agent](https://ruagentic.org/connect/): public MCP, conditional WebMCP page tools, A2A 1.0 JSON-RPC testing tasks, and autonomous Agent Auth registration, grants, execution and revocation.
+
+## Operations
+
+The static website and Node 24 Vercel Function share one deployment. A free Neon PostgreSQL database stores requests, ledgers, reports, tasks, rate limits and Agent Auth state. Direct database connections are required for PostgreSQL session advisory locks. Neon transaction-pooled URLs must not be used for those locks.
+
+Required environment variables: `DATABASE_URL_UNPOOLED` (or direct `DATABASE_URL`), `BETTER_AUTH_SECRET`, `CRON_SECRET`, and `AGENTIC_ORIGIN=https://ruagentic.org`. Keep them in the hosting environment. Run `node scripts/platform-migrate.ts` before deployment with those variables available. Never run migrations on each HTTP request.
+
+Public requests are rate limited in PostgreSQL; testing, auditing and registration have additional limits. Logs contain route, method, response status and duration, not bearer credentials, bodies or query strings. Daily cleanup uses a secret-protected Vercel cron endpoint. Requests and ledger tombstones outlive the 24-hour tracking window to prevent duplicate writes.
+
+For local development, use an isolated PostgreSQL database, set `.env.platform-test`, run migrations and `npm run platform:dev`, then `npm run dev`. The frontend development proxy connects to the loopback platform server on port 3002. `AGENTIC_ALLOW_LOCAL=1` is for local tests only.
+
+
+---
+
 Source: https://ruagentic.org/docs/PRIOR-ART.md
 
 # Prior work and positioning
@@ -513,10 +564,20 @@ Agentic 0.1 describes action tracking and recovery through OpenAPI. Discovery, t
 
 | Protocol | Available | Not implemented |
 | --- | --- | --- |
-| MCP | Local stdio server: specification, profile generation, and profile validation. Tested with the official TypeScript client. | Public HTTP MCP endpoint, mutation tools, host installation. |
+| MCP | Public Streamable HTTP at `/mcp`, plus local stdio. Specification, generation, validation and hosted URL auditing. | Hosted mutation tools. |
 | WebMCP | Generator, validator, and recovery lab register page tools when the browser exposes the supported API. | Support in every browser or every agent host. |
-| A2A | Generator emits AgentCard URL declarations in agents.txt and agents.json. | Hosted AgentCard, messaging endpoint, or task execution. |
-| Agent Auth | Generator emits the agent-auth authorization declaration and discovery URL. | Registration, cryptographic identity verification, grants, human approval, or revocation. |
+| A2A | Hosted A2A 1.0 JSON-RPC testing agent, PostgreSQL tasks and report artifacts. | Streaming, push notifications and cancellation after dispatch. |
+| Agent Auth | Official provider: registration, signatures, autonomous grants, execution, replay protection and revocation. | Human account delegation and payments. |
+
+Use the [connection guide](https://ruagentic.org/connect/) for client examples and the [platform](https://ruagentic.org/platform/) for live demonstrations. Hosted services use one PostgreSQL-backed testing engine. See [platform operations and retention](https://ruagentic.org/docs/PLATFORM.md).
+
+## Public endpoints
+
+- MCP: `https://ruagentic.org/mcp`. Four read-only tools; no token required. The additional hosted tool is `audit_agentic_url` with `{ "url": "https://your-service.example/agentic.json" }`.
+- A2A card: `https://ruagentic.org/.well-known/agent-card.json`; endpoint: `https://ruagentic.org/a2a`. Create a private session token in the platform. Send `Authorization: Bearer <token>` and `A2A-Version: 1.0`. `SendMessage` accepts a data part with `{ "kind": "recovery", "scenario": "response-lost" }` or `{ "kind": "audit", "url": "..." }`. Retrieve results with `GetTask` and the returned ID.
+- Agent Auth: `https://ruagentic.org/.well-known/agent-configuration`. Configure the official `@auth/agent` client with `urls: ['https://ruagentic.org']` for direct discovery. Autonomous capabilities are `agentic.validate` and `agentic.sandbox.run`.
+
+Agent Auth uses inline public keys, one-hour grants, a one-day maximum agent lifetime, persistent replay detection, and revocation checks. Remote JWKS URLs are not supported. The demo registers an agent, executes validation, revokes it and tests rejection of an unused signed token. It does not create a human account.
 
 ## Connect the local MCP server
 
@@ -549,7 +610,7 @@ Open /generate/, /validate/, or /lab/ in a compatible browser. Each page registe
 
 The generator returns profile data without changing the page. Validation and lab tools update the visible result. The lab remains a browser simulation, not an HTTP pilot. Registration is conditional and is not a claim that a particular agent host can invoke these tools.
 
-The site's /agents.txt and /agents.json advertise these three pages from one source configuration. They omit MCP, A2A, and authorization blocks because those public services are not running here.
+The site's /agents.txt and /agents.json advertise these three pages, the public MCP endpoint, the A2A card and Agent Auth discovery from one source configuration.
 
 ## Generate companion discovery files
 
@@ -566,11 +627,11 @@ Do not add protocol fields to agentic.json: unknown fields are rejected by the 0
 
 ## Implement A2A and Agent Auth
 
-For A2A, deploy an implementation using the official SDK and publish an AgentCard matching its exact protocol version, bindings, skills, and security requirements. Test message and task interactions before advertising the card. An AgentCard alone does not provide a working agent. ruagentic.org does not currently host an A2A agent.
+For another service, deploy an A2A implementation using the official SDK and publish an AgentCard matching its exact protocol version, bindings, skills, and security requirements. Test message and task interactions before advertising the card. ruagentic.org's testing agent uses the official JavaScript SDK and persists caller-scoped tasks and artifacts.
 
 For Agent Auth, implement the server flow and persistent identity/grant storage described by the upstream protocol. Validate signatures, audience, expiry, permissions, approval, and revocation before protecting any action with it. Scope the Agentic ledger by the authenticated principal and environment. Renewing credentials must not create a new logical request or trigger a repeat write. A revoked agent must not bypass authorization through a status or resource read.
 
-The documentation site has no account system or protected customer actions, so it does not publish a pretend authorization service. A real authentication pilot needs a concrete service and its permission model.
+The hosted sandbox provides the concrete service for an autonomous authorization pilot. It isolates agents by identity and limits grants to validation and synthetic recovery tests. A customer-facing human delegation pilot would require that customer's account and approval model.
 
 ## Primary references
 
@@ -677,6 +738,7 @@ Source: https://ruagentic.org/docs/README.md
 
 - [Quick start](https://ruagentic.org/docs/QUICKSTART.md): Installation, synthetic ticket action, recovery, and troubleshooting.
 - [Generator](https://ruagentic.org/docs/GENERATOR.md): Browser and local profile creation.
+- [Hosted platform](https://ruagentic.org/docs/PLATFORM.md): HTTP recovery tests, public URL audits, private history, sharing and operations.
 - [Examples](https://ruagentic.org/docs/EXAMPLES.md): Complete profile, OpenAPI contract, and illustrative receipt.
 - [FAQ](https://ruagentic.org/docs/FAQ.md): Support, service requirements, safety boundaries, and draft status.
 
@@ -684,7 +746,7 @@ Source: https://ruagentic.org/docs/README.md
 
 - [Normative specification](https://ruagentic.org/docs/SPEC.md): Protocol requirements.
 - [Integration guide](https://ruagentic.org/docs/INTEGRATIONS.md): Client, service, and adjacent-convention integration.
-- [Protocol setup](https://ruagentic.org/docs/PROTOCOLS.md): MCP server, WebMCP tools, A2A and Agent Auth discovery, and implementation status.
+- [Protocol setup](https://ruagentic.org/docs/PROTOCOLS.md): Public MCP, WebMCP tools, A2A testing tasks, and autonomous Agent Auth.
 - [Validator](https://ruagentic.org/docs/VALIDATOR.md): Structure and binding checks.
 - [Recovery lab](https://ruagentic.org/docs/LAB.md): Browser scenarios and their limitations.
 - [Compatibility runner](https://ruagentic.org/docs/PILOT-RUNNER.md): Run independently written client code.
@@ -761,7 +823,7 @@ Source: https://ruagentic.org/docs/SITE-MAP.md
 
 # Published routes and capabilities
 
-This inventory distinguishes documentation and browser tools from the local reference API.
+This inventory distinguishes browser tools, hosted services and the separate local reference API.
 
 | Route | What is available |
 | --- | --- |
@@ -773,8 +835,16 @@ This inventory distinguishes documentation and browser tools from the local refe
 | /lab/ | In-memory recovery comparison; no production API calls |
 | /docs/ | Guide index, quick start, FAQ, and reference links |
 | /adopt/ | Pilot enrollment, evidence policy, and comparison results |
+| /platform/ | Hosted recovery tests, URL auditor, Agent Auth demo and private/shared reports |
+| /connect/ | Public MCP, WebMCP, A2A and Agent Auth client setup |
+| /mcp | Read-only Streamable HTTP MCP tools |
+| /a2a | Authenticated A2A 1.0 JSON-RPC testing tasks |
+| /.well-known/agent-card.json | A2A card matching the hosted agent |
+| /.well-known/agent-configuration | Live autonomous Agent Auth provider discovery |
+| /api/platform/* | Isolated sandbox, auditing, sessions and evidence reports |
+| /api/auth/* | Official Agent Auth registration, grants, execution and revocation |
 | /llms.txt | Concise Markdown documentation index |
-| /agents.txt and /agents.json | Discovery declarations for the three conditional WebMCP pages |
+| /agents.txt and /agents.json | Public MCP, A2A, Agent Auth and conditional WebMCP discovery |
 | /llms-full.txt | Optional combined documentation bundle |
 | /docs/*.md | Plain Markdown source documents |
 | /schemas/*.json | Versioned profile and receipt schemas |
@@ -786,7 +856,7 @@ This inventory distinguishes documentation and browser tools from the local refe
 
 Every human route has an `index.md` alternative. HTML metadata exposes `rel="alternate"` with `type="text/markdown"`; the deployment's Link header also identifies the relevant alternate and `/llms.txt` as `describedby`.
 
-The documentation website has no ticket-creation endpoint, hosted MCP endpoint, A2A agent, Agent Auth server, payment system, or production Agentic execution backend. A separate local stdio MCP server provides specification, generation, and validation tools; see [Protocol setup](https://ruagentic.org/docs/PROTOCOLS.md). The local Python reference server serves `/agentic.json`, `/openapi.json`, `/tickets`, `/requests/{requestId}`, and `/tickets/{ticketId}` on loopback only. Optional WebMCP tools are registered on /generate/, /validate/, and /lab/ where supported; broad runtime compatibility has not been verified.
+The hosted runtime uses PostgreSQL and Node 24 Vercel Functions; see [platform operations](https://ruagentic.org/docs/PLATFORM.md). It provides synthetic testing, not customer actions or payments. The separate local Python reference server still serves `/agentic.json`, `/openapi.json`, `/tickets`, `/requests/{requestId}`, and `/tickets/{ticketId}` on loopback only. Optional WebMCP tools remain conditional on browser support.
 
 
 ---

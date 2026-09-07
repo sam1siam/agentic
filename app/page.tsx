@@ -73,6 +73,7 @@ export default function Home() {
           <Link className="action secondary" href="/generate">
             Build a profile
           </Link>
+          <Link className="action secondary" href="/platform">Run a live test</Link>
         </div>
         <p className="micro">
           Open source · No registry required · Experimental proposal
