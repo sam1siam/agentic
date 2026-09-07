@@ -1,0 +1,20 @@
+# Agentic
+
+> Experimental Agentic Action Profile 0.1: tracking, verifying, and recovering agent actions.
+
+This project publishes a draft specification and reference implementations. It is not an adopted standard or a ticket service. The recovery lab is an in-memory browser simulation. Node and Python reference clients share project authorship.
+
+## Specification
+- [Normative draft](/docs/SPEC.md)
+- [JSON Schema](/schemas/agentic-0.1.schema.json)
+- [Receipt schema](/schemas/receipt-0.1.schema.json)
+- [Ticket example](/examples/tickets/agentic.json)
+- [OpenAPI example](/examples/tickets/openapi.json)
+
+## Evidence and participation
+- [Conformance](/docs/CONFORMANCE.md)
+- [Comparison results](/reports/benchmark.json)
+- [Prior work](/docs/PRIOR-ART.md)
+- [Pilot kit](/docs/PILOT-KIT.md)
+- [Governance](/docs/GOVERNANCE.md)
+- [Repository](https://github.com/sam1siam/agentic)

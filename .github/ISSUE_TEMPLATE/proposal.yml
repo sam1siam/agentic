@@ -1,0 +1,22 @@
+name: Specification proposal
+description: Propose a focused change backed by a concrete use case.
+title: "[Spec] "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and current alternatives
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Proposed client or service behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Test plan and compatibility impact
+    validations:
+      required: true

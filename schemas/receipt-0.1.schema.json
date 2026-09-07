@@ -1,0 +1,136 @@
+{
+  "type": "object",
+  "properties": {
+    "agentic": {
+      "const": "0.1.0-draft"
+    },
+    "request_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "action_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*$"
+    },
+    "origin": {
+      "type": "string",
+      "minLength": 1
+    },
+    "outcome": {
+      "enum": [
+        "succeeded",
+        "failed",
+        "pending",
+        "unknown"
+      ]
+    },
+    "observed_at": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T.*Z$"
+    },
+    "resource_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resource_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "request_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state": {
+          "type": "string",
+          "minLength": 1
+        },
+        "matched": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "inputPointer": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^(?:/(?:[^~/]|~[01])*)+$"
+              },
+              "resourcePointer": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "^(?:/(?:[^~/]|~[01])*)+$"
+              }
+            },
+            "required": [
+              "inputPointer",
+              "resourcePointer"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "url",
+        "resource_id",
+        "request_id",
+        "state",
+        "matched"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "agentic",
+    "request_id",
+    "action_id",
+    "origin",
+    "outcome",
+    "observed_at",
+    "resource_id",
+    "reason"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ruagentic.org/schemas/receipt-0.1.schema.json",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "outcome": {
+            "const": "succeeded"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "evidence"
+        ],
+        "properties": {
+          "evidence": {},
+          "resource_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  ]
+}

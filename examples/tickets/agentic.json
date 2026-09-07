@@ -1,0 +1,45 @@
+{
+  "$schema": "https://ruagentic.org/schemas/agentic-0.1.schema.json",
+  "agentic": "0.1.0-draft",
+  "origin": "https://support.example",
+  "actions": [
+    {
+      "id": "create-ticket",
+      "description": "Create a support ticket and verify the original result.",
+      "openapi": "/openapi.json",
+      "submit": "createTicket",
+      "status": "getRequestStatus",
+      "verify": "getTicket",
+      "request": {
+        "header": "Idempotency-Key",
+        "scope": "principal-action",
+        "retentionSeconds": 86400
+      },
+      "bindings": {
+        "statusRequestId": "requestId",
+        "verifyResourceId": "ticketId"
+      },
+      "evidence": {
+        "resourceIdPointer": "/id",
+        "requestIdPointer": "/request_id",
+        "statePointer": "/status",
+        "successValues": [
+          "open",
+          "closed"
+        ],
+        "inputBindings": [
+          {
+            "inputPointer": "/subject",
+            "resourcePointer": "/subject"
+          }
+        ]
+      },
+      "recovery": {
+        "maxChecks": 3,
+        "checkDelayMs": 100,
+        "timeoutMs": 3000,
+        "retry": "never-automatically"
+      }
+    }
+  ]
+}

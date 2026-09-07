@@ -1,0 +1,267 @@
+{
+  "version": "0.1.0-draft",
+  "generatedAt": "2026-09-07T16:13:43.647Z",
+  "method": "Deterministic in-memory failure scenarios. One run per strategy per scenario; not statistical production evidence.",
+  "independentImplementations": 0,
+  "rows": [
+    {
+      "scenario": "response-lost",
+      "results": [
+        {
+          "strategy": "blind",
+          "outcome": "succeeded",
+          "tickets": 2,
+          "calls": 2,
+          "duplicates": 1,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "idempotent",
+          "outcome": "succeeded",
+          "tickets": 1,
+          "calls": 2,
+          "duplicates": 0,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "agentic",
+          "outcome": "succeeded",
+          "tickets": 1,
+          "calls": 3,
+          "duplicates": 0,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "existing-verification-workflow",
+          "outcome": "succeeded",
+          "tickets": 1,
+          "calls": 3,
+          "duplicates": 0,
+          "falseSuccess": false
+        }
+      ]
+    },
+    {
+      "scenario": "normal",
+      "results": [
+        {
+          "strategy": "blind",
+          "outcome": "succeeded",
+          "tickets": 1,
+          "calls": 1,
+          "duplicates": 0,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "idempotent",
+          "outcome": "succeeded",
+          "tickets": 1,
+          "calls": 1,
+          "duplicates": 0,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "agentic",
+          "outcome": "succeeded",
+          "tickets": 1,
+          "calls": 3,
+          "duplicates": 0,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "existing-verification-workflow",
+          "outcome": "succeeded",
+          "tickets": 1,
+          "calls": 3,
+          "duplicates": 0,
+          "falseSuccess": false
+        }
+      ]
+    },
+    {
+      "scenario": "status-unavailable",
+      "results": [
+        {
+          "strategy": "blind",
+          "outcome": "succeeded",
+          "tickets": 2,
+          "calls": 2,
+          "duplicates": 1,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "idempotent",
+          "outcome": "succeeded",
+          "tickets": 1,
+          "calls": 2,
+          "duplicates": 0,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "agentic",
+          "outcome": "unknown",
+          "tickets": 1,
+          "calls": 4,
+          "duplicates": 0,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "existing-verification-workflow",
+          "outcome": "unknown",
+          "tickets": 1,
+          "calls": 4,
+          "duplicates": 0,
+          "falseSuccess": false
+        }
+      ]
+    },
+    {
+      "scenario": "stale-read",
+      "results": [
+        {
+          "strategy": "blind",
+          "outcome": "succeeded",
+          "tickets": 1,
+          "calls": 1,
+          "duplicates": 0,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "idempotent",
+          "outcome": "succeeded",
+          "tickets": 1,
+          "calls": 1,
+          "duplicates": 0,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "agentic",
+          "outcome": "succeeded",
+          "tickets": 1,
+          "calls": 5,
+          "duplicates": 0,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "existing-verification-workflow",
+          "outcome": "succeeded",
+          "tickets": 1,
+          "calls": 5,
+          "duplicates": 0,
+          "falseSuccess": false
+        }
+      ]
+    },
+    {
+      "scenario": "wrong-evidence",
+      "results": [
+        {
+          "strategy": "blind",
+          "outcome": "succeeded",
+          "tickets": 1,
+          "calls": 1,
+          "duplicates": 0,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "idempotent",
+          "outcome": "succeeded",
+          "tickets": 1,
+          "calls": 1,
+          "duplicates": 0,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "agentic",
+          "outcome": "unknown",
+          "tickets": 1,
+          "calls": 7,
+          "duplicates": 0,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "existing-verification-workflow",
+          "outcome": "unknown",
+          "tickets": 1,
+          "calls": 7,
+          "duplicates": 0,
+          "falseSuccess": false
+        }
+      ]
+    },
+    {
+      "scenario": "pending",
+      "results": [
+        {
+          "strategy": "blind",
+          "outcome": "succeeded",
+          "tickets": 0,
+          "calls": 1,
+          "duplicates": 0,
+          "falseSuccess": true
+        },
+        {
+          "strategy": "idempotent",
+          "outcome": "succeeded",
+          "tickets": 0,
+          "calls": 1,
+          "duplicates": 0,
+          "falseSuccess": true
+        },
+        {
+          "strategy": "agentic",
+          "outcome": "pending",
+          "tickets": 0,
+          "calls": 4,
+          "duplicates": 0,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "existing-verification-workflow",
+          "outcome": "pending",
+          "tickets": 0,
+          "calls": 4,
+          "duplicates": 0,
+          "falseSuccess": false
+        }
+      ]
+    },
+    {
+      "scenario": "expired",
+      "results": [
+        {
+          "strategy": "blind",
+          "outcome": "unknown",
+          "tickets": 1,
+          "calls": 0,
+          "duplicates": 0,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "idempotent",
+          "outcome": "unknown",
+          "tickets": 1,
+          "calls": 0,
+          "duplicates": 0,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "agentic",
+          "outcome": "unknown",
+          "tickets": 1,
+          "calls": 0,
+          "duplicates": 0,
+          "falseSuccess": false
+        },
+        {
+          "strategy": "existing-verification-workflow",
+          "outcome": "unknown",
+          "tickets": 1,
+          "calls": 0,
+          "duplicates": 0,
+          "falseSuccess": false
+        }
+      ]
+    }
+  ]
+}
