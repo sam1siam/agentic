@@ -5,12 +5,12 @@ import { buildProfile, starterSettings } from '../../lib/profile-generator.ts';
 import { validateProfile } from '../../lib/validation.ts';
 import { validateAgenticDocument } from '../../lib/site-profile.ts';
 import { discoverWebsite } from '../../server/discovery.ts';
-import { profileFiles } from '../../lib/action-index.ts';
+import { publicationFiles } from '../../lib/publication.ts';
 
 export function createTools(options?: { readSpec?: () => Promise<string> }) {
   const server = new McpServer({
     name: 'agentic-tools',
-    version: '1.2.0',
+    version: '1.3.0',
   });
   const annotations = {
     readOnlyHint: true,
@@ -41,7 +41,7 @@ export function createTools(options?: { readSpec?: () => Promise<string> }) {
             ? await options.readSpec()
             : (
                 await Promise.all(
-                  ['SPEC.md', 'SITE-PROFILE.md'].map((name) =>
+                  ['SPEC.md', 'SITE-PROFILE.md', 'PUBLICATION.md'].map((name) =>
                     readFile(
                       new URL('../../docs/' + name, import.meta.url),
                       'utf8',
@@ -75,7 +75,7 @@ export function createTools(options?: { readSpec?: () => Promise<string> }) {
       const validation = validateProfile(profile);
       return output(
         validation.valid
-          ? { profile, files: profileFiles(profile), validation }
+          ? { profile, files: publicationFiles(profile), validation }
           : { validation },
       );
     },

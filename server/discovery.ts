@@ -1,6 +1,6 @@
 import { readPublic } from './audit.ts';
 import { validateProfile } from '../lib/validation.ts';
-import { profileFiles } from '../lib/action-index.ts';
+import { publicationFiles } from '../lib/publication.ts';
 import {
   siteUrl,
   validateSiteProfile,
@@ -686,10 +686,10 @@ export async function discoverWebsite(
       const validation = validateSiteProfile(profile);
       if (!validation.valid) throw new Error(validation.errors.join(' '));
     }
-    const files = profileFiles(profile, existing ? existingUrl : undefined);
+    const files = publicationFiles(profile, existing ? existingUrl : undefined);
     if (Object.values(files).some((text) => Buffer.byteLength(text) > 65536))
       throw new Error(
-        'The published action profile exceeds the 64 KiB file limit. Reduce the profile size before generating its matching pair.',
+        'A generated file exceeds the 64 KiB limit. Reduce the profile size before generating its publication files.',
       );
     return {
       reportVersion: '1',

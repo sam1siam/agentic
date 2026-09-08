@@ -10,7 +10,7 @@ import {
 } from '@/lib/profile-generator';
 import { validateProfile } from '@/lib/validation';
 import { registerPageTool } from '@/lib/webmcp';
-import { profileFiles } from '@/lib/action-index';
+import { publicationFiles } from '@/lib/publication';
 import FilePair from '../file-pair';
 import OpenapiImport from './openapi-import';
 import DocumentationGenerator from './documentation-generator';
@@ -76,7 +76,7 @@ export default function ProfileGenerator() {
   const profile = buildProfile(settings);
   const validation = validateProfile(profile);
   const files = validation.valid
-    ? profileFiles(profile)
+    ? publicationFiles(profile)
     : {
         'agentic.json': JSON.stringify(profile, null, 2) + '\n',
         'agentic.txt':
@@ -111,7 +111,7 @@ export default function ProfileGenerator() {
           return checked.valid
             ? {
                 profile: result,
-                files: profileFiles(result),
+                files: publicationFiles(result),
                 validation: checked,
               }
             : { validation: checked };
@@ -167,7 +167,8 @@ export default function ProfileGenerator() {
         </h1>
         <p>
           Enter your website. We find its public docs, APIs, and agent
-          connections, then create agentic.txt and agentic.json for you.
+          connections, then create agentic.json, agentic.txt, README.md, and
+          listing text for you.
         </p>
       </div>
       <WebsiteGenerator />
@@ -242,7 +243,7 @@ export default function ProfileGenerator() {
               </details>
             </section>
             <section className="output-section">
-              <h2>2. Download both files</h2>
+              <h2>2. Download your files and README</h2>
               {!validation.valid && (
                 <div
                   id="generator-errors"
@@ -265,11 +266,13 @@ export default function ProfileGenerator() {
       <section className="publish-guide">
         <h2>Publish your files</h2>
         <p>
-          Place both files in your site’s public folder, or serve them from your
-          API. They should be available at <code>/agentic.txt</code> and{' '}
-          <code>/agentic.json</code>. Review the discovered links, publish both
-          files together, and audit the published JSON. Run the generator again
-          when your documentation changes. For an existing profile at another
+          Publish agentic.json and agentic.txt in your site’s public folder, or
+          serve them from your API. They should be available at{' '}
+          <code>/agentic.txt</code> and <code>/agentic.json</code>. Review the
+          discovered links, publish both files together, and audit the published
+          JSON. Run the generator again when your documentation changes. Merge
+          the generated README.md into your project documentation; LISTING.md
+          supplies copy for directories. For an existing profile at another
           path, preserve its location and the TXT file’s Profile URL, or
           regenerate TXT for your intended destination.
         </p>

@@ -31,7 +31,7 @@ function passed(name: string) {
   console.log('PASS ' + name);
 }
 try {
-  await call('/api/platform/health');
+  assert.equal((await call('/api/platform/health')).data.version, '1.3.0');
   passed('Production database health');
   const created = await call('/api/platform/session', {});
   cookie = created.headers.get('set-cookie')!.split(';')[0];
@@ -58,12 +58,16 @@ try {
   passed('Fresh invocation resumes PostgreSQL ledger without a new write');
   const audit = (
     await call('/api/platform/audit', {
-      url: base + '/api/platform/service/agentic.json',
+      url: base + '/agentic.json',
     })
   ).data;
   assert.equal(audit.valid, true);
+  assert.equal(audit.reportVersion, '3');
+  assert.equal(audit.publication.status, 'successful');
+  assert.equal(audit.readme.status, 'matched');
+  assert.equal(audit.textIndex.status, 'matched');
   assert.equal(audit.behavioralTesting, false);
-  passed('Public HTTPS auditor and OpenAPI binding checks');
+  passed('Public HTTPS audit, matching TXT and README publication checks');
   const auth = (await call('/api/platform/auth-check', {})).data;
   assert.equal(auth.revocationEnforced, true);
   assert.equal(auth.execution.data.valid, true);
@@ -82,7 +86,14 @@ try {
     assert.ok(
       (spec.content as { text: string }[])[0].text.includes('Version: 1.0.0'),
     );
-    passed('Official MCP client and bundled specification over HTTPS');
+    assert.ok((spec.content as { text: string }[])[0].text.includes('TXT 1.2'));
+    assert.ok(
+      tools.tools.find((tool) => tool.name === 'audit_agentic_url')?.inputSchema
+        .properties?.readmeUrl,
+    );
+    passed(
+      'Official MCP client, README audit input and publication specification',
+    );
   } finally {
     await mcp.close();
   }

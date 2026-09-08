@@ -2201,3 +2201,29 @@ td {
     grid-template-columns: 1fr;
   }
 }
+
+.audit-readme-option {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.audit-readme-option[open] > summary {
+  margin-bottom: 20px;
+}
+.audit-remedy {
+  margin-top: 18px;
+  padding: 16px 18px;
+  border-left: 2px solid var(--border);
+  background: var(--muted);
+  overflow-wrap: anywhere;
+}
+.audit-remedy p {
+  margin: 8px 0 12px;
+}
+.publication-summary {
+  margin: 20px 0 28px;
+  overflow-wrap: anywhere;
+}
+.publication-summary li {
+  margin-top: 16px;
+}

@@ -18,7 +18,7 @@ export function agentCard() {
     name: 'Agentic testing agent',
     description:
       'Run synthetic recovery checks or read-only public URL audits. Results are saved as task artifacts.',
-    version: '1.2.0',
+    version: '1.3.0',
     documentationUrl: publicOrigin() + '/connect/',
     provider: { organization: 'Agentic project', url: publicOrigin() },
     supportedInterfaces: [
@@ -157,9 +157,24 @@ export async function handleA2a(
               'Provide one JSON data part with kind recovery or audit.',
             );
           const data = input.value;
+          if (
+            data.kind === 'audit' &&
+            data.readmeUrl !== undefined &&
+            typeof data.readmeUrl !== 'string'
+          )
+            throw new Error('README URL must be a string.');
           const report =
             data.kind === 'audit' && typeof data.url === 'string'
-              ? await saveReport(ownerId, 'audit', await auditUrl(data.url))
+              ? await saveReport(
+                  ownerId,
+                  'audit',
+                  await auditUrl(data.url, undefined, {
+                    readmeUrl:
+                      typeof data.readmeUrl === 'string'
+                        ? data.readmeUrl
+                        : undefined,
+                  }),
+                )
               : data.kind === 'recovery'
                 ? await runSandbox(ownerId, {
                     ...data,

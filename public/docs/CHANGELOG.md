@@ -1,5 +1,13 @@
 # Changelog
 
+## Tools 1.3.0 / TXT 1.2 — 2026-09-08
+
+- Generate README.md and portable LISTING.md text automatically with both Agentic files.
+- Add versioned TXT 1.2 project references describing ruagentic.org and ruagentic.com; preserve Action Profile 1.0 and Site Profile 1.1 JSON and legacy TXT compatibility.
+- Audit README availability, raw content, file links, and project references. Support an explicitly supplied raw README URL.
+- Add publication results: successful, partial, or failed, with specific remedies and companion availability when JSON is missing.
+- Add CLI bundle generation, legacy TXT output, optional README URL, and opt-in complete-publication exit codes.
+
 ## Tools 1.2.0 / Site Profile 1.1.0 — 2026-09-07
 
 - URL-first generation reads public websites, documentation, llms.txt, OpenAPI JSON, and advertised agent connections, then outputs both Agentic files and a source report.

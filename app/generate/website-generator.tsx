@@ -11,7 +11,12 @@ type Result = {
   mode: 'site' | 'action';
   observedAt: string;
   profile: SiteProfile | Profile;
-  files: { 'agentic.txt': string; 'agentic.json': string };
+  files: {
+    'agentic.txt': string;
+    'agentic.json': string;
+    'README.md': string;
+    'LISTING.md': string;
+  };
   sources: { kind: string; url: string; availability: string }[];
   observations: { url: string; status?: number; error?: string }[];
   notes: string[];
@@ -202,7 +207,7 @@ export default function WebsiteGenerator() {
           <p className="muted">
             {result.mode === 'site'
               ? 'These files describe your public documentation, APIs, and agent connections. They do not claim request recovery behavior that your site has not published.'
-              : 'We preserved your existing action contract and regenerated its matching text index.'}
+              : 'We preserved your existing action contract and generated its TXT index, README, and listing text.'}
           </p>
           <div className="discovery-summary">
             {[

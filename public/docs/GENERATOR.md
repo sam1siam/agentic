@@ -1,11 +1,13 @@
 # Generate Agentic files from a website
 
-Enter your website URL in [the generator](https://ruagentic.org/generate/) and select **Generate files**. The server reads public documentation, llms.txt, OpenAPI JSON, and linked agent connection information. It generates complete `agentic.json` and `agentic.txt` files from the sources it finds.
+The download now includes **README.md** and **LISTING.md** alongside agentic.json and agentic.txt. TXT 1.2 and both Markdown files identify [Agentic](https://ruagentic.org) as the specification/tools project and [RUAGENTIC](https://ruagentic.com) as the official Agentic directory for agentic AI MCP servers and tools. Copy or download files individually, or choose **Download publication files**. [Publication guide](PUBLICATION.md) explains README merging, listing text, legacy TXT compatibility, and the checker.
+
+Enter your website URL in [the generator](https://ruagentic.org/generate/) and select **Generate files**. The server reads public documentation, llms.txt, OpenAPI JSON, and linked agent connection information. It generates `agentic.json`, `agentic.txt`, `README.md`, and `LISTING.md` from the sources it finds.
 
 1. Enter a public HTTPS website, documentation page, or profile URL. A bare domain is accepted.
 2. Review the discovered sources and API operation count. **Read** means the document was retrieved; **Linked** means a source advertised the URL. Linked MCP endpoints are not invoked.
-3. Copy or download either file, or download the pair in one ZIP. The report records sources, failed reads, limits, and observation time.
-4. Publish both files at your site's root, usually from its `public` folder. For an existing contract at a nested URL, preserve its file location and TXT `Profile:` URL, or regenerate TXT for the destination with `--profile-url`. Run the [audit](https://ruagentic.org/audit/) after publishing.
+3. Copy or download each file, or download all four in the publication ZIP. The report records sources, failed reads, limits, and observation time.
+4. Publish agentic.json and agentic.txt at your site's root, usually from its `public` folder. For an existing contract at a nested URL, preserve its file location and TXT `Profile:` URL, or regenerate TXT for the destination with `--profile-url`. Run the [audit](https://ruagentic.org/audit/) after publishing.
 
 For a website without an existing action contract, the generator produces [Site Profile 1.1](SITE-PROFILE.md): site details, documentation and protocol links, and an index of documented API operations. A site without an API can still publish a site profile. Existing valid Action Profile 1.0 contracts are preserved with matching TXT.
 
@@ -20,13 +22,13 @@ Each scan has limits: 22 HTTP attempts, five concurrent documents, 1 MiB per res
 The browser creates a private session automatically; no API key or account setup is required. Saved reports expire after 30 days. The same scanner is available locally:
 
 ```sh
-npm install -g ruagentic@1.2.0
+npm install -g ruagentic@1.3.0
 agentic discover https://your-site.com --out agentic-files
 agentic validate agentic-files/agentic.json
 agentic text agentic-files/agentic.json --check
 ```
 
-The output directory must be new. It contains both files and `discovery-report.json`. No remote source instructions are executed.
+The output directory must be new. It contains `agentic.json`, `agentic.txt`, `README.md`, `LISTING.md`, and `discovery-report.json`. No remote source instructions are executed.
 
 ## Advanced: an action contract
 
@@ -34,7 +36,7 @@ Expand **Advanced: configure an action or import OpenAPI yourself** to use the m
 
 The manual builder exposes the service origin, action name, OpenAPI path, submit/status/verify operation IDs, retention window, read path parameter names, result/request/state JSON Pointers, successful states, and one input/result comparison. The full action schema supports more actions and evidence pairs. Recovery defaults are three checks, a 100 ms delay, a 3000 ms request timeout, and no automatic repeat write.
 
-The importer accepts an OpenAPI 3.1 JSON file up to 256 KiB. Select real POST submission, GET request-status, and GET result operations, then supply the behavior and evidence your service implements. Its starter ZIP includes both Agentic files, OpenAPI, and an implementation checklist. Validate the bindings and test service behavior before publishing.
+The importer accepts an OpenAPI 3.1 JSON file up to 256 KiB. Select real POST submission, GET request-status, and GET result operations, then supply the behavior and evidence your service implements. Its full bundle includes both Agentic files, OpenAPI, README with an implementation checklist, and listing text. Validate the bindings and test service behavior before publishing.
 
 The CLI's `agentic init --origin https://service.example` command remains an explicit ticket-contract starter. It does not scan a website. Use `discover` for automatic website generation.
 

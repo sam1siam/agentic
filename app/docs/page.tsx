@@ -13,7 +13,7 @@ const guides = [
   [
     'Start here',
     'Generate from your website',
-    'Scan public documentation, APIs, llms.txt, and advertised agent connections to generate both files.',
+    'Scan public documentation, APIs, llms.txt, and agent connections to generate JSON, TXT, README, and listing text.',
     '/docs/GENERATOR.md',
   ],
   [
@@ -25,7 +25,7 @@ const guides = [
   [
     'Publishing',
     'Audit your files',
-    'Check published JSON, API operations, and whether the TXT index matches.',
+    'Check the published profile, TXT, and README, with clear results and steps to fix missing or incorrect files.',
     '/docs/AUDIT.md',
   ],
   [
@@ -35,10 +35,10 @@ const guides = [
     '/docs/COMPARE.md',
   ],
   [
-    'Companion file',
-    'agentic.txt action index',
-    'Generate readable action summaries from the authoritative JSON profile and check for drift.',
-    '/docs/AGENTIC-TXT.md',
+    'Publication',
+    'TXT, README, and listing text',
+    'TXT 1.2 project references, automatic README and listing copy, and complete publication checks.',
+    '/docs/PUBLICATION.md',
   ],
   [
     'Protocols',
@@ -86,7 +86,7 @@ const guides = [
 const faq = [
   [
     'Is Agentic available for production use?',
-    'Yes. Tools 1.2.0 support Site Profile 1.1.0 and Action Profile 1.0.0. Generate a site profile from public sources. If you implement action recovery, also validate its bindings and test the service behavior.',
+    'Yes. Tools 1.3.0 support Site Profile 1.1.0 and Action Profile 1.0.0. Generate a site profile from public sources. If you implement action recovery, also validate its bindings and test the service behavior.',
   ],
   [
     'Does stable release mean every agent supports it?',
@@ -125,7 +125,7 @@ export default function DocsPage() {
   return (
     <main className="page wrap">
       <div className="page-heading">
-        <p className="eyebrow">Documentation / Tools 1.2.0</p>
+        <p className="eyebrow">Documentation / Tools 1.3.0</p>
         <h1>
           Generate, publish, <span>and connect.</span>
         </h1>

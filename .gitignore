@@ -47,6 +47,7 @@ __pycache__/
 /packages/cli/dist/
 /packages/cli/SPEC.md
 /packages/cli/SITE-PROFILE.md
+/packages/cli/PUBLICATION.md
 /packages/cli/AGENTIC-TXT.md
 /packages/cli/LICENSE
 *.tgz

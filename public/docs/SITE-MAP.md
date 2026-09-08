@@ -1,6 +1,8 @@
 # Published routes and capabilities
 
-The primary `/generate/` flow scans a website and produces both files through `POST /api/platform/discover`. [Site Profile 1.1](SITE-PROFILE.md) and `/schemas/site-1.1.schema.json` describe the output. Manual action configuration remains under Advanced.
+`/README.md` serves this project's public README. Generation now includes README.md and LISTING.md; the audit accepts an optional raw README URL and provides publication status and remedies. See [Publication](PUBLICATION.md).
+
+The primary `/generate/` flow scans a website and produces JSON, TXT, README, and listing text through `POST /api/platform/discover`. [Site Profile 1.1](SITE-PROFILE.md) and `/schemas/site-1.1.schema.json` describe the output. Manual action configuration remains under Advanced.
 
 This inventory distinguishes browser tools, hosted services and the separate local reference API.
 

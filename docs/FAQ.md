@@ -1,5 +1,9 @@
 # Frequently asked questions
 
+## Does the generator write a README and listing description?
+
+Yes. Download README.md and LISTING.md with the Agentic files. They contain the service description, file and documentation links, and clear references to ruagentic.org and ruagentic.com. Merge them with your existing project information. They do not submit a directory listing. The audit checks the README and explains missing files, incorrect links, and next steps. [How publication works](PUBLICATION.md).
+
 ## Can I generate files by entering my website URL?
 
 Yes. The generator reads public docs, llms.txt, OpenAPI JSON, and advertised agent links, then generates a complete Site Profile 1.1.0 and its TXT index. It preserves an existing valid action contract. No action API is required for a site profile. Unavailable sources and scan limits appear in the report. [How generation works](GENERATOR.md).
@@ -10,7 +14,7 @@ No. The files describe what your public sources advertise. A linked endpoint is 
 
 ## What is the current Agentic version?
 
-The current action profile is 1.0.0; the current tools are 1.2.0. The specification, JSON Schemas, CLI, and supporting services are available for direct use. The [governance guide](GOVERNANCE.md) describes version compatibility and changes.
+The current action profile is 1.0.0; the current tools are 1.3.0. The specification, JSON Schemas, CLI, and supporting services are available for direct use. The [governance guide](GOVERNANCE.md) describes version compatibility and changes.
 
 ## Will agents discover agentic.json automatically?
 
@@ -46,7 +50,7 @@ Use a sandbox and keep customer information, tokens, receipts, and ledgers priva
 
 ## Is there an npm package?
 
-Yes. Install [ruagentic from npm](https://www.npmjs.com/package/ruagentic) with `npm install -g ruagentic@1.2.0`. The same package is available from [GitHub releases](https://github.com/sam1siam/agentic/releases/tag/v1.2.0). Use [Get started](GETTING-STARTED.md) for generation and validation commands. Node 24 or newer is required.
+Yes. Install [ruagentic from npm](https://www.npmjs.com/package/ruagentic) with `npm install -g ruagentic@1.3.0`. The same package is available from [GitHub releases](https://github.com/sam1siam/agentic/releases/tag/v1.3.0). Use [Get started](GETTING-STARTED.md) for generation and validation commands. Node 24 or newer is required.
 
 ## Does Agentic require other agent files?
 

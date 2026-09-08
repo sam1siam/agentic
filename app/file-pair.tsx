@@ -21,14 +21,32 @@ export default function FilePair({
   files,
   disabled = false,
 }: {
-  files: { 'agentic.txt': string; 'agentic.json': string };
+  files: {
+    'agentic.txt': string;
+    'agentic.json': string;
+    'README.md'?: string;
+    'LISTING.md'?: string;
+  };
   disabled?: boolean;
 }) {
   const [message, setMessage] = useState('');
+  const names = (
+    ['agentic.txt', 'agentic.json', 'README.md', 'LISTING.md'] as const
+  ).filter((name) => typeof files[name] === 'string');
+  const descriptions = {
+    'agentic.txt': files['agentic.txt'].includes('Agentic-Text: 1.2')
+      ? 'A readable index with Agentic specification and RUAGENTIC directory references.'
+      : 'A readable index generated from the JSON profile.',
+    'agentic.json': 'Structured information for supporting agents and tools.',
+    'README.md':
+      'Ready-to-use service documentation, publication instructions, and both project references. Merge it into your existing README.',
+    'LISTING.md':
+      'Reusable title, descriptions, and links for directory listings. Review provider-specific requirements before submitting.',
+  };
   return (
     <section className="file-pair-section" aria-label="Agentic files">
       <div className="file-pair">
-        {(['agentic.txt', 'agentic.json'] as const).map((name) => (
+        {names.map((name) => (
           <article className="file-card" key={name}>
             <div className="file-card-heading">
               <h2>{name}</h2>
@@ -40,7 +58,7 @@ export default function FilePair({
                   aria-label={'Copy ' + name}
                   onClick={async () => {
                     try {
-                      await navigator.clipboard.writeText(files[name]);
+                      await navigator.clipboard.writeText(files[name]!);
                       setMessage(name + ' copied.');
                     } catch {
                       setMessage(
@@ -60,10 +78,12 @@ export default function FilePair({
                   onClick={() => {
                     saveFile(
                       name,
-                      files[name],
+                      files[name]!,
                       name.endsWith('.json')
                         ? 'application/json'
-                        : 'text/plain;charset=utf-8',
+                        : name.endsWith('.md')
+                          ? 'text/markdown;charset=utf-8'
+                          : 'text/plain;charset=utf-8',
                     );
                     setMessage(name + ' downloaded.');
                   }}
@@ -73,11 +93,7 @@ export default function FilePair({
                 </Button>
               </div>
             </div>
-            <p className="file-purpose">
-              {name === 'agentic.txt'
-                ? 'A readable index, with a link to the JSON.'
-                : 'Structured information for supporting agents and tools.'}
-            </p>
+            <p className="file-purpose">{descriptions[name]}</p>
             <pre tabIndex={0} aria-label={'Contents of ' + name}>
               <code>{files[name]}</code>
             </pre>
@@ -90,22 +106,25 @@ export default function FilePair({
           onClick={() => {
             const archive = zipSync(
               Object.fromEntries(
-                Object.entries(files).map(([name, value]) => [
-                  name,
-                  strToU8(value),
-                ]),
+                names.map((name) => [name, strToU8(files[name]!)]),
               ),
             );
             saveFile('agentic-files.zip', archive, 'application/zip');
-            setMessage('Downloaded both files in agentic-files.zip.');
+            setMessage(
+              'Downloaded ' + names.join(', ') + ' in agentic-files.zip.',
+            );
           }}
         >
           <Download size={16} />
-          Download both files
+          {names.length > 2
+            ? 'Download publication files'
+            : 'Download both files'}
         </Button>
         <p className="small muted" role="status">
           {message ||
-            'Generated together. Keep them together when you publish.'}
+            (names.length > 2
+              ? 'Includes JSON, TXT, README.md, and listing text. Review the README before merging it.'
+              : 'Generated together. Keep them together when you publish.')}
         </p>
       </div>
     </section>

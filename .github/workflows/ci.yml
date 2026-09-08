@@ -40,5 +40,8 @@ jobs:
       - run: node packages/cli/dist/cli.mjs validate examples/tickets/agentic.json examples/tickets/openapi.json
       - run: node packages/cli/dist/cli.mjs validate examples/site/agentic.json
       - run: node packages/cli/dist/cli.mjs text examples/site/agentic.json --check
+      - run: node packages/cli/dist/cli.mjs bundle examples/site/agentic.json --out /tmp/agentic-site-publication
+      - run: node packages/cli/dist/cli.mjs text /tmp/agentic-site-publication/agentic.json --check
+      - run: node packages/cli/dist/cli.mjs text examples/tickets/agentic.json --legacy --check
       - run: npm run conformance -- --adapter integrations/node-reference.json --revision "$GITHUB_SHA"
       - run: npm run build

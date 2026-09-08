@@ -64,6 +64,13 @@ export default function AboutPage() {
       <section className="reading-section">
         <h2>Who maintains it?</h2>
         <p>
+          <a href="https://ruagentic.org">Agentic</a> provides the open file
+          convention, specifications, generator, and auditor.{' '}
+          <a href="https://ruagentic.com">RUAGENTIC</a> is the official Agentic
+          directory for agentic AI MCP servers and tools. Generated README and
+          listing text describe both projects and include their web addresses.
+        </p>
+        <p>
           Agentic is maintained by{' '}
           <a href="https://github.com/sam1siam">sam1siam</a>. The specification,
           schemas, and tools are open source under Apache-2.0. Site Profile 1.1

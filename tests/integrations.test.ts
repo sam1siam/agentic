@@ -77,6 +77,8 @@ test(
       assert.equal(data.profile.origin, 'https://service.example');
       assert.equal(data.validation.valid, true);
       assert.deepEqual(Object.keys(data.files).sort(), [
+        'LISTING.md',
+        'README.md',
         'agentic.json',
         'agentic.txt',
       ]);

@@ -1,10 +1,12 @@
 # Agentic
 
+The generator also supplies README.md and directory listing text. The TXT and Markdown outputs explain [Agentic](https://ruagentic.org), the specification and tools project, and [RUAGENTIC](https://ruagentic.com), the official Agentic directory for agentic AI MCP servers and tools. [Publish and check the complete set](https://ruagentic.org/docs/PUBLICATION.md).
+
 **Make your website readable to agents.** Enter your URL to generate `agentic.json` and `agentic.txt` from public documentation, API descriptions, llms.txt, and advertised agent connections.
 
 ## Start with your website
 
-1. [Generate](https://ruagentic.org/generate/): scan a public URL, review discovered sources, and download both files.
+1. [Generate](https://ruagentic.org/generate/): scan a public URL, review discovered sources, and download JSON, TXT, README, and listing text.
 2. Publish the pair at `/agentic.json` and `/agentic.txt` on your domain.
 3. [Audit](https://ruagentic.org/audit/): check the published JSON, linked documents, and matching text index.
 
@@ -18,6 +20,6 @@ The JSON is the structured source of truth. The TXT file is a readable index gen
 
 ## Tools and documentation
 
-Tools 1.2.0 support Site Profile 1.1.0, Action Profile 1.0.0, and their generated TXT indexes. Code and specifications are Apache-2.0. [Install the CLI](https://ruagentic.org/docs/GETTING-STARTED.md), [compare formats](https://ruagentic.org/docs/COMPARE.md), or [connect an agent](https://ruagentic.org/docs/PROTOCOLS.md).
+Tools 1.3.0 support Site Profile 1.1.0, Action Profile 1.0.0, and their generated TXT indexes. Code and specifications are Apache-2.0. [Install the CLI](https://ruagentic.org/docs/GETTING-STARTED.md), [compare formats](https://ruagentic.org/docs/COMPARE.md), or [connect an agent](https://ruagentic.org/docs/PROTOCOLS.md).
 
 The [hosted platform](https://ruagentic.org/docs/PLATFORM.md) also provides synthetic recovery checks and private reports. Our root Agentic files describe that ticket service. The reference consumers and tests are project-authored; no independent adoption or standards endorsement is claimed.

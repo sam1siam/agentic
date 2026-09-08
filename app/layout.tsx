@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: '%s · Agentic',
   },
   description:
-    'Generate agentic.json and agentic.txt from your website’s public documentation, APIs, llms.txt, and agent connections. Publish the files and audit them on your domain.',
+    'Generate agentic.json, agentic.txt, README, and listing text from your website’s public documentation, APIs, llms.txt, and agent connections. Publish the files and audit them on your domain.',
 };
 export default function RootLayout({
   children,

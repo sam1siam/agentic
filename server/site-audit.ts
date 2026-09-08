@@ -1,4 +1,4 @@
-import { buildActionIndex } from '../lib/action-index.ts';
+import { matchesTextIndex } from '../lib/publication.ts';
 import { validateSiteProfile, type SiteProfile } from '../lib/site-profile.ts';
 import type { readPublic, AuditCheck } from './audit.ts';
 type Observation = {
@@ -22,6 +22,7 @@ export async function auditSiteProfile(
     required: false,
     status: 'skipped',
     errors: [] as string[],
+    version: undefined as string | undefined,
   };
   const add = (
     id: string,
@@ -170,7 +171,10 @@ export async function auditSiteProfile(
         }
         if (response.status !== 200)
           throw new Error('agentic.txt returned HTTP ' + response.status + '.');
-        const matched = response.text === buildActionIndex(profile, url.href);
+        const matched = matchesTextIndex(response.text, profile, url.href);
+        textIndex.version = /^Agentic-Text: ([^\r\n]+)/m.exec(
+          response.text,
+        )?.[1];
         textIndex.status = matched ? 'matched' : 'mismatch';
         add(
           'txt',

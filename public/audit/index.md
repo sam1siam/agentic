@@ -1,40 +1,38 @@
-# Audit your Agentic files
+# Audit your Agentic publication
 
-The auditor supports Site Profile 1.1.0 and Action Profile 1.0.0. For site profiles, it checks the schema, serving origin, matching TXT, and up to five retrieved same-origin documents, prioritizing indexed OpenAPI operations. Linked/external protocols are reported without being invoked. See [site audit semantics](https://ruagentic.org/docs/SITE-PROFILE.md#discovery-and-auditing). To create missing files from a website, use [Generate](https://ruagentic.org/docs/GENERATOR.md). The action-specific binding checks below apply to action profiles.
+Enter your website or full agentic.json URL in [the auditor](https://ruagentic.org/audit/). It checks the JSON, linked API/documents, matching agentic.txt, and README.md. The result explains what passed, what is missing, and how to fix each issue.
 
-Use [the audit page](https://ruagentic.org/audit/) to check a public website or an exact JSON profile URL. No account is required. The page creates a private browser session when you run an audit.
+## Results
 
-A bare domain uses HTTPS. An origin checks `/agentic.json`; a URL ending in `/` checks `agentic.json` in that directory. For another path, provide the complete JSON URL. Queries, credentials, fragments, HTTP, and ports other than 443 are rejected.
+- **Successful:** the JSON/API checks, TXT consistency, and README/file/reference link checks passed.
+- **Partial:** the JSON/API checks passed, but optional companion files, project references, content types, or remaining document checks need attention.
+- **Failed:** JSON/API checks failed, TXT conflicts with JSON, or README links point to different Agentic files.
 
-## What gets checked
+Every issue includes a concrete remedy, such as the exact file URL to publish, a Markdown link to add, or the API binding to correct. The checker reports TXT and README availability even when agentic.json is missing.
 
-- The JSON file is reachable, parses correctly, and matches the Agentic 1.0 profile requirements.
-- The profile origin matches the origin serving the file.
-- Each linked OpenAPI document is on that origin and contains the required submission, status, and resource-read operations.
-- The sibling `agentic.txt` matches the index generated from the JSON, including its profile URL. The comparison is exact, including line endings and comments.
-- JSON and TXT response content types are appropriate. Optional `/llms.txt` availability is recorded without affecting the result.
+## README location and content
 
-The audit reads public files. It does not send your credentials to the target, execute an action, test authentication, or establish that a service implements request tracking and recovery correctly. Use behavioral tests for those properties.
+By default the checker reads README.md beside agentic.json, then tries lowercase readme.md after a 404. Expand **README hosted elsewhere?** to enter a public raw Markdown URL. For GitHub, use the Raw URL rather than an HTML repository page. Use README.md as the filename; README.me is a typo the checker will flag when supplied.
 
-## Understanding the report
+The README may contain customized prose. Checks look for visible links to the exact JSON/TXT locations, ruagentic.org, and ruagentic.com. Fenced code, inline code and HTML comments do not count. README links are inspected without being fetched. The checker does not verify every claim or confirm directory acceptance.
 
-Each check is **Passed**, **Note**, or **Fix**. Missing optional TXT is a note; published TXT that differs from the generated index needs a fix. Download the JSON report to keep the results.
+## JSON and API scope
 
-Report version `2` preserves `valid` as the result of JSON structure, origin, and OpenAPI binding checks. TXT consistency is reported separately in `textIndex` and `checks`: a mismatch can produce a failed check while `valid` remains `true`. Consumers that require a matching pair should require `valid && textIndex.status === "matched"`. The command-line audit exits nonzero when `valid` is false; inspect `textIndex` when enforcing publication of both files.
+Both Site Profile 1.1.0 and Action Profile 1.0.0 are supported. Site audits check structure, serving origin, matching TXT, and up to five retrieved same-origin documents, prioritizing indexed APIs. Action audits check the JSON and up to five referenced OpenAPI binding documents. An advertised MCP link is not invoked; that informational boundary does not prevent a successful file audit.
 
-`structure`, `bindings`, `errors`, and `observations` retain partial results when a file cannot be read. Every report includes its timestamp and `behavioralTesting: false`. A report describes the files observed at that time; it is not certification.
+The auditor accepts exact legacy TXT 1.0/1.1 or publication TXT 1.2. JSON is limited to 64 KiB, README/TXT to 64 KiB each, action OpenAPI documents to 256 KiB, and site documents to 1 MiB each. Reads use public-only HTTPS, pinned DNS/IP checks, no redirects or forwarded credentials, and bounded timeouts. The auditor never fetches arbitrary schema URLs or submits service actions.
 
-## Limits and privacy
+## Reports and CLI
 
-The auditor accepts public HTTPS destinations on port 443. It checks all resolved addresses, pins a public address for the request, rejects private and special networks, follows no redirects, and rejects compressed responses. Each lookup has a five-second DNS deadline and each HTTP read has an eight-second deadline. Profiles, TXT, and llms.txt are limited to 64 KiB each; OpenAPI documents to 256 KiB each, with at most five unique documents. Independent linked files are read concurrently.
-
-Browser audits are limited to six per minute per session, alongside the platform's request limits. Reports are private to the session and retained for up to 30 days. The [hosted tools](https://ruagentic.org/platform/) provide history, explicit sharing, and session deletion. Do not put secrets in public file URLs.
-
-## Command line and agents
+Report version 3 retains `valid` for JSON/API checks and adds `readme` and `publication`. Missing README/TXT does not by itself make JSON invalid. Require `publication.status === "successful"` to enforce a complete publication, or `valid && textIndex.status === "matched"` to require only the pair. README references are recommendations, not protocol authorization requirements.
 
 ```sh
-npm install -g ruagentic@1.2.0
-agentic audit https://your-service.example
+npm install -g ruagentic@1.3.0
+agentic audit https://your-site.com
+agentic audit https://your-site.com --publication
+agentic audit https://your-site.com --readme https://raw.example/repo/README.md --publication
 ```
 
-The same audit is available through the hosted MCP tool and the CLI. See [Connect](https://ruagentic.org/connect/) for setup. To work entirely locally, use `agentic validate agentic.json openapi.json` and `agentic text agentic.json --check`.
+The default exit code preserves JSON/API validity. `--publication` exits nonzero for partial or failed publication. Hosted MCP exposes the same report through `audit_agentic_url`, with optional `readmeUrl`. Reports are private to the caller and retained for up to 30 days.
+
+Use [Generate](https://ruagentic.org/docs/GENERATOR.md) to create all files. [Publication details](https://ruagentic.org/docs/PUBLICATION.md) describe the versions, exact TXT references, README merging, and listing copy. A successful file audit is not a runtime test, security certification, or endorsement.

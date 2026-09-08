@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import sample from '@/examples/site/agentic.json';
-import { profileFiles } from '@/lib/action-index';
+import { publicationFiles } from '@/lib/publication';
 import FilePair from '../file-pair';
 export const dynamic = 'force-static';
 export const metadata = {
@@ -158,7 +158,7 @@ export default function SpecPage() {
         <div className="doc-utilities">
           <a href="/docs/SPEC.md">Action requirements →</a>
           <a href="/schemas/agentic-1.0.schema.json">Action schema →</a>
-          <a href="/docs/AGENTIC-TXT.md">Action TXT 1.0 →</a>
+          <a href="/docs/AGENTIC-TXT.md">Legacy action TXT 1.0 →</a>
           <Link href="/examples">Action example →</Link>
         </div>
       </section>
@@ -172,13 +172,17 @@ export default function SpecPage() {
           URL, or regenerate TXT for the new location.
         </p>
         <p>
-          Site indexes declare <code>Agentic-Text: 1.1</code>; action indexes
-          declare <code>Agentic-Text: 1.0</code>. Neither grants authorization.
-          Supporting agents must enforce their own network and credential
-          policies.
+          Current generators declare <code>Agentic-Text: 1.2</code> for both
+          JSON profiles, adding descriptions and links for Agentic and
+          RUAGENTIC. Legacy TXT 1.0 and 1.1 remain accepted. No TXT format
+          grants authorization. Supporting agents must enforce their own network
+          and credential policies.
         </p>
         <div className="doc-utilities">
-          <Link href="/generate">Generate both files →</Link>
+          <a href="/docs/PUBLICATION.md">
+            TXT 1.2, README, and listing guide →
+          </a>
+          <Link href="/generate">Generate publication files →</Link>
           <Link href="/audit">Audit published files →</Link>
         </div>
       </section>
@@ -188,12 +192,12 @@ export default function SpecPage() {
           This example uses a placeholder domain. Generate your own pair from
           your website’s public sources.
         </p>
-        <FilePair files={profileFiles(sample)} />
+        <FilePair files={publicationFiles(sample)} />
       </section>
       <section id="compatibility" className="reading-section">
         <h2>6. Versions and compatibility</h2>
         <p>
-          Tools 1.2.0 support Site Profile 1.1.0 and Action Profile 1.0.0.
+          Tools 1.3.0 support Site Profile 1.1.0 and Action Profile 1.0.0.
           Existing action contracts, receipts, and TXT 1.0 remain unchanged. The
           action executor rejects site profiles; the linked API or protocol
           provides its own execution contract.

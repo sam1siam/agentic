@@ -32,9 +32,7 @@ export default function PlatformConsole() {
     [scenario, setScenario] = useState('response-lost'),
     [report, setReport] = useState<Record<string, any> | null>(null),
     [reports, setReports] = useState<Report[]>([]),
-    [url, setUrl] = useState(
-      'https://ruagentic.org/api/platform/service/agentic.json',
-    ),
+    [url, setUrl] = useState('https://ruagentic.org/agentic.json'),
     [share, setShare] = useState(''),
     [token, setToken] = useState('');
   useEffect(() => {
@@ -182,11 +180,11 @@ export default function PlatformConsole() {
         </TabsContent>
         <TabsContent value="audit">
           <section className="panel platform-panel">
-            <h2>Inspect a public action profile</h2>
+            <h2>Inspect a public Agentic profile</h2>
             <p>
-              Check its JSON, API operations, matching agentic.txt, optional
-              llms.txt, and response headers. This audit makes GET requests and
-              does not execute actions.
+              Check its JSON, API operations, matching agentic.txt, README, and
+              response headers. This audit makes GET requests and does not
+              execute actions.
             </p>
             <label className="field-label" htmlFor="audit-url">
               Website or public HTTPS JSON URL
@@ -296,12 +294,34 @@ export default function PlatformConsole() {
                     : 'Review auth result'
                   : report.kind === 'public-site-discovery'
                     ? 'Generated Agentic files'
-                    : report.valid
-                      ? 'Profile checks passed'
-                      : 'Audit result'}
+                    : report.publication
+                      ? report.publication.status === 'successful'
+                        ? 'Publication checks passed'
+                        : report.publication.status === 'partial'
+                          ? 'Some checks need attention'
+                          : 'Publication checks failed'
+                      : report.valid
+                        ? 'Profile checks passed'
+                        : 'Audit result'}
             </h2>
             <span className="small muted">{report.observedAt}</span>
           </div>
+          {report.publication && (
+            <div className="publication-summary">
+              <p>{report.publication.summary}</p>
+              <ul>
+                {report.publication.nextSteps.map(
+                  (step: { id: string; label: string; remedy: string }) => (
+                    <li key={step.id}>
+                      <strong>{step.label}</strong>
+                      <p>{step.remedy}</p>
+                    </li>
+                  ),
+                )}
+              </ul>
+              <Link href="/audit">Open the full audit tool →</Link>
+            </div>
+          )}
           {report.kind === 'hosted-recovery' && (
             <div className="stats-strip">
               <div>

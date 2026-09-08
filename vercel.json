@@ -14,7 +14,7 @@
   "functions": {
     "api/platform.ts": {
       "maxDuration": 60,
-      "includeFiles": "docs/{SPEC,SITE-PROFILE}.md"
+      "includeFiles": "docs/{SPEC,SITE-PROFILE,PUBLICATION}.md"
     }
   },
   "rewrites": [

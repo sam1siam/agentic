@@ -2,9 +2,14 @@ import { lookup } from 'node:dns/promises';
 import { request as httpsRequest } from 'node:https';
 import ipaddr from 'ipaddr.js';
 import { validateProfile } from '../lib/validation.ts';
-import { buildActionIndex } from '../lib/action-index.ts';
 import { isSiteProfile } from '../lib/site-profile.ts';
 import { auditSiteProfile } from './site-audit.ts';
+import { matchesTextIndex } from '../lib/publication.ts';
+import {
+  normalizeReadmeUrl,
+  auditReadme,
+  publicationSummary,
+} from './publication-audit.ts';
 
 export function publicAddress(address: string) {
   if (!ipaddr.isValid(address)) return false;
@@ -142,6 +147,8 @@ export type AuditCheck = {
   label: string;
   status: 'pass' | 'warn' | 'fail';
   detail: string;
+  remedy?: string;
+  helpUrl?: string;
 };
 export function normalizeAuditUrl(value: string) {
   const text = value.trim();
@@ -153,7 +160,7 @@ export function normalizeAuditUrl(value: string) {
   if (url.pathname.endsWith('/')) url.pathname += 'agentic.json';
   return url.href;
 }
-export async function auditUrl(
+async function auditProfileUrl(
   profileUrl: string,
   reader: typeof readPublic = readPublic,
 ) {
@@ -178,6 +185,7 @@ export async function auditUrl(
     required: false;
     status: 'matched' | 'mismatch' | 'missing' | 'unavailable' | 'skipped';
     errors: string[];
+    version?: string;
   } = {
     url: new URL('agentic.txt', url).href,
     required: false,
@@ -343,7 +351,6 @@ export async function auditUrl(
     }),
     (async () => {
       try {
-        const expected = buildActionIndex(profile, url.href);
         const fetched = await read(textIndex.url, 65536);
         if (fetched.status === 404) {
           textIndex.status = 'missing';
@@ -357,7 +364,10 @@ export async function auditUrl(
         }
         if (fetched.status !== 200)
           throw new Error('agentic.txt returned HTTP ' + fetched.status + '.');
-        const matches = fetched.text === expected;
+        const matches = matchesTextIndex(fetched.text, profile, url.href);
+        textIndex.version = /^Agentic-Text: ([^\r\n]+)/m.exec(
+          fetched.text,
+        )?.[1];
         textIndex.status = matches ? 'matched' : 'mismatch';
         const detail = matches
           ? 'The action index matches the JSON profile.'
@@ -407,4 +417,69 @@ export async function auditUrl(
     return rank(a.id) - rank(b.id) || a.id.localeCompare(b.id);
   });
   return finish();
+}
+
+export async function auditUrl(
+  profileUrl: string,
+  reader: typeof readPublic = readPublic,
+  options: { readmeUrl?: string } = {},
+) {
+  const url = publicUrl(normalizeAuditUrl(profileUrl));
+  const readmeUrl = options.readmeUrl
+    ? normalizeReadmeUrl(options.readmeUrl)
+    : undefined;
+  const [core, readme] = await Promise.all([
+    auditProfileUrl(url.href, reader),
+    auditReadme(url, reader, readmeUrl),
+  ]);
+  // Availability still matters when an invalid/missing JSON prevented comparison.
+  if (core.textIndex.status === 'skipped') {
+    try {
+      const response = await reader(core.textIndex.url, 65536);
+      core.observations.push({
+        url: core.textIndex.url,
+        status: response.status,
+        contentType: String(response.headers['content-type'] ?? ''),
+        bytes: Buffer.byteLength(response.text),
+      });
+      core.textIndex.status = response.status === 404 ? 'missing' : 'skipped';
+      core.checks.push({
+        id: 'txt',
+        label: 'Text index',
+        status: 'warn',
+        detail:
+          response.status === 200
+            ? 'agentic.txt is present. Fix the JSON before its consistency can be checked.'
+            : response.status === 404
+              ? 'agentic.txt is missing.'
+              : 'agentic.txt returned HTTP ' + response.status + '.',
+      });
+    } catch (error) {
+      core.textIndex.status = 'unavailable';
+      core.observations.push({
+        url: core.textIndex.url,
+        error: error instanceof Error ? error.message : 'Read failed.',
+      });
+      core.checks.push({
+        id: 'txt',
+        label: 'Text index',
+        status: 'warn',
+        detail:
+          'The text index could not be read. Fix the JSON and check the file URL again.',
+      });
+    }
+  }
+  const summary = publicationSummary(core, readme);
+  return {
+    ...core,
+    reportVersion: '3',
+    ...summary,
+    readme,
+    observations: [...core.observations, ...readme.observations].sort((a, b) =>
+      a.url.localeCompare(b.url),
+    ),
+    limitation:
+      core.limitation +
+      ' README checks verify visible links, not every claim in its prose. Project references do not establish listing acceptance or endorsement.',
+  };
 }

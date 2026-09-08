@@ -7,6 +7,7 @@ import { spawnSync } from 'node:child_process';
 import { buildProfile, starterSettings } from '../lib/profile-generator.ts';
 import { validateProfile, validateReceipt } from '../lib/validation.ts';
 import { buildActionIndex, profileFiles } from '../lib/action-index.ts';
+import { buildPublicationIndex, publicationFiles } from '../lib/publication.ts';
 
 test('action index preserves IDs and summaries without allowing injected directives', () => {
   const profile = buildProfile(starterSettings);
@@ -78,7 +79,10 @@ test('text command detects summary drift and refuses to overwrite existing files
         timeout: 10000,
       });
     assert.equal(command().status, 0);
-    assert.equal(await readFile(output, 'utf8'), buildActionIndex(profile));
+    assert.equal(
+      await readFile(output, 'utf8'),
+      buildPublicationIndex(profile),
+    );
     assert.equal(command().status, 1);
     assert.equal(command(['--check']).status, 0);
     profile.actions[0].description = 'Changed description';
@@ -88,6 +92,53 @@ test('text command detects summary drift and refuses to overwrite existing files
       JSON.parse(await readFile(input, 'utf8')).actions[0].description,
       'Changed description',
     );
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test('CLI bundles four files at an explicit location without overwriting and preserves legacy TXT checks', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'agentic-bundle-'));
+  const command = (...args: string[]) =>
+    spawnSync(process.execPath, ['packages/cli/cli.ts', ...args], {
+      encoding: 'utf8',
+      timeout: 10000,
+    });
+  try {
+    const input = join(directory, 'agentic.json'),
+      out = join(directory, 'publication');
+    const profile = buildProfile(starterSettings),
+      profileUrl = profile.origin + '/contracts/agentic.json';
+    await writeFile(input, JSON.stringify(profile));
+    const args = ['bundle', input, '--out', out, '--profile-url', profileUrl];
+    const first = command(...args);
+    assert.equal(first.status, 0, first.stderr);
+    for (const [name, text] of Object.entries(
+      publicationFiles(profile, profileUrl),
+    ))
+      assert.equal(await readFile(join(out, name), 'utf8'), text);
+    assert.equal(command(...args).status, 1);
+    assert.equal(
+      await readFile(join(out, 'README.md'), 'utf8'),
+      publicationFiles(profile, profileUrl)['README.md'],
+    );
+    const legacy = join(directory, 'agentic.txt');
+    assert.equal(command('text', input, '--out', legacy, '--legacy').status, 0);
+    assert.equal(await readFile(legacy, 'utf8'), buildActionIndex(profile));
+    assert.equal(command('text', input, '--check').status, 0);
+    assert.equal(command('text', input, '--check', '--legacy').status, 0);
+    await writeFile(legacy, buildPublicationIndex(profile));
+    assert.equal(command('text', input, '--check').status, 0);
+    assert.equal(command('text', input, '--check', '--legacy').status, 1);
+    const bad = command(
+      'audit',
+      profile.origin,
+      '--readme',
+      'https://127.0.0.1/README.md',
+      '--publication',
+    );
+    assert.equal(bad.status, 1);
+    assert.ok(!bad.stdout.trim());
   } finally {
     await rm(directory, { recursive: true, force: true });
   }

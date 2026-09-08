@@ -5,10 +5,23 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { saveFile } from '../file-pair';
 import type { AuditCheck } from '@/server/audit';
+import { siteUrl } from '@/lib/site-profile';
 type Report = {
   observedAt: string;
   profileUrl: string;
   valid: boolean;
+  publication: {
+    status: 'successful' | 'partial' | 'failed';
+    summary: string;
+    nextSteps: {
+      id: string;
+      label: string;
+      detail: string;
+      remedy: string;
+      helpUrl: string;
+    }[];
+  };
+  readme: { url: string; status: string; providedByUser: boolean };
   limitation: string;
   checks: AuditCheck[];
   textIndex: { status: string };
@@ -37,15 +50,28 @@ async function call<T = unknown>(path: string, body?: unknown): Promise<T> {
 }
 export default function AuditForm() {
   const [value, setValue] = useState('');
+  const [readmeUrl, setReadmeUrl] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [errorField, setErrorField] = useState<'url' | 'readme' | 'service'>(
+    'service',
+  );
   const [report, setReport] = useState<Report | null>(null);
   async function run() {
     if (busy) return;
     setBusy(true);
     setError('');
     setReport(null);
+    let field: 'url' | 'readme' | 'service' = 'url';
     try {
+      const check = (text: string) =>
+        siteUrl(
+          /^[a-z][a-z\d+.-]*:\/\//i.test(text) ? text : 'https://' + text,
+        );
+      check(value.trim());
+      field = 'readme';
+      if (readmeUrl.trim()) check(readmeUrl.trim());
+      field = 'service';
       const session = await fetch('/api/platform/session', {
         credentials: 'same-origin',
         signal: AbortSignal.timeout(10000),
@@ -53,8 +79,14 @@ export default function AuditForm() {
       if (session.status === 401) await call('session', {});
       else if (!session.ok)
         throw new Error('The audit service is unavailable. Please try again.');
-      setReport(await call<Report>('audit', { url: value.trim() }));
+      setReport(
+        await call<Report>('audit', {
+          url: value.trim(),
+          ...(readmeUrl.trim() ? { readmeUrl: readmeUrl.trim() } : {}),
+        }),
+      );
     } catch (cause) {
+      setErrorField(field);
       setError(
         cause instanceof Error
           ? cause.message
@@ -64,8 +96,6 @@ export default function AuditForm() {
       setBusy(false);
     }
   }
-  const failed =
-    report?.checks.filter((check) => check.status === 'fail').length ?? 0;
   return (
     <main className="page wrap simple-page">
       <div className="page-heading compact-heading">
@@ -75,7 +105,8 @@ export default function AuditForm() {
         </h1>
         <p>
           Enter a website or a full agentic.json URL. Check the JSON, its API
-          operations, and whether agentic.txt matches.
+          operations, matching agentic.txt, and README.md. Get a clear result
+          and steps to fix anything missing.
         </p>
       </div>
       <form
@@ -99,8 +130,12 @@ export default function AuditForm() {
             required
             maxLength={2048}
             disabled={busy}
-            aria-invalid={!!error}
-            aria-describedby="audit-help"
+            aria-invalid={!!error && errorField === 'url'}
+            aria-describedby={
+              error && errorField === 'url'
+                ? 'audit-help audit-error'
+                : 'audit-help'
+            }
             onChange={(event) => {
               setValue(event.target.value);
               setError('');
@@ -116,12 +151,47 @@ export default function AuditForm() {
           directory. Otherwise, paste the full JSON URL. Public HTTPS only; no
           query parameters.
         </p>
+        <details
+          className="disclosure audit-readme-option"
+          open={error && errorField === 'readme' ? true : undefined}
+        >
+          <summary>README hosted elsewhere?</summary>
+          <label className="field-label" htmlFor="audit-readme-url">
+            Public raw README.md URL · optional
+          </label>
+          <Input
+            id="audit-readme-url"
+            type="text"
+            inputMode="url"
+            value={readmeUrl}
+            maxLength={2048}
+            disabled={busy}
+            placeholder="https://raw.githubusercontent.com/owner/repo/main/README.md"
+            onChange={(event) => {
+              setReadmeUrl(event.target.value);
+              setReport(null);
+              setError('');
+            }}
+            aria-invalid={!!error && errorField === 'readme'}
+            aria-describedby={
+              error && errorField === 'readme'
+                ? 'readme-help audit-error'
+                : 'readme-help'
+            }
+          />
+          <p id="readme-help" className="field-help">
+            By default we check README.md beside agentic.json, then readme.md.
+            Use a raw Markdown URL for a README in another location. The
+            standard filename is README.md.
+          </p>
+        </details>
         <Button
           type="button"
           variant="link"
           disabled={busy}
           onClick={() => {
             setValue('https://ruagentic.org');
+            setReadmeUrl('');
             setReport(null);
             setError('');
           }}
@@ -140,7 +210,7 @@ export default function AuditForm() {
         </p>
       )}
       {error && (
-        <div role="alert" className="inline-error">
+        <div id="audit-error" role="alert" className="inline-error">
           {error}
         </div>
       )}
@@ -150,7 +220,11 @@ export default function AuditForm() {
             <div>
               <p className="eyebrow">Audit result</p>
               <h2 role="status">
-                {failed ? 'Some files need attention' : 'File checks passed'}
+                {report.publication.status === 'successful'
+                  ? 'Successful — publication checks passed'
+                  : report.publication.status === 'partial'
+                    ? 'Partially complete — some checks need attention'
+                    : 'Checks failed — fixes needed'}
               </h2>
             </div>
             <Button
@@ -167,6 +241,14 @@ export default function AuditForm() {
             </Button>
           </div>
           <p className="audit-target">{report.profileUrl}</p>
+          <p className="audit-summary">{report.publication.summary}</p>
+          <p className="small muted">
+            Profile validation: {report.valid ? 'passed' : 'did not pass'}.
+            README: {report.readme.status}.{' '}
+            {report.readme.providedByUser
+              ? 'The README URL was supplied separately; this does not establish its ownership.'
+              : ''}
+          </p>
           <ul className="check-list">
             {report.checks.map((check) => (
               <li key={check.id} className={'check-row check-' + check.status}>
@@ -180,6 +262,19 @@ export default function AuditForm() {
                 <div>
                   <h3>{check.label}</h3>
                   <p>{check.detail}</p>
+                  {check.status !== 'pass' && check.remedy && (
+                    <div className="audit-remedy">
+                      <strong>
+                        {check.id === 'linked'
+                          ? 'Optional next step'
+                          : 'How to fix it'}
+                      </strong>
+                      <p>{check.remedy}</p>
+                      {check.helpUrl && (
+                        <a href={check.helpUrl}>Publication guide →</a>
+                      )}
+                    </div>
+                  )}
                 </div>
               </li>
             ))}
@@ -219,7 +314,10 @@ export default function AuditForm() {
       <section className="simple-callout">
         <div>
           <h2>Need files first?</h2>
-          <p>The generator creates both files from the same settings.</p>
+          <p>
+            Generate agentic.json, agentic.txt, README.md, and listing text from
+            your website.
+          </p>
         </div>
         <Link href="/generate" className="action secondary">
           Open the generator →

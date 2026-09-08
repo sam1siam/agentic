@@ -1,5 +1,7 @@
 # Agentic Site Profile 1.1
 
+For TXT 1.2 with project descriptions, automatically generated README.md/LISTING.md, and publication checks, see [the publication specification](PUBLICATION.md). Tools 1.3.0 preserve this JSON schema and continue accepting its original TXT 1.1 index.
+
 Version: 1.1.0. Released: 2026-09-07. License: Apache-2.0.
 
 A site profile describes a website's public documentation, APIs, and advertised agent connections. A publisher can generate it from public sources without defining an executable action contract. Serve the JSON at `/agentic.json` and its generated text index at `/agentic.txt`.
@@ -86,13 +88,13 @@ The auditor validates site structure, the serving origin, matching TXT, and up t
 
 ## Tools and compatibility
 
-Tools 1.2.0 support Site Profile 1.1.0 alongside Action Profile 1.0.0. Earlier tools must be upgraded to read the site profile. The 1.0 action executor intentionally rejects site profiles before any ledger or network access. Existing action contracts, receipts, and in-flight request identities must not be relabeled.
+Tools 1.3.0 support Site Profile 1.1.0 alongside Action Profile 1.0.0. Earlier tools must be upgraded to read the site profile. The 1.0 action executor intentionally rejects site profiles before any ledger or network access. Existing action contracts, receipts, and in-flight request identities must not be relabeled.
 
 ```sh
-npm install -g ruagentic@1.2.0
+npm install -g ruagentic@1.3.0
 agentic discover https://your-site.example --out agentic-files
 agentic validate agentic-files/agentic.json
 agentic text agentic-files/agentic.json --check
 ```
 
-The `discover` command creates a new directory containing both files and a discovery report; it refuses to overwrite an existing directory. The `discover_agentic_site` tool exposes the same scanner through local and hosted MCP. The generator page also exposes it through WebMCP when the browser supports that API.
+The `discover` command creates a new directory containing agentic.json, agentic.txt, README.md, LISTING.md, and a discovery report; it refuses to overwrite an existing directory. The `discover_agentic_site` tool exposes the same scanner through local and hosted MCP. The generator page also exposes it through WebMCP when the browser supports that API.

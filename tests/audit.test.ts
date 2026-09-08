@@ -7,6 +7,7 @@ import {
 } from '../server/audit.ts';
 import { buildProfile, starterSettings } from '../lib/profile-generator.ts';
 import { buildActionIndex } from '../lib/action-index.ts';
+import { buildReadme } from '../lib/publication.ts';
 import { validateProfile } from '../lib/validation.ts';
 import ticketApi from '../examples/tickets/openapi.json' with { type: 'json' };
 
@@ -36,6 +37,10 @@ function fixture(
       },
     ],
     [origin + '/llms.txt', { text: '# Documentation', type: 'text/plain' }],
+    [
+      new URL('README.md', profileUrl).href,
+      { text: buildReadme(profile, profileUrl), type: 'text/markdown' },
+    ],
   ]);
   const calls: { url: string; limit: number }[] = [];
   const reader: typeof readPublic = async (url, limit = 262144) => {
@@ -118,7 +123,7 @@ test('audit validates the pair and fetches a shared API only once', async () => 
   });
   const f = fixture(profile);
   const report = await auditUrl(origin, f.reader);
-  assert.equal(report.reportVersion, '2');
+  assert.equal(report.reportVersion, '3');
   assert.equal(report.valid, true);
   assert.equal(report.textIndex.status, 'matched');
   assert.ok(report.checks.every((check) => check.status === 'pass'));
@@ -130,6 +135,7 @@ test('audit validates the pair and fetches a shared API only once', async () => 
   assert.deepEqual(
     f.calls.map((call) => [call.url, call.limit]).sort(),
     [
+      [origin + '/README.md', 65536],
       [origin + '/agentic.json', 65536],
       [origin + '/agentic.txt', 65536],
       [origin + '/llms.txt', 65536],
@@ -147,7 +153,7 @@ test('custom JSON locations use a sibling TXT while OpenAPI stays relative to th
   assert.equal(report.textIndex.status, 'matched');
 });
 
-test('unreachable, non-JSON and invalid profiles return partial reports without dependent reads', async () => {
+test('unreachable, non-JSON and invalid profiles return partial reports without dependent API reads', async () => {
   for (const reply of [
     { status: 404, text: 'Missing' },
     { text: '<html>Not JSON</html>' },
@@ -159,8 +165,8 @@ test('unreachable, non-JSON and invalid profiles return partial reports without 
     const report = await auditUrl(f.profileUrl, f.reader);
     assert.equal(report.valid, false);
     assert.ok(report.checks.some((check) => check.status === 'fail'));
-    assert.equal(report.observations.length, 1);
-    assert.equal(f.calls.length, 1);
+    assert.equal(report.observations.length, 3);
+    assert.equal(f.calls.length, 3);
     assert.equal(report.textIndex.status, 'skipped');
   }
 });
@@ -179,7 +185,7 @@ test('origin mismatch and excessive API documents stop before dependent reads', 
     f.files.set(f.profileUrl, { text: JSON.stringify(profile) });
     const report = await auditUrl(f.profileUrl, f.reader);
     assert.equal(report.valid, false);
-    assert.equal(f.calls.length, 1);
+    assert.equal(f.calls.length, 3);
     assert.ok(report.errors.length > 0);
   }
 });
@@ -258,7 +264,7 @@ test('TXT drift fails its check without following text directives or changing JS
       'fail',
     );
     assert.ok(f.calls.every((call) => new URL(call.url).origin === origin));
-    assert.equal(f.calls.length, 4);
+    assert.equal(f.calls.length, 5);
   }
 });
 

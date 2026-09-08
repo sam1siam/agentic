@@ -4,6 +4,7 @@ import { auth, authHandler } from './auth.ts';
 import { agentCard, handleA2a } from './a2a.ts';
 import { auditUrl, normalizeAuditUrl } from './audit.ts';
 import { discoverWebsite, normalizeWebsiteUrl } from './discovery.ts';
+import { normalizeReadmeUrl } from './publication-audit.ts';
 import {
   sandboxService,
   sandboxProfile,
@@ -57,7 +58,7 @@ async function route(request: Request) {
     return Response.json({
       status: 'ok',
       service: 'Agentic platform',
-      version: '1.2.0',
+      version: '1.3.0',
     });
   }
   await rateLimit('ip:' + clientAddress(request), 120);
@@ -156,12 +157,17 @@ async function route(request: Request) {
   }
   if (path === '/api/platform/audit' && request.method === 'POST') {
     await rateLimit('audit:' + ownerId, 6);
-    const body = await jsonBody(request, 4096);
+    const body = await jsonBody(request, 8192);
     if (typeof body.url !== 'string')
       throw new HttpError(400, 'Provide the profile URL.');
-    let profileUrl: string;
+    let profileUrl: string, readmeUrl: string | undefined;
     try {
       profileUrl = normalizeAuditUrl(body.url);
+      if (body.readmeUrl !== undefined && typeof body.readmeUrl !== 'string')
+        throw new Error('README URL must be a string.');
+      readmeUrl = body.readmeUrl?.trim()
+        ? normalizeReadmeUrl(body.readmeUrl)
+        : undefined;
     } catch (error) {
       // URL validation is local and emits safe input guidance. Do not classify
       // the word "query" in that guidance as an infrastructure failure.
@@ -176,7 +182,11 @@ async function route(request: Request) {
       );
     }
     return Response.json(
-      await saveReport(ownerId, 'audit', await auditUrl(profileUrl)),
+      await saveReport(
+        ownerId,
+        'audit',
+        await auditUrl(profileUrl, undefined, { readmeUrl }),
+      ),
     );
   }
   if (path === '/api/platform/discover' && request.method === 'POST') {

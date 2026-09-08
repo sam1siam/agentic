@@ -53,6 +53,7 @@ test('OpenAPI import produces a complete validated bundle and rejects mismatched
   const result = importBundle(ticketApi, starterSettings);
   assert.equal(result.validation.valid, true);
   assert.deepEqual(Object.keys(result.files).sort(), [
+    'LISTING.md',
     'README.md',
     'agentic.json',
     'agentic.txt',

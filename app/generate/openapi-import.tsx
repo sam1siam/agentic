@@ -167,6 +167,11 @@ export default function OpenapiImport() {
             files={{
               'agentic.txt': bundle.files['agentic.txt'],
               'agentic.json': bundle.files['agentic.json'],
+              'README.md': bundle.files['README.md'],
+              'LISTING.md':
+                'LISTING.md' in bundle.files
+                  ? bundle.files['LISTING.md']
+                  : undefined,
             }}
           />
         ) : (
@@ -208,7 +213,7 @@ export default function OpenapiImport() {
               );
             }}
           >
-            Download starter ZIP
+            Download full bundle
           </Button>
         </div>
         <p role="status" className="small muted">

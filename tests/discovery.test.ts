@@ -12,7 +12,8 @@ import {
   type SiteProfile,
 } from '../lib/site-profile.ts';
 import { validateProfile } from '../lib/validation.ts';
-import { buildActionIndex, profileFiles } from '../lib/action-index.ts';
+import { buildActionIndex } from '../lib/action-index.ts';
+import { publicationFiles, buildPublicationIndex } from '../lib/publication.ts';
 import { buildProfile, starterSettings } from '../lib/profile-generator.ts';
 import { executeAction } from '../lib/client.ts';
 import ticketApi from '../examples/tickets/openapi.json' with { type: 'json' };
@@ -116,8 +117,8 @@ test('website generation discovers sources and API operations without ticket ass
   assert.ok(!JSON.stringify(site).includes('127.0.0.1'));
   assert.ok(!('actions' in site));
   assert.ok(!JSON.stringify(site).includes('create-ticket'));
-  assert.equal(result.files['agentic.txt'], buildActionIndex(site));
-  assert.match(result.files['agentic.txt'], /Agentic-Text: 1\.1/);
+  assert.equal(result.files['agentic.txt'], buildPublicationIndex(site));
+  assert.match(result.files['agentic.txt'], /Agentic-Text: 1\.2/);
   assert.ok(f.calls.every((call) => call.limit <= 1048576 && call.redirects));
 });
 test('discovery permits canonical redirects, rejects other destinations and follows no private references', async () => {
@@ -218,7 +219,7 @@ test('published action profiles retain their exact contract and TXT format', asy
   const result = await discoverWebsite(origin, f.reader);
   assert.equal(result.mode, 'action');
   assert.deepEqual(result.profile, profile);
-  assert.deepEqual(result.files, profileFiles(profile));
+  assert.deepEqual(result.files, publicationFiles(profile));
   assert.equal(result.notes.length, 0);
 });
 test('resource and byte caps preserve valid output when a page links hundreds of resources', async () => {

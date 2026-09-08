@@ -1,6 +1,6 @@
 {
   "name": "agentic-action-profile",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "private": true,
   "engines": {
     "node": "24.x"
@@ -13,7 +13,7 @@
     "format": "oxfmt",
     "prebuild": "node scripts/prepare.mjs",
     "prepare:artifacts": "node scripts/prepare.mjs",
-    "test": "node --test tests/protocol.test.ts tests/tooling.test.ts tests/integrations.test.ts tests/platform.test.ts tests/audit.test.ts tests/discovery.test.ts",
+    "test": "node --test tests/protocol.test.ts tests/tooling.test.ts tests/integrations.test.ts tests/platform.test.ts tests/audit.test.ts tests/discovery.test.ts tests/publication.test.ts",
     "typecheck": "tsc --noEmit",
     "validate": "node scripts/validate.ts",
     "init": "node scripts/init.ts",

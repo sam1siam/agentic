@@ -11,9 +11,9 @@ export const metadata: Metadata = {
   },
 };
 export const dynamic = 'force-static';
-const release = 'https://github.com/sam1siam/agentic/releases/tag/v1.2.0';
+const release = 'https://github.com/sam1siam/agentic/releases/tag/v1.3.0';
 const cli =
-  'https://github.com/sam1siam/agentic/releases/download/v1.2.0/ruagentic-1.2.0.tgz';
+  'https://github.com/sam1siam/agentic/releases/download/v1.3.0/ruagentic-1.3.0.tgz';
 
 export default function AdoptPage() {
   return (
@@ -77,17 +77,18 @@ export default function AdoptPage() {
           validate a profile.
         </p>
         <CodeSample
-          value={`npm install -g ruagentic@1.2.0
+          value={`npm install -g ruagentic@1.3.0
 agentic discover https://your-site.com --out agentic-files
 agentic validate agentic-files/agentic.json
 agentic text agentic-files/agentic.json --check`}
         />
         <p className="notice">
-          The new output directory contains both files and a discovery report.
-          Review the sources and publish the pair on your domain.
+          The new output directory contains agentic.json, agentic.txt,
+          README.md, LISTING.md, and a discovery report. Review the sources and
+          publish the pair on your domain.
         </p>
         <div className="doc-utilities">
-          <a href="https://github.com/sam1siam/agentic/releases/tag/v1.2.0">
+          <a href="https://github.com/sam1siam/agentic/releases/tag/v1.3.0">
             Release notes ↗
           </a>
           <a href={cli}>Download CLI ↓</a>
@@ -102,7 +103,7 @@ agentic text agentic-files/agentic.json --check`}
           your profile and its OpenAPI operation bindings.
         </p>
         <CodeSample
-          value={`- uses: sam1siam/agentic@v1.2.0
+          value={`- uses: sam1siam/agentic@v1.3.0
   with:
     profile: agentic.json
     openapi: openapi.json`}
@@ -111,7 +112,7 @@ agentic text agentic-files/agentic.json --check`}
           <a href="https://github.com/sam1siam/agentic/blob/main/action.yml">
             Action reference ↗
           </a>
-          <a href="https://github.com/sam1siam/agentic/releases/download/v1.2.0/agentic-adoption-skill.zip">
+          <a href="https://github.com/sam1siam/agentic/releases/download/v1.3.0/agentic-adoption-skill.zip">
             Download the agent skill ↓
           </a>
         </div>
@@ -152,7 +153,7 @@ agentic text agentic-files/agentic.json --check`}
         </div>
       </section>
       <div className="notice">
-        Site Profile 1.1.0, Action Profile 1.0.0, and tools 1.2.0 are published.
+        Site Profile 1.1.0, Action Profile 1.0.0, and tools 1.3.0 are published.
         Pin versions and review the service requirements before integrating it.
         The hosted recovery service uses synthetic data.
       </div>

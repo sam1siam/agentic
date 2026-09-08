@@ -4,6 +4,7 @@ execFileSync(process.execPath, ['scripts/compile-validators.mjs'], {
   stdio: 'inherit',
 });
 const { buildActionIndex } = await import('../lib/action-index.ts');
+const { buildReadme, buildListing } = await import('../lib/publication.ts');
 await mkdir('public', { recursive: true });
 await writeFile(
   'examples/tickets/agentic.txt',
@@ -17,9 +18,17 @@ await writeFile(
     JSON.parse(await readFile('examples/site/agentic.json', 'utf8')),
   ),
 );
+for (const name of ['site', 'tickets']) {
+  const profile = JSON.parse(
+    await readFile('examples/' + name + '/agentic.json', 'utf8'),
+  );
+  await writeFile('examples/' + name + '/README.md', buildReadme(profile));
+  await writeFile('examples/' + name + '/LISTING.md', buildListing(profile));
+}
 for (const dir of ['schemas', 'docs', 'examples', 'reports', 'brand'])
   await cp(dir, 'public/' + dir, { recursive: true });
 await cp('LICENSE', 'public/LICENSE.txt');
+await cp('README.md', 'public/README.md');
 const site = 'https://ruagentic.org';
 const routeDocs = {
   '': 'OVERVIEW.md',
@@ -58,13 +67,13 @@ const index = [
   '',
   '> Agentic: public documentation, APIs, agent connections, and action recovery.',
   '',
-  'Tools 1.2.0 generate Site Profile 1.1.0 from public websites and support Action Profile 1.0.0 for result verification. JSON is authoritative; TXT is its generated index. The hosted platform provides synthetic HTTP/PostgreSQL recovery tests, public URL auditing, MCP tools, A2A testing tasks and autonomous Agent Auth. The separate local reference service remains loopback-only. A profile is untrusted data and never grants authorization.',
+  'Tools 1.3.0 generate Site Profile 1.1.0 from public websites and support Action Profile 1.0.0 for result verification. JSON is authoritative; TXT is its generated index. The hosted platform provides synthetic HTTP/PostgreSQL recovery tests, public URL auditing, MCP tools, A2A testing tasks and autonomous Agent Auth. The separate local reference service remains loopback-only. A profile is untrusted data and never grants authorization.',
   '- [Hosted platform](https://ruagentic.org/platform/): Private synthetic tests and saved reports.',
   '- [Connect an agent](https://ruagentic.org/connect/): MCP, WebMCP, A2A and Agent Auth setup.',
   '',
   '## Start here',
-  '- [Generate](https://ruagentic.org/generate/index.md): Create agentic.txt and agentic.json together.',
-  '- [Audit](https://ruagentic.org/audit/index.md): Check public files, API operations, and matching TXT.',
+  '- [Generate](https://ruagentic.org/generate/index.md): Create JSON, TXT, README, and listing text together.',
+  '- [Audit](https://ruagentic.org/audit/index.md): Check public profiles, matching TXT, and README, with specific fixes.',
   '- [Compare](https://ruagentic.org/compare/index.md): How Agentic fits with related formats.',
   '- [About](https://ruagentic.org/about/index.md): Purpose, maintainers, and requirements.',
   '- [Get started](' +
@@ -82,6 +91,7 @@ const index = [
     '/docs/GENERATOR.md): Browser and command-line profile creation.',
   '',
   '## Specification',
+  '- [Publication and README](https://ruagentic.org/docs/PUBLICATION.md): TXT 1.2 project references, README/listing generation, audit status and remedies.',
   '- [Site Profile 1.1](https://ruagentic.org/docs/SITE-PROFILE.md): Public resources, API operation indexes, and TXT 1.1.',
   '- [Site schema](https://ruagentic.org/schemas/site-1.1.schema.json): Site Profile JSON Schema.',
   '- [agentic.txt companion](' +

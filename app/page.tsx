@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import sample from '@/examples/site/agentic.json';
-import { profileFiles } from '@/lib/action-index';
+import { publicationFiles } from '@/lib/publication';
 import FilePair from './file-pair';
 export const dynamic = 'force-static';
 export const metadata = {
@@ -38,23 +38,24 @@ export default function Home() {
       </section>
       <section className="home-pair">
         <div className="section-head">
-          <h2>Two files. One view of your website.</h2>
+          <h2>Your Agentic publication files.</h2>
           <Link href="/spec">Read the format →</Link>
         </div>
         <p className="muted">
-          JSON holds the structured information. TXT is its readable index. This
-          small example uses a placeholder domain; the generator uses your
-          public sources.
+          JSON holds the structured information. TXT is its readable index.
+          README and listing text help you publish and describe them. This small
+          example uses a placeholder domain; the generator uses your public
+          sources.
         </p>
-        <FilePair files={profileFiles(sample)} />
+        <FilePair files={publicationFiles(sample)} />
       </section>
       <section className="simple-steps" aria-label="Get started">
         <article>
           <span className="step-number">01</span>
           <h2>Generate</h2>
           <p>
-            Enter your website URL. Review the sources found and download both
-            files.
+            Enter your website URL. Review the sources found and download the
+            four publication files.
           </p>
           <Link href="/generate">Create files →</Link>
         </article>
@@ -62,8 +63,8 @@ export default function Home() {
           <span className="step-number">02</span>
           <h2>Publish</h2>
           <p>
-            Place both files on your domain and give their URL to a supporting
-            agent.
+            Publish agentic.json and agentic.txt on your domain, merge the
+            README, and give the file URL to a supporting agent.
           </p>
           <Link href="/spec">Publishing guide →</Link>
         </article>
@@ -72,7 +73,7 @@ export default function Home() {
           <h2>Check</h2>
           <p>
             Audit the published files, their document links, and the matching
-            text index.
+            text index and README.
           </p>
           <Link href="/audit">Run an audit →</Link>
         </article>

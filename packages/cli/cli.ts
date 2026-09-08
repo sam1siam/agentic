@@ -8,6 +8,7 @@ import { discoverWebsite } from '../../server/discovery.ts';
 import { buildProfile, starterSettings } from '../../lib/profile-generator.ts';
 import { auditUrl } from '../../server/audit.ts';
 import { writeActionIndex } from '../../scripts/action-index.ts';
+import { publicationFiles } from '../../lib/publication.ts';
 
 const [command, ...args] = process.argv.slice(2);
 try {
@@ -59,13 +60,40 @@ try {
       { flag: 'wx' },
     );
     console.log(
-      'Created agentic.txt and agentic.json in ' +
+      'Created agentic.txt, agentic.json, README.md and LISTING.md in ' +
         values.out +
         ' from ' +
         result.origin +
         '.',
     );
     for (const note of result.notes) console.log(note);
+  } else if (command === 'bundle') {
+    const { values, positionals } = parseArgs({
+      args,
+      allowPositionals: true,
+      options: {
+        out: { type: 'string', default: 'agentic-files' },
+        'profile-url': { type: 'string' },
+      },
+    });
+    if (positionals.length !== 1)
+      throw new Error(
+        'Usage: agentic bundle agentic.json [--out new-directory] [--profile-url public-json-url]',
+      );
+    const source = await readFile(positionals[0], 'utf8');
+    if (Buffer.byteLength(source) > 65536)
+      throw new Error('Profile exceeds 64 KiB.');
+    const files = publicationFiles(JSON.parse(source), values['profile-url']);
+    const { mkdir } = await import('node:fs/promises');
+    const { join } = await import('node:path');
+    await mkdir(values.out, { recursive: false });
+    for (const [name, content] of Object.entries(files))
+      await writeFile(join(values.out, name), content, { flag: 'wx' });
+    console.log(
+      'Created agentic.json, agentic.txt, README.md and LISTING.md in ' +
+        values.out +
+        '.',
+    );
   } else if (command === 'text') {
     console.log(await writeActionIndex(args));
   } else if (command === 'validate') {
@@ -78,28 +106,43 @@ try {
     console.log(JSON.stringify(result, null, 2));
     if (!result.valid) process.exitCode = 1;
   } else if (command === 'audit') {
-    if (args.length !== 1)
+    const { values, positionals } = parseArgs({
+      args,
+      allowPositionals: true,
+      options: {
+        readme: { type: 'string' },
+        publication: { type: 'boolean', default: false },
+      },
+    });
+    if (positionals.length !== 1)
       throw new Error(
-        'Usage: agentic audit https://your-service.example/agentic.json',
+        'Usage: agentic audit URL [--readme raw-readme-url] [--publication]',
       );
-    const result = await auditUrl(args[0]);
+    const result = await auditUrl(positionals[0], undefined, {
+      readmeUrl: values.readme,
+    });
     console.log(JSON.stringify(result, null, 2));
-    if (!result.valid) process.exitCode = 1;
+    if (
+      values.publication
+        ? result.publication.status !== 'successful'
+        : !result.valid
+    )
+      process.exitCode = 1;
   } else if (command === 'mcp') {
     await createTools({
       readSpec: async () =>
         (
           await Promise.all(
-            ['SPEC.md', 'SITE-PROFILE.md'].map((name) =>
+            ['SPEC.md', 'SITE-PROFILE.md', 'PUBLICATION.md'].map((name) =>
               readFile(new URL('../' + name, import.meta.url), 'utf8'),
             ),
           )
         ).join('\n\n---\n\n'),
     }).connect(new StdioServerTransport());
-  } else if (command === '--version') console.log('1.2.0');
+  } else if (command === '--version') console.log('1.3.0');
   else {
     console.log(
-      'Agentic tools\n\nagentic discover https://your-site.com [--out new-directory]\nagentic init --origin https://service.example [--out agentic.json]\nagentic text agentic.json [--out agentic.txt] [--profile-url https://service.example/agentic.json] [--check]\nagentic validate agentic.json openapi.json\nagentic audit https://service.example/agentic.json\nagentic mcp\n\nValidation is structural. Audits only read public HTTPS files. Neither proves service behavior.',
+      'Agentic tools\n\nagentic discover https://your-site.com [--out new-directory]\nagentic init --origin https://service.example [--out agentic.json]\nagentic bundle agentic.json [--out new-directory]\nagentic text agentic.json [--out agentic.txt] [--profile-url https://service.example/agentic.json] [--check] [--legacy]\nagentic validate agentic.json openapi.json\nagentic audit https://service.example/agentic.json [--readme raw-readme-url] [--publication]\nagentic mcp\n\nValidation is structural. Audits only read public HTTPS files. Neither proves service behavior.',
     );
     if (command && command !== '--help') process.exitCode = 1;
   }

@@ -1,6 +1,8 @@
 # MCP, WebMCP, A2A, and Agent Auth
 
-Tools 1.2.0 add `discover_agentic_site` to local and hosted MCP and the generator's conditional WebMCP tools. It accepts `{ "url": "https://your-site.com" }` and returns both files with a discovery report. It reads public documents and records advertised protocol URLs without invoking discovered tools. [Site Profile 1.1](https://ruagentic.org/docs/SITE-PROFILE.md) can list these links; the 1.0 action schema remains unchanged.
+Tools 1.3.0 generation results include agentic.json, TXT 1.2, README.md and LISTING.md. Hosted `audit_agentic_url` accepts optional `readmeUrl` and returns publication status plus remedies without changing JSON/API `valid` semantics. [Publication specification](https://ruagentic.org/docs/PUBLICATION.md).
+
+Tools 1.3.0 expose `discover_agentic_site` to local and hosted MCP and the generator's conditional WebMCP tools. It accepts `{ "url": "https://your-site.com" }` and returns JSON, TXT, README, and listing text with a discovery report. It reads public documents and records advertised protocol URLs without invoking discovered tools. [Site Profile 1.1](https://ruagentic.org/docs/SITE-PROFILE.md) can list these links; the 1.0 action schema remains unchanged.
 
 Agentic 1.0 describes action tracking and recovery through OpenAPI. Discovery, tool transport, agent messaging, and authorization keep their own protocols. Adding a declaration does not implement a protocol.
 
@@ -18,7 +20,7 @@ Use the [connection guide](https://ruagentic.org/connect/) for client examples a
 ## Public endpoints
 
 - MCP: `https://ruagentic.org/mcp`. Five read-only tools; no token required. The additional hosted tool is `audit_agentic_url` with `{ "url": "https://your-service.example/agentic.json" }`.
-- A2A card: `https://ruagentic.org/.well-known/agent-card.json`; endpoint: `https://ruagentic.org/a2a`. Create a private session token in the platform. Send `Authorization: Bearer <token>` and `A2A-Version: 1.0`. `SendMessage` accepts a data part with `{ "kind": "recovery", "scenario": "response-lost" }` or `{ "kind": "audit", "url": "..." }`. Retrieve results with `GetTask` and the returned ID.
+- A2A card: `https://ruagentic.org/.well-known/agent-card.json`; endpoint: `https://ruagentic.org/a2a`. Create a private session token in the platform. Send `Authorization: Bearer <token>` and `A2A-Version: 1.0`. `SendMessage` accepts a data part with `{ "kind": "recovery", "scenario": "response-lost" }` or `{ "kind": "audit", "url": "...", "readmeUrl": "https://raw.example/README.md" }` (readmeUrl is optional). Retrieve results with `GetTask` and the returned ID.
 - Agent Auth: `https://ruagentic.org/.well-known/agent-configuration`. Configure the official `@auth/agent` client with `urls: ['https://ruagentic.org']` for direct discovery. Autonomous capabilities are `agentic.validate` and `agentic.sandbox.run`.
 
 Agent Auth uses inline public keys, one-hour grants, a one-day maximum agent lifetime, persistent replay detection, and revocation checks. Remote JWKS URLs are not supported. The verification flow registers an agent, executes validation, revokes it and tests rejection of an unused signed token. It does not create a human account.
@@ -42,7 +44,7 @@ On Windows, use a JSON-escaped absolute path such as `C:\\projects\\agentic\\ref
 
 Tools:
 
-- `discover_agentic_site`: takes a public website `url` and returns both files plus a source report.
+- `discover_agentic_site`: takes a public website `url` and returns JSON, TXT, README, and listing text plus a source report.
 - `get_agentic_spec`: returns the site and action specifications bundled with the checkout.
 - `generate_agentic_profile`: takes `origin` and optional `actionId`, returns the ticket starter and validation result.
 - `validate_agentic_profile`: takes JSON text in `profile` and optional `openapi`. Limits: 64 KiB and 256 KiB respectively.
@@ -53,7 +55,7 @@ The server uses the official MCP TypeScript SDK 2.0.0. Specification, manual gen
 
 Open /generate/, /validate/, or /lab/ in a compatible browser. Each page registers its tool through `document.modelContext.registerTool` when available and unregisters on unmount using an abort signal. This follows the current WebMCP specification; earlier browser implementations may expose a different API. The regular page controls work without WebMCP.
 
-Website discovery updates the visible generator and returns both files with its report. The advanced action-template tool returns profile data without changing the page. Validation and lab tools update the visible result. The lab remains a browser simulation, not an HTTP execution test. Registration is conditional and is not a claim that a particular agent host can invoke these tools.
+Website discovery updates the visible generator and returns all four publication files with its report. The advanced action-template tool returns profile data without changing the page. Validation and lab tools update the visible result. The lab remains a browser simulation, not an HTTP execution test. Registration is conditional and is not a claim that a particular agent host can invoke these tools.
 
 ## Documentation and direct connections
 

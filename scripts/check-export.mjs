@@ -46,6 +46,12 @@ for (const route of routes) {
 }
 for (const file of [
   'docs/SPEC.md',
+  'docs/PUBLICATION.md',
+  'README.md',
+  'examples/site/README.md',
+  'examples/site/LISTING.md',
+  'examples/tickets/README.md',
+  'examples/tickets/LISTING.md',
   'docs/SITE-PROFILE.md',
   'schemas/site-1.1.schema.json',
   'examples/site/agentic.json',

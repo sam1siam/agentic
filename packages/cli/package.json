@@ -1,7 +1,7 @@
 {
   "name": "ruagentic",
-  "version": "1.2.0",
-  "description": "Generate agentic.json and agentic.txt from public websites; validate profiles, audit published files, and connect MCP tools.",
+  "version": "1.3.0",
+  "description": "Generate Agentic JSON, TXT, README and listing copy from websites; audit files with clear results and fixes. CLI and MCP tools.",
   "type": "module",
   "bin": {
     "agentic": "dist/cli.mjs"
@@ -12,7 +12,8 @@
     "SITE-PROFILE.md",
     "AGENTIC-TXT.md",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "PUBLICATION.md"
   ],
   "engines": {
     "node": ">=24"

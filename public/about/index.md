@@ -6,7 +6,7 @@ Agentic is an open file convention that helps agents find a website's documentat
 
 [Site Profile 1.1](https://ruagentic.org/docs/SITE-PROFILE.md) describes discovered resources and documented operations. [Action Profile 1.0](https://ruagentic.org/docs/SPEC.md) defines request tracking and result checks for services that implement its contract. A website can publish a site profile without implementing action recovery. Files do not create endpoints, grant authorization, or automatically add support to every agent.
 
-Maintained by [sam1siam](https://github.com/sam1siam), the specification, schemas, and tools are Apache-2.0. Tools 1.2.0 support both profile types. Install [ruagentic from npm](https://www.npmjs.com/package/ruagentic), use the CLI or browser tools, or contribute in the [repository](https://github.com/sam1siam/agentic).
+Maintained by [sam1siam](https://github.com/sam1siam), the specification, schemas, and tools are Apache-2.0. Tools 1.3.0 support both profile types. Install [ruagentic from npm](https://www.npmjs.com/package/ruagentic), use the CLI or browser tools, or contribute in the [repository](https://github.com/sam1siam/agentic).
 
 ## What the website runs
 

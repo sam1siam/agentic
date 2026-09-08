@@ -4,7 +4,7 @@ import {
   type StarterSettings,
 } from './profile-generator.ts';
 import { validateProfile } from './validation.ts';
-import { profileFiles } from './action-index.ts';
+import { publicationFiles, buildReadme } from './publication.ts';
 export type ImportedOperation = {
   id: string;
   method: 'GET' | 'POST';
@@ -51,10 +51,14 @@ export function importBundle(document: unknown, settings: StarterSettings) {
     validation,
     files: {
       ...(validation.valid
-        ? profileFiles(profile)
+        ? publicationFiles(profile)
         : { 'agentic.json': JSON.stringify(profile, null, 2) + '\n' }),
       'openapi.json': JSON.stringify(document, null, 2) + '\n',
-      'README.md': instructions,
+      'README.md': validation.valid
+        ? buildReadme(profile) +
+          '\n## Action implementation checklist\n\n' +
+          instructions
+        : instructions,
     },
   };
 }

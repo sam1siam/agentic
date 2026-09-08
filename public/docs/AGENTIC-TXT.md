@@ -1,6 +1,8 @@
 # agentic.txt: generated action index
 
-This document defines TXT 1.0 for Action Profile 1.0. For the generated site index (`Agentic-Text: 1.1`), see [Site Profile 1.1](SITE-PROFILE.md#txt-11). Tools 1.2.0 generate either form from its validated JSON. Action TXT bytes remain unchanged.
+Tools 1.3.0 generate [TXT 1.2](PUBLICATION.md#txt-12) with explicit Agentic specification and RUAGENTIC directory references. JSON versions remain unchanged. This document preserves the original action TXT 1.0 format; use `agentic text agentic.json --legacy` to generate it. Current consistency checks accept both exact legacy and publication indexes.
+
+This document defines TXT 1.0 for Action Profile 1.0. For the generated site index (`Agentic-Text: 1.1`), see [Site Profile 1.1](SITE-PROFILE.md#txt-11). Tools 1.2.0 generated these legacy forms from validated JSON. Action TXT bytes remain unchanged.
 
 Version: `Agentic-Text: 1.0`. This optional companion accompanies the `1.0.0` JSON action profile. JSON remains authoritative for action execution.
 
@@ -39,7 +41,7 @@ This version is a generated summary, not a second input format for the action ex
 
 ## Generate and check
 
-Use the browser [generator](https://ruagentic.org/generate/): view JSON and TXT together, copy or download either file, or select **Download both files**. The OpenAPI starter ZIP also includes both.
+Use the browser [generator](https://ruagentic.org/generate/): view JSON, TXT, README, and listing text, then copy or download each file, or select **Download publication files**. The OpenAPI full bundle also includes its API document.
 
 With the CLI:
 
@@ -57,7 +59,7 @@ For a non-default public location:
 agentic text profile.json --out agentic.txt --profile-url https://your-service.example/contracts/profile.json
 ```
 
-From a source checkout, use `npm run text -- agentic.json` with the same options. MCP and WebMCP profile-generation results include a `files` object containing both generated files.
+From a source checkout, use `npm run text -- agentic.json` with the same options. MCP and WebMCP profile-generation results include a `files` object containing JSON, TXT, README, and listing text.
 
 For an explicit loopback development profile, add `--allow-local`. This permits HTTP only on localhost, 127.0.0.1, or [::1]; production profiles still require HTTPS. The local reference server serves its matching TXT at `/agentic.txt` automatically.
 

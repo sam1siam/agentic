@@ -4,14 +4,14 @@ Agentic 1.0.0 uses explicit version identifiers for the action profile, receipt,
 
 ## New actions
 
-1. Install and pin `ruagentic@1.2.0` and the matching service/client implementation.
+1. Install and pin `ruagentic@1.3.0` and the matching service/client implementation.
 2. Set the profile's `agentic` field to `1.0.0`. Use `agentic-1.0.schema.json` for profile validation and `receipt-1.0.schema.json` for receipt validation.
 3. Generate new receipts with the `1.0.0` version identifier. Preserve historical receipts exactly as recorded; changing their version would not retest or reverify the original action.
 4. Revalidate the profile against the service's actual OpenAPI document and run behavioral checks for request tracking, idempotency, status reconciliation, and resource evidence.
-5. Regenerate `agentic.txt` from the validated profile. Its header is `Agentic-Text: 1.0` and its `Profile-Version` is `1.0.0`. Deploy the JSON and TXT together.
+5. Regenerate `agentic.txt` from the validated profile. The current generator uses `Agentic-Text: 1.2` and its `Profile-Version` is `1.0.0`. Deploy the JSON and TXT together. Use `--legacy` only when retaining TXT 1.0 output; its existing bytes and JSON contract remain supported.
 
 ```sh
-npm install -g ruagentic@1.2.0
+npm install -g ruagentic@1.3.0
 agentic validate agentic.json openapi.json
 agentic text agentic.json
 agentic text agentic.json --check
