@@ -22,8 +22,8 @@ export type StarterSettings = typeof starterSettings;
 
 export function buildProfile(settings: StarterSettings): Profile {
   return {
-    $schema: 'https://ruagentic.org/schemas/agentic-0.1.schema.json',
-    agentic: '0.1.0-draft',
+    $schema: 'https://ruagentic.org/schemas/agentic-1.0.schema.json',
+    agentic: '1.0.0',
     origin: settings.origin.trim(),
     actions: [
       {

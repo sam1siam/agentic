@@ -128,7 +128,7 @@ test('initializer creates valid output and never overwrites an existing file', a
     const args = [
       'scripts/init.ts',
       '--origin',
-      'https://pilot.example',
+      'https://service.example',
       '--out',
       output,
     ];
@@ -138,7 +138,7 @@ test('initializer creates valid output and never overwrites an existing file', a
     });
     assert.equal(first.status, 0, first.stderr);
     const original = await readFile(output, 'utf8');
-    assert.equal(JSON.parse(original).origin, 'https://pilot.example');
+    assert.equal(JSON.parse(original).origin, 'https://service.example');
     const second = spawnSync(
       process.execPath,
       [...args, '--action-id', 'changed'],
@@ -163,13 +163,13 @@ test('initializer creates valid output and never overwrites an existing file', a
   }
 });
 
-test('pilot runner rejects a success receipt without the required service interaction', async () => {
+test('compatibility runner rejects a success receipt without the required service interaction', async () => {
   const directory = await mkdtemp(join(tmpdir(), 'agentic-runner-'));
   try {
     const fake = join(directory, 'fake.mjs');
     await writeFile(
       fake,
-      `import { readFileSync } from 'node:fs'; const p=JSON.parse(readFileSync(0,'utf8')); console.log(JSON.stringify({agentic:'0.1.0-draft',request_id:p.request_id,action_id:p.profile.actions[0].id,origin:p.profile.origin,outcome:'succeeded',observed_at:new Date().toISOString(),resource_id:'invented',reason:'invented',evidence:{url:p.profile.origin+'/tickets/invented',resource_id:'invented',request_id:p.request_id,state:'open',matched:p.profile.actions[0].evidence.inputBindings}}));`,
+      `import { readFileSync } from 'node:fs'; const p=JSON.parse(readFileSync(0,'utf8')); console.log(JSON.stringify({agentic:'1.0.0',request_id:p.request_id,action_id:p.profile.actions[0].id,origin:p.profile.origin,outcome:'succeeded',observed_at:new Date().toISOString(),resource_id:'invented',reason:'invented',evidence:{url:p.profile.origin+'/tickets/invented',resource_id:'invented',request_id:p.request_id,state:'open',matched:p.profile.actions[0].evidence.inputBindings}}));`,
     );
     const config = join(directory, 'adapter.json');
     await writeFile(
@@ -182,7 +182,7 @@ test('pilot runner rejects a success receipt without the required service intera
     );
     const run = spawnSync(
       'python',
-      ['scripts/pilot.py', '--adapter', config, '--scenario', 'normal'],
+      ['scripts/conformance.py', '--adapter', config, '--scenario', 'normal'],
       { encoding: 'utf8', timeout: 30000 },
     );
     assert.equal(run.status, 1, run.stderr);

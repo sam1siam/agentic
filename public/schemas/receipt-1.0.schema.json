@@ -2,7 +2,7 @@
   "type": "object",
   "properties": {
     "agentic": {
-      "const": "0.1.0-draft"
+      "const": "1.0.0"
     },
     "request_id": {
       "type": "string",
@@ -109,7 +109,7 @@
   ],
   "additionalProperties": false,
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ruagentic.org/schemas/receipt-0.1.schema.json",
+  "$id": "https://ruagentic.org/schemas/receipt-1.0.schema.json",
   "allOf": [
     {
       "if": {

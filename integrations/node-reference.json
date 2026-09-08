@@ -1,5 +1,5 @@
 {
   "name": "Agentic Node reference client",
   "authorship": "project",
-  "command": ["node", "reference/node/pilot-adapter.ts"]
+  "command": ["node", "reference/node/conformance-adapter.ts"]
 }

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: '%s · Agentic',
   },
   description:
-    'An experimental open convention for AI agents to verify actions and recover from interrupted requests. Read the draft, validate a profile, and run the recovery lab.',
+    'An open convention for AI agents to verify actions and recover from interrupted requests. Read the specification, validate a profile, and connect your service.',
 };
 export default function RootLayout({
   children,
@@ -57,7 +57,7 @@ export default function RootLayout({
             <Link href="/" className="footer-brand">
               agentic<span> / </span>ruagentic.org
             </Link>
-            <p>Experimental proposal. Open for implementation and critique.</p>
+            <p>Agentic 1.0.0. Open specification, tools, and integrations.</p>
           </div>
           <div className="footer-links">
             <a href="/agentic.txt">agentic.txt</a>

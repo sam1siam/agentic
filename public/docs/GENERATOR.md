@@ -4,7 +4,7 @@ Open [the browser generator](https://ruagentic.org/generate/) to customize a tic
 
 Editable settings: canonical HTTPS origin, action ID and description, OpenAPI path, submit/status/verify operation IDs, retention window, read path parameter names, resource/request/state JSON Pointers, accepted resource states, and one input/resource evidence pair. The full schema permits more evidence pairs and actions; edit the JSON for those cases.
 
-The manual generator keeps the 0.1 recovery defaults: three checks, a 100 ms check delay, a 3000 ms request timeout, and `never-automatically` for mutation retries. It validates structure and semantic profile constraints. The OpenAPI import mode also checks operation bindings. Neither implements service behavior.
+The manual generator keeps the 1.0 recovery defaults: three checks, a 100 ms check delay, a 3000 ms request timeout, and `never-automatically` for mutation retries. It validates structure and semantic profile constraints. The OpenAPI import mode also checks operation bindings. Neither implements service behavior.
 
 After generation, paste the profile and your actual OpenAPI document into [the validator](https://ruagentic.org/validate/), then run behavioral tests before publishing.
 

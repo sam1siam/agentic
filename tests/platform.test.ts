@@ -280,7 +280,7 @@ test(
             assert.equal(tools.tools.length, 4);
             const result = await client.callTool({
               name: 'generate_agentic_profile',
-              arguments: { origin: 'https://pilot.example' },
+              arguments: { origin: 'https://service.example' },
             });
             assert.equal(
               JSON.parse((result.content as { text: string }[])[0].text)
@@ -352,7 +352,7 @@ test(
             agentId: connected.agentId,
             capability: 'agentic.validate',
             arguments: {
-              profile: { ...sandboxProfile(), origin: 'https://pilot.example' },
+              profile: { ...sandboxProfile(), origin: 'https://service.example' },
               openapi: sandboxOpenapi(),
             },
           });

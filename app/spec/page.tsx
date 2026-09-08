@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ArrowDownToLine, ArrowUpRight } from 'lucide-react';
 import sample from '@/examples/tickets/agentic.json';
 export const metadata: Metadata = {
-  title: 'Specification · 0.1 draft',
+  title: 'Specification · 1.0.0',
   alternates: {
     canonical: 'https://ruagentic.org/spec/',
     types: { 'text/markdown': '/spec/index.md' },
@@ -26,24 +26,24 @@ export default function SpecPage() {
   return (
     <main className="page wrap">
       <div className="page-heading">
-        <p className="eyebrow">Agentic Action Profile / 0.1.0-draft</p>
+        <p className="eyebrow">Agentic Action Profile / 1.0.0</p>
         <h1>
           A small contract.
           <br />
           <span>A checkable result.</span>
         </h1>
         <p>
-          An experimental profile for tracking, reconciling, and verifying
+          An open profile for tracking, reconciling, and verifying
           actions through existing OpenAPI operations.
         </p>
         <div className="actions">
           <a className="action primary" href="/docs/SPEC.md">
             <ArrowDownToLine size={17} />
-            Normative draft
+            Read the specification
           </a>
           <a
             className="action secondary"
-            href="/schemas/agentic-0.1.schema.json"
+            href="/schemas/agentic-1.0.schema.json"
           >
             JSON Schema <ArrowUpRight size={17} />
           </a>
@@ -57,7 +57,7 @@ export default function SpecPage() {
           <a href="#lifecycle">03 / Lifecycle</a>
           <a href="#receipts">04 / Receipts</a>
           <a href="#boundaries">05 / Boundaries</a>
-          <a href="#status">06 / Draft status</a>
+          <a href="#status">06 / Release and implementation</a>
         </aside>
         <article className="prose">
           <section id="scope">
@@ -69,8 +69,8 @@ export default function SpecPage() {
               document.
             </p>
             <p>
-              Agentic builds on existing techniques. Its proposed contribution
-              is a consistent, testable set of rules that multiple clients can
+              Agentic builds on existing techniques. It provides
+              a consistent, testable set of rules that multiple clients can
               implement. It is not a new transport, a permission grant, or an
               exactly-once guarantee.
             </p>
@@ -150,7 +150,7 @@ export default function SpecPage() {
               manifest. A receipt records an observation; it is not a signature
               or a guarantee that the service is honest.
             </p>
-            <a href="/schemas/receipt-0.1.schema.json">Receipt schema ↗</a>
+            <a href="/schemas/receipt-1.0.schema.json">Receipt schema ↗</a>
           </section>
           <section id="boundaries">
             <h2>05 / Explicit boundaries.</h2>
@@ -161,7 +161,7 @@ export default function SpecPage() {
               The file cannot provide those controls on its own.
             </p>
             <p>
-              This draft supports a narrow same-origin OpenAPI binding. General
+              Version 1.0.0 supports a same-origin OpenAPI binding. General
               workflow programming, cross-origin execution, payments, identity,
               and automatic mutation retries are outside its scope.
             </p>
@@ -171,19 +171,20 @@ export default function SpecPage() {
             </p>
           </section>
           <section id="status">
-            <h2>06 / A proposal to test.</h2>
+            <h2>06 / A stable contract to implement.</h2>
             <p>
               The repository includes Node and Python reference clients, a
-              loopback HTTP/SQLite service, and failure tests. Both clients
-              share project authorship. Independent implementation and
-              production adoption remain open goals.
+              loopback HTTP/SQLite service, and failure tests. The hosted
+              platform provides recovery checks and protocol integrations.
+              Use these tools to verify your implementation against the
+              requirements of Agentic 1.0.0.
             </p>
             <p>
               This page is a reading guide.{' '}
-              <a href="/docs/SPEC.md">The normative draft</a> and versioned
+              <a href="/docs/SPEC.md">The specification</a> and versioned
               schemas define the actual requirements.
             </p>
-            <Link href="/adopt">Help test the proposal →</Link>
+            <Link href="/adopt">Build with Agentic →</Link>
           </section>
         </article>
       </div>

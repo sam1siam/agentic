@@ -4,7 +4,7 @@ import { httpTransport } from '../../lib/http-transport.ts';
 import { SqliteLedger } from './ledger.ts';
 import type { Profile } from '../../lib/types.ts';
 
-// The pilot harness supplies only loopback test origins and a private temporary ledger path.
+// The compatibility harness supplies only loopback test origins and a private temporary ledger path.
 const input = JSON.parse(readFileSync(0, 'utf8')) as {
   profile: Profile;
   openapi: unknown;
@@ -15,7 +15,7 @@ const input = JSON.parse(readFileSync(0, 'utf8')) as {
 };
 const origin = new URL(input.profile.origin);
 if (origin.protocol !== 'http:' || origin.hostname !== '127.0.0.1')
-  throw new Error('Pilot adapter accepts only the loopback harness.');
+  throw new Error('Compatibility adapter accepts only the loopback harness.');
 const ledger = new SqliteLedger(input.ledger_path);
 try {
   const receipt = await executeAction({

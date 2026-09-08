@@ -1,6 +1,6 @@
 # Agentic
 
-> An experimental JSON profile for verifying agent actions and recovering interrupted requests.
+> A JSON profile for verifying agent actions and recovering interrupted requests.
 
 `agentic.json` connects a submission operation, authoritative request-status lookup, and a resulting-resource read. It references an existing OpenAPI 3.1 document. The client saves its request identity before sending, reconciles uncertainty, and emits a receipt only after checking evidence.
 
@@ -9,7 +9,7 @@ The production website includes generators, validation, public MCP tools, a host
 ## Start
 
 - [Quick start](https://ruagentic.org/docs/QUICKSTART.md): Run a real dropped-response example.
-- [Normative draft](https://ruagentic.org/docs/SPEC.md): Requirements, fields, and boundaries.
+- [Normative specification](https://ruagentic.org/docs/SPEC.md): Requirements, fields, and boundaries.
 - [Generator guide](https://ruagentic.org/docs/GENERATOR.md): Build and download a starting profile.
 - [Examples](https://ruagentic.org/docs/EXAMPLES.md): Profile, OpenAPI document, and synthetic receipt.
 - [Get started](https://ruagentic.org/adopt/): Install tools, connect an agent, and integrate your service.

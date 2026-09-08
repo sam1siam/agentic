@@ -7,7 +7,7 @@ This runner gives separately written clients the same synthetic ticket service a
 From the repository root, after the [quick start](QUICKSTART.md) installation:
 
 ```sh
-npm run conformance -- --adapter pilots/adapters/node-reference.json
+npm run conformance -- --adapter integrations/node-reference.json
 ```
 
 To retain a report, create a private output directory and pass `--out path/to/report.json`. Add `--revision YOUR_IMPLEMENTATION_COMMIT` when submitting evidence. The example adapter is project-authored; its passing report is not independent adoption.

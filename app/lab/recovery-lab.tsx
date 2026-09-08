@@ -18,14 +18,14 @@ import {
 } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { runComparison, scenarios } from '@/lib/simulator';
-import type { Scenario, DemoResult } from '@/lib/simulator';
+import type { Scenario, SimulationResult } from '@/lib/simulator';
 import { registerPageTool } from '@/lib/webmcp';
 const labels = {
   blind: 'Blind retry',
   idempotent: 'Idempotent retry',
   agentic: 'Agentic profile',
 };
-export default function RecoveryLab({ initial }: { initial: DemoResult[] }) {
+export default function RecoveryLab({ initial }: { initial: SimulationResult[] }) {
   const [scenario, setScenario] = useState<Scenario>('response-lost'),
     [results, setResults] = useState(initial),
     [shown, setShown] = useState<Scenario>('response-lost'),
@@ -54,8 +54,8 @@ export default function RecoveryLab({ initial }: { initial: DemoResult[] }) {
   useEffect(
     () =>
       registerPageTool({
-        name: 'run_recovery_demo',
-        title: 'Run recovery demonstration',
+        name: 'run_recovery_simulation',
+        title: 'Run recovery simulation',
         description:
           'Run a local simulated ticket scenario and update the visible comparison. Creates no real tickets and makes no service requests.',
         inputSchema: {
@@ -109,7 +109,7 @@ export default function RecoveryLab({ initial }: { initial: DemoResult[] }) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'agentic-demo-receipt.json';
+    a.download = 'agentic-simulation-receipt.json';
     a.click();
     URL.revokeObjectURL(url);
   }
@@ -234,7 +234,7 @@ export default function RecoveryLab({ initial }: { initial: DemoResult[] }) {
       </section>
       <div className="notice">
         Idempotency already prevents many duplicates. A well-implemented
-        workflow can also verify outcomes. Agentic proposes a shared way to
+        workflow can also verify outcomes. Agentic provides a shared way to
         describe and test that behavior; this lab does not establish superiority
         over existing workflow tools.
       </div>

@@ -61,8 +61,12 @@ const guides = [
 ];
 const faq = [
   [
-    'Is this an adopted standard?',
-    'No. Agentic is an experimental proposal. The specification and tools are freely available to use. A stable version needs independent compatibility evidence.',
+    'Is Agentic available for production use?',
+    'Yes. Agentic 1.0.0 is the stable release of the specification and tools. Implement the service and client requirements, validate your profile, and test recovery against your own service before deploying.',
+  ],
+  [
+    'Does stable release mean every agent supports it?',
+    'No. Stable versioning defines the published contract. Clients must implement that contract, and a release does not imply universal support, external certification, or standards-body endorsement.',
   ],
   [
     'Will agents discover agentic.json automatically?',
@@ -89,7 +93,7 @@ const faq = [
     'The client preserves unknown and hands off to its host. It must not assume the action failed or create a fresh request automatically.',
   ],
   [
-    'Can my team try it without publishing private data?',
+    'Can my team use it without publishing private data?',
     'Yes. Run the local example or hosted sandbox. Share redacted results and aggregate counts; do not upload tokens, customer inputs, private receipts, or ledgers.',
   ],
 ];
@@ -97,7 +101,7 @@ export default function DocsPage() {
   return (
     <main className="page wrap">
       <div className="page-heading">
-        <p className="eyebrow">Documentation / 0.1 draft</p>
+        <p className="eyebrow">Documentation / 1.0.0</p>
         <h1>
           From a file to <span>a working contract.</span>
         </h1>
@@ -165,10 +169,10 @@ export default function DocsPage() {
       <section className="docs-banner">
         <h2>What this website actually serves</h2>
         <p>
-          The specification, schemas, generator, validator, examples, and
-          browser recovery simulation are live. The HTTP/SQLite ticket service
-          is a local reference application. This documentation website does not
-          advertise itself as a ticket API.
+          The specification, schemas, generator, validator, and protocol tools
+          are live. The hosted recovery service uses HTTP and PostgreSQL with
+          isolated synthetic tickets. The browser recovery lab is a simulation,
+          and the repository also includes a local HTTP/SQLite service.
         </p>
         <div className="doc-utilities">
           <a href="/docs/SITE-MAP.md">Route and capability inventory →</a>

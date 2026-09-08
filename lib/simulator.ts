@@ -41,7 +41,7 @@ export const scenarios = {
 } as const;
 export type Scenario = keyof typeof scenarios;
 export type Strategy = 'blind' | 'idempotent' | 'agentic';
-export interface DemoResult {
+export interface SimulationResult {
   strategy: Strategy;
   receipt: Receipt | null;
   outcome: string;
@@ -153,7 +153,7 @@ export class SimulatedService implements Transport {
 export async function runDemo(
   scenario: Scenario,
   strategy: Strategy,
-): Promise<DemoResult> {
+): Promise<SimulationResult> {
   if (
     !Object.hasOwn(scenarios, scenario) ||
     !['blind', 'idempotent', 'agentic'].includes(strategy)
@@ -163,7 +163,7 @@ export async function runDemo(
     events: Trace[] = [];
   const profile = structuredClone(sample) as Profile;
   profile.actions[0].recovery.checkDelayMs = 0;
-  const requestId = 'demo-request-0001',
+  const requestId = 'example-request-0001',
     input = { subject: 'Please restore my account access' };
   let receipt: Receipt | null = null,
     outcome = 'unknown';

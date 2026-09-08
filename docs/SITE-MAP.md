@@ -5,14 +5,14 @@ This inventory distinguishes browser tools, hosted services and the separate loc
 | Route | What is available |
 | --- | --- |
 | / | Project overview and complete starting profile |
-| /spec/ | Human reading guide to the normative draft |
+| /spec/ | Human reading guide to the normative specification |
 | /generate/ | Action profile, OpenAPI import and optional llms.txt generators, copy/download, conditional WebMCP tool |
 | /examples/ | Profile, OpenAPI, and synthetic receipt examples |
 | /validate/ | Local structure and optional OpenAPI binding validation |
 | /lab/ | In-memory recovery comparison; no production API calls |
 | /docs/ | Guide index, quick start, FAQ, and reference links |
 | /adopt/ | Getting started, CLI installation, GitHub Action, and integration guides |
-| /platform/ | Hosted recovery tests, URL auditor, Agent Auth demo and private/shared reports |
+| /platform/ | Hosted recovery tests, URL auditor, Agent Auth verification and private/shared reports |
 | /connect/ | Public MCP, WebMCP, A2A and Agent Auth client setup |
 | /mcp | Read-only Streamable HTTP MCP tools |
 | /a2a | Authenticated A2A 1.0 JSON-RPC testing tasks |
@@ -27,7 +27,6 @@ This inventory distinguishes browser tools, hosted services and the separate loc
 | /docs/*.md | Plain Markdown source documents |
 | /schemas/*.json | Versioned profile and receipt schemas |
 | /examples/tickets/* | Static illustrative example files |
-| /pilots/registry.json | Archived program status; enrollment is closed |
 | /brand/*.svg | Downloadable identity assets |
 | /sitemap.xml | Human page inventory |
 | /robots.txt | Public crawl guidance |

@@ -1,5 +1,5 @@
 # Conformance and measurement
-Status: experimental, project-run tests. No external certification or independent implementations are claimed.
+This guide describes the project-run test suite and the evidence required for compatibility claims.
 
 ## Separate the claims
 1. Schema-valid: a profile has the required shape and supported version.
@@ -17,9 +17,9 @@ Tests exercise committed-write response loss, stale reads, unavailable status, i
 Both consumers are authored in this project. Their agreement tests portability but does not count as two independent adopters.
 
 ## External-client runner
-Run `npm run conformance -- --adapter pilots/adapters/node-reference.json` for seven real HTTP scenarios, including process restart. The [runner guide](COMPATIBILITY.md) documents the process interface for separately implemented clients. The runner observes submissions, reads, receipts, and stored resource counts. It rejects a claimed success with no service interaction.
+Run `npm run conformance -- --adapter integrations/node-reference.json` for seven real HTTP scenarios, including process restart. The [runner guide](COMPATIBILITY.md) documents the process interface for separately implemented clients. The runner observes submissions, reads, receipts, and stored resource counts. It rejects a claimed success with no service interaction.
 
-[The published reference run](https://ruagentic.org/reports/reference-pilot.json) is project-authored evidence for release `v0.1.0-draft.2`. It is a local single-principal behavior subset, not production or independent compatibility evidence. The runner always leaves independent authorship unverified for later review.
+Compatibility results apply only to the implementation revision and profile version recorded by the run. The local runner covers a single-principal behavior subset and leaves independent authorship unverified for later review. Run it against your pinned checkout to produce current evidence.
 
 ## Hosted platform coverage
 
@@ -38,7 +38,7 @@ Baselines include:
 
 A competent existing workflow is expected to match Agentic's reliability in this example. Any benefit from a shared profile is an interoperability and implementation-effort hypothesis, not a proven advantage in the benchmark.
 
-No customer production workload, independent security audit, statistical reliability estimate, adoption number, token saving, or performance advantage is established. Deterministic runs are not independent random trials. Latency measurements from a browser simulation would not represent network performance, so none are advertised.
+No customer production workload, independent security audit, statistical reliability estimate, adoption number, token saving, or performance advantage is established. Deterministic runs are not independent random samples. Latency measurements from a browser simulation would not represent network performance, so none are advertised.
 
 ## Known gaps
 - Strict duplicate-member detection in JSON text is not implemented.

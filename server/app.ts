@@ -10,7 +10,7 @@ import {
   saveReport,
 } from './sandbox.ts';
 import { buildActionIndex } from '../lib/action-index.ts';
-import { runAuthDemo } from './auth-demo.ts';
+import { runAuthCheck } from './auth-check.ts';
 import { database } from './db.ts';
 import {
   checkOrigin,
@@ -56,7 +56,7 @@ async function route(request: Request) {
     return Response.json({
       status: 'ok',
       service: 'Agentic platform',
-      version: '0.1.0',
+      version: '1.0.0',
     });
   }
   await rateLimit('ip:' + clientAddress(request), 120);
@@ -157,9 +157,9 @@ async function route(request: Request) {
       await saveReport(ownerId, 'audit', await auditUrl(body.url)),
     );
   }
-  if (path === '/api/platform/auth-demo' && request.method === 'POST') {
-    await rateLimit('auth-demo:' + ownerId, 3);
-    return Response.json(await runAuthDemo(ownerId));
+  if (path === '/api/platform/auth-check' && request.method === 'POST') {
+    await rateLimit('auth-check:' + ownerId, 3);
+    return Response.json(await runAuthCheck(ownerId));
   }
   if (path === '/api/platform/reports' && request.method === 'GET') {
     const rows = (

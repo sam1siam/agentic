@@ -1,6 +1,6 @@
 # MCP, WebMCP, A2A, and Agent Auth
 
-Agentic 0.1 describes action tracking and recovery through OpenAPI. Discovery, tool transport, agent messaging, and authorization keep their own protocols. Adding a declaration does not implement a protocol.
+Agentic 1.0 describes action tracking and recovery through OpenAPI. Discovery, tool transport, agent messaging, and authorization keep their own protocols. Adding a declaration does not implement a protocol.
 
 ## Current implementation
 
@@ -11,7 +11,7 @@ Agentic 0.1 describes action tracking and recovery through OpenAPI. Discovery, t
 | A2A | Hosted A2A 1.0 JSON-RPC testing agent, PostgreSQL tasks and report artifacts. | Streaming, push notifications and cancellation after dispatch. |
 | Agent Auth | Official provider: registration, signatures, autonomous grants, execution, replay protection and revocation. | Human account delegation and payments. |
 
-Use the [connection guide](https://ruagentic.org/connect/) for client examples and the [platform](https://ruagentic.org/platform/) for live demonstrations. Hosted services use one PostgreSQL-backed testing engine. See [platform operations and retention](https://ruagentic.org/docs/PLATFORM.md).
+Use the [connection guide](https://ruagentic.org/connect/) for client examples and the [platform](https://ruagentic.org/platform/) for live verification. Hosted services use one PostgreSQL-backed testing engine. See [platform operations and retention](https://ruagentic.org/docs/PLATFORM.md).
 
 ## Public endpoints
 
@@ -19,7 +19,7 @@ Use the [connection guide](https://ruagentic.org/connect/) for client examples a
 - A2A card: `https://ruagentic.org/.well-known/agent-card.json`; endpoint: `https://ruagentic.org/a2a`. Create a private session token in the platform. Send `Authorization: Bearer <token>` and `A2A-Version: 1.0`. `SendMessage` accepts a data part with `{ "kind": "recovery", "scenario": "response-lost" }` or `{ "kind": "audit", "url": "..." }`. Retrieve results with `GetTask` and the returned ID.
 - Agent Auth: `https://ruagentic.org/.well-known/agent-configuration`. Configure the official `@auth/agent` client with `urls: ['https://ruagentic.org']` for direct discovery. Autonomous capabilities are `agentic.validate` and `agentic.sandbox.run`.
 
-Agent Auth uses inline public keys, one-hour grants, a one-day maximum agent lifetime, persistent replay detection, and revocation checks. Remote JWKS URLs are not supported. The demo registers an agent, executes validation, revokes it and tests rejection of an unused signed token. It does not create a human account.
+Agent Auth uses inline public keys, one-hour grants, a one-day maximum agent lifetime, persistent replay detection, and revocation checks. Remote JWKS URLs are not supported. The verification flow registers an agent, executes validation, revokes it and tests rejection of an unused signed token. It does not create a human account.
 
 ## Connect the local MCP server
 
@@ -48,7 +48,7 @@ The server uses the official MCP TypeScript SDK 2.0.0. Tools read local bundled 
 
 ## Use WebMCP page tools
 
-Open /generate/, /validate/, or /lab/ in a compatible browser. Each page registers its tool through `document.modelContext.registerTool` when available and unregisters on unmount using an abort signal. This follows the current WebMCP draft; earlier browser experiments may expose a different API. The regular page controls work without WebMCP.
+Open /generate/, /validate/, or /lab/ in a compatible browser. Each page registers its tool through `document.modelContext.registerTool` when available and unregisters on unmount using an abort signal. This follows the current WebMCP specification; earlier browser implementations may expose a different API. The regular page controls work without WebMCP.
 
 The generator returns profile data without changing the page. Validation and lab tools update the visible result. The lab remains a browser simulation, not an HTTP execution test. Registration is conditional and is not a claim that a particular agent host can invoke these tools.
 
@@ -58,7 +58,7 @@ Use the endpoint URLs above and the [connection guide](https://ruagentic.org/con
 
 The generated /agentic.txt index links to the live synthetic service profile at /agentic.json. It is a reading aid, not a protocol or authorization manifest. The optional /llms.txt index links to Agentic documentation and connection instructions. In the [generator](https://ruagentic.org/generate/), select **Documentation index** to create an llms.txt starter for your service. Edit its /docs/, /agentic.txt, and /agentic.json links to match your published files. The generator makes no network calls.
 
-The Agentic profile remains a separate action contract. Do not add protocol fields to agentic.json: unknown fields are rejected by the 0.1 schema. Pass the profile URL explicitly or link it from documentation.
+The Agentic profile remains a separate action contract. Do not add protocol fields to agentic.json: unknown fields are rejected by the 1.0 schema. Pass the profile URL explicitly or link it from documentation.
 
 ## Implement A2A and Agent Auth
 
@@ -71,7 +71,7 @@ The hosted sandbox provides the concrete service for autonomous authorization te
 ## Primary references
 
 - [MCP server guide](https://modelcontextprotocol.io/docs/develop/build-server)
-- [WebMCP draft](https://webmachinelearning.github.io/webmcp/)
+- [WebMCP specification](https://webmachinelearning.github.io/webmcp/)
 - [A2A specification](https://a2a-protocol.org/latest/specification/)
 - [Agent Auth discovery](https://agent-auth-protocol.com/docs/discovery)
 - [Agent Auth server implementation](https://agent-auth-protocol.com/docs/server)

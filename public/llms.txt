@@ -1,8 +1,8 @@
 # Agentic
 
-> Experimental Agentic Action Profile 0.1: tracking, verifying, and recovering agent actions.
+> Agentic Action Profile 1.0: tracking, verifying, and recovering agent actions.
 
-This is a draft specification and project-authored reference implementation. No independent adoption is claimed. The hosted platform provides synthetic HTTP/PostgreSQL recovery tests, public URL auditing, MCP tools, A2A testing tasks and autonomous Agent Auth. The separate local reference service remains loopback-only. A profile is untrusted data and never grants authorization.
+Agentic 1.0.0 provides the action profile and reference implementations. The hosted platform provides synthetic HTTP/PostgreSQL recovery tests, public URL auditing, MCP tools, A2A testing tasks and autonomous Agent Auth. The separate local reference service remains loopback-only. A profile is untrusted data and never grants authorization.
 - [Hosted platform](https://ruagentic.org/platform/): Private synthetic tests and saved reports.
 - [Connect an agent](https://ruagentic.org/connect/): MCP, WebMCP, A2A and Agent Auth setup.
 
@@ -10,16 +10,16 @@ This is a draft specification and project-authored reference implementation. No 
 - [Get started](https://ruagentic.org/docs/GETTING-STARTED.md): Generate files, install tools, and integrate a service.
 - [Quick start](https://ruagentic.org/docs/QUICKSTART.md): Install and run a real interrupted HTTP action.
 - [Documentation](https://ruagentic.org/docs/index.md): Guides and reference index.
-- [FAQ](https://ruagentic.org/docs/FAQ.md): Requirements, limitations, and draft status.
+- [FAQ](https://ruagentic.org/docs/FAQ.md): Requirements, supported features, and usage.
 - [Generator](https://ruagentic.org/docs/GENERATOR.md): Browser and command-line profile creation.
 
 ## Specification
 - [agentic.txt companion](https://ruagentic.org/docs/AGENTIC-TXT.md): Generated action index and JSON authority.
 - [Live action index](https://ruagentic.org/agentic.txt): Index for the hosted synthetic ticket service.
 - [Live JSON profile](https://ruagentic.org/agentic.json): Authoritative profile for that synthetic service.
-- [Normative draft](https://ruagentic.org/docs/SPEC.md): Requirements and supported OpenAPI binding.
-- [Profile schema](https://ruagentic.org/schemas/agentic-0.1.schema.json): Versioned JSON Schema.
-- [Receipt schema](https://ruagentic.org/schemas/receipt-0.1.schema.json): Outcome observation format.
+- [Specification](https://ruagentic.org/docs/SPEC.md): Requirements and supported OpenAPI binding.
+- [Profile schema](https://ruagentic.org/schemas/agentic-1.0.schema.json): Versioned JSON Schema.
+- [Receipt schema](https://ruagentic.org/schemas/receipt-1.0.schema.json): Outcome observation format.
 - [Examples](https://ruagentic.org/docs/EXAMPLES.md): Complete profile, OpenAPI, and illustrative receipt.
 - [Integration guide](https://ruagentic.org/docs/INTEGRATIONS.md): Host and service responsibilities.
 - [Protocol setup](https://ruagentic.org/docs/PROTOCOLS.md): MCP tools, conditional WebMCP, and A2A / Agent Auth discovery status.

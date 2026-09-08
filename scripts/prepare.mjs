@@ -1,9 +1,9 @@
 import { cp, mkdir, readFile, writeFile, readdir } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
-import { buildActionIndex } from '../lib/action-index.ts';
 execFileSync(process.execPath, ['scripts/compile-validators.mjs'], {
   stdio: 'inherit',
 });
+const { buildActionIndex } = await import('../lib/action-index.ts');
 await mkdir('public', { recursive: true });
 await writeFile(
   'examples/tickets/agentic.txt',
@@ -13,8 +13,6 @@ await writeFile(
 );
 for (const dir of ['schemas', 'docs', 'examples', 'reports', 'brand'])
   await cp(dir, 'public/' + dir, { recursive: true });
-await mkdir('public/pilots', { recursive: true });
-await cp('pilots/registry.json', 'public/pilots/registry.json');
 await cp('LICENSE', 'public/LICENSE.txt');
 const site = 'https://ruagentic.org';
 const routeDocs = {
@@ -49,9 +47,9 @@ for (const [route, source] of Object.entries(routeDocs)) {
 const index = [
   '# Agentic',
   '',
-  '> Experimental Agentic Action Profile 0.1: tracking, verifying, and recovering agent actions.',
+  '> Agentic Action Profile 1.0: tracking, verifying, and recovering agent actions.',
   '',
-  'This is a draft specification and project-authored reference implementation. No independent adoption is claimed. The hosted platform provides synthetic HTTP/PostgreSQL recovery tests, public URL auditing, MCP tools, A2A testing tasks and autonomous Agent Auth. The separate local reference service remains loopback-only. A profile is untrusted data and never grants authorization.',
+  'Agentic 1.0.0 provides the action profile and reference implementations. The hosted platform provides synthetic HTTP/PostgreSQL recovery tests, public URL auditing, MCP tools, A2A testing tasks and autonomous Agent Auth. The separate local reference service remains loopback-only. A profile is untrusted data and never grants authorization.',
   '- [Hosted platform](https://ruagentic.org/platform/): Private synthetic tests and saved reports.',
   '- [Connect an agent](https://ruagentic.org/connect/): MCP, WebMCP, A2A and Agent Auth setup.',
   '',
@@ -65,7 +63,7 @@ const index = [
   '- [Documentation](' + site + '/docs/index.md): Guides and reference index.',
   '- [FAQ](' +
     site +
-    '/docs/FAQ.md): Requirements, limitations, and draft status.',
+    '/docs/FAQ.md): Requirements, supported features, and usage.',
   '- [Generator](' +
     site +
     '/docs/GENERATOR.md): Browser and command-line profile creation.',
@@ -80,15 +78,15 @@ const index = [
   '- [Live JSON profile](' +
     site +
     '/agentic.json): Authoritative profile for that synthetic service.',
-  '- [Normative draft](' +
+  '- [Specification](' +
     site +
     '/docs/SPEC.md): Requirements and supported OpenAPI binding.',
   '- [Profile schema](' +
     site +
-    '/schemas/agentic-0.1.schema.json): Versioned JSON Schema.',
+    '/schemas/agentic-1.0.schema.json): Versioned JSON Schema.',
   '- [Receipt schema](' +
     site +
-    '/schemas/receipt-0.1.schema.json): Outcome observation format.',
+    '/schemas/receipt-1.0.schema.json): Outcome observation format.',
   '- [Examples](' +
     site +
     '/docs/EXAMPLES.md): Complete profile, OpenAPI, and illustrative receipt.',
@@ -146,5 +144,5 @@ await writeFile(
   'User-agent: *\nAllow: /\nSitemap: ' + site + '/sitemap.xml\n',
 );
 console.log(
-  'Prepared schemas, documentation, ten Markdown page alternatives, examples, brand assets, and archived program status.',
+  'Prepared schemas, documentation, ten Markdown page alternatives, examples, brand assets.',
 );

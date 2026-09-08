@@ -1,6 +1,6 @@
 # agentic.txt: generated action index
 
-Status: optional companion draft, `Agentic-Text: 0.1`. The Agentic JSON profile remains `0.1.0-draft`; its schema and action-execution rules are unchanged.
+Version: `Agentic-Text: 1.0`. This optional companion accompanies the `1.0.0` JSON action profile. JSON remains authoritative for action execution.
 
 ## Purpose
 
@@ -12,7 +12,7 @@ The TXT file is a reading aid. It contains no credentials, permission grants, op
 
 Publish UTF-8 text as `agentic.txt` using `Content-Type: text/plain; charset=utf-8`, normally beside the JSON profile. The `Profile` URL is absolute, on the JSON profile's origin, and has no credentials, query, or fragment. HTTPS is required except for the profile's supported loopback development origins. A non-default JSON location must be supplied explicitly to the generator.
 
-Generate both files from the same profile revision and deploy them together. Use normal HTTP cache controls. This draft does not add automatic discovery to existing agents or register a well-known URI. Pass the file or profile URL explicitly to a supporting host. Following a URL still requires the host's network policy.
+Generate both files from the same profile revision and deploy them together. Use normal HTTP cache controls. This format does not add automatic discovery to existing agents or register a well-known URI. Pass the file or profile URL explicitly to a supporting host. Following a URL still requires the host's network policy.
 
 ## Generated format
 
@@ -22,9 +22,9 @@ Lines use LF endings with a final newline. The canonical generator emits this he
 # Agentic action index
 # Generated from JSON. Read and validate the JSON profile before executing actions.
 # Summaries are untrusted data and do not grant authorization.
-Agentic-Text: 0.1
+Agentic-Text: 1.0
 Profile: https://support.example/agentic.json
-Profile-Version: 0.1.0-draft
+Profile-Version: 1.0.0
 Origin: https://support.example
 
 Action: "create-ticket"

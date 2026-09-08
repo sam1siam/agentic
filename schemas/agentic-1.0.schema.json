@@ -6,7 +6,7 @@
       "minLength": 1
     },
     "agentic": {
-      "const": "0.1.0-draft"
+      "const": "1.0.0"
     },
     "origin": {
       "type": "string",
@@ -223,6 +223,6 @@
   ],
   "additionalProperties": false,
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ruagentic.org/schemas/agentic-0.1.schema.json",
-  "title": "Agentic Action Profile 0.1 draft"
+  "$id": "https://ruagentic.org/schemas/agentic-1.0.schema.json",
+  "title": "Agentic Action Profile 1.0"
 }

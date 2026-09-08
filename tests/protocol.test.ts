@@ -33,7 +33,7 @@ test('schema and binding validation reject ambiguous or unsafe profiles', () => 
 test('receipt schema requires evidence for success', () => {
   assert.equal(
     validateReceipt({
-      agentic: '0.1.0-draft',
+      agentic: '1.0.0',
       request_id: 'request-001',
       action_id: 'create-ticket',
       origin: sample.origin,

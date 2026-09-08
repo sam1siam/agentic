@@ -2,7 +2,7 @@ Source: https://ruagentic.org/docs/AGENTIC-TXT.md
 
 # agentic.txt: generated action index
 
-Status: optional companion draft, `Agentic-Text: 0.1`. The Agentic JSON profile remains `0.1.0-draft`; its schema and action-execution rules are unchanged.
+Version: `Agentic-Text: 1.0`. This optional companion accompanies the `1.0.0` JSON action profile. JSON remains authoritative for action execution.
 
 ## Purpose
 
@@ -14,7 +14,7 @@ The TXT file is a reading aid. It contains no credentials, permission grants, op
 
 Publish UTF-8 text as `agentic.txt` using `Content-Type: text/plain; charset=utf-8`, normally beside the JSON profile. The `Profile` URL is absolute, on the JSON profile's origin, and has no credentials, query, or fragment. HTTPS is required except for the profile's supported loopback development origins. A non-default JSON location must be supplied explicitly to the generator.
 
-Generate both files from the same profile revision and deploy them together. Use normal HTTP cache controls. This draft does not add automatic discovery to existing agents or register a well-known URI. Pass the file or profile URL explicitly to a supporting host. Following a URL still requires the host's network policy.
+Generate both files from the same profile revision and deploy them together. Use normal HTTP cache controls. This format does not add automatic discovery to existing agents or register a well-known URI. Pass the file or profile URL explicitly to a supporting host. Following a URL still requires the host's network policy.
 
 ## Generated format
 
@@ -24,9 +24,9 @@ Lines use LF endings with a final newline. The canonical generator emits this he
 # Agentic action index
 # Generated from JSON. Read and validate the JSON profile before executing actions.
 # Summaries are untrusted data and do not grant authorization.
-Agentic-Text: 0.1
+Agentic-Text: 1.0
 Profile: https://support.example/agentic.json
-Profile-Version: 0.1.0-draft
+Profile-Version: 1.0.0
 Origin: https://support.example
 
 Action: "create-ticket"
@@ -82,9 +82,9 @@ The mark combines two JSON-style braces with a check: a described action and an 
 - [Mark, transparent SVG](https://ruagentic.org/brand/agentic-mark.svg)
 - [Wordmark for dark surfaces](https://ruagentic.org/brand/agentic-wordmark-dark.svg)
 - [Wordmark for light surfaces](https://ruagentic.org/brand/agentic-wordmark-light.svg)
-- [Experimental profile badge](https://ruagentic.org/brand/experimental-badge.svg)
+- [Agentic profile badge](https://ruagentic.org/brand/profile-badge.svg)
 
-These original project assets are included under the repository's Apache-2.0 license. The badge identifies an experiment with the draft; it must not be presented as certification or proof of conformance.
+These original project assets are included under the repository's Apache-2.0 license. The badge identifies use of Agentic; it must not be presented as certification or proof of conformance.
 
 ## Palette and typography
 
@@ -109,84 +109,21 @@ Source: https://ruagentic.org/docs/CHANGELOG.md
 
 # Changelog
 
-## 0.1.0-draft.6 — 2026-09-07
+## 1.0.0 — 2026-09-07
 
-- Add the optional agentic.txt action index, generated from a validated JSON profile. Document its format and JSON authority.
-- Add paired browser previews/downloads, TXT in OpenAPI starter ZIPs, and file pairs in MCP/WebMCP generator responses.
-- Add `agentic text` and `--check` for existing profiles, with same-origin URL checks, escaped summaries, and overwrite protection.
-- Publish live root JSON/TXT files for the synthetic service, a local HTTP TXT endpoint, and an illustrative generated file.
-- Keep llms.txt and the existing protocol endpoints. The Agentic JSON schema and action-execution semantics are unchanged.
-- Publish `ruagentic@0.1.0-draft.6` to npm with the same tarball as the GitHub release; verify a fresh registry installation and update the installation guides.
+Agentic 1.0.0 publishes the action profile, supporting tools, and hosted services as a versioned release.
 
-## 0.1.0-draft.5 — 2026-09-07
+- Authoritative `agentic.json` profiles and optional generated `agentic.txt` action indexes, with `Agentic-Text: 1.0`.
+- Versioned `agentic-1.0.schema.json` and `receipt-1.0.schema.json` schemas for validation, OpenAPI operation binding, and verified outcome receipts.
+- CLI generation, validation, public URL auditing, JSON/TXT consistency checks, and local MCP tools.
+- Browser JSON/TXT generation and downloads, OpenAPI starter bundles, validation, and a recovery simulation.
+- Hosted HTTP/PostgreSQL recovery checks, private report history and sharing, MCP, A2A, WebMCP page hooks, and Agent Auth verification.
+- Node and Python consumers, a local HTTP/SQLite service, a compatibility runner, a GitHub Action, and an integration skill.
+- Updated documentation, installation instructions, package metadata, and public release terminology.
 
-- Remove agents.txt and agents.json publishing, generator outputs, and auditor requests. Keep llms.txt as an optional documentation index.
-- Simplify the generator to an Agentic action profile, OpenAPI import, and an optional llms.txt starter.
-- Preserve direct MCP, WebMCP, A2A, and Agent Auth connections and the existing action-profile schema.
-- Update the bundled CLI auditor to match the hosted auditor. Older release artifacts remain historical snapshots.
+Use profiles that declare `"agentic": "1.0.0"` with the 1.0 schemas and tools. When updating an existing integration, regenerate its TXT index and rerun profile, binding, and behavioral checks. Follow the [migration guide](https://ruagentic.org/docs/MIGRATION.md) to update profile and receipt identifiers for new work while retaining the original snapshots and installed compatible clients for unfinished requests. Do not relabel a saved in-flight request or repeat its write during migration.
 
-## 0.1.0-draft.4 — 2026-09-07
-
-- Publish `ruagentic@0.1.0-draft.4` to npm with the same tarball as the GitHub release; verify a fresh registry installation and update the installation guides.
-- Refresh the CLI documentation, downloadable agent skill, and generated starter README for direct use and compatibility testing.
-- Correct the conformance guide to distinguish hosted MCP, A2A, Agent Auth, and PostgreSQL coverage from remaining implementation gaps.
-- Include the production getting-started flow and retired enrollment status in a versioned release.
-- Preserve older release artifacts; the Agentic profile format and action-execution behavior are unchanged.
-
-## Direct-use production launch — 2026-09-07
-
-- Replace pilot enrollment and cohort counters with a getting-started page for generators, hosted tools, CLI installation, the GitHub Action, and agent skill.
-- Retire the pilot issue form and outreach program. Keep existing documentation links working and preserve historical records as archived.
-- Publish the compatibility guide and `npm run conformance` command; retain the old command as an alias.
-- Update human documentation and agent-readable discovery to the direct-use flow. The profile version and runtime behavior are unchanged.
-
-## Site spacing and outreach review — 2026-09-07
-
-- Give every action row 24px of separation from preceding copy, inputs, selects, or code; preserve 12px gaps between buttons.
-- Allow button labels to wrap and keep 20px between platform actions and their explanatory text.
-- Record the Mastra triage notice, Pydantic automated assessment, and CrewAI participant comment in the [outreach feedback log](https://github.com/sam1siam/agentic/blob/main/pilots/FEEDBACK.md). None establishes an independent pilot.
-
-## 0.1.0-draft.3 — 2026-09-07
-
-- Hosted recovery sandbox with real HTTP, PostgreSQL state, six scenarios and durable restart/resume.
-- Read-only public HTTPS auditor with same-origin OpenAPI binding checks and network restrictions.
-- Public MCP tools and A2A 1.0 testing tasks with persisted evidence artifacts.
-- Official Agent Auth provider with autonomous registration, grants, signed execution, persistent replay checks and revocation.
-- Private session history, downloadable versioned reports, optional share links and rate limits.
-- OpenAPI import and downloadable starter ZIP, standalone CLI tarball, reusable GitHub Action and adoption skill.
-- Free Neon database connected to the Vercel deployment; migrations, direct connections, secret-protected cleanup and runtime logging.
-
-Validation: 28 automated checks passed, including real HTTP/PostgreSQL and official MCP, A2A and Agent Auth clients. Production checks passed on ruagentic.org; see the [hosted verification record](https://ruagentic.org/reports/platform-live.json). The website exports ten human routes with Markdown alternatives.
-
-The Agentic profile remains `0.1.0-draft`. Tests are project-authored, and no independent adoption or certification is claimed. Human account delegation and payments are not part of this sandbox.
-
-## Generator and protocol tooling update — 2026-09-07
-
-- Add space between code, buttons, headings, and example explanations; simplify instructional copy.
-- Add companion agents.txt, agents.json, and llms.txt generation with optional MCP, WebMCP, A2A, and Agent Auth declarations.
-- Add a local MCP stdio server using the official SDK and a real client/server integration test.
-- Add a WebMCP generation tool and a protocol status / setup guide.
-
-Agentic protocol fields and action-execution behavior are unchanged. At that release, A2A and Agent Auth were discovery options. Hosted implementations were subsequently added in draft.3.
-
-## 0.1.0-draft.2 — 2026-09-07
-
-- New ink-and-blue visual identity and downloadable bracket/check logo.
-- Profile generator in the browser and a local initializer that refuses overwrites.
-- Documentation hub, quick start, examples, FAQ, integration guide, and page Markdown alternates.
-- Public pilot enrollment and an external-client compatibility runner.
-- Pilot evidence registry distinguishes project-authored reference checks from independent implementations.
-- Close SQLite service connections after each transaction so the in-process pilot harness releases database files on Windows.
-
-The profile version remains `0.1.0-draft`. No protocol fields or runtime execution rules changed in this release.
-
-## 0.1.0-draft.1 — 2026-09-07
-
-- Initial experimental specification, profile and receipt schemas.
-- Node and Python reference clients, durable SQLite ledgers, and a local HTTP ticket service.
-- Recovery lab, JSON validator, governance, prior-art review, and pilot kit.
-
-See [GitHub releases](https://github.com/sam1siam/agentic/releases) for published artifacts and checks. A draft is not a stable interoperability commitment.
+Compatibility evidence applies to the exact versions and scenarios recorded by each run. This release does not relabel earlier measurements as 1.0.0 results. See [GitHub releases](https://github.com/sam1siam/agentic/releases/tag/v1.0.0) for versioned artifacts and release verification.
 
 
 ---
@@ -202,7 +139,7 @@ This runner gives separately written clients the same synthetic ticket service a
 From the repository root, after the [quick start](https://ruagentic.org/docs/QUICKSTART.md) installation:
 
 ```sh
-npm run conformance -- --adapter pilots/adapters/node-reference.json
+npm run conformance -- --adapter integrations/node-reference.json
 ```
 
 To retain a report, create a private output directory and pass `--out path/to/report.json`. Add `--revision YOUR_IMPLEMENTATION_COMMIT` when submitting evidence. The example adapter is project-authored; its passing report is not independent adoption.
@@ -270,7 +207,7 @@ The runner does not test production authentication, principal isolation, distrib
 Source: https://ruagentic.org/docs/CONFORMANCE.md
 
 # Conformance and measurement
-Status: experimental, project-run tests. No external certification or independent implementations are claimed.
+This guide describes the project-run test suite and the evidence required for compatibility claims.
 
 ## Separate the claims
 1. Schema-valid: a profile has the required shape and supported version.
@@ -288,9 +225,9 @@ Tests exercise committed-write response loss, stale reads, unavailable status, i
 Both consumers are authored in this project. Their agreement tests portability but does not count as two independent adopters.
 
 ## External-client runner
-Run `npm run conformance -- --adapter pilots/adapters/node-reference.json` for seven real HTTP scenarios, including process restart. The [runner guide](https://ruagentic.org/docs/COMPATIBILITY.md) documents the process interface for separately implemented clients. The runner observes submissions, reads, receipts, and stored resource counts. It rejects a claimed success with no service interaction.
+Run `npm run conformance -- --adapter integrations/node-reference.json` for seven real HTTP scenarios, including process restart. The [runner guide](https://ruagentic.org/docs/COMPATIBILITY.md) documents the process interface for separately implemented clients. The runner observes submissions, reads, receipts, and stored resource counts. It rejects a claimed success with no service interaction.
 
-[The published reference run](https://ruagentic.org/reports/reference-pilot.json) is project-authored evidence for release `v0.1.0-draft.2`. It is a local single-principal behavior subset, not production or independent compatibility evidence. The runner always leaves independent authorship unverified for later review.
+Compatibility results apply only to the implementation revision and profile version recorded by the run. The local runner covers a single-principal behavior subset and leaves independent authorship unverified for later review. Run it against your pinned checkout to produce current evidence.
 
 ## Hosted platform coverage
 
@@ -309,7 +246,7 @@ Baselines include:
 
 A competent existing workflow is expected to match Agentic's reliability in this example. Any benefit from a shared profile is an interoperability and implementation-effort hypothesis, not a proven advantage in the benchmark.
 
-No customer production workload, independent security audit, statistical reliability estimate, adoption number, token saving, or performance advantage is established. Deterministic runs are not independent random trials. Latency measurements from a browser simulation would not represent network performance, so none are advertised.
+No customer production workload, independent security audit, statistical reliability estimate, adoption number, token saving, or performance advantage is established. Deterministic runs are not independent random samples. Latency measurements from a browser simulation would not represent network performance, so none are advertised.
 
 ## Known gaps
 - Strict duplicate-member detection in JSON text is not implemented.
@@ -344,7 +281,7 @@ Keep the domain registered at Spaceship unless a registrar transfer is independe
 
 Do not guess A records, CNAME targets, or verification tokens. Preserve existing email and unrelated records. Update only the records needed for the selected hostname after checking any existing web destination. Add www only if desired and configure its redirect deliberately.
 
-Check Vercel's domain verification and TLS status, then verify the root page, /spec/, /lab/, /validate/, /adopt/, /schemas/agentic-0.1.schema.json, and the example downloads on the final domain.
+Check Vercel's domain verification and TLS status, then verify the root page, /spec/, /lab/, /validate/, /adopt/, /schemas/agentic-1.0.schema.json, and the example downloads on the final domain.
 
 The .openai/hosting.json file identifies an optional private Sites preview and is unrelated to Vercel DNS. It contains no credential.
 
@@ -361,8 +298,8 @@ One synthetic record-creation action demonstrates the initial profile binding. T
 - [Complete profile](https://ruagentic.org/examples/tickets/agentic.json)
 - [OpenAPI document](https://ruagentic.org/examples/tickets/openapi.json)
 - [Illustrative receipt](https://ruagentic.org/examples/tickets/receipt.json)
-- [Profile schema](https://ruagentic.org/schemas/agentic-0.1.schema.json)
-- [Receipt schema](https://ruagentic.org/schemas/receipt-0.1.schema.json)
+- [Profile schema](https://ruagentic.org/schemas/agentic-1.0.schema.json)
+- [Receipt schema](https://ruagentic.org/schemas/receipt-1.0.schema.json)
 
 | Role | Operation ID | Endpoint |
 | --- | --- | --- |
@@ -383,17 +320,17 @@ Source: https://ruagentic.org/docs/FAQ.md
 
 # Frequently asked questions
 
-## Is Agentic an adopted standard?
-No. It is an experimental proposal. Both reference clients share project authorship. Independent compatibility evidence and review are prerequisites for a stable release.
+## What is the current Agentic version?
+Agentic 1.0.0 is the current release of the open action profile. Its specification, JSON Schemas, CLI, and supporting services are available for direct use. The [governance guide](https://ruagentic.org/docs/GOVERNANCE.md) describes version compatibility and changes.
 
 ## Will agents discover agentic.json automatically?
 Only supporting clients can use the convention. Supply the profile URL explicitly to your supporting client. Publishing the file does not add runtime support to an arbitrary agent.
 
 ## What must my service implement?
-Atomic principal-scoped request tracking and idempotency, one POST submission, authoritative request-status lookup, and a resource read with correlated evidence. The first draft binds inline operations from an OpenAPI 3.1 document.
+Atomic principal-scoped request tracking and idempotency, one POST submission, authoritative request-status lookup, and a resource read with correlated evidence. Version 1.0 binds inline operations from an OpenAPI 3.1 document.
 
 ## How does this relate to other agent files?
-Documentation indexes help agents find content. Capability manifests describe available integrations. Agentic proposes a narrower contract for reconciling an already attempted action and verifying its outcome. See [INTEGRATIONS.md](https://ruagentic.org/docs/INTEGRATIONS.md).
+Documentation indexes help agents find content. Capability manifests describe available integrations. Agentic defines a focused contract for reconciling an already attempted action and verifying its outcome. See [INTEGRATIONS.md](https://ruagentic.org/docs/INTEGRATIONS.md).
 
 ## Does the file authorize an action?
 No. The host must authorize the action, approve destinations, control credentials, and isolate ledgers. A publisher's text is untrusted data.
@@ -411,13 +348,13 @@ Yes. The specification, generators, validator, CLI, and hosted tools are availab
 Use a sandbox and keep customer information, tokens, receipts, and ledgers private. Share only approved redacted evidence. Public attribution is optional; an unreviewable private implementation cannot be counted as publicly verified independent compatibility.
 
 ## Is there an npm package?
-Yes. Install [ruagentic from npm](https://www.npmjs.com/package/ruagentic) with `npm install -g ruagentic@0.1.0-draft.6`. The same package is available from [GitHub releases](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.6). Use [Get started](https://ruagentic.org/docs/GETTING-STARTED.md) for generation and validation commands. Node 24 or newer is required.
+Yes. Install [ruagentic from npm](https://www.npmjs.com/package/ruagentic) with `npm install -g ruagentic@1.0.0`. The same package is available from [GitHub releases](https://github.com/sam1siam/agentic/releases/tag/v1.0.0). Use [Get started](https://ruagentic.org/docs/GETTING-STARTED.md) for generation and validation commands. Node 24 or newer is required.
 
 ## Does Agentic require other agent files?
 No. The action contract is agentic.json plus its referenced OpenAPI document. agentic.txt is our optional generated action index; JSON remains authoritative. llms.txt is an optional documentation index. This site does not publish or generate agents.txt or agents.json. MCP, WebMCP, A2A, and Agent Auth use their documented connection paths.
 
 ## Are integrations with other protocols complete?
-No standardized cross-project Agentic binding is claimed. The integration guide describes coexistence and proposed evaluation paths. Public MCP, A2A testing tasks, and autonomous Agent Auth are implemented on the hosted platform. WebMCP page hooks require browser support. See [protocol setup](https://ruagentic.org/docs/PROTOCOLS.md) for the supported scope.
+No standardized cross-project Agentic binding is claimed. The integration guide describes coexistence and integration paths. Public MCP, A2A testing tasks, and autonomous Agent Auth are implemented on the hosted platform. WebMCP page hooks require browser support. See [protocol setup](https://ruagentic.org/docs/PROTOCOLS.md) for the supported scope.
 
 
 ---
@@ -430,7 +367,7 @@ Open [the browser generator](https://ruagentic.org/generate/) to customize a tic
 
 Editable settings: canonical HTTPS origin, action ID and description, OpenAPI path, submit/status/verify operation IDs, retention window, read path parameter names, resource/request/state JSON Pointers, accepted resource states, and one input/resource evidence pair. The full schema permits more evidence pairs and actions; edit the JSON for those cases.
 
-The manual generator keeps the 0.1 recovery defaults: three checks, a 100 ms check delay, a 3000 ms request timeout, and `never-automatically` for mutation retries. It validates structure and semantic profile constraints. The OpenAPI import mode also checks operation bindings. Neither implements service behavior.
+The manual generator keeps the 1.0 recovery defaults: three checks, a 100 ms check delay, a 3000 ms request timeout, and `never-automatically` for mutation retries. It validates structure and semantic profile constraints. The OpenAPI import mode also checks operation bindings. Neither implements service behavior.
 
 After generation, paste the profile and your actual OpenAPI document into [the validator](https://ruagentic.org/validate/), then run behavioral tests before publishing.
 
@@ -483,33 +420,33 @@ The hosted ticket service operates on synthetic data. Your own business actions 
 Requires Node 24. Install the versioned [ruagentic CLI from npm](https://www.npmjs.com/package/ruagentic):
 
 ```sh
-npm install -g ruagentic@0.1.0-draft.6
+npm install -g ruagentic@1.0.0
 agentic init --origin https://your-service.example
 agentic text agentic.json
 agentic text agentic.json --check
 agentic validate agentic.json openapi.json
 ```
 
-The initializer creates a ticket-contract starter. `text` generates the optional TXT index; `--check` detects summary drift. [TXT format and publication](https://ruagentic.org/docs/AGENTIC-TXT.md) explains non-default profile URLs. Adapt it to your service and supply its OpenAPI document before validating. The tarball and its checksums are available in the [GitHub release](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.6).
+The initializer creates a ticket-contract starter. `text` generates the optional TXT index; `--check` detects summary drift. [TXT format and publication](https://ruagentic.org/docs/AGENTIC-TXT.md) explains non-default profile URLs. Adapt it to your service and supply its OpenAPI document before validating. The tarball and its checksums are available in the [GitHub release](https://github.com/sam1siam/agentic/releases/tag/v1.0.0).
 
 ## Add validation to GitHub Actions
 
 After checking out your repository, add:
 
 ```yaml
-- uses: sam1siam/agentic@v0.1.0-draft.6
+- uses: sam1siam/agentic@v1.0.0
   with:
     profile: agentic.json
     openapi: openapi.json
 ```
 
-An [agent skill](https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.6/agentic-adoption-skill.zip) is also available. It guides a coding agent through file generation, validation, and implementation checks.
+An [agent skill](https://github.com/sam1siam/agentic/releases/download/v1.0.0/agentic-adoption-skill.zip) is also available. It guides a coding agent through file generation, validation, and implementation checks.
 
 ## Build and contribute
 
 Use the [local HTTP quick start](https://ruagentic.org/docs/QUICKSTART.md) and [compatibility runner](https://ruagentic.org/docs/COMPATIBILITY.md) to exercise your client. Report bugs, suggest improvements, or share implementations through [GitHub issues](https://github.com/sam1siam/agentic/issues/new/choose). Contributions and public reports are optional.
 
-The profile remains `0.1.0-draft`. Pin versions and review the specification's service and host requirements when integrating. Public availability does not imply a stable standard or universal agent support.
+Use the `1.0.0` profile and pin your tool version. Review the specification's service and host requirements when integrating, and configure a supporting client with your profile URL. For existing integrations, follow the [1.0 migration guide](https://ruagentic.org/docs/MIGRATION.md); preserve original contracts and clients for unfinished requests.
 
 
 ---
@@ -517,15 +454,15 @@ The profile remains `0.1.0-draft`. Pin versions and review the specification's s
 Source: https://ruagentic.org/docs/GOVERNANCE.md
 
 # Governance
-Agentic is an experimental open project initially maintained by sam1siam. It is not affiliated with or endorsed by a standards organization.
+Agentic is an open project maintained by sam1siam. Specification changes, compatibility decisions, and release notes are published in the repository.
 
 Original project code, schemas, and documentation are available under Apache-2.0. Third-party components retain their licenses. Participation does not require a paid account or permission from a central registry.
 
-Propose changes through a GitHub issue describing the problem, current alternatives, intended client behavior, compatibility impact, and a reproducible example. Substantive changes need a pull request with normative text, schema changes where necessary, and behavioral tests. Keep decisions and dissent public.
+Submit changes through a GitHub issue describing the problem, current alternatives, intended client behavior, compatibility impact, and a reproducible example. Substantive changes need a pull request with normative text, schema changes where necessary, and behavioral tests. Keep decisions and dissent public.
 
-The founding maintainer reviews changes during incubation. Invite additional maintainers after sustained substantive contributions; document appointments publicly. Once there are at least three maintainers, specification changes should require two approvals, including one from a maintainer outside the proposing organization when possible. Record conflicts of interest. Use issue discussion for disputes, then a written maintainer decision with rationale.
+The founding maintainer reviews changes. Invite additional maintainers after sustained substantive contributions; document appointments publicly. Once there are at least three maintainers, specification changes should require two approvals, including one from a maintainer outside the submitting organization when possible. Record conflicts of interest. Use issue discussion for disputes, then a written maintainer decision with rationale.
 
-Draft schemas may change between explicitly versioned releases. Do not silently alter a published version's requirements. Stable 1.0 requires two independent implementations passing the same suite, evidence from real integrations, and resolution of material security and interoperability questions.
+Agentic uses explicit semantic versions for its profile and tools. Preserve the requirements and artifacts of published versions. A breaking profile change requires a new major version and a migration guide; compatible additions and corrections require documented versioned releases. Each release must include validation and behavioral checks appropriate to its changes. Independent implementation reports strengthen compatibility evidence and remain distinct from project-authored checks.
 
 Explore an existing community or neutral project home when outside implementers are engaged. AAIF Sandbox and relevant W3C Community Groups are potential routes, not current memberships or endorsements. Well-known URI registration, if pursued, is a separate step from format standardization.
 
@@ -551,13 +488,13 @@ For runnable MCP tools, WebMCP pages, and A2A / Agent Auth discovery configurati
 5. Describe the three operations with inline OpenAPI parameters. Bind their operation IDs in the profile.
 6. Publish the profile on the service origin, and test the advertised retention window and failures.
 
-An API that only offers idempotency, without a way to reconcile the request or identify its resulting resource, cannot satisfy this draft. Do not invent endpoints in a profile. A gateway can implement missing behavior only if it can make authoritative guarantees about the underlying operation; proxying HTTP alone is insufficient.
+An API that only offers idempotency, without a way to reconcile the request or identify its resulting resource, cannot satisfy this specification. Do not invent endpoints in a profile. A gateway can implement missing behavior only if it can make authoritative guarantees about the underlying operation; proxying HTTP alone is insufficient.
 
 ## Consumer integration
 
 Keep the profile, OpenAPI snapshot, origin, input, and request ID in a durable record before sending. The project exposes `executeAction` in `lib/client.ts`, `httpTransport` in `lib/http-transport.ts`, and the single-host `SqliteLedger` in `reference/node/ledger.ts`.
 
-The host authorizes the action before execution, approves the destination, chooses the credential context, and isolates ledgers by authenticated principal and environment. The reference CLI is a local demonstration, not a production authentication adapter. A production adapter must apply those host policies rather than forwarding publisher-specified credentials.
+The host authorizes the action before execution, approves the destination, chooses the credential context, and isolates ledgers by authenticated principal and environment. The reference CLI illustrates local execution; production authentication remains the host adapter's responsibility. A production adapter must apply those host policies rather than forwarding publisher-specified credentials.
 
 Treat receipts as observations. Store them privately, preserve their timestamps, and surface `pending` or `unknown` to the host instead of mapping either to success or retry.
 
@@ -569,11 +506,11 @@ These are optional coexistence patterns. Agentic does not require agents.txt, ag
 | --- | --- |
 | [llms.txt](https://llmstxt.org/) | Link to a Markdown integration guide. Offer page Markdown alternates and `describedby` links to the documentation index. |
 | [agent.json / AWP](https://www.agent-json.org/) | Keep capability and authentication discovery there. Pass the Agentic profile URL explicitly to your adapter; no standardized Agentic binding is claimed. |
-| OpenAPI | Keep operation schemas in OpenAPI; reference IDs instead of duplicating endpoints in Agentic. The 0.1 subset is intentionally limited. |
-| Arazzo | Compare existing workflow verification and recovery with the profile. An Arazzo mapping remains proposed work, not an implemented adapter. |
+| OpenAPI | Keep operation schemas in OpenAPI; reference IDs instead of duplicating endpoints in Agentic. The 1.0 subset is intentionally limited. |
+| Arazzo | Compare existing workflow verification and recovery with the profile. An Arazzo mapping is future work, not an implemented adapter. |
 | MCP and other tool runtimes | Wrap an authorized host operation around the same execution contract. Tool descriptions or annotations alone do not establish the service's behavior. |
 
-No reciprocal support, partnership, or endorsement from these projects is implied. This is a proposed integration path, not an interoperability claim.
+No reciprocal support, partnership, or endorsement from these projects is implied. These integration patterns do not establish cross-project interoperability.
 
 ## Evaluate your integration
 
@@ -590,9 +527,43 @@ The [recovery lab](https://ruagentic.org/lab/) is an in-memory browser simulatio
 
 Scenarios include a lost response, unavailable status, stale resource read, mismatched evidence, pending work, an expired tracking window, and a fresh successful action. The scenario list in the interface is authoritative for its available controls.
 
-The deterministic [comparison report](https://ruagentic.org/reports/benchmark.json) also includes a competent existing verification workflow. That workflow can achieve the same result. The proposed benefit of a shared profile must be tested as reduced integration or maintenance effort, not assumed from the simulation.
+The deterministic [comparison report](https://ruagentic.org/reports/benchmark.json) also includes a competent existing verification workflow. That workflow can achieve the same result. The benefit of a shared profile must be tested as reduced integration or maintenance effort, not assumed from the simulation.
 
 For actual HTTP disconnection and persistent SQLite recovery, run the [quick start](https://ruagentic.org/docs/QUICKSTART.md). For an independently written consumer, use the [compatibility runner](https://ruagentic.org/docs/COMPATIBILITY.md). Browser simulation results are not production reliability estimates or independent adoption.
+
+
+---
+
+Source: https://ruagentic.org/docs/MIGRATION.md
+
+# Migrate to Agentic 1.0
+
+Agentic 1.0.0 uses explicit version identifiers for the action profile, receipt, schemas, and generated text index. The 1.0 validators accept the 1.0.0 contract only.
+
+## New actions
+
+1. Install and pin `ruagentic@1.0.0` and the matching service/client implementation.
+2. Set the profile's `agentic` field to `1.0.0`. Use `agentic-1.0.schema.json` for profile validation and `receipt-1.0.schema.json` for receipt validation.
+3. Generate new receipts with the `1.0.0` version identifier. Preserve historical receipts exactly as recorded; changing their version would not retest or reverify the original action.
+4. Revalidate the profile against the service's actual OpenAPI document and run behavioral checks for request tracking, idempotency, status reconciliation, and resource evidence.
+5. Regenerate `agentic.txt` from the validated profile. Its header is `Agentic-Text: 1.0` and its `Profile-Version` is `1.0.0`. Deploy the JSON and TXT together.
+
+```sh
+npm install -g ruagentic@1.0.0
+agentic validate agentic.json openapi.json
+agentic text agentic.json
+agentic text agentic.json --check
+```
+
+The TXT generator refuses to overwrite an existing file. Review and replace a stale generated index deliberately before regenerating it. A version-field change alone does not establish behavioral compatibility.
+
+## Unfinished requests
+
+Preserve each unfinished request's original profile and OpenAPI snapshots, saved input, request ID, ledger, and installed compatible client. Do not relabel an in-flight request as 1.0.0, replace its saved contract, migrate it by changing its request ID, or repeat its write.
+
+Reconcile the original attempt with the client and contract that created it. If that is unavailable or tracking has expired, keep the outcome unresolved and use the host's explicit reconciliation or handoff process. Upgrade new work separately after the new implementation passes its checks.
+
+Retain original receipts and reports with their recorded versions and observation times. Generate fresh 1.0.0 results when verifying the upgraded integration; historical evidence is not automatically evidence for the new version.
 
 
 ---
@@ -601,7 +572,7 @@ Source: https://ruagentic.org/docs/OVERVIEW.md
 
 # Agentic
 
-> An experimental JSON profile for verifying agent actions and recovering interrupted requests.
+> A JSON profile for verifying agent actions and recovering interrupted requests.
 
 `agentic.json` connects a submission operation, authoritative request-status lookup, and a resulting-resource read. It references an existing OpenAPI 3.1 document. The client saves its request identity before sending, reconciles uncertainty, and emits a receipt only after checking evidence.
 
@@ -610,31 +581,13 @@ The production website includes generators, validation, public MCP tools, a host
 ## Start
 
 - [Quick start](https://ruagentic.org/docs/QUICKSTART.md): Run a real dropped-response example.
-- [Normative draft](https://ruagentic.org/docs/SPEC.md): Requirements, fields, and boundaries.
+- [Normative specification](https://ruagentic.org/docs/SPEC.md): Requirements, fields, and boundaries.
 - [Generator guide](https://ruagentic.org/docs/GENERATOR.md): Build and download a starting profile.
 - [Examples](https://ruagentic.org/docs/EXAMPLES.md): Profile, OpenAPI document, and synthetic receipt.
 - [Get started](https://ruagentic.org/adopt/): Install tools, connect an agent, and integrate your service.
 - [Repository](https://github.com/sam1siam/agentic): Source, issues, and releases.
 
 Keep request identity durable. Check the original result. Preserve unknown when evidence is insufficient. Existing authentication, authorization, and idempotency remain necessary.
-
-
----
-
-Source: https://ruagentic.org/docs/PILOT-KIT.md
-
-# Pilot program retired
-
-The managed pilot program and enrollment were retired on 2026-09-07. Use Agentic directly through the [getting started guide](https://ruagentic.org/docs/GETTING-STARTED.md), [hosted platform](https://ruagentic.org/docs/PLATFORM.md), and [compatibility runner](https://ruagentic.org/docs/COMPATIBILITY.md). Feedback and contributions are optional.
-
-
----
-
-Source: https://ruagentic.org/docs/PILOT-RUNNER.md
-
-# Compatibility runner
-
-The guide has moved to [COMPATIBILITY.md](https://ruagentic.org/docs/COMPATIBILITY.md). Testing is available directly; no enrollment is required. Existing `npm run pilot` commands remain an alias for the compatibility runner.
 
 
 ---
@@ -689,7 +642,7 @@ For local development, use an isolated PostgreSQL database, set `.env.platform-t
 Source: https://ruagentic.org/docs/PRIOR-ART.md
 
 # Prior work and positioning
-Research checked September 7, 2026. These projects and proposals have different scopes and maturity levels; inclusion is not an adoption or endorsement claim.
+Research checked September 7, 2026. These projects cover different parts of the agent ecosystem; inclusion is not an adoption or endorsement claim.
 
 - [llms.txt](https://llmstxt.org/): concise website context and links.
 - [AGENTS.md](https://agents.md/): instructions for coding agents in repositories.
@@ -699,11 +652,11 @@ Research checked September 7, 2026. These projects and proposals have different 
 - [RFC 9727](https://www.rfc-editor.org/rfc/rfc9727.html): API catalogs.
 - [A2A](https://a2a-protocol.org/): agent descriptions, communication, tasks, and artifacts.
 - [MCP tool annotations](https://blog.modelcontextprotocol.io/posts/2026-03-16-tool-annotations/): behavioral hints; metadata is not enforcement.
-- [WebMCP draft](https://webmachinelearning.github.io/webmcp/): structured tools in web applications.
+- [WebMCP specification](https://webmachinelearning.github.io/webmcp/): structured tools in web applications.
 - [Agent Permissions](https://github.com/las-wg/agent-permissions.json): advisory interaction permissions.
 - [Verified Tool Calls Improve LLM Agent Reliability Under Non-Atomic Failures](https://arxiv.org/abs/2608.02645): direct research precedent for postcondition verification and interrupted-call recovery.
 
-Agentic does not claim invention of idempotency, status reconciliation, receipts, or verification. The proposal is a narrow shared profile and reproducible behavioral tests. Whether that deserves a separate file, an Arazzo extension, or another integration should be decided with implementers.
+Agentic does not claim invention of idempotency, status reconciliation, receipts, or verification. Agentic provides a focused shared profile and reproducible behavioral tests for interrupted action recovery. Its integration guide explains how it works alongside existing API descriptions and agent protocols.
 
 
 ---
@@ -712,7 +665,7 @@ Source: https://ruagentic.org/docs/PROTOCOLS.md
 
 # MCP, WebMCP, A2A, and Agent Auth
 
-Agentic 0.1 describes action tracking and recovery through OpenAPI. Discovery, tool transport, agent messaging, and authorization keep their own protocols. Adding a declaration does not implement a protocol.
+Agentic 1.0 describes action tracking and recovery through OpenAPI. Discovery, tool transport, agent messaging, and authorization keep their own protocols. Adding a declaration does not implement a protocol.
 
 ## Current implementation
 
@@ -723,7 +676,7 @@ Agentic 0.1 describes action tracking and recovery through OpenAPI. Discovery, t
 | A2A | Hosted A2A 1.0 JSON-RPC testing agent, PostgreSQL tasks and report artifacts. | Streaming, push notifications and cancellation after dispatch. |
 | Agent Auth | Official provider: registration, signatures, autonomous grants, execution, replay protection and revocation. | Human account delegation and payments. |
 
-Use the [connection guide](https://ruagentic.org/connect/) for client examples and the [platform](https://ruagentic.org/platform/) for live demonstrations. Hosted services use one PostgreSQL-backed testing engine. See [platform operations and retention](https://ruagentic.org/docs/PLATFORM.md).
+Use the [connection guide](https://ruagentic.org/connect/) for client examples and the [platform](https://ruagentic.org/platform/) for live verification. Hosted services use one PostgreSQL-backed testing engine. See [platform operations and retention](https://ruagentic.org/docs/PLATFORM.md).
 
 ## Public endpoints
 
@@ -731,7 +684,7 @@ Use the [connection guide](https://ruagentic.org/connect/) for client examples a
 - A2A card: `https://ruagentic.org/.well-known/agent-card.json`; endpoint: `https://ruagentic.org/a2a`. Create a private session token in the platform. Send `Authorization: Bearer <token>` and `A2A-Version: 1.0`. `SendMessage` accepts a data part with `{ "kind": "recovery", "scenario": "response-lost" }` or `{ "kind": "audit", "url": "..." }`. Retrieve results with `GetTask` and the returned ID.
 - Agent Auth: `https://ruagentic.org/.well-known/agent-configuration`. Configure the official `@auth/agent` client with `urls: ['https://ruagentic.org']` for direct discovery. Autonomous capabilities are `agentic.validate` and `agentic.sandbox.run`.
 
-Agent Auth uses inline public keys, one-hour grants, a one-day maximum agent lifetime, persistent replay detection, and revocation checks. Remote JWKS URLs are not supported. The demo registers an agent, executes validation, revokes it and tests rejection of an unused signed token. It does not create a human account.
+Agent Auth uses inline public keys, one-hour grants, a one-day maximum agent lifetime, persistent replay detection, and revocation checks. Remote JWKS URLs are not supported. The verification flow registers an agent, executes validation, revokes it and tests rejection of an unused signed token. It does not create a human account.
 
 ## Connect the local MCP server
 
@@ -760,7 +713,7 @@ The server uses the official MCP TypeScript SDK 2.0.0. Tools read local bundled 
 
 ## Use WebMCP page tools
 
-Open /generate/, /validate/, or /lab/ in a compatible browser. Each page registers its tool through `document.modelContext.registerTool` when available and unregisters on unmount using an abort signal. This follows the current WebMCP draft; earlier browser experiments may expose a different API. The regular page controls work without WebMCP.
+Open /generate/, /validate/, or /lab/ in a compatible browser. Each page registers its tool through `document.modelContext.registerTool` when available and unregisters on unmount using an abort signal. This follows the current WebMCP specification; earlier browser implementations may expose a different API. The regular page controls work without WebMCP.
 
 The generator returns profile data without changing the page. Validation and lab tools update the visible result. The lab remains a browser simulation, not an HTTP execution test. Registration is conditional and is not a claim that a particular agent host can invoke these tools.
 
@@ -770,7 +723,7 @@ Use the endpoint URLs above and the [connection guide](https://ruagentic.org/con
 
 The generated /agentic.txt index links to the live synthetic service profile at /agentic.json. It is a reading aid, not a protocol or authorization manifest. The optional /llms.txt index links to Agentic documentation and connection instructions. In the [generator](https://ruagentic.org/generate/), select **Documentation index** to create an llms.txt starter for your service. Edit its /docs/, /agentic.txt, and /agentic.json links to match your published files. The generator makes no network calls.
 
-The Agentic profile remains a separate action contract. Do not add protocol fields to agentic.json: unknown fields are rejected by the 0.1 schema. Pass the profile URL explicitly or link it from documentation.
+The Agentic profile remains a separate action contract. Do not add protocol fields to agentic.json: unknown fields are rejected by the 1.0 schema. Pass the profile URL explicitly or link it from documentation.
 
 ## Implement A2A and Agent Auth
 
@@ -783,7 +736,7 @@ The hosted sandbox provides the concrete service for autonomous authorization te
 ## Primary references
 
 - [MCP server guide](https://modelcontextprotocol.io/docs/develop/build-server)
-- [WebMCP draft](https://webmachinelearning.github.io/webmcp/)
+- [WebMCP specification](https://webmachinelearning.github.io/webmcp/)
 - [A2A specification](https://a2a-protocol.org/latest/specification/)
 - [Agent Auth discovery](https://agent-auth-protocol.com/docs/discovery)
 - [Agent Auth server implementation](https://agent-auth-protocol.com/docs/server)
@@ -797,7 +750,7 @@ Source: https://ruagentic.org/docs/QUICKSTART.md
 
 # Quick start
 
-Agentic is an experimental action profile. This guide uses synthetic tickets on loopback, not a production service.
+Run Agentic 1.0 with synthetic tickets on a loopback reference service. The service intentionally supports fault injection for recovery testing and has no authentication; keep it local.
 
 ## Requirements
 
@@ -854,7 +807,7 @@ Publish the file on the service origin as `/agentic.json` with `Content-Type: ap
 ```sh
 npm test
 npm run typecheck
-npm run conformance -- --adapter pilots/adapters/node-reference.json --out .agentic-state/compatibility-report.json
+npm run conformance -- --adapter integrations/node-reference.json --out .agentic-state/compatibility-report.json
 ```
 
 The first command exercises the project tests. The compatibility runner can also drive your own client; see [COMPATIBILITY.md](https://ruagentic.org/docs/COMPATIBILITY.md). Project-authored runs are reference checks, not independent adoption.
@@ -865,10 +818,10 @@ The first command exercises the project tests. The compatibility runner can also
 - **Request ID reused with changed input:** restore the original input to reconcile that attempt. Only choose a new ID when intentionally authorizing a separate new action.
 - **Outcome unknown or pending:** retain the request ID and ledger. Inspect the reason; do not automatically repeat the mutation.
 - **Python is unavailable:** install Python 3.11+ and ensure the `python` command works before the HTTP tests.
-- **Schema passes but binding fails:** the first draft requires inline OpenAPI 3.1 operations without server overrides or parameter references. See [INTEGRATIONS.md](https://ruagentic.org/docs/INTEGRATIONS.md).
+- **Schema passes but binding fails:** the binding requires inline OpenAPI 3.1 operations without server overrides or parameter references. See [INTEGRATIONS.md](https://ruagentic.org/docs/INTEGRATIONS.md).
 - **Expired tracking:** use the host's reconciliation or human handoff process. Expiry is not proof the action failed.
 
-See the [normative draft](https://ruagentic.org/docs/SPEC.md) and [security limits](https://ruagentic.org/docs/SECURITY.md) before integrating another service.
+See the [normative specification](https://ruagentic.org/docs/SPEC.md) and [security limits](https://ruagentic.org/docs/SECURITY.md) before integrating another service.
 
 
 ---
@@ -877,7 +830,7 @@ Source: https://ruagentic.org/docs/README.md
 
 # Agentic documentation
 
-> Guides and reference material for Agentic Action Profile 0.1, an experimental proposal.
+> Guides and reference material for Agentic Action Profile 1.0.
 
 ## Start here
 
@@ -887,12 +840,13 @@ Source: https://ruagentic.org/docs/README.md
 - [Generator](https://ruagentic.org/docs/GENERATOR.md): Browser and local profile creation.
 - [Hosted platform](https://ruagentic.org/docs/PLATFORM.md): HTTP recovery tests, public URL audits, private history, sharing and operations.
 - [Examples](https://ruagentic.org/docs/EXAMPLES.md): Complete profile, OpenAPI contract, and illustrative receipt.
-- [FAQ](https://ruagentic.org/docs/FAQ.md): Support, service requirements, safety boundaries, and draft status.
+- [FAQ](https://ruagentic.org/docs/FAQ.md): Support, service requirements, safety boundaries, and versioning.
 
 ## Implement and test
 
 - [Normative specification](https://ruagentic.org/docs/SPEC.md): JSON protocol requirements.
 - [agentic.txt companion](https://ruagentic.org/docs/AGENTIC-TXT.md): Generated action index, publication, and consistency checks.
+- [Migrate to 1.0](https://ruagentic.org/docs/MIGRATION.md): New version identifiers, revalidation, and preservation of unfinished requests.
 - [Integration guide](https://ruagentic.org/docs/INTEGRATIONS.md): Client, service, and adjacent-convention integration.
 - [Protocol setup](https://ruagentic.org/docs/PROTOCOLS.md): Public MCP, WebMCP tools, A2A testing tasks, and autonomous Agent Auth.
 - [Validator](https://ruagentic.org/docs/VALIDATOR.md): Structure and binding checks.
@@ -903,8 +857,8 @@ Source: https://ruagentic.org/docs/README.md
 
 ## Contribute
 
-- [Governance](https://ruagentic.org/docs/GOVERNANCE.md): Change process and stability criteria.
-- [Roadmap](https://ruagentic.org/docs/ROADMAP.md): Adoption milestones.
+- [Governance](https://ruagentic.org/docs/GOVERNANCE.md): Change process and version compatibility.
+- [Roadmap](https://ruagentic.org/docs/ROADMAP.md): Product development priorities.
 - [Changelog](https://ruagentic.org/docs/CHANGELOG.md): Published changes.
 - [Prior art](https://ruagentic.org/docs/PRIOR-ART.md): Related approaches.
 - [Route inventory](https://ruagentic.org/docs/SITE-MAP.md): What this site actually serves.
@@ -929,17 +883,17 @@ Source: https://ruagentic.org/docs/ROADMAP.md
 
 # Product roadmap
 
-Agentic is available for direct use. Work follows concrete bugs, integration needs, and contributions rather than a managed pilot program or enrollment targets.
+Agentic 1.0.0 is available for direct use. Work follows concrete bugs, integration needs, and contributions.
 
 | Area | Available now | Next work when needed |
 | --- | --- | --- |
-| Files | Draft specification, schemas, OpenAPI and discovery generators | Resolve focused specification issues through versioned changes |
+| Files | Versioned specification, schemas, OpenAPI and documentation generators | Resolve focused specification issues through versioned changes |
 | Tools | Validator, CLI release, GitHub Action, and agent skill | Improve setup and distribution based on installation feedback |
 | Hosted services | Recovery sandbox, URL auditor, report history, MCP, A2A, and Agent Auth | Maintain availability, dependencies, and operational controls |
 | Integrations | Node and Python reference clients, local service, compatibility runner | Accept optional implementation reports and focused adapters |
-| Governance | Open source, public issues, documented change process | Consider 1.0 only with sufficient interoperability evidence and resolved material issues |
+| Governance | Open source, public issues, documented change process | Maintain published compatibility requirements and document future version changes |
 
-Public availability is not a claim of universal agent support, independent adoption, certification, or exactly-once effects. The profile remains a versioned draft. There is no requirement to enroll or publish a report before using it.
+Use the files, tools, and hosted services directly. Report results with the tested implementation and version; contributions and implementation reports are optional.
 
 
 ---
@@ -947,13 +901,13 @@ Public availability is not a claim of universal agent support, independent adopt
 Source: https://ruagentic.org/docs/SECURITY.md
 
 # Security and operational limits
-This is an experimental reference implementation, not a production authorization service.
+Agentic profiles describe action behavior. Authorization remains the responsibility of the host and service, including when they use the hosted Agent Auth integration.
 
 Report vulnerabilities through the repository's private security reporting feature if available. Do not publish credentials, private receipts, or exploitable details in an issue. For non-sensitive bugs, include a minimal reproduction and affected version.
 
 The public manifest is untrusted data. Keep authorization in the host; restrict destinations independently of manifest validation. Do not forward credentials to newly discovered origins or redirects. Bind request ledgers to the current principal and environment. Set response limits and timeouts.
 
-The local demo binds to 127.0.0.1 and has no authentication. Its fault injection and inspection endpoints are intentionally for tests. Do not expose it directly to the Internet.
+The local reference service binds to 127.0.0.1 and has no authentication. Its fault injection and inspection endpoints are intentionally for tests. Do not expose it directly to the Internet.
 
 SQLite ledgers store inputs and receipts. Protect their directory, keep them out of Git, and define a retention policy. The included locks work only among processes on a single machine; PID reuse fails closed. They are not distributed leases.
 
@@ -971,14 +925,14 @@ This inventory distinguishes browser tools, hosted services and the separate loc
 | Route | What is available |
 | --- | --- |
 | / | Project overview and complete starting profile |
-| /spec/ | Human reading guide to the normative draft |
+| /spec/ | Human reading guide to the normative specification |
 | /generate/ | Action profile, OpenAPI import and optional llms.txt generators, copy/download, conditional WebMCP tool |
 | /examples/ | Profile, OpenAPI, and synthetic receipt examples |
 | /validate/ | Local structure and optional OpenAPI binding validation |
 | /lab/ | In-memory recovery comparison; no production API calls |
 | /docs/ | Guide index, quick start, FAQ, and reference links |
 | /adopt/ | Getting started, CLI installation, GitHub Action, and integration guides |
-| /platform/ | Hosted recovery tests, URL auditor, Agent Auth demo and private/shared reports |
+| /platform/ | Hosted recovery tests, URL auditor, Agent Auth verification and private/shared reports |
 | /connect/ | Public MCP, WebMCP, A2A and Agent Auth client setup |
 | /mcp | Read-only Streamable HTTP MCP tools |
 | /a2a | Authenticated A2A 1.0 JSON-RPC testing tasks |
@@ -993,7 +947,6 @@ This inventory distinguishes browser tools, hosted services and the separate loc
 | /docs/*.md | Plain Markdown source documents |
 | /schemas/*.json | Versioned profile and receipt schemas |
 | /examples/tickets/* | Static illustrative example files |
-| /pilots/registry.json | Archived program status; enrollment is closed |
 | /brand/*.svg | Downloadable identity assets |
 | /sitemap.xml | Human page inventory |
 | /robots.txt | Public crawl guidance |
@@ -1007,28 +960,28 @@ The hosted runtime uses PostgreSQL and Node 24 Vercel Functions; see [platform o
 
 Source: https://ruagentic.org/docs/SPEC.md
 
-# Agentic Action Profile 0.1
-Status: Experimental draft. Version: 0.1.0-draft. Date: 2026-09-07.
+# Agentic Action Profile 1.0
+Version: 1.0.0. Released: 2026-09-07.
 Maintainer: [sam1siam](https://github.com/sam1siam). License: Apache-2.0.
-This document is the normative JSON-profile draft; the original proposal is historical context. The optional [agentic.txt companion](https://ruagentic.org/docs/AGENTIC-TXT.md) is a separate generated reading aid and does not change this profile schema or its execution requirements.
+This document defines the Agentic JSON action profile. The optional [agentic.txt companion](https://ruagentic.org/docs/AGENTIC-TXT.md) is a separate generated reading aid and does not change this profile schema or its execution requirements.
 
 ## 1. Purpose and boundaries
 Agentic describes how a participating client tracks an action, reconciles an uncertain submission, and verifies its outcome. The initial binding supports a small OpenAPI 3.1 subset: one POST submission, one GET request-status operation, and one GET resource-verification operation.
 
 This is not a discovery protocol, an authorization protocol, or an exactly-once delivery guarantee. The service must implement its advertised behavior. Clients must apply their existing authorization, credential, network, and user-interaction policies.
 
-The keywords MUST, MUST NOT, SHOULD, and MAY describe requirements of this draft.
+The keywords MUST, MUST NOT, SHOULD, and MAY describe requirements of this specification.
 
 ## 2. Publication and processing
 A publisher MAY serve the UTF-8 JSON profile at /agentic.json using application/json, or provide an explicit profile URL. Automatic filename discovery is not assumed. No Agentic well-known URI is registered by this project.
 
-The profile MUST validate against schemas/agentic-0.1.schema.json and pass the semantic binding checks below. Version 0.1.0-draft is the only supported version. Unknown fields are rejected in this draft to expose typos; future extensions require a new schema version. Duplicate JSON member names are invalid publisher output. The reference JSON parsers do not detect duplicate member names; strict duplicate-key detection is a known implementation gap.
+The profile MUST validate against schemas/agentic-1.0.schema.json and pass the semantic binding checks below. Version 1.0.0 is the only supported version. Unknown fields are rejected in this version to expose typos; future extensions require a new schema version. Duplicate JSON member names are invalid publisher output. The reference JSON parsers do not detect duplicate member names; strict duplicate-key detection is a known implementation gap.
 
 The profile SHOULD be at most 64 KiB. Reference tools enforce this limit when accepting pasted profile text. Referenced OpenAPI documents SHOULD be at most 256 KiB. Clients MUST pin the supported schema locally and MUST NOT fetch arbitrary schemas named by a publisher's $schema value.
 
 Origin MUST be a canonical HTTPS origin without credentials, path, query, or fragment. Explicit local development MAY use HTTP on localhost, 127.0.0.1, or [::1]. Production hosts MUST independently enforce approved destinations; HTTPS alone does not establish that a destination is trusted or public.
 
-A profile MUST NOT grant itself authority over other origins. The reference binding accepts only root-relative paths without traversal segments, escapes, query strings, fragments, backslashes, or network-path references. A client MUST reject redirects during action execution. Cross-origin endpoints and OpenAPI server overrides are unsupported in 0.1.
+A profile MUST NOT grant itself authority over other origins. The reference binding accepts only root-relative paths without traversal segments, escapes, query strings, fragments, backslashes, or network-path references. A client MUST reject redirects during action execution. Cross-origin endpoints and OpenAPI server overrides are unsupported in 1.0.
 
 Publishers SHOULD use normal HTTP cache controls and ETags. A running request MUST remain bound to its saved profile and OpenAPI snapshot. If either changes, the reference clients reject reuse of that request ID. Migration requires an explicit host reconciliation process.
 
@@ -1037,7 +990,7 @@ The versioned JSON Schema is authoritative for field types, limits, and required
 
 | Field | Meaning |
 | --- | --- |
-| agentic | Exact supported version: 0.1.0-draft |
+| agentic | Exact supported version: 1.0.0 |
 | origin | Authoritative service origin |
 | actions | One to 32 action descriptions with unique IDs |
 | actions[].id | Stable action identifier |
@@ -1059,7 +1012,7 @@ The versioned JSON Schema is authoritative for field types, limits, and required
 | recovery.maxChecks | One to ten status-check attempts per execution |
 | recovery.checkDelayMs | Delay between check attempts, zero to 5000 milliseconds |
 | recovery.timeoutMs | Per-request timeout, 100 to 10000 milliseconds |
-| recovery.retry | never-automatically in 0.1: no automatic repeat of a submitted write |
+| recovery.retry | never-automatically in 1.0: no automatic repeat of a submitted write |
 
 JSON Pointers use RFC 6901 escape rules. A missing evidence value MUST NOT count as a match. Input evidence comparisons are structural JSON equality; property order is irrelevant.
 
@@ -1103,7 +1056,7 @@ The host MUST authorize the action before calling the client. The host MUST isol
 Host adapters MUST serialize concurrent execution of a request or provide equivalent atomic coordination. The Node and Python SQLite ledgers coordinate local processes and reclaim a lock only if its owning process has exited. They are single-host examples; distributed leasing and account-aware storage are outside their scope.
 
 ## 7. Receipts
-Receipts MUST validate against schemas/receipt-0.1.schema.json. They include the version, request ID, action ID, origin, outcome, observation time, resource ID or null, and a reason.
+Receipts MUST validate against schemas/receipt-1.0.schema.json. They include the version, request ID, action ID, origin, outcome, observation time, resource ID or null, and a reason.
 
 A succeeded receipt MUST additionally contain evidence: resource URL, resource/request IDs, observed state, and the input/resource pointer pairs checked. The receipt is an observation record, not a signature or proof that a service is honest.
 
@@ -1112,9 +1065,9 @@ Receipts and saved inputs can be sensitive. They MUST NOT be published in a publ
 ## 8. Conformance and evolution
 Structural validity, binding validity, behavioral test results, and independent adoption are separate claims. See CONFORMANCE.md for the test matrix and limitations. Passing tests establishes behavior only for the versions and scenarios tested.
 
-The project has Node and Python reference consumers from the same authorship. These do not establish independent adoption. A stable release requires separate implementers, publicly reproducible compatibility evidence, and resolution of material draft issues.
+The project provides Node and Python reference consumers from the same authorship. Compatibility reports identify the implementation, tested version, scenarios, and evidence. Independent adoption requires a separately authored implementation; it is not implied by a release version.
 
-Future work includes Arazzo profile mapping, richer retry contracts, preview/commit binding, and another protocol binding when implementation feedback justifies it. These are not supported features of 0.1.
+Future work includes Arazzo profile mapping, richer retry contracts, a staged commit binding, and another protocol binding when implementation feedback justifies it. These are not supported features of 1.0.
 
 
 ---
@@ -1123,7 +1076,7 @@ Source: https://ruagentic.org/docs/VALIDATOR.md
 
 # Profile validator
 
-The [browser validator](https://ruagentic.org/validate/) checks pasted `agentic.json` against the pinned 0.1 schema and semantic rules. An optional pasted OpenAPI document enables operation-binding checks. It does not fetch external schemas, inspect live services, or execute actions.
+The [browser validator](https://ruagentic.org/validate/) checks pasted `agentic.json` against the pinned 1.0 schema and semantic rules. An optional pasted OpenAPI document enables operation-binding checks. It does not fetch external schemas, inspect live services, or execute actions.
 
 Use the profile and OpenAPI tabs, load the ticket example or paste your own files, and select **Validate profile**. Editing either file clears the old result. Profile input is limited to 64 KiB and OpenAPI input to 256 KiB. The copy action copies the profile JSON.
 

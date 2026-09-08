@@ -35,12 +35,12 @@ export interface Action {
 }
 export interface Profile {
   $schema?: string;
-  agentic: '0.1.0-draft';
+  agentic: '1.0.0';
   origin: string;
   actions: Action[];
 }
 export interface Receipt {
-  agentic: '0.1.0-draft';
+  agentic: '1.0.0';
   request_id: string;
   action_id: string;
   origin: string;

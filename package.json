@@ -1,6 +1,6 @@
 {
   "name": "agentic-action-profile",
-  "version": "0.1.0-draft.6",
+  "version": "1.0.0",
   "private": true,
   "engines": {
     "node": "24.x"
@@ -22,11 +22,10 @@
     "build:cli": "node scripts/build-cli.mjs",
     "platform:dev": "node --env-file=.env.platform-test scripts/platform-dev.ts",
     "platform:migrate": "node scripts/platform-migrate.ts",
-    "pilot": "python scripts/pilot.py",
     "client": "node reference/node/client.ts",
     "benchmark": "node scripts/benchmark.ts",
     "postbuild": "node scripts/check-export.mjs",
-    "conformance": "python scripts/pilot.py"
+    "conformance": "python scripts/conformance.py"
   },
   "dependencies": {
     "@a2a-js/sdk": "1.1.0",

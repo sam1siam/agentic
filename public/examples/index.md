@@ -6,8 +6,8 @@ One synthetic record-creation action demonstrates the initial profile binding. T
 - [Complete profile](https://ruagentic.org/examples/tickets/agentic.json)
 - [OpenAPI document](https://ruagentic.org/examples/tickets/openapi.json)
 - [Illustrative receipt](https://ruagentic.org/examples/tickets/receipt.json)
-- [Profile schema](https://ruagentic.org/schemas/agentic-0.1.schema.json)
-- [Receipt schema](https://ruagentic.org/schemas/receipt-0.1.schema.json)
+- [Profile schema](https://ruagentic.org/schemas/agentic-1.0.schema.json)
+- [Receipt schema](https://ruagentic.org/schemas/receipt-1.0.schema.json)
 
 | Role | Operation ID | Endpoint |
 | --- | --- | --- |

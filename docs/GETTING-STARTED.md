@@ -20,30 +20,30 @@ The hosted ticket service operates on synthetic data. Your own business actions 
 Requires Node 24. Install the versioned [ruagentic CLI from npm](https://www.npmjs.com/package/ruagentic):
 
 ```sh
-npm install -g ruagentic@0.1.0-draft.6
+npm install -g ruagentic@1.0.0
 agentic init --origin https://your-service.example
 agentic text agentic.json
 agentic text agentic.json --check
 agentic validate agentic.json openapi.json
 ```
 
-The initializer creates a ticket-contract starter. `text` generates the optional TXT index; `--check` detects summary drift. [TXT format and publication](AGENTIC-TXT.md) explains non-default profile URLs. Adapt it to your service and supply its OpenAPI document before validating. The tarball and its checksums are available in the [GitHub release](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.6).
+The initializer creates a ticket-contract starter. `text` generates the optional TXT index; `--check` detects summary drift. [TXT format and publication](AGENTIC-TXT.md) explains non-default profile URLs. Adapt it to your service and supply its OpenAPI document before validating. The tarball and its checksums are available in the [GitHub release](https://github.com/sam1siam/agentic/releases/tag/v1.0.0).
 
 ## Add validation to GitHub Actions
 
 After checking out your repository, add:
 
 ```yaml
-- uses: sam1siam/agentic@v0.1.0-draft.6
+- uses: sam1siam/agentic@v1.0.0
   with:
     profile: agentic.json
     openapi: openapi.json
 ```
 
-An [agent skill](https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.6/agentic-adoption-skill.zip) is also available. It guides a coding agent through file generation, validation, and implementation checks.
+An [agent skill](https://github.com/sam1siam/agentic/releases/download/v1.0.0/agentic-adoption-skill.zip) is also available. It guides a coding agent through file generation, validation, and implementation checks.
 
 ## Build and contribute
 
 Use the [local HTTP quick start](QUICKSTART.md) and [compatibility runner](COMPATIBILITY.md) to exercise your client. Report bugs, suggest improvements, or share implementations through [GitHub issues](https://github.com/sam1siam/agentic/issues/new/choose). Contributions and public reports are optional.
 
-The profile remains `0.1.0-draft`. Pin versions and review the specification's service and host requirements when integrating. Public availability does not imply a stable standard or universal agent support.
+Use the `1.0.0` profile and pin your tool version. Review the specification's service and host requirements when integrating, and configure a supporting client with your profile URL. For existing integrations, follow the [1.0 migration guide](MIGRATION.md); preserve original contracts and clients for unfinished requests.

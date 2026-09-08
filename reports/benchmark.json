@@ -1,6 +1,6 @@
 {
-  "version": "0.1.0-draft",
-  "generatedAt": "2026-09-07T19:02:34.832Z",
+  "version": "1.0.0",
+  "generatedAt": "2026-09-08T00:25:18.903Z",
   "method": "Deterministic in-memory failure scenarios. One run per strategy per scenario; not statistical production evidence.",
   "independentImplementations": 0,
   "rows": [

@@ -110,7 +110,7 @@ button:focus-visible {
   padding-right: 4px;
   border-radius: 4px;
 }
-.draft-tag {
+.version-tag {
   font-size: 12px;
   letter-spacing: 1.3px;
   color: var(--muted-foreground);
@@ -1255,7 +1255,7 @@ td {
   font-size: 13px;
   margin: 6px 0 0;
 }
-.generator-preview {
+.generator-output {
   min-width: 0;
 }
 .generator-tabs {
@@ -1304,17 +1304,17 @@ td {
   margin-top: 14px;
   min-height: 180px;
 }
-.generator-preview .code-block {
+.generator-output .code-block {
   max-height: 620px;
   font-size: 13px;
 }
 .generator-form .small {
   margin-bottom: 22px;
 }
-.generator-preview [role='status']:empty {
+.generator-output [role='status']:empty {
   display: none;
 }
-.generator-preview [role='status']:not(:empty) {
+.generator-output [role='status']:not(:empty) {
   margin-top: 14px;
 }
 .doc-grid {

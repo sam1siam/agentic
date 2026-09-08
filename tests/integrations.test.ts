@@ -53,12 +53,12 @@ test(
       assert.ok(tools.every((t) => t.annotations?.readOnlyHint));
       const generated = await client.callTool({
         name: 'generate_agentic_profile',
-        arguments: { origin: 'https://pilot.example' },
+        arguments: { origin: 'https://service.example' },
       });
       const data = JSON.parse(
         (generated.content as { type: string; text: string }[])[0].text,
       );
-      assert.equal(data.profile.origin, 'https://pilot.example');
+      assert.equal(data.profile.origin, 'https://service.example');
       assert.equal(data.validation.valid, true);
       assert.deepEqual(Object.keys(data.files).sort(), [
         'agentic.json',
@@ -66,7 +66,7 @@ test(
       ]);
       assert.ok(
         data.files['agentic.txt'].includes(
-          'Profile: https://pilot.example/agentic.json\n',
+          'Profile: https://service.example/agentic.json\n',
         ),
       );
       const checked = await client.callTool({
@@ -103,7 +103,7 @@ test(
       });
       assert.ok(
         (spec.content as { text: string }[])[0].text.includes(
-          'Experimental draft',
+          'Version: 1.0.0',
         ),
       );
     } finally {

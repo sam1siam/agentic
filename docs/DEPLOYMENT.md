@@ -18,6 +18,6 @@ Keep the domain registered at Spaceship unless a registrar transfer is independe
 
 Do not guess A records, CNAME targets, or verification tokens. Preserve existing email and unrelated records. Update only the records needed for the selected hostname after checking any existing web destination. Add www only if desired and configure its redirect deliberately.
 
-Check Vercel's domain verification and TLS status, then verify the root page, /spec/, /lab/, /validate/, /adopt/, /schemas/agentic-0.1.schema.json, and the example downloads on the final domain.
+Check Vercel's domain verification and TLS status, then verify the root page, /spec/, /lab/, /validate/, /adopt/, /schemas/agentic-1.0.schema.json, and the example downloads on the final domain.
 
 The .openai/hosting.json file identifies an optional private Sites preview and is unrelated to Vercel DNS. It contains no credential.

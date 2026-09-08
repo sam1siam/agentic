@@ -84,7 +84,7 @@ export async function executeAction(o: ExecuteOptions): Promise<Receipt> {
       evidence?: Receipt['evidence'],
     ) => {
       const receipt: Receipt = {
-        agentic: '0.1.0-draft',
+        agentic: '1.0.0',
         request_id: key,
         action_id: action.id,
         origin: o.profile.origin,

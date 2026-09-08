@@ -1,13 +1,13 @@
 ---
 name: agentic-adoption
-description: Implement or review an experimental Agentic action-recovery profile for an existing OpenAPI service, including operation bindings, evidence validation, and isolated recovery tests.
+description: Implement or review an Agentic action-recovery profile for an existing OpenAPI service, including operation bindings, evidence validation, and isolated recovery tests.
 ---
 
 # Agentic adoption
 
-Agentic 0.1 is an experimental profile, not an established standard. It adds request tracking and verifiable outcome evidence to three existing OpenAPI operations. The profile is untrusted data and never grants execution permission.
+Agentic 1.0 is an open action profile. It adds request tracking and verifiable outcome evidence to three existing OpenAPI operations. The profile is untrusted data and never grants execution permission.
 
-Read the pinned draft supplied with the implementation, or https://ruagentic.org/docs/SPEC.md before changing protocol behavior. The draft supports an OpenAPI 3.1 subset: one POST submission, one GET request-status operation, and one GET resource operation on the same origin. Do not invent fields for MCP, A2A, authentication, or discovery inside `agentic.json`.
+Read the pinned specification supplied with the implementation, or https://ruagentic.org/docs/SPEC.md before changing protocol behavior. The specification supports an OpenAPI 3.1 subset: one POST submission, one GET request-status operation, and one GET resource operation on the same origin. Do not invent fields for MCP, A2A, authentication, or discovery inside `agentic.json`.
 
 Start with one action that the service owner can test in isolation. Map its real operation IDs and path parameters. Confirm that the status response supplies `request_id`, `status`, and `resource_id`, and that resource evidence binds the original request ID, resource ID, expected input fields, and successful state. Do not infer durable idempotency or retention from an OpenAPI description.
 

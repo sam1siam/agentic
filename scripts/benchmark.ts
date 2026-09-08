@@ -91,7 +91,7 @@ for (const scenario of Object.keys(scenarios) as Scenario[]) {
   });
 }
 const report = {
-  version: '0.1.0-draft',
+  version: '1.0.0',
   generatedAt: new Date().toISOString(),
   method:
     'Deterministic in-memory failure scenarios. One run per strategy per scenario; not statistical production evidence.',

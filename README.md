@@ -1,11 +1,11 @@
 # Agentic
-**A verifiable outcome for agent actions.** An experimental open convention for AI agents to track actions, verify results, and recover when a request is interrupted.
+**A verifiable outcome for agent actions.** An open convention for AI agents to track actions, verify results, and recover when a request is interrupted.
 
-Version: 0.1.0-draft. Status: project reference implementation; not an adopted standard.
+Version: 1.0.0.
 Project home: https://ruagentic.org
 Repository: https://github.com/sam1siam/agentic
 
-Install the [ruagentic CLI from npm](https://www.npmjs.com/package/ruagentic) with `npm install -g ruagentic@0.1.0-draft.6` (Node 24+), then run `agentic`. See [Get started](https://ruagentic.org/adopt/) for generation, validation, and agent connections.
+Install the [ruagentic CLI from npm](https://www.npmjs.com/package/ruagentic) with `npm install -g ruagentic@1.0.0` (Node 24+), then run `agentic`. See [Get started](https://ruagentic.org/adopt/) for generation, validation, and agent connections.
 
 ## What it does
 `agentic.json` is the authoritative action contract. Its optional, generated [`agentic.txt` companion](docs/AGENTIC-TXT.md) lists the actions and links to that JSON. Generate it with `agentic text agentic.json`; use `--check` to detect summary drift.
@@ -24,7 +24,7 @@ npm test
 npm run dev
 ```
 
-The site includes the draft, OpenAPI import and discovery generators, validator, browser lab, and a [getting started guide](https://ruagentic.org/adopt/). The [hosted platform](https://ruagentic.org/platform/) adds real HTTP/PostgreSQL recovery tests, read-only public URL audits, private report history and sharing. [Connect an agent](https://ruagentic.org/connect/) through MCP, WebMCP, A2A 1.0 or autonomous Agent Auth. The static site and Node API deploy together on Vercel; see [platform operations](docs/PLATFORM.md). Start with [the quick start](docs/QUICKSTART.md).
+The site includes the specification, OpenAPI import and discovery generators, validator, browser lab, and a [getting started guide](https://ruagentic.org/adopt/). The [hosted platform](https://ruagentic.org/platform/) adds real HTTP/PostgreSQL recovery tests, read-only public URL audits, private report history and sharing. [Connect an agent](https://ruagentic.org/connect/) through MCP, WebMCP, A2A 1.0 or autonomous Agent Auth. The static site and Node API deploy together on Vercel; see [platform operations](docs/PLATFORM.md). Start with [the quick start](docs/QUICKSTART.md).
 
 ## Real HTTP recovery example
 Start the loopback-only SQLite service in one terminal:
@@ -47,7 +47,7 @@ Python consumer:
 python reference/python/client.py http://127.0.0.1:4318 python-request-001 "Please help with my account"
 ```
 
-The service deliberately closes the first submission connection after committing the ticket. The clients reconcile through status and verify the resource. SQLite files are written only under ignored .agentic-state by default. The service is anonymous and intended only for local demonstration.
+The service deliberately closes the first submission connection after committing the ticket. The clients reconcile through status and verify the resource. SQLite files are written only under ignored .agentic-state by default. The service is anonymous and intended only for local reference servicenstration.
 
 ## Validate a profile
 ```sh
@@ -67,7 +67,7 @@ This creates a ticket-contract starter and refuses to overwrite an existing file
 Use the compatibility runner directly. No enrollment or managed program is required.
 
 ```sh
-npm run conformance -- --adapter pilots/adapters/node-reference.json
+npm run conformance -- --adapter integrations/node-reference.json
 ```
 
 The [compatibility runner](docs/COMPATIBILITY.md) can invoke independently written clients through a documented process interface. Seven scenarios check real HTTP behavior and SQLite resource counts. The included adapter is project-authored.
@@ -85,7 +85,7 @@ The tests include real HTTP response loss, concurrent deduplication, and Node/Py
 Both reference consumers are project-authored. They are not two independent implementations. No production adoption, partner, certification, or standards endorsement is claimed.
 
 ## Repository map
-- docs/SPEC.md — normative draft and supported binding.
+- docs/SPEC.md — normative specification and supported binding.
 - schemas/ — profile and receipt JSON Schemas.
 - lib/ — reference consumer, validator, and simulator.
 - reference/ — Node/Python clients and local HTTP/SQLite service.

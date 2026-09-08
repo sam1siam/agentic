@@ -58,10 +58,10 @@ try {
     await createTools({
       readSpec: () => readFile(new URL('../SPEC.md', import.meta.url), 'utf8'),
     }).connect(new StdioServerTransport());
-  } else if (command === '--version') console.log('0.1.0-draft.6');
+  } else if (command === '--version') console.log('1.0.0');
   else {
     console.log(
-      'Agentic experimental tools\n\nagentic init --origin https://service.example [--out agentic.json]\nagentic text agentic.json [--out agentic.txt] [--profile-url https://service.example/agentic.json] [--check]\nagentic validate agentic.json openapi.json\nagentic audit https://service.example/agentic.json\nagentic mcp\n\nValidation is structural. Audits only read public HTTPS files. Neither proves service behavior.',
+      'Agentic tools\n\nagentic init --origin https://service.example [--out agentic.json]\nagentic text agentic.json [--out agentic.txt] [--profile-url https://service.example/agentic.json] [--check]\nagentic validate agentic.json openapi.json\nagentic audit https://service.example/agentic.json\nagentic mcp\n\nValidation is structural. Audits only read public HTTPS files. Neither proves service behavior.',
     );
     if (command && command !== '--help') process.exitCode = 1;
   }

@@ -54,7 +54,7 @@ export default function Home() {
     <main className="wrap">
       <section className="masthead">
         <div className="version-pill">
-          <span className="status-dot" /> Agentic Action Profile · 0.1 draft
+          <span className="status-dot" /> Agentic Action Profile · 1.0.0
         </div>
         <h1>
           Give agent actions
@@ -76,7 +76,7 @@ export default function Home() {
           <Link className="action secondary" href="/platform">Open the platform</Link>
         </div>
         <p className="micro">
-          Open source · No registry required · Experimental proposal
+          Open source · No registry required · Versioned specification
         </p>
       </section>
       <section
@@ -155,13 +155,12 @@ export default function Home() {
         </div>
         <CodeSample
           value={
-            'git clone https://github.com/sam1siam/agentic.git\ncd agentic\nnpm ci\nnpm run init -- --origin https://your-service.example --out agentic.json\nnpm run validate -- agentic.json examples/tickets/openapi.json'
+            'npm install -g ruagentic@1.0.0\nagentic init --origin https://your-service.example\nagentic text agentic.json\nagentic validate agentic.json openapi.json'
           }
         />
         <p className="small muted">
           Requires Node 24. The generator starts from the ticket contract; adapt
-          it to your service before publishing. A package has not been published
-          to npm.
+          it to your service and supply its OpenAPI document before validating.
         </p>
         <div className="doc-utilities">
           <Link href="/docs">Browse the documentation →</Link>

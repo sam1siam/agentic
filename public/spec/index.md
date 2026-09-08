@@ -1,25 +1,25 @@
-# Agentic Action Profile 0.1
-Status: Experimental draft. Version: 0.1.0-draft. Date: 2026-09-07.
+# Agentic Action Profile 1.0
+Version: 1.0.0. Released: 2026-09-07.
 Maintainer: [sam1siam](https://github.com/sam1siam). License: Apache-2.0.
-This document is the normative JSON-profile draft; the original proposal is historical context. The optional [agentic.txt companion](https://ruagentic.org/docs/AGENTIC-TXT.md) is a separate generated reading aid and does not change this profile schema or its execution requirements.
+This document defines the Agentic JSON action profile. The optional [agentic.txt companion](https://ruagentic.org/docs/AGENTIC-TXT.md) is a separate generated reading aid and does not change this profile schema or its execution requirements.
 
 ## 1. Purpose and boundaries
 Agentic describes how a participating client tracks an action, reconciles an uncertain submission, and verifies its outcome. The initial binding supports a small OpenAPI 3.1 subset: one POST submission, one GET request-status operation, and one GET resource-verification operation.
 
 This is not a discovery protocol, an authorization protocol, or an exactly-once delivery guarantee. The service must implement its advertised behavior. Clients must apply their existing authorization, credential, network, and user-interaction policies.
 
-The keywords MUST, MUST NOT, SHOULD, and MAY describe requirements of this draft.
+The keywords MUST, MUST NOT, SHOULD, and MAY describe requirements of this specification.
 
 ## 2. Publication and processing
 A publisher MAY serve the UTF-8 JSON profile at /agentic.json using application/json, or provide an explicit profile URL. Automatic filename discovery is not assumed. No Agentic well-known URI is registered by this project.
 
-The profile MUST validate against schemas/agentic-0.1.schema.json and pass the semantic binding checks below. Version 0.1.0-draft is the only supported version. Unknown fields are rejected in this draft to expose typos; future extensions require a new schema version. Duplicate JSON member names are invalid publisher output. The reference JSON parsers do not detect duplicate member names; strict duplicate-key detection is a known implementation gap.
+The profile MUST validate against schemas/agentic-1.0.schema.json and pass the semantic binding checks below. Version 1.0.0 is the only supported version. Unknown fields are rejected in this version to expose typos; future extensions require a new schema version. Duplicate JSON member names are invalid publisher output. The reference JSON parsers do not detect duplicate member names; strict duplicate-key detection is a known implementation gap.
 
 The profile SHOULD be at most 64 KiB. Reference tools enforce this limit when accepting pasted profile text. Referenced OpenAPI documents SHOULD be at most 256 KiB. Clients MUST pin the supported schema locally and MUST NOT fetch arbitrary schemas named by a publisher's $schema value.
 
 Origin MUST be a canonical HTTPS origin without credentials, path, query, or fragment. Explicit local development MAY use HTTP on localhost, 127.0.0.1, or [::1]. Production hosts MUST independently enforce approved destinations; HTTPS alone does not establish that a destination is trusted or public.
 
-A profile MUST NOT grant itself authority over other origins. The reference binding accepts only root-relative paths without traversal segments, escapes, query strings, fragments, backslashes, or network-path references. A client MUST reject redirects during action execution. Cross-origin endpoints and OpenAPI server overrides are unsupported in 0.1.
+A profile MUST NOT grant itself authority over other origins. The reference binding accepts only root-relative paths without traversal segments, escapes, query strings, fragments, backslashes, or network-path references. A client MUST reject redirects during action execution. Cross-origin endpoints and OpenAPI server overrides are unsupported in 1.0.
 
 Publishers SHOULD use normal HTTP cache controls and ETags. A running request MUST remain bound to its saved profile and OpenAPI snapshot. If either changes, the reference clients reject reuse of that request ID. Migration requires an explicit host reconciliation process.
 
@@ -28,7 +28,7 @@ The versioned JSON Schema is authoritative for field types, limits, and required
 
 | Field | Meaning |
 | --- | --- |
-| agentic | Exact supported version: 0.1.0-draft |
+| agentic | Exact supported version: 1.0.0 |
 | origin | Authoritative service origin |
 | actions | One to 32 action descriptions with unique IDs |
 | actions[].id | Stable action identifier |
@@ -50,7 +50,7 @@ The versioned JSON Schema is authoritative for field types, limits, and required
 | recovery.maxChecks | One to ten status-check attempts per execution |
 | recovery.checkDelayMs | Delay between check attempts, zero to 5000 milliseconds |
 | recovery.timeoutMs | Per-request timeout, 100 to 10000 milliseconds |
-| recovery.retry | never-automatically in 0.1: no automatic repeat of a submitted write |
+| recovery.retry | never-automatically in 1.0: no automatic repeat of a submitted write |
 
 JSON Pointers use RFC 6901 escape rules. A missing evidence value MUST NOT count as a match. Input evidence comparisons are structural JSON equality; property order is irrelevant.
 
@@ -94,7 +94,7 @@ The host MUST authorize the action before calling the client. The host MUST isol
 Host adapters MUST serialize concurrent execution of a request or provide equivalent atomic coordination. The Node and Python SQLite ledgers coordinate local processes and reclaim a lock only if its owning process has exited. They are single-host examples; distributed leasing and account-aware storage are outside their scope.
 
 ## 7. Receipts
-Receipts MUST validate against schemas/receipt-0.1.schema.json. They include the version, request ID, action ID, origin, outcome, observation time, resource ID or null, and a reason.
+Receipts MUST validate against schemas/receipt-1.0.schema.json. They include the version, request ID, action ID, origin, outcome, observation time, resource ID or null, and a reason.
 
 A succeeded receipt MUST additionally contain evidence: resource URL, resource/request IDs, observed state, and the input/resource pointer pairs checked. The receipt is an observation record, not a signature or proof that a service is honest.
 
@@ -103,6 +103,6 @@ Receipts and saved inputs can be sensitive. They MUST NOT be published in a publ
 ## 8. Conformance and evolution
 Structural validity, binding validity, behavioral test results, and independent adoption are separate claims. See CONFORMANCE.md for the test matrix and limitations. Passing tests establishes behavior only for the versions and scenarios tested.
 
-The project has Node and Python reference consumers from the same authorship. These do not establish independent adoption. A stable release requires separate implementers, publicly reproducible compatibility evidence, and resolution of material draft issues.
+The project provides Node and Python reference consumers from the same authorship. Compatibility reports identify the implementation, tested version, scenarios, and evidence. Independent adoption requires a separately authored implementation; it is not implied by a release version.
 
-Future work includes Arazzo profile mapping, richer retry contracts, preview/commit binding, and another protocol binding when implementation feedback justifies it. These are not supported features of 0.1.
+Future work includes Arazzo profile mapping, richer retry contracts, a staged commit binding, and another protocol binding when implementation feedback justifies it. These are not supported features of 1.0.

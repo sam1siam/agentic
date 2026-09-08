@@ -1,9 +1,9 @@
 {
-  "format": "agentic-pilot-report-0.1",
-  "profile_version": "0.1.0-draft",
-  "observed_at": "2026-09-07T16:47:10.042806Z",
+  "format": "agentic-conformance-report-1.0",
+  "profile_version": "1.0.0",
+  "observed_at": "2026-09-08T00:25:24.208034Z",
   "implementation": "Agentic Node reference client",
-  "revision": "v0.1.0-draft.2",
+  "revision": "1.0.0",
   "authorship": "project",
   "independence_verified": false,
   "environment": {

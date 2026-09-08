@@ -7,9 +7,9 @@ The mark combines two JSON-style braces with a check: a described action and an 
 - [Mark, transparent SVG](https://ruagentic.org/brand/agentic-mark.svg)
 - [Wordmark for dark surfaces](https://ruagentic.org/brand/agentic-wordmark-dark.svg)
 - [Wordmark for light surfaces](https://ruagentic.org/brand/agentic-wordmark-light.svg)
-- [Experimental profile badge](https://ruagentic.org/brand/experimental-badge.svg)
+- [Agentic profile badge](https://ruagentic.org/brand/profile-badge.svg)
 
-These original project assets are included under the repository's Apache-2.0 license. The badge identifies an experiment with the draft; it must not be presented as certification or proof of conformance.
+These original project assets are included under the repository's Apache-2.0 license. The badge identifies use of Agentic; it must not be presented as certification or proof of conformance.
 
 ## Palette and typography
 

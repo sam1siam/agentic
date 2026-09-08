@@ -1,5 +1,5 @@
 name: Validate Agentic profile
-description: Validate the experimental Agentic action profile and OpenAPI operation bindings.
+description: Validate the Agentic action profile and OpenAPI operation bindings.
 inputs:
   profile:
     description: Profile JSON path, relative to the calling workspace.

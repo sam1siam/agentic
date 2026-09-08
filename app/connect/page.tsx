@@ -42,7 +42,7 @@ export default function Page() {
         </p>
         <ul>
           <li>
-            <code>get_agentic_spec</code> reads the experimental draft.
+            <code>get_agentic_spec</code> reads the Agentic specification.
           </li>
           <li>
             <code>generate_agentic_profile</code> creates a ticket-contract
@@ -135,7 +135,7 @@ try {
         </p>
         <div className="doc-utilities">
           <Link href="/platform">
-            Run the registration → execution → revocation demo →
+            Verify registration, execution, and revocation →
           </Link>
         </div>
       </section>
@@ -143,12 +143,12 @@ try {
         <h2>Install the adoption tools</h2>
         <p>
           Install the CLI from{' '}
-          <a href="https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.6">
-            GitHub releases
+          <a href="https://www.npmjs.com/package/ruagentic">
+            npm
           </a>{' '}
           with Node 24, then initialize or validate a profile.
         </p>
-        <pre className="code-block">{`npm install -g ruagentic@0.1.0-draft.6
+        <pre className="code-block">{`npm install -g ruagentic@1.0.0
 agentic init --origin https://your-service.example
 agentic text agentic.json
 agentic validate agentic.json openapi.json`}</pre>
@@ -163,14 +163,14 @@ agentic validate agentic.json openapi.json`}</pre>
           </a>
           .
         </p>
-        <pre className="code-block">{`- uses: sam1siam/agentic@v0.1.0-draft.6
+        <pre className="code-block">{`- uses: sam1siam/agentic@v1.0.0
   with:
     profile: agentic.json
     openapi: openapi.json`}</pre>
       </section>
       <div className="notice">
-        The profile, tools, and test reports are experimental. Project-authored
-        results do not establish independent adoption or certify another
+        Agentic 1.0.0 provides a stable contract and supporting tools.
+        Test reports record observed behavior; they do not certify another
         service.
       </div>
     </main>

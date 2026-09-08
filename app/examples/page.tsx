@@ -113,7 +113,7 @@ export default function ExamplesPage() {
       <section className="example-section">
         <h2>3. Keep a receipt</h2>
         <p className="muted">
-          This synthetic receipt demonstrates the format. It is not a record of
+          This synthetic receipt shows the format. It is not a record of
           a real customer action.
         </p>
         <CodeSample value={receipt} />
@@ -121,7 +121,7 @@ export default function ExamplesPage() {
           <a href="/examples/tickets/receipt.json" download>
             Download example receipt ↓
           </a>
-          <a href="/schemas/receipt-0.1.schema.json">Receipt schema ↗</a>
+          <a href="/schemas/receipt-1.0.schema.json">Receipt schema ↗</a>
         </div>
       </section>
       <section className="docs-banner">

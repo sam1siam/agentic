@@ -18,7 +18,7 @@ export function agentCard() {
     name: 'Agentic testing agent',
     description:
       'Run synthetic recovery checks or read-only public URL audits. Results are saved as task artifacts.',
-    version: '0.1.0',
+    version: '1.0.0',
     documentationUrl: publicOrigin() + '/connect/',
     provider: { organization: 'Agentic project', url: publicOrigin() },
     supportedInterfaces: [

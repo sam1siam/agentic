@@ -56,7 +56,7 @@ def execute(origin, request_id, subject, db_path):
     p=json.loads((ROOT/'examples/tickets/agentic.json').read_text())
     api=json.loads((ROOT/'examples/tickets/openapi.json').read_text())
     p['origin']=origin
-    jsonschema.Draft202012Validator(json.loads((ROOT/'schemas/agentic-0.1.schema.json').read_text())).validate(p)
+    jsonschema.Draft202012Validator(json.loads((ROOT/'schemas/agentic-1.0.schema.json').read_text())).validate(p)
     parsed=urlparse(origin)
     if parsed.username or parsed.password or parsed.path or parsed.query or parsed.fragment or parsed.scheme not in ('http','https'): raise ValueError('Invalid origin')
     if parsed.scheme=='http' and parsed.hostname not in ('localhost','127.0.0.1','::1'): raise ValueError('HTTP is loopback-only')
@@ -91,9 +91,9 @@ def execute(origin, request_id, subject, db_path):
         if entry.get('receipt',{}).get('outcome')=='succeeded': return entry['receipt']
         if fresh: put(entry)
         def finish(outcome,reason,resource_id=None,evidence=None):
-            receipt={'agentic':'0.1.0-draft','request_id':request_id,'action_id':action['id'],'origin':origin,'outcome':outcome,'observed_at':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'resource_id':resource_id,'reason':reason}
+            receipt={'agentic':'1.0.0','request_id':request_id,'action_id':action['id'],'origin':origin,'outcome':outcome,'observed_at':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'resource_id':resource_id,'reason':reason}
             if evidence: receipt['evidence']=evidence
-            jsonschema.Draft202012Validator(json.loads((ROOT/'schemas/receipt-0.1.schema.json').read_text())).validate(receipt)
+            jsonschema.Draft202012Validator(json.loads((ROOT/'schemas/receipt-1.0.schema.json').read_text())).validate(receipt)
             entry['receipt']=receipt;put(entry);return receipt
         def expired():
             age=time.time()*1000-entry['createdAt']

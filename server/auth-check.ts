@@ -2,7 +2,7 @@ import { AgentAuthClient, MemoryStorage } from '@auth/agent';
 import { publicOrigin } from './security.ts';
 import { sandboxProfile, sandboxOpenapi, saveReport } from './sandbox.ts';
 
-export async function runAuthDemo(ownerId: string) {
+export async function runAuthCheck(ownerId: string) {
   const client = new AgentAuthClient({
     storage: new MemoryStorage(),
     urls: [publicOrigin()],
@@ -12,7 +12,7 @@ export async function runAuthDemo(ownerId: string) {
   const connection = await client.connectAgent({
     provider: publicOrigin(),
     mode: 'autonomous',
-    name: 'Agentic public demonstration',
+    name: 'Agentic protocol verification',
     capabilities: ['agentic.validate'],
   });
   let revoked = false;
@@ -32,7 +32,7 @@ export async function runAuthDemo(ownerId: string) {
     });
     return saveReport(ownerId, 'agent-auth', {
       reportVersion: '1',
-      kind: 'agent-auth-demo',
+      kind: 'agent-auth-check',
       observedAt: new Date().toISOString(),
       agentId: connection.agentId,
       registrationStatus: connection.status,

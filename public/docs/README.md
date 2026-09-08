@@ -1,6 +1,6 @@
 # Agentic documentation
 
-> Guides and reference material for Agentic Action Profile 0.1, an experimental proposal.
+> Guides and reference material for Agentic Action Profile 1.0.
 
 ## Start here
 
@@ -10,12 +10,13 @@
 - [Generator](GENERATOR.md): Browser and local profile creation.
 - [Hosted platform](PLATFORM.md): HTTP recovery tests, public URL audits, private history, sharing and operations.
 - [Examples](EXAMPLES.md): Complete profile, OpenAPI contract, and illustrative receipt.
-- [FAQ](FAQ.md): Support, service requirements, safety boundaries, and draft status.
+- [FAQ](FAQ.md): Support, service requirements, safety boundaries, and versioning.
 
 ## Implement and test
 
 - [Normative specification](SPEC.md): JSON protocol requirements.
 - [agentic.txt companion](AGENTIC-TXT.md): Generated action index, publication, and consistency checks.
+- [Migrate to 1.0](MIGRATION.md): New version identifiers, revalidation, and preservation of unfinished requests.
 - [Integration guide](INTEGRATIONS.md): Client, service, and adjacent-convention integration.
 - [Protocol setup](PROTOCOLS.md): Public MCP, WebMCP tools, A2A testing tasks, and autonomous Agent Auth.
 - [Validator](VALIDATOR.md): Structure and binding checks.
@@ -26,8 +27,8 @@
 
 ## Contribute
 
-- [Governance](GOVERNANCE.md): Change process and stability criteria.
-- [Roadmap](ROADMAP.md): Adoption milestones.
+- [Governance](GOVERNANCE.md): Change process and version compatibility.
+- [Roadmap](ROADMAP.md): Product development priorities.
 - [Changelog](CHANGELOG.md): Published changes.
 - [Prior art](PRIOR-ART.md): Related approaches.
 - [Route inventory](SITE-MAP.md): What this site actually serves.

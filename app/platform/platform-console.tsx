@@ -215,16 +215,16 @@ export default function PlatformConsole() {
           <section className="panel platform-panel">
             <h2>A signed request with a real grant</h2>
             <p>
-              This demo discovers our live provider, registers a fresh
+              This check discovers our live provider, registers a fresh
               autonomous agent, grants profile validation, executes it, revokes
               the agent, and checks that its signed token is rejected.
             </p>
             <div className="actions">
               <Button
                 disabled={busy}
-                onClick={() => perform(() => run('auth-demo', {}))}
+                onClick={() => perform(() => run('auth-check', {}))}
               >
-                {busy ? 'Running protocol exchange…' : 'Run Agent Auth demo'}
+                {busy ? 'Running protocol exchange…' : 'Verify Agent Auth'}
               </Button>
               <Link href="/connect#agent-auth">Use the client SDK →</Link>
             </div>
@@ -290,7 +290,7 @@ export default function PlatformConsole() {
             <h2>
               {report.kind === 'hosted-recovery'
                 ? (report.receipt?.outcome ?? 'Awaiting recovery')
-                : report.kind === 'agent-auth-demo'
+                : report.kind === 'agent-auth-check'
                   ? report.revocationEnforced
                     ? 'Revocation verified'
                     : 'Review auth result'

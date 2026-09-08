@@ -4,7 +4,7 @@ import standalone from 'ajv/dist/standalone/index.js';
 await mkdir('lib/generated', { recursive: true });
 for (const name of ['agentic', 'receipt']) {
   const schema = JSON.parse(
-    await readFile('schemas/' + name + '-0.1.schema.json', 'utf8'),
+    await readFile('schemas/' + name + '-1.0.schema.json', 'utf8'),
   );
   const ajv = new Ajv({
     allErrors: true,

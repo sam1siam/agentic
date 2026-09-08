@@ -47,7 +47,7 @@ for (const file of [
   'docs/CONFORMANCE.md',
   'docs/GETTING-STARTED.md',
   'docs/COMPATIBILITY.md',
-  'schemas/agentic-0.1.schema.json',
+  'schemas/agentic-1.0.schema.json',
   'examples/tickets/agentic.json',
   'examples/tickets/agentic.txt',
   'docs/AGENTIC-TXT.md',
@@ -56,7 +56,6 @@ for (const file of [
   'llms.txt',
   'llms-full.txt',
   'docs/PROTOCOLS.md',
-  'pilots/registry.json',
   'brand/agentic-mark.svg',
   'examples/tickets/receipt.json',
 ])

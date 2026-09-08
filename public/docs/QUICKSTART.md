@@ -1,6 +1,6 @@
 # Quick start
 
-Agentic is an experimental action profile. This guide uses synthetic tickets on loopback, not a production service.
+Run Agentic 1.0 with synthetic tickets on a loopback reference service. The service intentionally supports fault injection for recovery testing and has no authentication; keep it local.
 
 ## Requirements
 
@@ -57,7 +57,7 @@ Publish the file on the service origin as `/agentic.json` with `Content-Type: ap
 ```sh
 npm test
 npm run typecheck
-npm run conformance -- --adapter pilots/adapters/node-reference.json --out .agentic-state/compatibility-report.json
+npm run conformance -- --adapter integrations/node-reference.json --out .agentic-state/compatibility-report.json
 ```
 
 The first command exercises the project tests. The compatibility runner can also drive your own client; see [COMPATIBILITY.md](COMPATIBILITY.md). Project-authored runs are reference checks, not independent adoption.
@@ -68,7 +68,7 @@ The first command exercises the project tests. The compatibility runner can also
 - **Request ID reused with changed input:** restore the original input to reconcile that attempt. Only choose a new ID when intentionally authorizing a separate new action.
 - **Outcome unknown or pending:** retain the request ID and ledger. Inspect the reason; do not automatically repeat the mutation.
 - **Python is unavailable:** install Python 3.11+ and ensure the `python` command works before the HTTP tests.
-- **Schema passes but binding fails:** the first draft requires inline OpenAPI 3.1 operations without server overrides or parameter references. See [INTEGRATIONS.md](INTEGRATIONS.md).
+- **Schema passes but binding fails:** the binding requires inline OpenAPI 3.1 operations without server overrides or parameter references. See [INTEGRATIONS.md](INTEGRATIONS.md).
 - **Expired tracking:** use the host's reconciliation or human handoff process. Expiry is not proof the action failed.
 
-See the [normative draft](SPEC.md) and [security limits](SECURITY.md) before integrating another service.
+See the [normative specification](SPEC.md) and [security limits](SECURITY.md) before integrating another service.

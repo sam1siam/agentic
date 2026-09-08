@@ -26,7 +26,7 @@ def run_case(name, command):
             calls.append(('GET', self.path))
             return super().do_GET()
     checks = {}
-    with tempfile.TemporaryDirectory(prefix='agentic-pilot-') as directory:
+    with tempfile.TemporaryDirectory(prefix='agentic-conformance-') as directory:
         fault = 'response-lost' if name == 'restart-after-submit' else name
         service = service_module.Service(0, str(Path(directory)/'service.sqlite3'), fault)
         service.RequestHandlerClass = RecordingHandler
@@ -36,7 +36,7 @@ def run_case(name, command):
             origin = 'http://127.0.0.1:' + str(service.server_port)
             profile = json.loads((ROOT/'examples/tickets/agentic.json').read_text(encoding='utf-8'))
             profile['origin'] = origin
-            request_id = 'pilot-' + name
+            request_id = 'check-' + name
             payload = {
                 'profile': profile,
                 'openapi': json.loads((ROOT/'examples/tickets/openapi.json').read_text(encoding='utf-8')),
@@ -57,7 +57,7 @@ def run_case(name, command):
             result = invoke()
             checks['adapter_exit_zero'] = result.returncode == 0
             receipt = json.loads(result.stdout)
-            schema = json.loads((ROOT/'schemas/receipt-0.1.schema.json').read_text(encoding='utf-8'))
+            schema = json.loads((ROOT/'schemas/receipt-1.0.schema.json').read_text(encoding='utf-8'))
             checks['receipt_schema'] = not list(Draft202012Validator(schema).iter_errors(receipt))
             checks['expected_outcome'] = receipt.get('outcome') == SCENARIOS[name]
             checks['request_identity'] = receipt.get('request_id') == request_id
@@ -104,7 +104,7 @@ def main():
     cases = [args.scenario] if args.scenario else list(SCENARIOS)
     rows = [run_case(name, command) for name in cases]
     report = {
-        'format': 'agentic-pilot-report-0.1', 'profile_version': '0.1.0-draft',
+        'format': 'agentic-conformance-report-1.0', 'profile_version': '1.0.0',
         'observed_at': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
         'implementation': config.get('name', 'Unnamed'), 'revision': args.revision,
         'authorship': config['authorship'], 'independence_verified': False,

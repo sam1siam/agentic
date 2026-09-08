@@ -139,7 +139,7 @@ export default function OpenapiImport() {
           ))}
         </div>
       </section>
-      <section className="generator-preview">
+      <section className="generator-output">
         <div className="code-title">
           <span>Starter bundle</span>
           <span>

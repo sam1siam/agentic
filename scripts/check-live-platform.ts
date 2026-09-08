@@ -64,7 +64,7 @@ try {
   assert.equal(audit.valid, true);
   assert.equal(audit.behavioralTesting, false);
   passed('Public HTTPS auditor and OpenAPI binding checks');
-  const auth = (await call('/api/platform/auth-demo', {})).data;
+  const auth = (await call('/api/platform/auth-check', {})).data;
   assert.equal(auth.revocationEnforced, true);
   assert.equal(auth.execution.data.valid, true);
   passed('Live Agent Auth registration, grant, execution and revocation');
@@ -81,7 +81,7 @@ try {
     });
     assert.ok(
       (spec.content as { text: string }[])[0].text.includes(
-        'Experimental draft',
+        'Version: 1.0.0',
       ),
     );
     passed('Official MCP client and bundled specification over HTTPS');

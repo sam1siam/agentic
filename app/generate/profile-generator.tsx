@@ -164,7 +164,7 @@ export default function ProfileGenerator() {
               </p>
               <div className="field-grid">{fields(evidence)}</div>
             </section>
-            <section className="generator-preview">
+            <section className="generator-output">
               <div className="code-title">
                 <span>Generated action files</span>
                 <span>

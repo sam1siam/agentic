@@ -1,6 +1,6 @@
 # Agentic documentation
 
-> Guides and reference material for Agentic Action Profile 0.1, an experimental proposal.
+> Guides and reference material for Agentic Action Profile 1.0.
 
 ## Start here
 
@@ -10,12 +10,13 @@
 - [Generator](https://ruagentic.org/docs/GENERATOR.md): Browser and local profile creation.
 - [Hosted platform](https://ruagentic.org/docs/PLATFORM.md): HTTP recovery tests, public URL audits, private history, sharing and operations.
 - [Examples](https://ruagentic.org/docs/EXAMPLES.md): Complete profile, OpenAPI contract, and illustrative receipt.
-- [FAQ](https://ruagentic.org/docs/FAQ.md): Support, service requirements, safety boundaries, and draft status.
+- [FAQ](https://ruagentic.org/docs/FAQ.md): Support, service requirements, safety boundaries, and versioning.
 
 ## Implement and test
 
 - [Normative specification](https://ruagentic.org/docs/SPEC.md): JSON protocol requirements.
 - [agentic.txt companion](https://ruagentic.org/docs/AGENTIC-TXT.md): Generated action index, publication, and consistency checks.
+- [Migrate to 1.0](https://ruagentic.org/docs/MIGRATION.md): New version identifiers, revalidation, and preservation of unfinished requests.
 - [Integration guide](https://ruagentic.org/docs/INTEGRATIONS.md): Client, service, and adjacent-convention integration.
 - [Protocol setup](https://ruagentic.org/docs/PROTOCOLS.md): Public MCP, WebMCP tools, A2A testing tasks, and autonomous Agent Auth.
 - [Validator](https://ruagentic.org/docs/VALIDATOR.md): Structure and binding checks.
@@ -26,8 +27,8 @@
 
 ## Contribute
 
-- [Governance](https://ruagentic.org/docs/GOVERNANCE.md): Change process and stability criteria.
-- [Roadmap](https://ruagentic.org/docs/ROADMAP.md): Adoption milestones.
+- [Governance](https://ruagentic.org/docs/GOVERNANCE.md): Change process and version compatibility.
+- [Roadmap](https://ruagentic.org/docs/ROADMAP.md): Product development priorities.
 - [Changelog](https://ruagentic.org/docs/CHANGELOG.md): Published changes.
 - [Prior art](https://ruagentic.org/docs/PRIOR-ART.md): Related approaches.
 - [Route inventory](https://ruagentic.org/docs/SITE-MAP.md): What this site actually serves.

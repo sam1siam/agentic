@@ -50,7 +50,7 @@ export default function DocumentationGenerator() {
           ))}
         </div>
       </section>
-      <section className="generator-preview">
+      <section className="generator-output">
         <h2 className="output-heading">llms.txt</h2>
         {error ? (
           <p className="notice" role="alert">

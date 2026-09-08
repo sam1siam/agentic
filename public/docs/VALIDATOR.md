@@ -1,6 +1,6 @@
 # Profile validator
 
-The [browser validator](https://ruagentic.org/validate/) checks pasted `agentic.json` against the pinned 0.1 schema and semantic rules. An optional pasted OpenAPI document enables operation-binding checks. It does not fetch external schemas, inspect live services, or execute actions.
+The [browser validator](https://ruagentic.org/validate/) checks pasted `agentic.json` against the pinned 1.0 schema and semantic rules. An optional pasted OpenAPI document enables operation-binding checks. It does not fetch external schemas, inspect live services, or execute actions.
 
 Use the profile and OpenAPI tabs, load the ticket example or paste your own files, and select **Validate profile**. Editing either file clears the old result. Profile input is limited to 64 KiB and OpenAPI input to 256 KiB. The copy action copies the profile JSON.
 

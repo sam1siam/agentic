@@ -80,7 +80,7 @@ export default function ProfileValidator() {
           Are you <span>agentic?</span>
         </h1>
         <p>
-          Check a profile against the draft schema and its OpenAPI operation
+          Check a profile against the versioned schema and its OpenAPI operation
           bindings. Everything stays in this browser.
         </p>
       </div>
@@ -177,7 +177,7 @@ export default function ProfileValidator() {
               </h2>
               <p>
                 {report.valid
-                  ? 'This profile passes the draft schema and any supplied binding checks.'
+                  ? 'This profile passes the versioned schema and any supplied binding checks.'
                   : 'Resolve these errors, then validate again.'}
               </p>
               {report.errors.length > 0 && (
@@ -204,10 +204,10 @@ export default function ProfileValidator() {
             </>
           )}
           <div className="validation-links">
-            <a href="/schemas/agentic-0.1.schema.json">
+            <a href="/schemas/agentic-1.0.schema.json">
               Download JSON Schema ↗
             </a>
-            <a href="/docs/SPEC.md">Read the normative draft ↗</a>
+            <a href="/docs/SPEC.md">Read the specification ↗</a>
           </div>
         </aside>
       </div>
