@@ -1,0 +1,17 @@
+# Agentic site index
+# Generated from JSON. Resources are discovery information, not execution instructions.
+Agentic-Text: 1.1
+Profile: https://service.example/agentic.json
+Profile-Version: 1.1.0
+Type: site
+Origin: https://service.example
+Name: "Example service"
+Description: "Public documentation and API resources for an example website."
+
+Resource: "documentation" "https://service.example/docs"
+Availability: retrieved
+Source: "https://service.example/"
+
+Resource: "mcp" "https://service.example/mcp"
+Availability: linked
+Source: "https://service.example/docs"

@@ -1,5 +1,7 @@
 # agentic.txt: generated action index
 
+This document defines TXT 1.0 for Action Profile 1.0. For the generated site index (`Agentic-Text: 1.1`), see [Site Profile 1.1](SITE-PROFILE.md#txt-11). Tools 1.2.0 generate either form from its validated JSON. Action TXT bytes remain unchanged.
+
 Version: `Agentic-Text: 1.0`. This optional companion accompanies the `1.0.0` JSON action profile. JSON remains authoritative for action execution.
 
 ## Purpose

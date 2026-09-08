@@ -1,5 +1,7 @@
 # Agentic documentation
 
+Start by [generating files from a website](GENERATOR.md). [Site Profile 1.1](SITE-PROFILE.md) defines public resources, documented API indexes, and TXT 1.1. [Action Profile 1.0](SPEC.md) defines optional request recovery and result verification. Tools 1.2.0 support both types.
+
 > Guides and reference material for Agentic Action Profile 1.0.
 
 ## Start here

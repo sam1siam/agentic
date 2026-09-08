@@ -1,16 +1,24 @@
 # Agentic
 
-**Help agents know what happened.** Publish `agentic.txt` and `agentic.json` to describe how your API actions are tracked, checked, and recovered when a response is lost.
+**Make your website readable to agents.** Scan public documentation, APIs, llms.txt, and advertised agent connections to generate `agentic.json` and `agentic.txt`. Publish the pair on your domain.
 
-Action Profile: 1.0.0. Tools: 1.1.0.
+Site Profile: 1.1.0. Action Profile: 1.0.0. Tools: 1.2.0.
 Project home: https://ruagentic.org
 Repository: https://github.com/sam1siam/agentic
 
-Install the [ruagentic CLI from npm](https://www.npmjs.com/package/ruagentic) with `npm install -g ruagentic@1.1.0` (Node 24+), then run `agentic`. See [Get started](https://ruagentic.org/adopt/) for generation, validation, and agent connections.
+Install the [ruagentic CLI from npm](https://www.npmjs.com/package/ruagentic) with `npm install -g ruagentic@1.2.0` (Node 24+), then run `agentic`. See [Get started](https://ruagentic.org/adopt/) for generation, validation, and agent connections.
 
 ## What it does
 
-`agentic.json` is the authoritative action contract. Its optional, generated [`agentic.txt` companion](docs/AGENTIC-TXT.md) lists the actions and links to that JSON. Generate it with `agentic text agentic.json`; use `--check` to detect summary drift.
+`agentic.json` is the structured source of truth. The generated `agentic.txt` is its readable index. [Site Profile 1.1](docs/SITE-PROFILE.md) lists public resources and documented API operations; [Action Profile 1.0](docs/SPEC.md) defines request tracking and result verification for a conforming service. Publishing a site profile requires no action-recovery implementation.
+
+```sh
+agentic discover https://your-site.com --out agentic-files
+agentic validate agentic-files/agentic.json
+agentic text agentic-files/agentic.json --check
+```
+
+Discovery is read-only and bounded. MCP links are recorded without invoking tools. Missing recovery guarantees are never inferred. Existing valid action contracts are preserved. See the [generator guide](docs/GENERATOR.md).
 
 A service creates a ticket, then the response is lost. The Agentic client uses its saved request ID to reconcile the original action and verify the ticket. It does not automatically repeat an ambiguous write.
 
@@ -61,7 +69,7 @@ npm run validate -- examples/tickets/agentic.json examples/tickets/openapi.json
 
 The validator never fetches a remote schema or executes advertised operations. The example origin support.example is a reserved example domain, not a live integration.
 
-## Generate a starter
+## Advanced: generate an action starter
 
 ```sh
 npm run init -- --origin https://your-service.example --out agentic.json

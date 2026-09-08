@@ -1,4 +1,6 @@
 # Agentic Action Profile 1.0
+
+For automatically generated website resources and API indexes, see [Site Profile 1.1](SITE-PROFILE.md). This document continues to define Action Profile 1.0 only; its published execution requirements are unchanged.
 Version: 1.0.0. Released: 2026-09-07.
 Maintainer: [sam1siam](https://github.com/sam1siam). License: Apache-2.0.
 This document defines the Agentic JSON action profile. The optional [agentic.txt companion](AGENTIC-TXT.md) is a separate generated reading aid and does not change this profile schema or its execution requirements.

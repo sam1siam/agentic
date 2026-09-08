@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import sample from '@/examples/tickets/agentic.json';
+import sample from '@/examples/site/agentic.json';
 import { profileFiles } from '@/lib/action-index';
 import FilePair from '../file-pair';
 export const dynamic = 'force-static';
 export const metadata = {
   title: 'Specification',
   description:
-    'Agentic 1.0: file format, API bindings, request recovery, and verified results.',
+    'Agentic site profiles, action contracts, and matching JSON and TXT files.',
   alternates: {
     canonical: 'https://ruagentic.org/spec/',
     types: { 'text/markdown': '/spec/index.md' },
@@ -16,35 +16,35 @@ export default function SpecPage() {
   return (
     <main className="page wrap simple-page">
       <div className="page-heading compact-heading">
-        <p className="eyebrow">Specification · 1.0</p>
+        <p className="eyebrow">Specification · Site 1.1 / Action 1.0</p>
         <h1>
           The Agentic <span>file format.</span>
         </h1>
         <p>
-          Describe an action, keep its request identity, and check the result
-          before reporting success.
+          Describe your website’s documentation, APIs, and agent connections.
+          Add an action contract when your service supports request tracking and
+          result verification.
         </p>
         <div className="doc-utilities">
-          <a href="/docs/SPEC.md">Full specification →</a>
-          <a href="/schemas/agentic-1.0.schema.json">JSON Schema →</a>
-          <a href="/docs/AGENTIC-TXT.md">TXT format →</a>
+          <a href="/docs/SITE-PROFILE.md">Site specification →</a>
+          <a href="/schemas/site-1.1.schema.json">Site JSON Schema →</a>
+          <a href="/docs/SPEC.md">Action specification →</a>
         </div>
       </div>
       <nav className="spec-toc" aria-label="On this page">
         <a href="#files">1. Files</a>
-        <a href="#profile">2. JSON fields</a>
-        <a href="#flow">3. Action flow</a>
+        <a href="#site">2. Site fields</a>
+        <a href="#actions">3. Action contracts</a>
         <a href="#publish">4. Publishing</a>
         <a href="#example">5. Example</a>
-        <a href="#requirements">6. Implementation</a>
+        <a href="#compatibility">6. Compatibility</a>
       </nav>
       <section id="files" className="reading-section">
         <h2>1. Two files, one source of truth</h2>
         <p>
-          <code>agentic.json</code> is the action contract. A supporting client
-          reads it to find the right API operations and decide what evidence to
-          check. <code>agentic.txt</code> is an optional index generated from
-          that JSON.
+          <code>agentic.json</code> contains structured information.{' '}
+          <code>agentic.txt</code> is a readable index generated from that JSON.
+          It links back to the JSON and never overrides it.
         </p>
         <div className="table-scroll">
           <table>
@@ -58,29 +58,23 @@ export default function SpecPage() {
             <tbody>
               <tr>
                 <td>agentic.json</td>
-                <td>
-                  Version, service origin, actions, API links, result checks,
-                  and recovery limits.
-                </td>
+                <td>One versioned site profile or action contract.</td>
                 <td>application/json</td>
               </tr>
               <tr>
                 <td>agentic.txt</td>
-                <td>
-                  JSON profile URL, version, origin, action IDs, and short
-                  descriptions.
-                </td>
+                <td>Profile URL, version, origin, and a generated index.</td>
                 <td>text/plain; charset=utf-8</td>
               </tr>
             </tbody>
           </table>
         </div>
       </section>
-      <section id="profile" className="reading-section">
-        <h2>2. What goes in the JSON?</h2>
+      <section id="site" className="reading-section">
+        <h2>2. Site Profile 1.1</h2>
         <p>
-          A profile names your service and between one and 32 actions. Each
-          action links to three operations in an OpenAPI 3.1 document.
+          The website generator creates this profile from public sources. A
+          website can use it even when it has no API.
         </p>
         <div className="table-scroll">
           <table>
@@ -92,31 +86,20 @@ export default function SpecPage() {
             </thead>
             <tbody>
               {[
-                ['agentic', 'The profile version: 1.0.0.'],
-                ['origin', 'Your service’s HTTPS origin.'],
+                ['agentic / type', 'Version 1.1.0 and type site.'],
+                ['origin', 'The website’s canonical HTTPS origin.'],
+                ['name / description', 'The public site name and description.'],
                 [
-                  'actions[].id / description',
-                  'A stable action name and a short explanation.',
+                  'resources',
+                  'Documentation, llms.txt, OpenAPI, MCP, A2A, Agent Auth, or existing Agentic links.',
                 ],
                 [
-                  'actions[].openapi',
-                  'A path to the OpenAPI document on the same service.',
+                  'resources[].source / availability',
+                  'Where the link was found and whether the document was read or only linked.',
                 ],
                 [
-                  'actions[].submit / actions[].status / actions[].verify',
-                  'The operation IDs for creating the action, checking its request, and reading its result.',
-                ],
-                [
-                  'actions[].request / actions[].bindings',
-                  'How request IDs are tracked and placed in the API URLs.',
-                ],
-                [
-                  'actions[].evidence',
-                  'The fields that connect the result to the original request and input.',
-                ],
-                [
-                  'actions[].recovery',
-                  'Bounded status checks, timeouts, and no automatic repeat write.',
+                  'apis',
+                  'OpenAPI document URLs with an index of documented methods, paths, and operation IDs when present.',
                 ],
               ].map(([field, detail]) => (
                 <tr key={field}>
@@ -130,48 +113,69 @@ export default function SpecPage() {
           </table>
         </div>
         <p>
-          The <a href="/docs/SPEC.md">full specification</a> defines required
-          fields, limits, and exact validation rules.
+          Up to 40 resources and five API indexes are supported. Files stay
+          within 64 KiB. API descriptions remain authoritative for parameters,
+          authentication, servers, and responses. A linked MCP endpoint is
+          advertised information; the scanner does not invoke its tools.
+        </p>
+        <p>
+          The <a href="/docs/SITE-PROFILE.md">full site specification</a>{' '}
+          defines exact fields, limits, TXT 1.1, and discovery rules.
         </p>
       </section>
-      <section id="flow" className="reading-section">
-        <h2>3. How an action is checked</h2>
+      <section id="actions" className="reading-section">
+        <h2>3. Action Profile 1.0</h2>
+        <p>
+          An action profile describes how to submit once, look up the original
+          request, and verify the resulting resource. Its JSON declares{' '}
+          <code>agentic: 1.0.0</code> and an <code>actions</code> array. Each
+          action binds three operations in an OpenAPI 3.1 document.
+        </p>
         <ol className="plain-steps">
           <li>
             <strong>Save the request.</strong> Keep its ID, input, and original
             contract before sending.
           </li>
           <li>
-            <strong>Submit once.</strong> Send the action with its idempotency
+            <strong>Submit once.</strong> Send the request with its idempotency
             key.
           </li>
           <li>
-            <strong>Look up the same request.</strong> If the response is lost,
-            check status without repeating the write.
+            <strong>Check the original request.</strong> Recover from a lost
+            response without automatically repeating the write.
           </li>
           <li>
-            <strong>Verify the result.</strong> Check the resource’s IDs, state,
-            and relevant input values.
-          </li>
-          <li>
-            <strong>Record the outcome.</strong> Save a receipt. If the result
-            cannot be verified, keep it pending or unknown.
+            <strong>Verify the result.</strong> Check resource IDs, state, and
+            matching input values before recording success.
           </li>
         </ol>
+        <p>
+          Your service must implement durable request tracking, idempotency,
+          reliable status, and result reads. The generator preserves an existing
+          action contract. It does not infer these guarantees from website text
+          or API names.
+        </p>
+        <div className="doc-utilities">
+          <a href="/docs/SPEC.md">Action requirements →</a>
+          <a href="/schemas/agentic-1.0.schema.json">Action schema →</a>
+          <a href="/docs/AGENTIC-TXT.md">Action TXT 1.0 →</a>
+          <Link href="/examples">Action example →</Link>
+        </div>
       </section>
       <section id="publish" className="reading-section">
         <h2>4. Publish the pair</h2>
         <p>
           Serve UTF-8 files at <code>/agentic.json</code> and{' '}
-          <code>/agentic.txt</code>, normally from your site’s public folder.
-          Update the JSON first, regenerate TXT, and publish both together. Pass
-          the profile URL to your Agentic-compatible client.
+          <code>/agentic.txt</code>, usually from your site’s public folder.
+          Publish both together. When updating an existing profile at another
+          path, preserve that location and the TXT file’s <code>Profile:</code>{' '}
+          URL, or regenerate TXT for the new location.
         </p>
         <p>
-          The TXT file declares <code>Agentic-Text: 1.0</code> and a{' '}
-          <code>Profile:</code> URL on the same origin. Action IDs and
-          descriptions are quoted strings. The TXT file never overrides the JSON
-          or grants permission to execute actions.
+          Site indexes declare <code>Agentic-Text: 1.1</code>; action indexes
+          declare <code>Agentic-Text: 1.0</code>. Neither grants authorization.
+          Supporting agents must enforce their own network and credential
+          policies.
         </p>
         <div className="doc-utilities">
           <Link href="/generate">Generate both files →</Link>
@@ -179,30 +183,29 @@ export default function SpecPage() {
         </div>
       </section>
       <section id="example" className="reading-section">
-        <h2>5. A complete example</h2>
+        <h2>5. A site profile example</h2>
         <p>
-          This support-ticket profile shows the required fields. Replace the
-          example origin and operations with your service’s values.
+          This example uses a placeholder domain. Generate your own pair from
+          your website’s public sources.
         </p>
         <FilePair files={profileFiles(sample)} />
       </section>
-      <section id="requirements" className="reading-section">
-        <h2>6. What the service and client must do</h2>
+      <section id="compatibility" className="reading-section">
+        <h2>6. Versions and compatibility</h2>
         <p>
-          Your service must track requests durably, prevent duplicate effects
-          for the same request, and provide reliable status and resource reads.
-          Your client must enforce authorization, preserve request identity, and
-          check the evidence. Files describe these rules; the implementation
-          enforces them.
+          Tools 1.2.0 support Site Profile 1.1.0 and Action Profile 1.0.0.
+          Existing action contracts, receipts, and TXT 1.0 remain unchanged. The
+          action executor rejects site profiles; the linked API or protocol
+          provides its own execution contract.
         </p>
         <p>
-          All action operations stay on the declared origin. Clients reject
-          execution redirects and keep credentials, ledgers, and private
-          receipts out of public files.
+          Regenerate files when your documentation changes. The public audit
+          checks file structure and selected linked documents; test any runtime
+          guarantees against your service.
         </p>
         <div className="doc-utilities">
-          <a href="/docs/INTEGRATIONS.md">Implementation guide →</a>
-          <a href="/docs/MIGRATION.md">Version migration →</a>
+          <Link href="/adopt">Install the tools →</Link>
+          <a href="/docs/INTEGRATIONS.md">Action integration →</a>
           <a href="/schemas/receipt-1.0.schema.json">Receipt schema →</a>
           <Link href="/compare">Compare formats →</Link>
         </div>

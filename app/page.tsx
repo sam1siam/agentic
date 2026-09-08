@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import sample from '@/examples/tickets/agentic.json';
+import sample from '@/examples/site/agentic.json';
 import { profileFiles } from '@/lib/action-index';
 import FilePair from './file-pair';
 export const dynamic = 'force-static';
@@ -15,35 +15,36 @@ export default function Home() {
       <section className="home-intro">
         <p className="eyebrow">An open file convention for AI agents</p>
         <h1>
-          Help agents know
+          Make your website
           <br />
-          <span>what happened.</span>
+          <span>readable to agents.</span>
         </h1>
         <p className="lead">
-          <code>agentic.txt</code> lists the actions your service offers.{' '}
-          <code>agentic.json</code> tells an agent how to check their results
-          and recover when a response is lost.
+          Enter your URL. We find your public docs, APIs, llms.txt, and agent
+          connections, then generate <code>agentic.json</code> and{' '}
+          <code>agentic.txt</code> for you.
         </p>
         <div className="actions">
           <Link className="action primary" href="/generate">
             Generate your files →
           </Link>
           <Link className="action secondary" href="/audit">
-            Audit a website
+            Audit published files
           </Link>
         </div>
         <p className="micro">
-          Open source · Works with your API · No central registry
+          Open source · No account needed · Publish on your own domain
         </p>
       </section>
       <section className="home-pair">
         <div className="section-head">
-          <h2>Two files. One description of your action.</h2>
-          <Link href="/spec">Format 1.0 →</Link>
+          <h2>Two files. One view of your website.</h2>
+          <Link href="/spec">Read the format →</Link>
         </div>
         <p className="muted">
-          A complete support-ticket example. The generator helps you adapt it to
-          your own API.
+          JSON holds the structured information. TXT is its readable index. This
+          small example uses a placeholder domain; the generator uses your
+          public sources.
         </p>
         <FilePair files={profileFiles(sample)} />
       </section>
@@ -52,7 +53,7 @@ export default function Home() {
           <span className="step-number">01</span>
           <h2>Generate</h2>
           <p>
-            Describe your action and connect its API operations. Download both
+            Enter your website URL. Review the sources found and download both
             files.
           </p>
           <Link href="/generate">Create files →</Link>
@@ -61,31 +62,32 @@ export default function Home() {
           <span className="step-number">02</span>
           <h2>Publish</h2>
           <p>
-            Serve the files on your domain. Give their URL to a client that
-            supports Agentic.
+            Place both files on your domain and give their URL to a supporting
+            agent.
           </p>
-          <Link href="/spec">Read the spec →</Link>
+          <Link href="/spec">Publishing guide →</Link>
         </article>
         <article>
           <span className="step-number">03</span>
           <h2>Check</h2>
           <p>
-            Audit the files and API links, then test recovery against your
-            service.
+            Audit the published files, their document links, and the matching
+            text index.
           </p>
           <Link href="/audit">Run an audit →</Link>
         </article>
       </section>
       <section className="simple-callout">
         <div>
-          <h2>Where does Agentic fit?</h2>
+          <h2>Need to verify an action’s result?</h2>
           <p>
-            Keep your existing API, authentication, and agent tools. Agentic
-            describes how to verify the result of an action.
+            Agentic also defines an action contract for request tracking and
+            recovery after a lost response. Connect it to the behavior your API
+            implements.
           </p>
         </div>
-        <Link className="action secondary" href="/compare">
-          Compare the formats →
+        <Link className="action secondary" href="/spec#actions">
+          Action contracts →
         </Link>
       </section>
     </main>

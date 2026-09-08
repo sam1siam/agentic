@@ -46,11 +46,27 @@ test(
       await client.connect(transport);
       const { tools } = await client.listTools();
       assert.deepEqual(tools.map((t) => t.name).sort(), [
+        'discover_agentic_site',
         'generate_agentic_profile',
         'get_agentic_spec',
         'validate_agentic_profile',
       ]);
       assert.ok(tools.every((t) => t.annotations?.readOnlyHint));
+      const rejectedDiscovery = await client.callTool({
+        name: 'discover_agentic_site',
+        arguments: { url: 'https://127.0.0.1/' },
+      });
+      assert.equal(rejectedDiscovery.isError, true);
+      const siteCheck = await client.callTool({
+        name: 'validate_agentic_profile',
+        arguments: {
+          profile: await readFile('examples/site/agentic.json', 'utf8'),
+        },
+      });
+      assert.equal(
+        JSON.parse((siteCheck.content as { text: string }[])[0].text).valid,
+        true,
+      );
       const generated = await client.callTool({
         name: 'generate_agentic_profile',
         arguments: { origin: 'https://service.example' },
@@ -102,8 +118,11 @@ test(
         arguments: {},
       });
       assert.ok(
+        (spec.content as { text: string }[])[0].text.includes('Version: 1.0.0'),
+      );
+      assert.ok(
         (spec.content as { text: string }[])[0].text.includes(
-          'Version: 1.0.0',
+          'Agentic Site Profile 1.1',
         ),
       );
     } finally {

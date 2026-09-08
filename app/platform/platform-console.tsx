@@ -294,9 +294,11 @@ export default function PlatformConsole() {
                   ? report.revocationEnforced
                     ? 'Revocation verified'
                     : 'Review auth result'
-                  : report.valid
-                    ? 'Profile checks passed'
-                    : 'Audit result'}
+                  : report.kind === 'public-site-discovery'
+                    ? 'Generated Agentic files'
+                    : report.valid
+                      ? 'Profile checks passed'
+                      : 'Audit result'}
             </h2>
             <span className="small muted">{report.observedAt}</span>
           </div>

@@ -1,5 +1,7 @@
 # Audit your Agentic files
 
+The auditor supports Site Profile 1.1.0 and Action Profile 1.0.0. For site profiles, it checks the schema, serving origin, matching TXT, and up to five retrieved same-origin documents, prioritizing indexed OpenAPI operations. Linked/external protocols are reported without being invoked. See [site audit semantics](SITE-PROFILE.md#discovery-and-auditing). To create missing files from a website, use [Generate](GENERATOR.md). The action-specific binding checks below apply to action profiles.
+
 Use [the audit page](https://ruagentic.org/audit/) to check a public website or an exact JSON profile URL. No account is required. The page creates a private browser session when you run an audit.
 
 A bare domain uses HTTPS. An origin checks `/agentic.json`; a URL ending in `/` checks `agentic.json` in that directory. For another path, provide the complete JSON URL. Queries, credentials, fragments, HTTP, and ports other than 443 are rejected.
@@ -31,7 +33,7 @@ Browser audits are limited to six per minute per session, alongside the platform
 ## Command line and agents
 
 ```sh
-npm install -g ruagentic@1.1.0
+npm install -g ruagentic@1.2.0
 agentic audit https://your-service.example
 ```
 

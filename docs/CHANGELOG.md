@@ -1,5 +1,13 @@
 # Changelog
 
+## Tools 1.2.0 / Site Profile 1.1.0 — 2026-09-07
+
+- URL-first generation reads public websites, documentation, llms.txt, OpenAPI JSON, and advertised agent connections, then outputs both Agentic files and a source report.
+- Additive Site Profile 1.1.0 and TXT 1.1 describe resources and API indexes without inventing action-recovery behavior. Action Profile 1.0.0, receipts, and TXT 1.0 remain compatible.
+- Public-only network checks, canonical redirects, bounded reads, deadlines, source provenance, and explicit partial-scan notes.
+- CLI `discover`, MCP/WebMCP `discover_agentic_site`, site validation and auditing, plus a collapsed advanced action builder.
+- Updated generator, specification, documentation, package contents, and compatibility tests.
+
 ## Tools 1.1.0 — 2026-09-07
 
 - Simplified navigation: Generate, Spec, Audit, Compare, and About.

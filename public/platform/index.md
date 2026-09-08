@@ -1,5 +1,9 @@
 # Hosted testing platform
 
+## Website discovery
+
+`POST /api/platform/discover` accepts `{ "url": "https://your-site.com" }` for an owner authenticated by the browser session or platform credentials. The generator creates its browser session automatically. Reports use kind `discovery`, remain private, and expire after 30 days. Limits are three scans per minute per owner and six per minute per client IP, including hosted MCP discovery calls. [Scanner limits](https://ruagentic.org/docs/SITE-PROFILE.md#discovery-and-auditing) bound network reads and file generation. No database migration is required beyond the existing report store.
+
 The [Agentic platform](https://ruagentic.org/platform/) runs synthetic recovery tests over HTTP with a PostgreSQL service and request ledger. This is separate from the browser lab simulation and the loopback Python reference service.
 
 The [production verification record](https://ruagentic.org/reports/platform-live.json) records the live checks performed by the project. It is project-authored evidence for the tested deployment.

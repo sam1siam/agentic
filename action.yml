@@ -1,5 +1,5 @@
 name: Validate Agentic profile
-description: Validate the Agentic action profile and OpenAPI operation bindings.
+description: Validate Agentic site or action profiles and optional action OpenAPI bindings.
 inputs:
   profile:
     description: Profile JSON path, relative to the calling workspace.
@@ -7,7 +7,7 @@ inputs:
     default: agentic.json
   openapi:
     description: OpenAPI JSON path, relative to the calling workspace.
-    required: true
+    required: false
     default: openapi.json
 runs:
   using: composite
@@ -25,7 +25,12 @@ runs:
         AGENTIC_ACTION_PATH: ${{ github.action_path }}
         AGENTIC_PROFILE_PATH: ${{ inputs.profile }}
         AGENTIC_OPENAPI_PATH: ${{ inputs.openapi }}
-      run: node "$AGENTIC_ACTION_PATH/scripts/validate.ts" "$AGENTIC_PROFILE_PATH" "$AGENTIC_OPENAPI_PATH"
+      run: |
+        if [ -n "$AGENTIC_OPENAPI_PATH" ]; then
+          node "$AGENTIC_ACTION_PATH/scripts/validate.ts" "$AGENTIC_PROFILE_PATH" "$AGENTIC_OPENAPI_PATH"
+        else
+          node "$AGENTIC_ACTION_PATH/scripts/validate.ts" "$AGENTIC_PROFILE_PATH"
+        fi
 branding:
   icon: check-circle
   color: blue

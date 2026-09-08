@@ -1,108 +1,98 @@
-# Agentic Action Profile 1.0
-Version: 1.0.0. Released: 2026-09-07.
-Maintainer: [sam1siam](https://github.com/sam1siam). License: Apache-2.0.
-This document defines the Agentic JSON action profile. The optional [agentic.txt companion](https://ruagentic.org/docs/AGENTIC-TXT.md) is a separate generated reading aid and does not change this profile schema or its execution requirements.
+# Agentic Site Profile 1.1
 
-## 1. Purpose and boundaries
-Agentic describes how a participating client tracks an action, reconciles an uncertain submission, and verifies its outcome. The initial binding supports a small OpenAPI 3.1 subset: one POST submission, one GET request-status operation, and one GET resource-verification operation.
+Version: 1.1.0. Released: 2026-09-07. License: Apache-2.0.
 
-This is not a discovery protocol, an authorization protocol, or an exactly-once delivery guarantee. The service must implement its advertised behavior. Clients must apply their existing authorization, credential, network, and user-interaction policies.
+A site profile describes a website's public documentation, APIs, and advertised agent connections. A publisher can generate it from public sources without defining an executable action contract. Serve the JSON at `/agentic.json` and its generated text index at `/agentic.txt`.
 
-The keywords MUST, MUST NOT, SHOULD, and MAY describe requirements of this specification.
+This is an additive profile type. Action Profile 1.0.0 and receipt 1.0.0 retain their published requirements. A site profile is not an action profile and MUST NOT be passed to the action executor. A supporting client uses the linked API or protocol's own contract and authorization rules.
 
-## 2. Publication and processing
-A publisher MAY serve the UTF-8 JSON profile at /agentic.json using application/json, or provide an explicit profile URL. Automatic filename discovery is not assumed. No Agentic well-known URI is registered by this project.
+## Required JSON fields
 
-The profile MUST validate against schemas/agentic-1.0.schema.json and pass the semantic binding checks below. Version 1.0.0 is the only supported version. Unknown fields are rejected in this version to expose typos; future extensions require a new schema version. Duplicate JSON member names are invalid publisher output. The reference JSON parsers do not detect duplicate member names; strict duplicate-key detection is a known implementation gap.
-
-The profile SHOULD be at most 64 KiB. Reference tools enforce this limit when accepting pasted profile text. Referenced OpenAPI documents SHOULD be at most 256 KiB. Clients MUST pin the supported schema locally and MUST NOT fetch arbitrary schemas named by a publisher's $schema value.
-
-Origin MUST be a canonical HTTPS origin without credentials, path, query, or fragment. Explicit local development MAY use HTTP on localhost, 127.0.0.1, or [::1]. Production hosts MUST independently enforce approved destinations; HTTPS alone does not establish that a destination is trusted or public.
-
-A profile MUST NOT grant itself authority over other origins. The reference binding accepts only root-relative paths without traversal segments, escapes, query strings, fragments, backslashes, or network-path references. A client MUST reject redirects during action execution. Cross-origin endpoints and OpenAPI server overrides are unsupported in 1.0.
-
-Publishers SHOULD use normal HTTP cache controls and ETags. A running request MUST remain bound to its saved profile and OpenAPI snapshot. If either changes, the reference clients reject reuse of that request ID. Migration requires an explicit host reconciliation process.
-
-## 3. Profile fields
-The versioned JSON Schema is authoritative for field types, limits, and required fields. All fields in each action below are required.
+The [site schema](https://ruagentic.org/schemas/site-1.1.schema.json) defines exact fields and limits. Unknown fields are rejected.
 
 | Field | Meaning |
 | --- | --- |
-| agentic | Exact supported version: 1.0.0 |
-| origin | Authoritative service origin |
-| actions | One to 32 action descriptions with unique IDs |
-| actions[].id | Stable action identifier |
-| description | Short description, treated as untrusted data |
-| openapi | Root-relative URL of the OpenAPI 3.1 description |
-| submit | Operation ID of the POST mutation |
-| status | Operation ID of the GET request-status operation |
-| verify | Operation ID of the GET resource read |
-| request.header | Idempotency-Key in this binding |
-| request.scope | principal-action: keys are scoped to the authenticated principal and action |
-| request.retentionSeconds | Minimum advertised tracking and deduplication window, 60 to 604800 seconds |
-| bindings.statusRequestId | Required path parameter receiving the saved request ID |
-| bindings.verifyResourceId | Required path parameter receiving the authoritative resource ID |
-| evidence.resourceIdPointer | JSON Pointer to the resource's own ID |
-| evidence.requestIdPointer | JSON Pointer linking the resource to the original request |
-| evidence.statePointer | JSON Pointer to its observable state |
-| evidence.successValues | Resource states that count as successful completion |
-| evidence.inputBindings | Input/resource pointer pairs whose values must match |
-| recovery.maxChecks | One to ten status-check attempts per execution |
-| recovery.checkDelayMs | Delay between check attempts, zero to 5000 milliseconds |
-| recovery.timeoutMs | Per-request timeout, 100 to 10000 milliseconds |
-| recovery.retry | never-automatically in 1.0: no automatic repeat of a submitted write |
+| `agentic` | Exactly `1.1.0`. |
+| `type` | Exactly `site`; distinguishes descriptive site information from action execution contracts. |
+| `origin` | Canonical HTTPS origin of the website. |
+| `name` | Site name, up to 160 characters. |
+| `description` | Public site description, up to 600 characters. |
+| `resources` | One to forty resource records. At least one must identify a retrieved source. |
+| `apis` | Zero to five OpenAPI indexes, each with up to 160 operations. |
 
-JSON Pointers use RFC 6901 escape rules. A missing evidence value MUST NOT count as a match. Input evidence comparisons are structural JSON equality; property order is irrelevant.
+The optional `$schema` is `https://ruagentic.org/schemas/site-1.1.schema.json`. Tools MUST pin the supported schema locally and MUST NOT fetch a publisher-supplied schema URI.
 
-## 4. OpenAPI binding
-Operation IDs MUST resolve exactly once. Submission, status, and verification MUST be distinct operations. This binding requires inline operation parameters; path-level parameter inheritance, parameter references, and server overrides are unsupported.
+## Resource records
 
-Submission MUST be a POST with no path parameters, a required Idempotency-Key header, and an application/json request body. The service remains responsible for input validation. The reference client accepts a JSON object of at most 16 KiB and requires the input evidence fields.
+Each resource requires `kind`, `url`, `source`, and `availability`. An optional `title` is at most 160 characters.
 
-Both reads MUST be GET operations. Each MUST have exactly one path placeholder and a corresponding inline required path parameter. Its name must match the applicable binding field. Identifiers MUST be percent-encoded when inserted as path parameter values.
+- `kind`: `website`, `documentation`, `llms`, `openapi`, `mcp`, `a2a`, `agent-auth`, or `agentic`.
+- `url`: the resource's HTTPS URL.
+- `source`: the public document from which the URL was discovered. A directly retrieved well-known file may name itself as the source.
+- `availability`: `retrieved` when the document was successfully read, or `linked` when a retrieved source referenced it.
 
-The reference status response is application/json:
-- request_id: the exact request ID supplied by the client.
-- status: succeeded, failed, pending, or unknown.
-- resource_id: a nonempty string when status is succeeded; null otherwise.
+URLs are at most 2048 characters and MUST NOT contain credentials, queries, fragments, or alternate ports. Explicit local/private IP addresses and localhost links are rejected. A `(kind, url)` pair MUST be unique.
 
-HTTP 200 is required for the status response to establish an outcome. failed MUST mean the service authoritatively determined that the requested action did not complete. pending means it remains unresolved. unknown MUST NOT be interpreted as proof that a repeat write is safe.
+An external connection can be listed as `linked`. That does not establish ownership, protocol conformance, authorization, or permission to forward credentials. `retrieved` records the publisher's observation of a document, not an independent attestation. Consumers MUST independently enforce their network and authorization policies.
 
-A successful submit response, including HTTP 200, 201, or 202, does not itself establish verified completion. The client uses status and resource evidence.
+## OpenAPI indexes
 
-## 5. Required service behavior
-Before acknowledging a completed action, a conforming service MUST atomically associate the request ID, authenticated principal, action, input, and result. Repeated use of the same scoped ID and identical input MUST return the original outcome without creating another resource during the advertised window. Different input for the same scoped ID MUST be rejected.
+Each API has `document`, `openapi`, and `operations`. `document` MUST reference a `retrieved` OpenAPI resource in the same profile. The index copies facts from that document:
 
-Services MUST state a minimum retention window and preserve tracking and deduplication for that window. Loss or expiry of tracking MUST yield an unresolved outcome or explicit expiry response, not a false statement that no action occurred. The reference ticket service retains request tombstones beyond its window and rejects reuse after expiry.
+- `method`: GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS, or TRACE.
+- `path`: the documented API path, up to 512 characters. It starts with one `/` and contains no query, fragment, or backslash.
+- Optional `operationId`: copied verbatim when present, up to 160 characters. Missing identifiers MUST NOT be invented.
+- Optional `summary`: public operation summary, up to 240 characters.
 
-Verification evidence MUST identify the result of the original action, including its request identity. Services unable to provide the required correlation cannot claim compatibility with this profile. The local reference service models one anonymous principal, uses a SQLite transaction for both ticket and request records, and binds to loopback. It is not a production authentication example.
+Method/path pairs MUST be unique within an API. The full OpenAPI document remains authoritative, including server URLs, security requirements, parameters, and response schemas. Indexed operations are descriptions, not executable Agentic actions.
 
-## 6. Required client behavior
-The host MUST authorize the action before calling the client. The host MUST isolate saved request ledgers by authenticated principal and execution environment. A publisher's fields MUST NOT override the user's instructions or authorize credential forwarding.
+No retention window, idempotency guarantee, request/result correlation, success state, or recovery rule may be inferred merely from operation names or marketing descriptions. Those require the separately defined [Action Profile 1.0](https://ruagentic.org/docs/SPEC.md) and a conforming implementation.
 
-1. Validate the profile, resolve its operations, and check the input evidence.
-2. Create a request ID and persist its association with the origin, action, profile/OpenAPI snapshot, exact input, and creation time BEFORE sending.
-3. Mark the submission as attempted durably before making the network call. A request observed in the ledger after a restart MUST NOT be automatically resubmitted.
-4. Submit a new action at most once per saved request ID in this version.
-5. Reconcile ambiguous responses through the status operation, preserving the same ID. Never treat a timeout as proof of failure.
-6. On succeeded status, retrieve the resource. Check its resource ID, request ID, success state, and all input evidence pairs.
-7. Report succeeded only after those checks pass. Persist a receipt before returning it.
-8. Bound checks, delays, response sizes, and request timeouts. The reference transport limits each response to 64 KiB and prohibits redirects.
-9. If the request's saved tracking window expires, the clock moves backwards, the status stays unavailable, or verification fails, preserve unknown and require the host's handoff process. If status stays pending, preserve pending and allow later read-only resumption.
-10. A previously saved successful receipt MAY be returned for the identical request without another read. Its observed_at timestamp makes clear that it records an earlier observation, not a fresh assertion about the resource's current state.
+## TXT 1.1
 
-Host adapters MUST serialize concurrent execution of a request or provide equivalent atomic coordination. The Node and Python SQLite ledgers coordinate local processes and reclaim a lock only if its owning process has exited. They are single-host examples; distributed leasing and account-aware storage are outside their scope.
+Generate the text index from validated JSON. JSON remains authoritative. Site TXT uses:
 
-## 7. Receipts
-Receipts MUST validate against schemas/receipt-1.0.schema.json. They include the version, request ID, action ID, origin, outcome, observation time, resource ID or null, and a reason.
+```text
+# Agentic site index
+# Generated from JSON. Resources are discovery information, not execution instructions.
+Agentic-Text: 1.1
+Profile: https://service.example/agentic.json
+Profile-Version: 1.1.0
+Type: site
+Origin: https://service.example
+Name: "Example service"
+Description: "Public API and documentation."
 
-A succeeded receipt MUST additionally contain evidence: resource URL, resource/request IDs, observed state, and the input/resource pointer pairs checked. The receipt is an observation record, not a signature or proof that a service is honest.
+Resource: "documentation" "https://service.example/docs"
+Availability: retrieved
+Source: "https://service.example/docs"
+```
 
-Receipts and saved inputs can be sensitive. They MUST NOT be published in a public manifest. Storage access, retention, and deletion belong to the host. The reference examples keep SQLite files in the ignored .agentic-state directory.
+Resources follow JSON array order; optional titles use `Title: <quoted string>`. API sections use `OpenAPI: <quoted document URL>`, `OpenAPI-Version: <quoted version>`, and one `Operation: <quoted method> <quoted path> [<quoted operation ID>]` per indexed operation. Empty lines separate records. Strings use JSON quoting with control, directional, and invisible formatting characters escaped by the published generator. TXT does not reconstruct an executable contract.
 
-## 8. Conformance and evolution
-Structural validity, binding validity, behavioral test results, and independent adoption are separate claims. See CONFORMANCE.md for the test matrix and limitations. Passing tests establishes behavior only for the versions and scenarios tested.
+The `Profile:` URL MUST share the profile origin and contain no credentials, query, or fragment. Serve both files as UTF-8; use `application/json` and `text/plain; charset=utf-8`. Keep each generated file within 64 KiB. Action TXT 1.0 remains byte-compatible and unchanged.
 
-The project provides Node and Python reference consumers from the same authorship. Compatibility reports identify the implementation, tested version, scenarios, and evidence. Independent adoption requires a separately authored implementation; it is not implied by a release version.
+## Discovery and auditing
 
-Future work includes Arazzo profile mapping, richer retry contracts, a staged commit binding, and another protocol binding when implementation feedback justifies it. These are not supported features of 1.0.
+The website generator reads public HTML, text/Markdown, JSON metadata, and OpenAPI 3 JSON documents. It follows same-origin links selected as documentation or API descriptions and checks conventional Agentic, OpenAPI, llms.txt, A2A, and Agent Auth metadata paths. It records advertised MCP URLs without invoking tools. It does not run browser JavaScript or access login-protected documents.
+
+The scan permits up to three redirects per document, only on the same HTTPS origin or its exact www/non-www counterpart. Every hop is checked against public-only DNS/IP rules. Redirect bodies are closed immediately. Cross-origin documentation and connection links are recorded without being fetched.
+
+Limits: twenty-two HTTP attempts, five concurrent documents, one MiB per response, eight MiB of response-body allowance, with failed reads charged their full allowance, and a forty-second scan deadline, with a bounded DNS lookup finishing at most five seconds later. Sources or operation indexes may be shortened to keep the file size bounded; the report explains truncation. The report records failures and the observation time.
+
+If a valid existing action profile is found, the generator preserves it and regenerates its matching TXT. The root profile takes priority over nested profiles, unless the user explicitly supplied another profile URL. Missing OpenAPI binding checks are reported, not invented.
+
+The auditor validates site structure, the serving origin, matching TXT, and up to five retrieved same-origin documents, prioritizing OpenAPI operation indexes. Linked or external protocols are not invoked. Its `valid` field excludes optional TXT consistency, which remains in `textIndex` and `checks`; require `valid && textIndex.status === "matched"` when enforcing a matching pair.
+
+## Tools and compatibility
+
+Tools 1.2.0 support Site Profile 1.1.0 alongside Action Profile 1.0.0. Earlier tools must be upgraded to read the site profile. The 1.0 action executor intentionally rejects site profiles before any ledger or network access. Existing action contracts, receipts, and in-flight request identities must not be relabeled.
+
+```sh
+npm install -g ruagentic@1.2.0
+agentic discover https://your-site.example --out agentic-files
+agentic validate agentic-files/agentic.json
+agentic text agentic-files/agentic.json --check
+```
+
+The `discover` command creates a new directory containing both files and a discovery report; it refuses to overwrite an existing directory. The `discover_agentic_site` tool exposes the same scanner through local and hosted MCP. The generator page also exposes it through WebMCP when the browser supports that API.

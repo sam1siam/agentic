@@ -1,5 +1,7 @@
 # MCP, WebMCP, A2A, and Agent Auth
 
+Tools 1.2.0 add `discover_agentic_site` to local and hosted MCP and the generator's conditional WebMCP tools. It accepts `{ "url": "https://your-site.com" }` and returns both files with a discovery report. It reads public documents and records advertised protocol URLs without invoking discovered tools. [Site Profile 1.1](SITE-PROFILE.md) can list these links; the 1.0 action schema remains unchanged.
+
 Agentic 1.0 describes action tracking and recovery through OpenAPI. Discovery, tool transport, agent messaging, and authorization keep their own protocols. Adding a declaration does not implement a protocol.
 
 ## Current implementation
@@ -15,7 +17,7 @@ Use the [connection guide](https://ruagentic.org/connect/) for client examples a
 
 ## Public endpoints
 
-- MCP: `https://ruagentic.org/mcp`. Four read-only tools; no token required. The additional hosted tool is `audit_agentic_url` with `{ "url": "https://your-service.example/agentic.json" }`.
+- MCP: `https://ruagentic.org/mcp`. Five read-only tools; no token required. The additional hosted tool is `audit_agentic_url` with `{ "url": "https://your-service.example/agentic.json" }`.
 - A2A card: `https://ruagentic.org/.well-known/agent-card.json`; endpoint: `https://ruagentic.org/a2a`. Create a private session token in the platform. Send `Authorization: Bearer <token>` and `A2A-Version: 1.0`. `SendMessage` accepts a data part with `{ "kind": "recovery", "scenario": "response-lost" }` or `{ "kind": "audit", "url": "..." }`. Retrieve results with `GetTask` and the returned ID.
 - Agent Auth: `https://ruagentic.org/.well-known/agent-configuration`. Configure the official `@auth/agent` client with `urls: ['https://ruagentic.org']` for direct discovery. Autonomous capabilities are `agentic.validate` and `agentic.sandbox.run`.
 
@@ -40,17 +42,18 @@ On Windows, use a JSON-escaped absolute path such as `C:\\projects\\agentic\\ref
 
 Tools:
 
-- `get_agentic_spec`: returns the specification bundled with the checkout.
+- `discover_agentic_site`: takes a public website `url` and returns both files plus a source report.
+- `get_agentic_spec`: returns the site and action specifications bundled with the checkout.
 - `generate_agentic_profile`: takes `origin` and optional `actionId`, returns the ticket starter and validation result.
 - `validate_agentic_profile`: takes JSON text in `profile` and optional `openapi`. Limits: 64 KiB and 256 KiB respectively.
 
-The server uses the official MCP TypeScript SDK 2.0.0. Tools read local bundled documentation or process supplied text. They never fetch a URL, execute the ticket action, store inputs, or download a file. The host remains responsible for permissions and its own logging. No credentials are required for these local tools.
+The server uses the official MCP TypeScript SDK 2.0.0. Specification, manual generation, and validation tools work on bundled documents or supplied text. Discovery reads bounded public HTTPS sources. None executes the ticket action or writes local files. The host remains responsible for permissions and its own logging. No credentials are required for these local tools.
 
 ## Use WebMCP page tools
 
 Open /generate/, /validate/, or /lab/ in a compatible browser. Each page registers its tool through `document.modelContext.registerTool` when available and unregisters on unmount using an abort signal. This follows the current WebMCP specification; earlier browser implementations may expose a different API. The regular page controls work without WebMCP.
 
-The generator returns profile data without changing the page. Validation and lab tools update the visible result. The lab remains a browser simulation, not an HTTP execution test. Registration is conditional and is not a claim that a particular agent host can invoke these tools.
+Website discovery updates the visible generator and returns both files with its report. The advanced action-template tool returns profile data without changing the page. Validation and lab tools update the visible result. The lab remains a browser simulation, not an HTTP execution test. Registration is conditional and is not a claim that a particular agent host can invoke these tools.
 
 ## Documentation and direct connections
 
@@ -58,7 +61,7 @@ Use the endpoint URLs above and the [connection guide](https://ruagentic.org/con
 
 The generated /agentic.txt index links to the live synthetic service profile at /agentic.json. It is a reading aid, not a protocol or authorization manifest. The optional /llms.txt index links to Agentic documentation and connection instructions. In the [generator](https://ruagentic.org/generate/), expand **Optional: create an llms.txt documentation index** to create an llms.txt starter for your service. Edit its /docs/, /agentic.txt, and /agentic.json links to match your published files. The generator makes no network calls.
 
-The Agentic profile remains a separate action contract. Do not add protocol fields to agentic.json: unknown fields are rejected by the 1.0 schema. Pass the profile URL explicitly or link it from documentation.
+Action Profile 1.0 remains a separate action contract; its schema rejects added protocol fields. Site Profile 1.1 uses its versioned resources array for descriptive protocol links. Pass the profile URL explicitly or link it from documentation.
 
 ## Implement A2A and Agent Auth
 

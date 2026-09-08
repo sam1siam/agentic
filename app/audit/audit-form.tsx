@@ -150,9 +150,7 @@ export default function AuditForm() {
             <div>
               <p className="eyebrow">Audit result</p>
               <h2 role="status">
-                {failed
-                  ? 'Some files need attention'
-                  : 'Profile and API checks passed'}
+                {failed ? 'Some files need attention' : 'File checks passed'}
               </h2>
             </div>
             <Button

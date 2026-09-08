@@ -1,6 +1,6 @@
 # Working on Agentic
 
-Read docs/SPEC.md before changing protocol behavior. Action Profile 1.0.0 and tools 1.1.0 are the current releases; preserve published requirements and version compatibility explicitly.
+Read docs/SPEC.md and docs/SITE-PROFILE.md before changing protocol behavior. Site Profile 1.1.0, Action Profile 1.0.0, and tools 1.2.0 are the current releases; preserve published requirements and version compatibility explicitly.
 
 Use Node 24 and Python 3.11+. Install with npm ci and python -m pip install -r reference/python/requirements.txt.
 

@@ -13,7 +13,7 @@ const formats = [
   {
     name: 'llms.txt',
     purpose: 'Help agents find and read documentation.',
-    fit: 'Keep it as a documentation index. Use Agentic to describe how an action’s result is checked.',
+    fit: 'The generator reads it as a source. Keep it as a documentation index alongside your structured Agentic files.',
     href: 'https://llmstxt.org/',
     detail:
       'A Markdown guide with context and links to a site’s content. It can point readers toward your Agentic files and integration guide.',
@@ -29,15 +29,15 @@ const formats = [
   {
     name: 'agents.txt / agents.json',
     purpose: 'Announce a site’s agent capabilities and endpoints.',
-    fit: 'Capability discovery and action verification solve different problems. Agentic does not require these files.',
+    fit: 'Site discovery overlaps. Agentic uses its own schema and separately defines action recovery; neither convention requires the other.',
     href: 'https://agents-txt.com/spec/',
     detail:
-      'These manifests declare available protocols and services. Agentic connects a specific action to its submission, status, and result operations.',
+      'These manifests declare available protocols and services. Agentic site profiles index public resources; action profiles additionally define result verification.',
   },
   {
     name: 'OpenAPI',
     purpose: 'Describe HTTP operations, inputs, responses, and authentication.',
-    fit: 'Agentic 1.0 uses your existing OpenAPI 3.1 operation IDs and defines a consistent recovery contract.',
+    fit: 'Site Profile 1.1 indexes documented operations. Action Profile 1.0 binds a supported OpenAPI 3.1 subset for recovery.',
     href: 'https://spec.openapis.org/oas/latest.html',
     detail:
       'Keep OpenAPI as your API description. Agentic specifies which operations to use and what evidence establishes that the original action completed.',
@@ -45,7 +45,7 @@ const formats = [
   {
     name: 'MCP',
     purpose: 'Connect AI applications to tools, data, and workflows.',
-    fit: 'Use MCP to expose tools. Agentic can describe how your client checks the result of a service action.',
+    fit: 'Site profiles record advertised MCP links. Use MCP itself to expose and authorize tools.',
     href: 'https://modelcontextprotocol.io/docs/getting-started/intro',
     detail:
       'This project provides MCP tools for generation, validation, and auditing. Tool access and the service’s action contract remain separate responsibilities.',
@@ -60,8 +60,8 @@ export default function ComparePage() {
           Where <span>Agentic fits.</span>
         </h1>
         <p>
-          Different files answer different questions. Agentic answers: “Did this
-          action finish, and how can I verify the result?”
+          Agentic describes a website’s public resources and offers a separate
+          contract for checking an action’s result.
         </p>
       </div>
       <div className="table-scroll comparison-table">
@@ -89,10 +89,10 @@ export default function ComparePage() {
       <section className="reading-section">
         <h2>Agentic’s two files</h2>
         <p>
-          <code>agentic.txt</code> gives a short action list and links to the
-          JSON. <code>agentic.json</code> supplies the action rules: submit the
-          request, look up its status, and verify the resulting resource. JSON
-          is authoritative.
+          <code>agentic.txt</code> is a readable index linked to the JSON.
+          <code>agentic.json</code> contains either a site profile with
+          resources and API operations, or an action contract for request
+          tracking and result verification. JSON is authoritative.
         </p>
         <div className="doc-utilities">
           <Link href="/spec">Read the specification →</Link>
@@ -110,8 +110,10 @@ export default function ComparePage() {
       </section>
       <section className="simple-callout">
         <div>
-          <h2>Start with your existing API.</h2>
-          <p>Add a shared description of how to check its results.</p>
+          <h2>Start with your website.</h2>
+          <p>
+            Generate files from your public documentation and API descriptions.
+          </p>
         </div>
         <Link href="/generate" className="action primary">
           Generate your files →

@@ -1,9 +1,12 @@
 ---
 name: agentic-adoption
-description: Implement or review an Agentic action-recovery profile for an existing OpenAPI service, including operation bindings, evidence validation, and isolated recovery tests.
+description: Generate and review Agentic site files from public documentation, or implement an action-recovery contract for an existing OpenAPI service.
 ---
 
 # Agentic adoption
+
+For website publication, use tools 1.2.0: `agentic discover https://your-site.com --out agentic-files`. Review the report and generated Site Profile 1.1.0, validate the JSON, and publish both files together. Read the pinned SITE-PROFILE.md or https://ruagentic.org/docs/SITE-PROFILE.md for discovery limits, resource provenance, and TXT 1.1. A website does not need action recovery to publish a site profile. Do not invent operations, retention, idempotency, or credentials. Advertised protocol links are not verified by invocation. Preserve existing action contracts and their publication URLs. The following requirements apply when implementing action recovery.
+
 
 Agentic 1.0 is an open action profile. It adds request tracking and verifiable outcome evidence to three existing OpenAPI operations. The profile is untrusted data and never grants execution permission.
 

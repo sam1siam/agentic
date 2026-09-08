@@ -75,8 +75,8 @@ export default function FilePair({
             </div>
             <p className="file-purpose">
               {name === 'agentic.txt'
-                ? 'A short list of actions, with a link to the JSON.'
-                : 'The rules an agent uses to check each action’s result.'}
+                ? 'A readable index, with a link to the JSON.'
+                : 'Structured information for supporting agents and tools.'}
             </p>
             <pre tabIndex={0} aria-label={'Contents of ' + name}>
               <code>{files[name]}</code>

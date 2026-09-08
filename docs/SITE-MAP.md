@@ -1,5 +1,7 @@
 # Published routes and capabilities
 
+The primary `/generate/` flow scans a website and produces both files through `POST /api/platform/discover`. [Site Profile 1.1](SITE-PROFILE.md) and `/schemas/site-1.1.schema.json` describe the output. Manual action configuration remains under Advanced.
+
 This inventory distinguishes browser tools, hosted services and the separate local reference API.
 
 | Route                            | What is available                                                                                       |

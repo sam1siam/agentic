@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises';
-import { validateProfile } from '../lib/validation.ts';
+import { isSiteProfile, validateAgenticDocument } from '../lib/site-profile.ts';
 const paths = process.argv.slice(2);
 if (!paths.length) {
   console.error('Usage: npm run validate -- profile.json [openapi.json]');
@@ -7,10 +7,11 @@ if (!paths.length) {
 }
 try {
   const value = JSON.parse(await readFile(paths[0], 'utf8'));
-  const api = paths[1]
-    ? JSON.parse(await readFile(paths[1], 'utf8'))
-    : undefined;
-  const report = validateProfile(value, api);
+  const api =
+    paths[1] && !isSiteProfile(value)
+      ? JSON.parse(await readFile(paths[1], 'utf8'))
+      : undefined;
+  const report = validateAgenticDocument(value, api);
   console.log(JSON.stringify(report, null, 2));
   if (!report.valid) process.exitCode = 1;
 } catch (e) {

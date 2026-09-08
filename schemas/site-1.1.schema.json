@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ruagentic.org/schemas/site-1.1.schema.json",
+  "title": "Agentic Site Profile 1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "agentic",
+    "type",
+    "origin",
+    "name",
+    "description",
+    "resources",
+    "apis"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://ruagentic.org/schemas/site-1.1.schema.json"
+    },
+    "agentic": { "const": "1.1.0" },
+    "type": { "const": "site" },
+    "origin": { "type": "string", "minLength": 1, "maxLength": 2048 },
+    "name": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "description": { "type": "string", "minLength": 1, "maxLength": 600 },
+    "resources": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 40,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "url", "source", "availability"],
+        "properties": {
+          "kind": {
+            "enum": [
+              "website",
+              "documentation",
+              "llms",
+              "openapi",
+              "mcp",
+              "a2a",
+              "agent-auth",
+              "agentic"
+            ]
+          },
+          "url": { "type": "string", "minLength": 1, "maxLength": 2048 },
+          "source": { "type": "string", "minLength": 1, "maxLength": 2048 },
+          "availability": { "enum": ["retrieved", "linked"] },
+          "title": { "type": "string", "minLength": 1, "maxLength": 160 }
+        }
+      }
+    },
+    "apis": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["document", "openapi", "operations"],
+        "properties": {
+          "document": { "type": "string", "minLength": 1, "maxLength": 2048 },
+          "openapi": { "type": "string", "minLength": 1, "maxLength": 32 },
+          "operations": {
+            "type": "array",
+            "maxItems": 160,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["method", "path"],
+              "properties": {
+                "method": {
+                  "enum": [
+                    "GET",
+                    "POST",
+                    "PUT",
+                    "PATCH",
+                    "DELETE",
+                    "HEAD",
+                    "OPTIONS",
+                    "TRACE"
+                  ]
+                },
+                "path": { "type": "string", "minLength": 1, "maxLength": 512 },
+                "operationId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 160
+                },
+                "summary": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 240
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

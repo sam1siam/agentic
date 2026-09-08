@@ -1,7 +1,7 @@
 {
   "name": "ruagentic",
-  "version": "1.1.0",
-  "description": "Agentic action-profile generator, validator, public URL auditor and MCP tools.",
+  "version": "1.2.0",
+  "description": "Generate agentic.json and agentic.txt from public websites; validate profiles, audit published files, and connect MCP tools.",
   "type": "module",
   "bin": {
     "agentic": "dist/cli.mjs"
@@ -9,6 +9,7 @@
   "files": [
     "dist/",
     "SPEC.md",
+    "SITE-PROFILE.md",
     "AGENTIC-TXT.md",
     "LICENSE",
     "README.md"

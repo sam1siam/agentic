@@ -1,31 +1,17 @@
 # About Agentic
 
-Agentic is an open file convention for checking the outcome of an AI agent's action. Its home is [ruagentic.org](https://ruagentic.org/).
+Agentic is an open file convention that helps agents find a website's documentation, APIs, and agent connections, and describes how supporting clients can verify completed actions.
 
-An API can complete a request even when the response never reaches the agent. Agentic describes how to keep the original request identity, check its status, and verify the resulting resource before reporting success.
+`agentic.json` contains structured information. Its generated `agentic.txt` provides a readable index. The [generator](https://ruagentic.org/generate/) reads public sources and produces the pair. JSON remains authoritative.
 
-## Why two files?
+[Site Profile 1.1](https://ruagentic.org/docs/SITE-PROFILE.md) describes discovered resources and documented operations. [Action Profile 1.0](https://ruagentic.org/docs/SPEC.md) defines request tracking and result checks for services that implement its contract. A website can publish a site profile without implementing action recovery. Files do not create endpoints, grant authorization, or automatically add support to every agent.
 
-`agentic.json` is the authoritative action contract. `agentic.txt` is an optional readable index generated from it. The generator creates both together; update and publish them together so the index stays accurate.
+Maintained by [sam1siam](https://github.com/sam1siam), the specification, schemas, and tools are Apache-2.0. Tools 1.2.0 support both profile types. Install [ruagentic from npm](https://www.npmjs.com/package/ruagentic), use the CLI or browser tools, or contribute in the [repository](https://github.com/sam1siam/agentic).
 
-## What do I need?
+## What the website runs
 
-You need an API with durable request tracking, duplicate prevention, and reliable status and result reads, plus a client that implements Agentic. The files describe those capabilities. They do not add them to a service or grant authorization.
+The website scanner and auditor read public HTTPS documents on the server. The advanced manual builder and OpenAPI importer run locally in the browser. The recovery service uses isolated synthetic ticket data; our root Agentic files describe that service. MCP, conditional WebMCP, A2A and Agent Auth connections are documented in [Protocol setup](https://ruagentic.org/docs/PROTOCOLS.md).
 
-Start with the [generator](https://ruagentic.org/generate/), read the [specification](https://ruagentic.org/spec/), then [audit your files](https://ruagentic.org/audit/). The [integration guide](https://ruagentic.org/docs/INTEGRATIONS.md) explains service and client responsibilities.
+Reports are private to a browser session or agent owner and expire after 30 days. Share a report only through the explicit sharing controls. See [platform operations](https://ruagentic.org/docs/PLATFORM.md).
 
-## Who maintains it?
-
-Agentic is maintained by [sam1siam](https://github.com/sam1siam) and published under the Apache-2.0 license. Source, issues, versioned releases, and the change process are public in [the repository](https://github.com/sam1siam/agentic). The [ruagentic npm package](https://www.npmjs.com/package/ruagentic) provides generation, validation, auditing, and MCP tools.
-
-Format 1.0 is published. Tool releases have their own versions; tools 1.1.0 continue to use profile and receipt version 1.0.0 and TXT version 1.0.
-
-## What does this website run?
-
-The file generator and local validator run in your browser. The audit reads public files through the hosted service. Hosted recovery tools use isolated synthetic tickets and private reports. See [platform operations](https://ruagentic.org/docs/PLATFORM.md) for storage, retention, and runtime details.
-
-The site's own [agentic.txt](https://ruagentic.org/agentic.txt) and [agentic.json](https://ruagentic.org/agentic.json) describe its authenticated synthetic ticket service. No enrollment or central registry is required to publish your own files.
-
-## How can I contribute?
-
-Open an issue with a concrete use case, a reproducible problem, or a proposed improvement. See [governance](https://ruagentic.org/docs/GOVERNANCE.md) and the [compatibility guide](https://ruagentic.org/docs/COMPATIBILITY.md) for contribution and implementation checks.
+No enrollment or central registry is required. Report reproducible bugs, propose improvements, or submit focused pull requests. [Governance](https://ruagentic.org/docs/GOVERNANCE.md), [security](https://ruagentic.org/docs/SECURITY.md), and [brand assets](https://ruagentic.org/docs/BRAND.md) are public. The project does not claim independent adoption, certification, or standards-body endorsement.

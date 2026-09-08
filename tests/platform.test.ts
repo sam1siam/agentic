@@ -160,6 +160,29 @@ test(
       cookie = first.headers.get('set-cookie')!.split(';')[0];
       ownerId = first.data.id;
       await t.test(
+        'website discovery requires a session and rejects private or credential-bearing input',
+        async () => {
+          assert.equal(
+            (
+              await call(
+                '/api/platform/discover',
+                { url: 'https://public.example' },
+                '',
+              )
+            ).status,
+            401,
+          );
+          for (const url of [
+            'https://127.0.0.1/',
+            'https://public.example/?secret=do-not-echo-this-value',
+          ]) {
+            const result = await call('/api/platform/discover', { url });
+            assert.equal(result.status, 400);
+            assert.ok(!result.data.error.includes('do-not-echo-this-value'));
+          }
+        },
+      );
+      await t.test(
         'invalid audit URLs return input guidance instead of an infrastructure error',
         async () => {
           for (const url of [
@@ -291,7 +314,7 @@ test(
               new StreamableHTTPClientTransport(new URL(base + '/mcp')),
             );
             const tools = await client.listTools();
-            assert.equal(tools.tools.length, 4);
+            assert.equal(tools.tools.length, 5);
             const result = await client.callTool({
               name: 'generate_agentic_profile',
               arguments: { origin: 'https://service.example' },

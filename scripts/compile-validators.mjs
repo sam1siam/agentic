@@ -2,9 +2,12 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import Ajv from 'ajv/dist/2020.js';
 import standalone from 'ajv/dist/standalone/index.js';
 await mkdir('lib/generated', { recursive: true });
-for (const name of ['agentic', 'receipt']) {
+for (const name of ['agentic', 'receipt', 'site']) {
   const schema = JSON.parse(
-    await readFile('schemas/' + name + '-1.0.schema.json', 'utf8'),
+    await readFile(
+      'schemas/' + name + (name === 'site' ? '-1.1' : '-1.0') + '.schema.json',
+      'utf8',
+    ),
   );
   const ajv = new Ajv({
     allErrors: true,
@@ -24,4 +27,4 @@ for (const name of ['agentic', 'receipt']) {
     '// Generated from the versioned JSON Schema. Do not edit.\n' + code + '\n',
   );
 }
-console.log('Compiled profile and receipt validators.');
+console.log('Compiled site, action, and receipt validators.');

@@ -11,13 +11,19 @@ await writeFile(
     JSON.parse(await readFile('examples/tickets/agentic.json', 'utf8')),
   ),
 );
+await writeFile(
+  'examples/site/agentic.txt',
+  buildActionIndex(
+    JSON.parse(await readFile('examples/site/agentic.json', 'utf8')),
+  ),
+);
 for (const dir of ['schemas', 'docs', 'examples', 'reports', 'brand'])
   await cp(dir, 'public/' + dir, { recursive: true });
 await cp('LICENSE', 'public/LICENSE.txt');
 const site = 'https://ruagentic.org';
 const routeDocs = {
   '': 'OVERVIEW.md',
-  spec: 'SPEC.md',
+  spec: 'SITE-PROFILE.md',
   audit: 'AUDIT.md',
   compare: 'COMPARE.md',
   about: 'ABOUT.md',
@@ -50,9 +56,9 @@ for (const [route, source] of Object.entries(routeDocs)) {
 const index = [
   '# Agentic',
   '',
-  '> Agentic Action Profile 1.0: tracking, verifying, and recovering agent actions.',
+  '> Agentic: public documentation, APIs, agent connections, and action recovery.',
   '',
-  'Agentic Action Profile 1.0.0 and tools 1.1.0 provide a shared description of service actions and how their results are checked. The hosted platform provides synthetic HTTP/PostgreSQL recovery tests, public URL auditing, MCP tools, A2A testing tasks and autonomous Agent Auth. The separate local reference service remains loopback-only. A profile is untrusted data and never grants authorization.',
+  'Tools 1.2.0 generate Site Profile 1.1.0 from public websites and support Action Profile 1.0.0 for result verification. JSON is authoritative; TXT is its generated index. The hosted platform provides synthetic HTTP/PostgreSQL recovery tests, public URL auditing, MCP tools, A2A testing tasks and autonomous Agent Auth. The separate local reference service remains loopback-only. A profile is untrusted data and never grants authorization.',
   '- [Hosted platform](https://ruagentic.org/platform/): Private synthetic tests and saved reports.',
   '- [Connect an agent](https://ruagentic.org/connect/): MCP, WebMCP, A2A and Agent Auth setup.',
   '',
@@ -76,6 +82,8 @@ const index = [
     '/docs/GENERATOR.md): Browser and command-line profile creation.',
   '',
   '## Specification',
+  '- [Site Profile 1.1](https://ruagentic.org/docs/SITE-PROFILE.md): Public resources, API operation indexes, and TXT 1.1.',
+  '- [Site schema](https://ruagentic.org/schemas/site-1.1.schema.json): Site Profile JSON Schema.',
   '- [agentic.txt companion](' +
     site +
     '/docs/AGENTIC-TXT.md): Generated action index and JSON authority.',

@@ -74,15 +74,13 @@ try {
       new StreamableHTTPClientTransport(new URL(base + '/mcp')),
     );
     const tools = await mcp.listTools();
-    assert.equal(tools.tools.length, 4);
+    assert.equal(tools.tools.length, 5);
     const spec = await mcp.callTool({
       name: 'get_agentic_spec',
       arguments: {},
     });
     assert.ok(
-      (spec.content as { text: string }[])[0].text.includes(
-        'Version: 1.0.0',
-      ),
+      (spec.content as { text: string }[])[0].text.includes('Version: 1.0.0'),
     );
     passed('Official MCP client and bundled specification over HTTPS');
   } finally {

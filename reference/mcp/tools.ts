@@ -3,12 +3,14 @@ import { McpServer } from '@modelcontextprotocol/server';
 import { z } from 'zod';
 import { buildProfile, starterSettings } from '../../lib/profile-generator.ts';
 import { validateProfile } from '../../lib/validation.ts';
+import { validateAgenticDocument } from '../../lib/site-profile.ts';
+import { discoverWebsite } from '../../server/discovery.ts';
 import { profileFiles } from '../../lib/action-index.ts';
 
 export function createTools(options?: { readSpec?: () => Promise<string> }) {
   const server = new McpServer({
     name: 'agentic-tools',
-    version: '1.1.0',
+    version: '1.2.0',
   });
   const annotations = {
     readOnlyHint: true,
@@ -37,10 +39,16 @@ export function createTools(options?: { readSpec?: () => Promise<string> }) {
           type: 'text',
           text: options?.readSpec
             ? await options.readSpec()
-            : await readFile(
-                new URL('../../docs/SPEC.md', import.meta.url),
-                'utf8',
-              ),
+            : (
+                await Promise.all(
+                  ['SPEC.md', 'SITE-PROFILE.md'].map((name) =>
+                    readFile(
+                      new URL('../../docs/' + name, import.meta.url),
+                      'utf8',
+                    ),
+                  ),
+                )
+              ).join('\n\n---\n\n'),
         },
       ],
     }),
@@ -88,7 +96,7 @@ export function createTools(options?: { readSpec?: () => Promise<string> }) {
     async ({ profile, openapi }) => {
       try {
         return output(
-          validateProfile(
+          validateAgenticDocument(
             parse(profile, 65536),
             openapi ? parse(openapi, 262144) : undefined,
           ),
@@ -99,6 +107,27 @@ export function createTools(options?: { readSpec?: () => Promise<string> }) {
           errors: [error instanceof Error ? error.message : 'Invalid JSON.'],
           warnings: [],
         });
+      }
+    },
+  );
+  server.registerTool(
+    'discover_agentic_site',
+    {
+      description:
+        'Read a public website, documentation, OpenAPI and advertised MCP links; generate agentic.txt and agentic.json. No action execution or MCP tool invocation.',
+      inputSchema: z.object({ url: z.string().max(2048) }).strict(),
+      annotations: { ...annotations, openWorldHint: true },
+    },
+    async ({ url }) => {
+      try {
+        return output(await discoverWebsite(url));
+      } catch (error) {
+        return {
+          isError: true,
+          ...output({
+            error: error instanceof Error ? error.message : 'Discovery failed.',
+          }),
+        };
       }
     },
   );

@@ -14,6 +14,7 @@ import { profileFiles } from '@/lib/action-index';
 import FilePair from '../file-pair';
 import OpenapiImport from './openapi-import';
 import DocumentationGenerator from './documentation-generator';
+import WebsiteGenerator from './website-generator';
 const apiFields: [keyof StarterSettings, string, string][] = [
   ['openapi', 'OpenAPI file path', 'For example, /openapi.json'],
   [
@@ -85,7 +86,7 @@ export default function ProfileGenerator() {
     () =>
       registerPageTool({
         name: 'generate_agentic_profile',
-        title: 'Generate Agentic files',
+        title: 'Create an action-profile template',
         description:
           'Create agentic.txt and agentic.json for an HTTPS service. Returns files without uploading data or calling the service.',
         inputSchema: {
@@ -162,100 +163,120 @@ export default function ProfileGenerator() {
       <div className="page-heading compact-heading">
         <p className="eyebrow">Generate</p>
         <h1>
-          Create your <span>Agentic files.</span>
+          Generate files for <span>your website.</span>
         </h1>
         <p>
-          Describe an action your API supports. Download its readable index and
-          JSON contract together.
+          Enter your website. We find its public docs, APIs, and agent
+          connections, then create agentic.txt and agentic.json for you.
         </p>
       </div>
-      <div className="mode-controls" aria-label="Generation method">
-        <Button
-          variant={mode === 'setup' ? 'default' : 'outline'}
-          aria-pressed={mode === 'setup'}
-          onClick={() => setMode('setup')}
-        >
-          Start from an example
-        </Button>
-        <Button
-          variant={mode === 'import' ? 'default' : 'outline'}
-          aria-pressed={mode === 'import'}
-          onClick={() => setMode('import')}
-        >
-          Import OpenAPI
-        </Button>
-      </div>
-      {mode === 'import' ? (
-        <OpenapiImport />
-      ) : (
-        <>
-          <section className="setup-section">
-            <div className="section-head">
-              <h2>1. Describe your action</h2>
-              <Button
-                variant="ghost"
-                onClick={() => setSettings({ ...starterSettings })}
-              >
-                Reset example
-              </Button>
-            </div>
-            <p className="muted">
-              This example creates a support ticket. Replace the details with
-              your service’s values.
-            </p>
-            <div className="field-grid">
-              {field(
-                'origin',
-                'Service URL',
-                'Use an HTTPS origin, such as https://api.yoursite.com. A trailing slash is accepted.',
-              )}
-              {field(
-                'actionId',
-                'Action ID',
-                'A short name such as create-ticket or create-order.',
-              )}
-              {field('description', 'What does the action do?')}
-            </div>
-            <details className="disclosure">
-              <summary>API settings · operations and result fields</summary>
-              <p>
-                Match these values to your OpenAPI 3.1 file. Agents need an
-                operation to perform the action, one to check the request, and
-                one to read the result.
+      <WebsiteGenerator />
+      <details className="disclosure advanced-generator">
+        <summary>
+          Advanced: configure an action or import OpenAPI yourself
+        </summary>
+        <p>
+          Use these tools when you are implementing an action recovery contract.
+          The example values belong to a support-ticket API; changing its URL
+          does not configure your service.
+        </p>
+        <div className="mode-controls" aria-label="Generation method">
+          <Button
+            variant={mode === 'setup' ? 'default' : 'outline'}
+            aria-pressed={mode === 'setup'}
+            onClick={() => setMode('setup')}
+          >
+            Start from an example
+          </Button>
+          <Button
+            variant={mode === 'import' ? 'default' : 'outline'}
+            aria-pressed={mode === 'import'}
+            onClick={() => setMode('import')}
+          >
+            Import OpenAPI
+          </Button>
+        </div>
+        {mode === 'import' ? (
+          <OpenapiImport />
+        ) : (
+          <>
+            <section className="setup-section">
+              <div className="section-head">
+                <h2>1. Describe your action</h2>
+                <Button
+                  variant="ghost"
+                  onClick={() => setSettings({ ...starterSettings })}
+                >
+                  Reset example
+                </Button>
+              </div>
+              <p className="muted">
+                This example creates a support ticket. Replace the details with
+                your service’s values.
               </p>
               <div className="field-grid">
-                {apiFields.map(([key, label, help]) => field(key, label, help))}
+                {field(
+                  'origin',
+                  'Service URL',
+                  'Use an HTTPS origin, such as https://api.yoursite.com. A trailing slash is accepted.',
+                )}
+                {field(
+                  'actionId',
+                  'Action ID',
+                  'A short name such as create-ticket or create-order.',
+                )}
+                {field('description', 'What does the action do?')}
               </div>
-            </details>
-          </section>
-          <section className="output-section">
-            <h2>2. Download both files</h2>
-            {!validation.valid && (
-              <div id="generator-errors" className="inline-error" role="alert">
-                <p>Check these settings before downloading:</p>
-                <ul>
-                  {validation.errors.map((error) => (
-                    <li key={error}>{error}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            <FilePair files={files} disabled={!validation.valid} />
-          </section>
-        </>
-      )}
+              <details className="disclosure">
+                <summary>API settings · operations and result fields</summary>
+                <p>
+                  Match these values to your OpenAPI 3.1 file. Agents need an
+                  operation to perform the action, one to check the request, and
+                  one to read the result.
+                </p>
+                <div className="field-grid">
+                  {apiFields.map(([key, label, help]) =>
+                    field(key, label, help),
+                  )}
+                </div>
+              </details>
+            </section>
+            <section className="output-section">
+              <h2>2. Download both files</h2>
+              {!validation.valid && (
+                <div
+                  id="generator-errors"
+                  className="inline-error"
+                  role="alert"
+                >
+                  <p>Check these settings before downloading:</p>
+                  <ul>
+                    {validation.errors.map((error) => (
+                      <li key={error}>{error}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <FilePair files={files} disabled={!validation.valid} />
+            </section>
+          </>
+        )}
+      </details>
       <section className="publish-guide">
-        <h2>3. Put the files on your service</h2>
+        <h2>Publish your files</h2>
         <p>
           Place both files in your site’s public folder, or serve them from your
           API. They should be available at <code>/agentic.txt</code> and{' '}
-          <code>/agentic.json</code>. Your API must support the operations
-          described in the JSON.
+          <code>/agentic.json</code>. Review the discovered links, publish both
+          files together, and audit the published JSON. Run the generator again
+          when your documentation changes. For an existing profile at another
+          path, preserve its location and the TXT file’s Profile URL, or
+          regenerate TXT for your intended destination.
         </p>
         <div className="doc-utilities">
           <Link href="/audit">Audit your published files →</Link>
           <Link href="/spec">Read the format →</Link>
-          <Link href="/validate">Validate with an OpenAPI file →</Link>
+          <Link href="/validate">Validate a file →</Link>
         </div>
       </section>
       <details className="disclosure optional-index">

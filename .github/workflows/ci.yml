@@ -38,5 +38,7 @@ jobs:
       - run: npm run typecheck
       - run: npm run build:cli
       - run: node packages/cli/dist/cli.mjs validate examples/tickets/agentic.json examples/tickets/openapi.json
+      - run: node packages/cli/dist/cli.mjs validate examples/site/agentic.json
+      - run: node packages/cli/dist/cli.mjs text examples/site/agentic.json --check
       - run: npm run conformance -- --adapter integrations/node-reference.json --revision "$GITHUB_SHA"
       - run: npm run build

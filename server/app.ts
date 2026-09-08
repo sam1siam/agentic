@@ -3,6 +3,7 @@ import { mcp } from './mcp.ts';
 import { auth, authHandler } from './auth.ts';
 import { agentCard, handleA2a } from './a2a.ts';
 import { auditUrl, normalizeAuditUrl } from './audit.ts';
+import { discoverWebsite, normalizeWebsiteUrl } from './discovery.ts';
 import {
   sandboxService,
   sandboxProfile,
@@ -56,13 +57,18 @@ async function route(request: Request) {
     return Response.json({
       status: 'ok',
       service: 'Agentic platform',
-      version: '1.1.0',
+      version: '1.2.0',
     });
   }
   await rateLimit('ip:' + clientAddress(request), 120);
   if (path === '/mcp' || path === '/api/mcp') {
     const body =
       request.method === 'POST' ? await jsonBody(request) : undefined;
+    if (
+      body?.method === 'tools/call' &&
+      body.params?.name === 'discover_agentic_site'
+    )
+      await rateLimit('discover-ip:' + clientAddress(request), 6);
     return mcp.fetch(request, { parsedBody: body });
   }
   if (path === '/.well-known/agent-card.json')
@@ -172,6 +178,39 @@ async function route(request: Request) {
     return Response.json(
       await saveReport(ownerId, 'audit', await auditUrl(profileUrl)),
     );
+  }
+  if (path === '/api/platform/discover' && request.method === 'POST') {
+    await rateLimit('discover:' + ownerId, 3);
+    await rateLimit('discover-ip:' + clientAddress(request), 6);
+    const body = await jsonBody(request, 4096);
+    if (typeof body.url !== 'string')
+      throw new HttpError(400, 'Provide your website URL.');
+    let target: string;
+    try {
+      target = normalizeWebsiteUrl(body.url);
+    } catch (error) {
+      return Response.json(
+        {
+          error:
+            error instanceof Error
+              ? error.message
+              : 'Use a public HTTPS website URL.',
+        },
+        { status: 400 },
+      );
+    }
+    let result;
+    try {
+      result = await discoverWebsite(target);
+    } catch (error) {
+      throw new HttpError(
+        422,
+        error instanceof Error
+          ? error.message
+          : 'The public website could not be read.',
+      );
+    }
+    return Response.json(await saveReport(ownerId, 'discovery', result));
   }
   if (path === '/api/platform/auth-check' && request.method === 'POST') {
     await rateLimit('auth-check:' + ownerId, 3);

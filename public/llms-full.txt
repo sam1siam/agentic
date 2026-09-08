@@ -2,35 +2,21 @@ Source: https://ruagentic.org/docs/ABOUT.md
 
 # About Agentic
 
-Agentic is an open file convention for checking the outcome of an AI agent's action. Its home is [ruagentic.org](https://ruagentic.org/).
+Agentic is an open file convention that helps agents find a website's documentation, APIs, and agent connections, and describes how supporting clients can verify completed actions.
 
-An API can complete a request even when the response never reaches the agent. Agentic describes how to keep the original request identity, check its status, and verify the resulting resource before reporting success.
+`agentic.json` contains structured information. Its generated `agentic.txt` provides a readable index. The [generator](https://ruagentic.org/generate/) reads public sources and produces the pair. JSON remains authoritative.
 
-## Why two files?
+[Site Profile 1.1](https://ruagentic.org/docs/SITE-PROFILE.md) describes discovered resources and documented operations. [Action Profile 1.0](https://ruagentic.org/docs/SPEC.md) defines request tracking and result checks for services that implement its contract. A website can publish a site profile without implementing action recovery. Files do not create endpoints, grant authorization, or automatically add support to every agent.
 
-`agentic.json` is the authoritative action contract. `agentic.txt` is an optional readable index generated from it. The generator creates both together; update and publish them together so the index stays accurate.
+Maintained by [sam1siam](https://github.com/sam1siam), the specification, schemas, and tools are Apache-2.0. Tools 1.2.0 support both profile types. Install [ruagentic from npm](https://www.npmjs.com/package/ruagentic), use the CLI or browser tools, or contribute in the [repository](https://github.com/sam1siam/agentic).
 
-## What do I need?
+## What the website runs
 
-You need an API with durable request tracking, duplicate prevention, and reliable status and result reads, plus a client that implements Agentic. The files describe those capabilities. They do not add them to a service or grant authorization.
+The website scanner and auditor read public HTTPS documents on the server. The advanced manual builder and OpenAPI importer run locally in the browser. The recovery service uses isolated synthetic ticket data; our root Agentic files describe that service. MCP, conditional WebMCP, A2A and Agent Auth connections are documented in [Protocol setup](https://ruagentic.org/docs/PROTOCOLS.md).
 
-Start with the [generator](https://ruagentic.org/generate/), read the [specification](https://ruagentic.org/spec/), then [audit your files](https://ruagentic.org/audit/). The [integration guide](https://ruagentic.org/docs/INTEGRATIONS.md) explains service and client responsibilities.
+Reports are private to a browser session or agent owner and expire after 30 days. Share a report only through the explicit sharing controls. See [platform operations](https://ruagentic.org/docs/PLATFORM.md).
 
-## Who maintains it?
-
-Agentic is maintained by [sam1siam](https://github.com/sam1siam) and published under the Apache-2.0 license. Source, issues, versioned releases, and the change process are public in [the repository](https://github.com/sam1siam/agentic). The [ruagentic npm package](https://www.npmjs.com/package/ruagentic) provides generation, validation, auditing, and MCP tools.
-
-Format 1.0 is published. Tool releases have their own versions; tools 1.1.0 continue to use profile and receipt version 1.0.0 and TXT version 1.0.
-
-## What does this website run?
-
-The file generator and local validator run in your browser. The audit reads public files through the hosted service. Hosted recovery tools use isolated synthetic tickets and private reports. See [platform operations](https://ruagentic.org/docs/PLATFORM.md) for storage, retention, and runtime details.
-
-The site's own [agentic.txt](https://ruagentic.org/agentic.txt) and [agentic.json](https://ruagentic.org/agentic.json) describe its authenticated synthetic ticket service. No enrollment or central registry is required to publish your own files.
-
-## How can I contribute?
-
-Open an issue with a concrete use case, a reproducible problem, or a proposed improvement. See [governance](https://ruagentic.org/docs/GOVERNANCE.md) and the [compatibility guide](https://ruagentic.org/docs/COMPATIBILITY.md) for contribution and implementation checks.
+No enrollment or central registry is required. Report reproducible bugs, propose improvements, or submit focused pull requests. [Governance](https://ruagentic.org/docs/GOVERNANCE.md), [security](https://ruagentic.org/docs/SECURITY.md), and [brand assets](https://ruagentic.org/docs/BRAND.md) are public. The project does not claim independent adoption, certification, or standards-body endorsement.
 
 
 ---
@@ -38,6 +24,8 @@ Open an issue with a concrete use case, a reproducible problem, or a proposed im
 Source: https://ruagentic.org/docs/AGENTIC-TXT.md
 
 # agentic.txt: generated action index
+
+This document defines TXT 1.0 for Action Profile 1.0. For the generated site index (`Agentic-Text: 1.1`), see [Site Profile 1.1](https://ruagentic.org/docs/SITE-PROFILE.md#txt-11). Tools 1.2.0 generate either form from its validated JSON. Action TXT bytes remain unchanged.
 
 Version: `Agentic-Text: 1.0`. This optional companion accompanies the `1.0.0` JSON action profile. JSON remains authoritative for action execution.
 
@@ -112,6 +100,8 @@ Source: https://ruagentic.org/docs/AUDIT.md
 
 # Audit your Agentic files
 
+The auditor supports Site Profile 1.1.0 and Action Profile 1.0.0. For site profiles, it checks the schema, serving origin, matching TXT, and up to five retrieved same-origin documents, prioritizing indexed OpenAPI operations. Linked/external protocols are reported without being invoked. See [site audit semantics](https://ruagentic.org/docs/SITE-PROFILE.md#discovery-and-auditing). To create missing files from a website, use [Generate](https://ruagentic.org/docs/GENERATOR.md). The action-specific binding checks below apply to action profiles.
+
 Use [the audit page](https://ruagentic.org/audit/) to check a public website or an exact JSON profile URL. No account is required. The page creates a private browser session when you run an audit.
 
 A bare domain uses HTTPS. An origin checks `/agentic.json`; a URL ending in `/` checks `agentic.json` in that directory. For another path, provide the complete JSON URL. Queries, credentials, fragments, HTTP, and ports other than 443 are rejected.
@@ -143,7 +133,7 @@ Browser audits are limited to six per minute per session, alongside the platform
 ## Command line and agents
 
 ```sh
-npm install -g ruagentic@1.1.0
+npm install -g ruagentic@1.2.0
 agentic audit https://your-service.example
 ```
 
@@ -190,6 +180,14 @@ Source: https://ruagentic.org/docs/CHANGELOG.md
 
 # Changelog
 
+## Tools 1.2.0 / Site Profile 1.1.0 — 2026-09-07
+
+- URL-first generation reads public websites, documentation, llms.txt, OpenAPI JSON, and advertised agent connections, then outputs both Agentic files and a source report.
+- Additive Site Profile 1.1.0 and TXT 1.1 describe resources and API indexes without inventing action-recovery behavior. Action Profile 1.0.0, receipts, and TXT 1.0 remain compatible.
+- Public-only network checks, canonical redirects, bounded reads, deadlines, source provenance, and explicit partial-scan notes.
+- CLI `discover`, MCP/WebMCP `discover_agentic_site`, site validation and auditing, plus a collapsed advanced action builder.
+- Updated generator, specification, documentation, package contents, and compatibility tests.
+
 ## Tools 1.1.0 — 2026-09-07
 
 - Simplified navigation: Generate, Spec, Audit, Compare, and About.
@@ -222,25 +220,21 @@ Compatibility evidence applies to the exact versions and scenarios recorded by e
 
 Source: https://ruagentic.org/docs/COMPARE.md
 
-# Compare Agentic with related formats
+# Where Agentic fits
 
-Agentic describes how to check the outcome of a service action. It can sit alongside documentation indexes, coding instructions, API descriptions, and tool protocols.
+Agentic provides a structured site profile and an optional action-recovery contract. It works with existing documentation and protocols.
 
-| Format                                                            | Main purpose                                                              | Relationship to Agentic                                                                                                 |
-| ----------------------------------------------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| [llms.txt](https://llmstxt.org/)                                  | Direct agents to useful documentation and site guidance.                  | Link to Agentic files and integration documentation.                                                                    |
-| [AGENTS.md](https://agents.md/)                                   | Give coding agents instructions for working in a repository.              | Explain how to implement or test Agentic in that repository.                                                            |
-| [agents.txt / agents.json](https://agents-txt.com/spec/)          | Publish a capability manifest with discovery and integration information. | Agentic focuses on an action's request identity, status, evidence, and recovery contract.                               |
-| [OpenAPI](https://spec.openapis.org/oas/latest.html)              | Describe an HTTP API's operations, parameters, and responses.             | Agentic 1.0 binds to a supported subset of OpenAPI 3.1 operations.                                                      |
-| [MCP](https://modelcontextprotocol.io/docs/getting-started/intro) | Connect AI applications to tools and context.                             | A tool can use Agentic to check an action's outcome. Agentic also provides MCP tools for generating and auditing files. |
+| Format | Purpose | Relationship to Agentic |
+| --- | --- | --- |
+| [llms.txt](https://llmstxt.org/) | Documentation context and links. | The generator reads it as a source; keep it as a documentation index. |
+| [AGENTS.md](https://agents.md/) | Instructions for coding agents in a repository. | Continue using it for setup, tests, and conventions. |
+| [agents.txt / agents.json](https://agents-txt.com/spec/) | Website capability and protocol declarations. | Site discovery overlaps. Agentic has its own schema and additionally defines a separate action-recovery contract; neither convention is required by the other. |
+| [OpenAPI](https://spec.openapis.org/oas/latest.html) | HTTP operations, parameters, responses, and authentication. | Site profiles index documented operations; action profiles bind a supported OpenAPI 3.1 subset. The API description remains authoritative. |
+| [MCP](https://modelcontextprotocol.io/docs/getting-started/intro) | Tool and resource access for AI applications. | Site profiles can list advertised MCP URLs. Agentic's scanner never invokes discovered tools. |
 
-## The Agentic pair
+`agentic.txt` is generated from `agentic.json` and links back to it. A site profile lists resources and API operations. An action profile defines submission, status lookup, result evidence, and bounded recovery. Neither profile grants authorization or installs protocol support.
 
-`agentic.json` is authoritative: it names the service origin and actions, links their submission/status/verification operations, and declares evidence checks and bounded recovery rules. The optional `agentic.txt` index is generated from that JSON and links to it. It never overrides the contract or grants permission.
-
-These comparisons describe the formats' roles, not a ranking or a guarantee about every implementation. Agentic does not replace authentication, authorization, durable storage, or service-side duplicate prevention.
-
-[Generate both files](https://ruagentic.org/generate/) · [Read the specification](https://ruagentic.org/spec/) · [Audit published files](https://ruagentic.org/audit/)
+Start with the [generator](https://ruagentic.org/generate/) and [specification](https://ruagentic.org/spec/). See [prior work](https://ruagentic.org/docs/PRIOR-ART.md) for related techniques and specifications.
 
 
 ---
@@ -437,9 +431,17 @@ Source: https://ruagentic.org/docs/FAQ.md
 
 # Frequently asked questions
 
+## Can I generate files by entering my website URL?
+
+Yes. The generator reads public docs, llms.txt, OpenAPI JSON, and advertised agent links, then generates a complete Site Profile 1.1.0 and its TXT index. It preserves an existing valid action contract. No action API is required for a site profile. Unavailable sources and scan limits appear in the report. [How generation works](https://ruagentic.org/docs/GENERATOR.md).
+
+## Does this configure my MCP server or create API endpoints?
+
+No. The files describe what your public sources advertise. A linked endpoint is not verified by invoking it, and publishing the files does not install a protocol or grant credentials.
+
 ## What is the current Agentic version?
 
-The current action profile is 1.0.0; the current tools are 1.1.0. The specification, JSON Schemas, CLI, and supporting services are available for direct use. The [governance guide](https://ruagentic.org/docs/GOVERNANCE.md) describes version compatibility and changes.
+The current action profile is 1.0.0; the current tools are 1.2.0. The specification, JSON Schemas, CLI, and supporting services are available for direct use. The [governance guide](https://ruagentic.org/docs/GOVERNANCE.md) describes version compatibility and changes.
 
 ## Will agents discover agentic.json automatically?
 
@@ -475,7 +477,7 @@ Use a sandbox and keep customer information, tokens, receipts, and ledgers priva
 
 ## Is there an npm package?
 
-Yes. Install [ruagentic from npm](https://www.npmjs.com/package/ruagentic) with `npm install -g ruagentic@1.1.0`. The same package is available from [GitHub releases](https://github.com/sam1siam/agentic/releases/tag/v1.1.0). Use [Get started](https://ruagentic.org/docs/GETTING-STARTED.md) for generation and validation commands. Node 24 or newer is required.
+Yes. Install [ruagentic from npm](https://www.npmjs.com/package/ruagentic) with `npm install -g ruagentic@1.2.0`. The same package is available from [GitHub releases](https://github.com/sam1siam/agentic/releases/tag/v1.2.0). Use [Get started](https://ruagentic.org/docs/GETTING-STARTED.md) for generation and validation commands. Node 24 or newer is required.
 
 ## Does Agentic require other agent files?
 
@@ -490,39 +492,49 @@ No standardized cross-project Agentic binding is claimed. The integration guide 
 
 Source: https://ruagentic.org/docs/GENERATOR.md
 
-# Agent file generators
+# Generate Agentic files from a website
 
-Open [the browser generator](https://ruagentic.org/generate/) to customize a ticket-contract starter. It runs locally in the browser and makes no service calls. Both `agentic.txt` and `agentic.json` are shown together. Copy or download either file, or choose **Download both files** for a ZIP containing the pair. The TXT index is generated from the validated JSON profile. JSON remains authoritative; see [the companion guide](https://ruagentic.org/docs/AGENTIC-TXT.md).
+Enter your website URL in [the generator](https://ruagentic.org/generate/) and select **Generate files**. The server reads public documentation, llms.txt, OpenAPI JSON, and linked agent connection information. It generates complete `agentic.json` and `agentic.txt` files from the sources it finds.
 
-Start with your service URL, action ID, and description. Expand **API settings** for the operation and evidence fields. HTTPS origins are normalized to remove a trailing slash. Downloads are disabled until the profile is valid.
+1. Enter a public HTTPS website, documentation page, or profile URL. A bare domain is accepted.
+2. Review the discovered sources and API operation count. **Read** means the document was retrieved; **Linked** means a source advertised the URL. Linked MCP endpoints are not invoked.
+3. Copy or download either file, or download the pair in one ZIP. The report records sources, failed reads, limits, and observation time.
+4. Publish both files at your site's root, usually from its `public` folder. For an existing contract at a nested URL, preserve its file location and TXT `Profile:` URL, or regenerate TXT for the destination with `--profile-url`. Run the [audit](https://ruagentic.org/audit/) after publishing.
 
-Editable settings: canonical HTTPS origin, action ID and description, OpenAPI path, submit/status/verify operation IDs, retention window, read path parameter names, resource/request/state JSON Pointers, accepted resource states, and one input/resource evidence pair. The full schema permits more evidence pairs and actions; edit the JSON for those cases.
+For a website without an existing action contract, the generator produces [Site Profile 1.1](https://ruagentic.org/docs/SITE-PROFILE.md): site details, documentation and protocol links, and an index of documented API operations. A site without an API can still publish a site profile. Existing valid Action Profile 1.0 contracts are preserved with matching TXT.
 
-The manual generator keeps the 1.0 recovery defaults: three checks, a 100 ms check delay, a 3000 ms request timeout, and `never-automatically` for mutation retries. It validates structure and semantic profile constraints. The OpenAPI import mode also checks operation bindings. Neither implements service behavior.
+The scanner does not invent ticket operations, request tracking, retention windows, or recovery guarantees. Public pages cannot establish those guarantees. Configure them only when implementing an [action contract](https://ruagentic.org/docs/SPEC.md).
 
-After generation, paste the profile and your actual OpenAPI document into [the validator](https://ruagentic.org/validate/), then run behavioral tests before publishing.
+## What the scan reads
 
-Local equivalent:
+Public HTML, Markdown/text, OpenAPI 3 JSON, llms.txt, existing Agentic JSON, and A2A/Agent Auth metadata. Selected same-origin documentation links are followed. Cross-origin links are listed without fetching them. Canonical www/non-www redirects are supported; private network addresses and other cross-origin redirects are rejected. JavaScript, login-protected pages, and YAML OpenAPI documents are not processed.
+
+Each scan has limits: 22 HTTP attempts, five concurrent documents, 1 MiB per response, 8 MiB of response-body allowance, with failed reads charged their full allowance, and a 40-second deadline plus a bounded DNS lookup. A report explains limits reached and unavailable sources. The files describe the discovered public material; the scan is not a full-site crawl or a protocol conformance test. Review them when your site changes and regenerate as needed.
+
+The browser creates a private session automatically; no API key or account setup is required. Saved reports expire after 30 days. The same scanner is available locally:
 
 ```sh
-npm run init -- --origin https://service.example --out agentic.json
+npm install -g ruagentic@1.2.0
+agentic discover https://your-site.com --out agentic-files
+agentic validate agentic-files/agentic.json
+agentic text agentic-files/agentic.json --check
 ```
 
-Optional `--action-id` changes the action identifier. Other ticket bindings remain unchanged until you edit the generated JSON. The initializer refuses to overwrite an existing path. `--help` shows supported flags. Node 24 is required. Install the standalone CLI using the [getting-started guide](https://ruagentic.org/docs/GETTING-STARTED.md).
+The output directory must be new. It contains both files and `discovery-report.json`. No remote source instructions are executed.
 
-## Import OpenAPI
+## Advanced: an action contract
 
-Select **Import OpenAPI** and upload or paste an OpenAPI 3.1 JSON document, up to 256 KiB. Choose the POST submission, GET request-status operation and GET resource-read operation. Set the service origin, tracking window, successful states and evidence pointers. The importer derives each read path parameter from the selected operation.
+Expand **Advanced: configure an action or import OpenAPI yourself** to use the manual builder or import OpenAPI. These tools run locally in the browser. Changing only the URL of the support-ticket example does not adapt it to another API.
 
-The preview validates the generated profile against the imported API. Resolve unsupported operation shapes and evidence requirements before downloading. **Download starter ZIP** includes `agentic.json`, its generated `agentic.txt`, the imported `openapi.json`, and an implementation checklist. It never uploads the file or infers durable tracking from the API description.
+The manual builder exposes the service origin, action name, OpenAPI path, submit/status/verify operation IDs, retention window, read path parameter names, result/request/state JSON Pointers, successful states, and one input/result comparison. The full action schema supports more actions and evidence pairs. Recovery defaults are three checks, a 100 ms delay, a 3000 ms request timeout, and no automatic repeat write.
 
-## Optional documentation index
+The importer accepts an OpenAPI 3.1 JSON file up to 256 KiB. Select real POST submission, GET request-status, and GET result operations, then supply the behavior and evidence your service implements. Its starter ZIP includes both Agentic files, OpenAPI, and an implementation checklist. Validate the bindings and test service behavior before publishing.
 
-Expand **Optional: create an llms.txt documentation index** to create an llms.txt starter. Enter your service name, origin, and description, then copy or download the file. It links to /docs/, /agentic.txt, and /agentic.json on that origin; edit the links to match your published files and omit unpublished optional files. The generator makes no network calls and does not enable protocols or grant authorization.
+The CLI's `agentic init --origin https://service.example` command remains an explicit ticket-contract starter. It does not scan a website. Use `discover` for automatic website generation.
 
-The generator produces Agentic JSON profiles and TXT companions, OpenAPI starter bundles, and this optional documentation index. It does not produce agents.txt or agents.json.
+## Optional llms.txt
 
-See [Protocol setup and status](https://ruagentic.org/docs/PROTOCOLS.md) for direct MCP, WebMCP, A2A, and Agent Auth connections. Agentic does not require another project's discovery manifest.
+The separate llms.txt builder creates a documentation index locally. Edit its links to match your published pages. Agentic does not generate or require agents.txt or agents.json. [Protocol setup](https://ruagentic.org/docs/PROTOCOLS.md) explains the project's MCP, WebMCP, A2A, and Agent Auth services.
 
 
 ---
@@ -531,53 +543,53 @@ Source: https://ruagentic.org/docs/GETTING-STARTED.md
 
 # Get started with Agentic
 
-Agentic's tools are publicly available at [ruagentic.org](https://ruagentic.org). Generate files, connect an agent, or install the CLI directly. No enrollment is required.
+## Generate and publish
 
-## Generate and validate
+1. Open [Generate](https://ruagentic.org/generate/), enter your website URL, and choose **Generate files**.
+2. Review the documentation, APIs, and advertised agent connections found by the scan.
+3. Download both files and publish them at `/agentic.json` and `/agentic.txt` on your domain.
+4. Run the [public audit](https://ruagentic.org/audit/) after publishing.
 
-1. Open the [generator](https://ruagentic.org/generate/). Import your OpenAPI document or adapt the ticket example.
-2. Bind the existing submit, request-status, and resource-read operations. The service must implement the behavior described by the profile.
-3. Download agentic.json and its optional generated agentic.txt index. Check the JSON with the [validator](https://ruagentic.org/validate/).
-4. Follow the [integration guide](https://ruagentic.org/docs/INTEGRATIONS.md) to connect your authorized client and publish the profile on your service origin.
-
-## Use the hosted platform
-
-The [platform](https://ruagentic.org/platform/) offers synthetic HTTP recovery checks, read-only public URL audits, and private report history with optional sharing. [Connect an agent](https://ruagentic.org/docs/PROTOCOLS.md) through the public MCP endpoint, supported WebMCP browser tools, A2A tasks, or autonomous Agent Auth.
-
-The hosted ticket service operates on synthetic data. Your own business actions run on your service under your host's authorization and operational controls.
+The [site profile](https://ruagentic.org/docs/SITE-PROFILE.md) works with public documentation even when no API is available. To implement request recovery, use an [action contract](https://ruagentic.org/docs/SPEC.md) and the [integration guide](https://ruagentic.org/docs/INTEGRATIONS.md). Its operations and behavior must match your service.
 
 ## Install the CLI
 
-Requires Node 24. Install the versioned [ruagentic CLI from npm](https://www.npmjs.com/package/ruagentic):
+Node 24 or newer is required.
 
 ```sh
-npm install -g ruagentic@1.1.0
-agentic init --origin https://your-service.example
-agentic text agentic.json
-agentic text agentic.json --check
-agentic validate agentic.json openapi.json
+npm install -g ruagentic@1.2.0
+agentic discover https://your-site.com --out agentic-files
+agentic validate agentic-files/agentic.json
+agentic text agentic-files/agentic.json --check
 ```
 
-The initializer creates a ticket-contract starter. `text` generates the optional TXT index; `--check` detects summary drift. [TXT format and publication](https://ruagentic.org/docs/AGENTIC-TXT.md) explains non-default profile URLs. Adapt it to your service and supply its OpenAPI document before validating. The tarball and its checksums are available in the [GitHub release](https://github.com/sam1siam/agentic/releases/tag/v1.1.0).
+The new output directory contains both files and a discovery report. Publish the pair, then run:
+
+```sh
+agentic audit https://your-site.com/agentic.json
+```
+
+`agentic text` regenerates TXT from either supported JSON type. `--check` detects drift. The separate `agentic init --origin https://service.example` command creates a ticket-contract starter requiring manual adaptation. Validate that action contract with `agentic validate agentic.json openapi.json`.
+
+The package and checksums are available in the [GitHub release](https://github.com/sam1siam/agentic/releases/tag/v1.2.0).
 
 ## Add validation to GitHub Actions
 
-After checking out your repository, add:
+After checking out your repository:
 
 ```yaml
-- uses: sam1siam/agentic@v1.1.0
+- uses: sam1siam/agentic@v1.2.0
   with:
     profile: agentic.json
-    openapi: openapi.json
 ```
 
-An [agent skill](https://github.com/sam1siam/agentic/releases/download/v1.1.0/agentic-adoption-skill.zip) is also available. It guides a coding agent through file generation, validation, and implementation checks.
+For an action profile, also set `openapi: openapi.json` to check its operation bindings. The [agent skill](https://github.com/sam1siam/agentic/releases/download/v1.2.0/agentic-adoption-skill.zip) guides a coding agent through publication and validation.
 
-## Build and contribute
+## Connect or contribute
 
-Use the [local HTTP quick start](https://ruagentic.org/docs/QUICKSTART.md) and [compatibility runner](https://ruagentic.org/docs/COMPATIBILITY.md) to exercise your client. Report bugs, suggest improvements, or share implementations through [GitHub issues](https://github.com/sam1siam/agentic/issues/new/choose). Contributions and public reports are optional.
+[Connect an agent](https://ruagentic.org/docs/PROTOCOLS.md) through MCP, conditional WebMCP, or the hosted A2A and Agent Auth services. The [platform](https://ruagentic.org/docs/PLATFORM.md) provides private scan/audit reports and synthetic HTTP recovery checks. Reports expire after 30 days. Your business actions remain on your service.
 
-Use the `1.0.0` profile and pin your tool version. Review the specification's service and host requirements when integrating, and configure a supporting client with your profile URL. For existing integrations, follow the [1.0 migration guide](https://ruagentic.org/docs/MIGRATION.md); preserve original contracts and clients for unfinished requests.
+Use the [HTTP quick start](https://ruagentic.org/docs/QUICKSTART.md) and [compatibility runner](https://ruagentic.org/docs/COMPATIBILITY.md) when implementing action recovery. Existing action profiles remain at 1.0.0; preserve the original contracts and clients for unfinished requests. Tools 1.2.0 add Site Profile 1.1.0 without changing action or receipt semantics. Contributions are welcome through [GitHub](https://github.com/sam1siam/agentic).
 
 
 ---
@@ -673,14 +685,14 @@ Agentic 1.0.0 uses explicit version identifiers for the action profile, receipt,
 
 ## New actions
 
-1. Install and pin `ruagentic@1.1.0` and the matching service/client implementation.
+1. Install and pin `ruagentic@1.2.0` and the matching service/client implementation.
 2. Set the profile's `agentic` field to `1.0.0`. Use `agentic-1.0.schema.json` for profile validation and `receipt-1.0.schema.json` for receipt validation.
 3. Generate new receipts with the `1.0.0` version identifier. Preserve historical receipts exactly as recorded; changing their version would not retest or reverify the original action.
 4. Revalidate the profile against the service's actual OpenAPI document and run behavioral checks for request tracking, idempotency, status reconciliation, and resource evidence.
 5. Regenerate `agentic.txt` from the validated profile. Its header is `Agentic-Text: 1.0` and its `Profile-Version` is `1.0.0`. Deploy the JSON and TXT together.
 
 ```sh
-npm install -g ruagentic@1.1.0
+npm install -g ruagentic@1.2.0
 agentic validate agentic.json openapi.json
 agentic text agentic.json
 agentic text agentic.json --check
@@ -703,27 +715,27 @@ Source: https://ruagentic.org/docs/OVERVIEW.md
 
 # Agentic
 
-> Help agents know what happened.
+**Make your website readable to agents.** Enter your URL to generate `agentic.json` and `agentic.txt` from public documentation, API descriptions, llms.txt, and advertised agent connections.
 
-`agentic.txt` lists the actions your service offers. `agentic.json` tells an agent how to check their results and recover when a response is lost. Generate both files from the same settings and publish them on your domain.
+## Start with your website
 
-## Start here
+1. [Generate](https://ruagentic.org/generate/): scan a public URL, review discovered sources, and download both files.
+2. Publish the pair at `/agentic.json` and `/agentic.txt` on your domain.
+3. [Audit](https://ruagentic.org/audit/): check the published JSON, linked documents, and matching text index.
 
-1. [Generate](https://ruagentic.org/generate/): Describe your action or import OpenAPI. View both files, copy either one, or download the pair.
-2. [Spec](https://ruagentic.org/spec/): Read the file format, required fields, and service responsibilities.
-3. [Audit](https://ruagentic.org/audit/): Check your public files, API operations, and TXT consistency.
-4. [Compare](https://ruagentic.org/compare/): See how Agentic fits alongside related formats.
-5. [About](https://ruagentic.org/about/): Purpose, maintainers, and contribution paths.
+The JSON is the structured source of truth. The TXT file is a readable index generated from it. No central registry is required.
 
-## Connect your API
+## Two profile types
 
-Agentic Action Profile 1.0 connects one submission operation, a request-status lookup, and a resulting-resource read from an OpenAPI 3.1 document. A supporting client saves the request before sending, checks the original result, and records a receipt after verifying the evidence. An unresolved result remains pending or unknown.
+[Site Profile 1.1](https://ruagentic.org/docs/SITE-PROFILE.md) describes documentation, OpenAPI operations, and advertised MCP, A2A, or Agent Auth links. It can be generated from public sources. A linked endpoint is not a verified service or an authorization grant. The scanner reads a bounded selection of public sources; it does not execute API actions or MCP tools.
 
-JSON is the authoritative contract. TXT is its optional generated index. The files describe behavior that your service and client must implement; authentication, authorization, durable tracking, and duplicate prevention remain necessary.
+[Action Profile 1.0](https://ruagentic.org/docs/SPEC.md) describes how a supporting client submits an action once, checks the original request, and verifies its result after a lost response. Its service must implement durable request tracking and the stated evidence checks. Existing valid action profiles are preserved during generation; missing recovery behavior is never inferred.
 
-Use the [documentation](https://ruagentic.org/docs/) for implementation guides, examples, the local validator, and recovery tools. [Connect an agent](https://ruagentic.org/connect/) through the supported MCP, WebMCP, A2A, and Agent Auth paths. The site's own [TXT](https://ruagentic.org/agentic.txt) and [JSON](https://ruagentic.org/agentic.json) describe its hosted synthetic ticket service.
+## Tools and documentation
 
-Action Profile 1.0.0 and tools 1.1.0 are available under Apache-2.0. No central registry is required. [Source and releases](https://github.com/sam1siam/agentic) · [npm package](https://www.npmjs.com/package/ruagentic)
+Tools 1.2.0 support Site Profile 1.1.0, Action Profile 1.0.0, and their generated TXT indexes. Code and specifications are Apache-2.0. [Install the CLI](https://ruagentic.org/docs/GETTING-STARTED.md), [compare formats](https://ruagentic.org/docs/COMPARE.md), or [connect an agent](https://ruagentic.org/docs/PROTOCOLS.md).
+
+The [hosted platform](https://ruagentic.org/docs/PLATFORM.md) also provides synthetic recovery checks and private reports. Our root Agentic files describe that ticket service. The reference consumers and tests are project-authored; no independent adoption or standards endorsement is claimed.
 
 
 ---
@@ -731,6 +743,10 @@ Action Profile 1.0.0 and tools 1.1.0 are available under Apache-2.0. No central 
 Source: https://ruagentic.org/docs/PLATFORM.md
 
 # Hosted testing platform
+
+## Website discovery
+
+`POST /api/platform/discover` accepts `{ "url": "https://your-site.com" }` for an owner authenticated by the browser session or platform credentials. The generator creates its browser session automatically. Reports use kind `discovery`, remain private, and expire after 30 days. Limits are three scans per minute per owner and six per minute per client IP, including hosted MCP discovery calls. [Scanner limits](https://ruagentic.org/docs/SITE-PROFILE.md#discovery-and-auditing) bound network reads and file generation. No database migration is required beyond the existing report store.
 
 The [Agentic platform](https://ruagentic.org/platform/) runs synthetic recovery tests over HTTP with a PostgreSQL service and request ledger. This is separate from the browser lab simulation and the loopback Python reference service.
 
@@ -801,6 +817,8 @@ Source: https://ruagentic.org/docs/PROTOCOLS.md
 
 # MCP, WebMCP, A2A, and Agent Auth
 
+Tools 1.2.0 add `discover_agentic_site` to local and hosted MCP and the generator's conditional WebMCP tools. It accepts `{ "url": "https://your-site.com" }` and returns both files with a discovery report. It reads public documents and records advertised protocol URLs without invoking discovered tools. [Site Profile 1.1](https://ruagentic.org/docs/SITE-PROFILE.md) can list these links; the 1.0 action schema remains unchanged.
+
 Agentic 1.0 describes action tracking and recovery through OpenAPI. Discovery, tool transport, agent messaging, and authorization keep their own protocols. Adding a declaration does not implement a protocol.
 
 ## Current implementation
@@ -816,7 +834,7 @@ Use the [connection guide](https://ruagentic.org/connect/) for client examples a
 
 ## Public endpoints
 
-- MCP: `https://ruagentic.org/mcp`. Four read-only tools; no token required. The additional hosted tool is `audit_agentic_url` with `{ "url": "https://your-service.example/agentic.json" }`.
+- MCP: `https://ruagentic.org/mcp`. Five read-only tools; no token required. The additional hosted tool is `audit_agentic_url` with `{ "url": "https://your-service.example/agentic.json" }`.
 - A2A card: `https://ruagentic.org/.well-known/agent-card.json`; endpoint: `https://ruagentic.org/a2a`. Create a private session token in the platform. Send `Authorization: Bearer <token>` and `A2A-Version: 1.0`. `SendMessage` accepts a data part with `{ "kind": "recovery", "scenario": "response-lost" }` or `{ "kind": "audit", "url": "..." }`. Retrieve results with `GetTask` and the returned ID.
 - Agent Auth: `https://ruagentic.org/.well-known/agent-configuration`. Configure the official `@auth/agent` client with `urls: ['https://ruagentic.org']` for direct discovery. Autonomous capabilities are `agentic.validate` and `agentic.sandbox.run`.
 
@@ -841,17 +859,18 @@ On Windows, use a JSON-escaped absolute path such as `C:\\projects\\agentic\\ref
 
 Tools:
 
-- `get_agentic_spec`: returns the specification bundled with the checkout.
+- `discover_agentic_site`: takes a public website `url` and returns both files plus a source report.
+- `get_agentic_spec`: returns the site and action specifications bundled with the checkout.
 - `generate_agentic_profile`: takes `origin` and optional `actionId`, returns the ticket starter and validation result.
 - `validate_agentic_profile`: takes JSON text in `profile` and optional `openapi`. Limits: 64 KiB and 256 KiB respectively.
 
-The server uses the official MCP TypeScript SDK 2.0.0. Tools read local bundled documentation or process supplied text. They never fetch a URL, execute the ticket action, store inputs, or download a file. The host remains responsible for permissions and its own logging. No credentials are required for these local tools.
+The server uses the official MCP TypeScript SDK 2.0.0. Specification, manual generation, and validation tools work on bundled documents or supplied text. Discovery reads bounded public HTTPS sources. None executes the ticket action or writes local files. The host remains responsible for permissions and its own logging. No credentials are required for these local tools.
 
 ## Use WebMCP page tools
 
 Open /generate/, /validate/, or /lab/ in a compatible browser. Each page registers its tool through `document.modelContext.registerTool` when available and unregisters on unmount using an abort signal. This follows the current WebMCP specification; earlier browser implementations may expose a different API. The regular page controls work without WebMCP.
 
-The generator returns profile data without changing the page. Validation and lab tools update the visible result. The lab remains a browser simulation, not an HTTP execution test. Registration is conditional and is not a claim that a particular agent host can invoke these tools.
+Website discovery updates the visible generator and returns both files with its report. The advanced action-template tool returns profile data without changing the page. Validation and lab tools update the visible result. The lab remains a browser simulation, not an HTTP execution test. Registration is conditional and is not a claim that a particular agent host can invoke these tools.
 
 ## Documentation and direct connections
 
@@ -859,7 +878,7 @@ Use the endpoint URLs above and the [connection guide](https://ruagentic.org/con
 
 The generated /agentic.txt index links to the live synthetic service profile at /agentic.json. It is a reading aid, not a protocol or authorization manifest. The optional /llms.txt index links to Agentic documentation and connection instructions. In the [generator](https://ruagentic.org/generate/), expand **Optional: create an llms.txt documentation index** to create an llms.txt starter for your service. Edit its /docs/, /agentic.txt, and /agentic.json links to match your published files. The generator makes no network calls.
 
-The Agentic profile remains a separate action contract. Do not add protocol fields to agentic.json: unknown fields are rejected by the 1.0 schema. Pass the profile URL explicitly or link it from documentation.
+Action Profile 1.0 remains a separate action contract; its schema rejects added protocol fields. Site Profile 1.1 uses its versioned resources array for descriptive protocol links. Pass the profile URL explicitly or link it from documentation.
 
 ## Implement A2A and Agent Auth
 
@@ -966,6 +985,8 @@ Source: https://ruagentic.org/docs/README.md
 
 # Agentic documentation
 
+Start by [generating files from a website](https://ruagentic.org/docs/GENERATOR.md). [Site Profile 1.1](https://ruagentic.org/docs/SITE-PROFILE.md) defines public resources, documented API indexes, and TXT 1.1. [Action Profile 1.0](https://ruagentic.org/docs/SPEC.md) defines optional request recovery and result verification. Tools 1.2.0 support both types.
+
 > Guides and reference material for Agentic Action Profile 1.0.
 
 ## Start here
@@ -1061,6 +1082,8 @@ Source: https://ruagentic.org/docs/SITE-MAP.md
 
 # Published routes and capabilities
 
+The primary `/generate/` flow scans a website and produces both files through `POST /api/platform/discover`. [Site Profile 1.1](https://ruagentic.org/docs/SITE-PROFILE.md) and `/schemas/site-1.1.schema.json` describe the output. Manual action configuration remains under Advanced.
+
 This inventory distinguishes browser tools, hosted services and the separate local reference API.
 
 | Route                            | What is available                                                                                       |
@@ -1102,9 +1125,115 @@ The hosted runtime uses PostgreSQL and Node 24 Vercel Functions; see [platform o
 
 ---
 
+Source: https://ruagentic.org/docs/SITE-PROFILE.md
+
+# Agentic Site Profile 1.1
+
+Version: 1.1.0. Released: 2026-09-07. License: Apache-2.0.
+
+A site profile describes a website's public documentation, APIs, and advertised agent connections. A publisher can generate it from public sources without defining an executable action contract. Serve the JSON at `/agentic.json` and its generated text index at `/agentic.txt`.
+
+This is an additive profile type. Action Profile 1.0.0 and receipt 1.0.0 retain their published requirements. A site profile is not an action profile and MUST NOT be passed to the action executor. A supporting client uses the linked API or protocol's own contract and authorization rules.
+
+## Required JSON fields
+
+The [site schema](https://ruagentic.org/schemas/site-1.1.schema.json) defines exact fields and limits. Unknown fields are rejected.
+
+| Field | Meaning |
+| --- | --- |
+| `agentic` | Exactly `1.1.0`. |
+| `type` | Exactly `site`; distinguishes descriptive site information from action execution contracts. |
+| `origin` | Canonical HTTPS origin of the website. |
+| `name` | Site name, up to 160 characters. |
+| `description` | Public site description, up to 600 characters. |
+| `resources` | One to forty resource records. At least one must identify a retrieved source. |
+| `apis` | Zero to five OpenAPI indexes, each with up to 160 operations. |
+
+The optional `$schema` is `https://ruagentic.org/schemas/site-1.1.schema.json`. Tools MUST pin the supported schema locally and MUST NOT fetch a publisher-supplied schema URI.
+
+## Resource records
+
+Each resource requires `kind`, `url`, `source`, and `availability`. An optional `title` is at most 160 characters.
+
+- `kind`: `website`, `documentation`, `llms`, `openapi`, `mcp`, `a2a`, `agent-auth`, or `agentic`.
+- `url`: the resource's HTTPS URL.
+- `source`: the public document from which the URL was discovered. A directly retrieved well-known file may name itself as the source.
+- `availability`: `retrieved` when the document was successfully read, or `linked` when a retrieved source referenced it.
+
+URLs are at most 2048 characters and MUST NOT contain credentials, queries, fragments, or alternate ports. Explicit local/private IP addresses and localhost links are rejected. A `(kind, url)` pair MUST be unique.
+
+An external connection can be listed as `linked`. That does not establish ownership, protocol conformance, authorization, or permission to forward credentials. `retrieved` records the publisher's observation of a document, not an independent attestation. Consumers MUST independently enforce their network and authorization policies.
+
+## OpenAPI indexes
+
+Each API has `document`, `openapi`, and `operations`. `document` MUST reference a `retrieved` OpenAPI resource in the same profile. The index copies facts from that document:
+
+- `method`: GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS, or TRACE.
+- `path`: the documented API path, up to 512 characters. It starts with one `/` and contains no query, fragment, or backslash.
+- Optional `operationId`: copied verbatim when present, up to 160 characters. Missing identifiers MUST NOT be invented.
+- Optional `summary`: public operation summary, up to 240 characters.
+
+Method/path pairs MUST be unique within an API. The full OpenAPI document remains authoritative, including server URLs, security requirements, parameters, and response schemas. Indexed operations are descriptions, not executable Agentic actions.
+
+No retention window, idempotency guarantee, request/result correlation, success state, or recovery rule may be inferred merely from operation names or marketing descriptions. Those require the separately defined [Action Profile 1.0](https://ruagentic.org/docs/SPEC.md) and a conforming implementation.
+
+## TXT 1.1
+
+Generate the text index from validated JSON. JSON remains authoritative. Site TXT uses:
+
+```text
+# Agentic site index
+# Generated from JSON. Resources are discovery information, not execution instructions.
+Agentic-Text: 1.1
+Profile: https://service.example/agentic.json
+Profile-Version: 1.1.0
+Type: site
+Origin: https://service.example
+Name: "Example service"
+Description: "Public API and documentation."
+
+Resource: "documentation" "https://service.example/docs"
+Availability: retrieved
+Source: "https://service.example/docs"
+```
+
+Resources follow JSON array order; optional titles use `Title: <quoted string>`. API sections use `OpenAPI: <quoted document URL>`, `OpenAPI-Version: <quoted version>`, and one `Operation: <quoted method> <quoted path> [<quoted operation ID>]` per indexed operation. Empty lines separate records. Strings use JSON quoting with control, directional, and invisible formatting characters escaped by the published generator. TXT does not reconstruct an executable contract.
+
+The `Profile:` URL MUST share the profile origin and contain no credentials, query, or fragment. Serve both files as UTF-8; use `application/json` and `text/plain; charset=utf-8`. Keep each generated file within 64 KiB. Action TXT 1.0 remains byte-compatible and unchanged.
+
+## Discovery and auditing
+
+The website generator reads public HTML, text/Markdown, JSON metadata, and OpenAPI 3 JSON documents. It follows same-origin links selected as documentation or API descriptions and checks conventional Agentic, OpenAPI, llms.txt, A2A, and Agent Auth metadata paths. It records advertised MCP URLs without invoking tools. It does not run browser JavaScript or access login-protected documents.
+
+The scan permits up to three redirects per document, only on the same HTTPS origin or its exact www/non-www counterpart. Every hop is checked against public-only DNS/IP rules. Redirect bodies are closed immediately. Cross-origin documentation and connection links are recorded without being fetched.
+
+Limits: twenty-two HTTP attempts, five concurrent documents, one MiB per response, eight MiB of response-body allowance, with failed reads charged their full allowance, and a forty-second scan deadline, with a bounded DNS lookup finishing at most five seconds later. Sources or operation indexes may be shortened to keep the file size bounded; the report explains truncation. The report records failures and the observation time.
+
+If a valid existing action profile is found, the generator preserves it and regenerates its matching TXT. The root profile takes priority over nested profiles, unless the user explicitly supplied another profile URL. Missing OpenAPI binding checks are reported, not invented.
+
+The auditor validates site structure, the serving origin, matching TXT, and up to five retrieved same-origin documents, prioritizing OpenAPI operation indexes. Linked or external protocols are not invoked. Its `valid` field excludes optional TXT consistency, which remains in `textIndex` and `checks`; require `valid && textIndex.status === "matched"` when enforcing a matching pair.
+
+## Tools and compatibility
+
+Tools 1.2.0 support Site Profile 1.1.0 alongside Action Profile 1.0.0. Earlier tools must be upgraded to read the site profile. The 1.0 action executor intentionally rejects site profiles before any ledger or network access. Existing action contracts, receipts, and in-flight request identities must not be relabeled.
+
+```sh
+npm install -g ruagentic@1.2.0
+agentic discover https://your-site.example --out agentic-files
+agentic validate agentic-files/agentic.json
+agentic text agentic-files/agentic.json --check
+```
+
+The `discover` command creates a new directory containing both files and a discovery report; it refuses to overwrite an existing directory. The `discover_agentic_site` tool exposes the same scanner through local and hosted MCP. The generator page also exposes it through WebMCP when the browser supports that API.
+
+
+---
+
 Source: https://ruagentic.org/docs/SPEC.md
 
 # Agentic Action Profile 1.0
+
+For automatically generated website resources and API indexes, see [Site Profile 1.1](https://ruagentic.org/docs/SITE-PROFILE.md). This document continues to define Action Profile 1.0 only; its published execution requirements are unchanged.
 Version: 1.0.0. Released: 2026-09-07.
 Maintainer: [sam1siam](https://github.com/sam1siam). License: Apache-2.0.
 This document defines the Agentic JSON action profile. The optional [agentic.txt companion](https://ruagentic.org/docs/AGENTIC-TXT.md) is a separate generated reading aid and does not change this profile schema or its execution requirements.
@@ -1220,7 +1349,7 @@ Source: https://ruagentic.org/docs/VALIDATOR.md
 
 # Profile validator
 
-The [browser validator](https://ruagentic.org/validate/) checks pasted `agentic.json` against the pinned 1.0 schema and semantic rules. An optional pasted OpenAPI document enables operation-binding checks. It does not fetch external schemas, inspect live services, or execute actions.
+The [browser validator](https://ruagentic.org/validate/) checks pasted `agentic.json` against the pinned Site Profile 1.1 or Action Profile 1.0 schema and semantic rules. An optional pasted OpenAPI document enables action operation-binding checks. Site profiles check resource provenance and operation-index structure locally; use the public audit for live document checks. It does not fetch external schemas, inspect live services, or execute actions.
 
 Use the profile and OpenAPI tabs, load the ticket example or paste your own files, and select **Validate profile**. Editing either file clears the old result. Profile input is limited to 64 KiB and OpenAPI input to 256 KiB. The copy action copies the profile JSON.
 

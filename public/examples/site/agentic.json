@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ruagentic.org/schemas/site-1.1.schema.json",
+  "agentic": "1.1.0",
+  "type": "site",
+  "origin": "https://service.example",
+  "name": "Example service",
+  "description": "Public documentation and API resources for an example website.",
+  "resources": [
+    {
+      "kind": "documentation",
+      "url": "https://service.example/docs",
+      "source": "https://service.example/",
+      "availability": "retrieved"
+    },
+    {
+      "kind": "mcp",
+      "url": "https://service.example/mcp",
+      "source": "https://service.example/docs",
+      "availability": "linked"
+    }
+  ],
+  "apis": []
+}

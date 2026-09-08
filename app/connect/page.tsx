@@ -42,7 +42,12 @@ export default function Page() {
         </p>
         <ul>
           <li>
-            <code>get_agentic_spec</code> reads the Agentic specification.
+            <code>discover_agentic_site</code> scans a public website and
+            returns both files with a source report.
+          </li>
+          <li>
+            <code>get_agentic_spec</code> reads the site and action
+            specifications.
           </li>
           <li>
             <code>generate_agentic_profile</code> creates a ticket-contract
@@ -146,7 +151,7 @@ try {
           <a href="https://www.npmjs.com/package/ruagentic">npm</a> with Node
           24, then initialize or validate a profile.
         </p>
-        <pre className="code-block">{`npm install -g ruagentic@1.1.0
+        <pre className="code-block">{`npm install -g ruagentic@1.2.0
 agentic init --origin https://your-service.example
 agentic text agentic.json
 agentic validate agentic.json openapi.json`}</pre>
@@ -161,13 +166,13 @@ agentic validate agentic.json openapi.json`}</pre>
           </a>
           .
         </p>
-        <pre className="code-block">{`- uses: sam1siam/agentic@v1.1.0
+        <pre className="code-block">{`- uses: sam1siam/agentic@v1.2.0
   with:
     profile: agentic.json
     openapi: openapi.json`}</pre>
       </section>
       <div className="notice">
-        Action Profile 1.0.0 and tools 1.1.0 provide the contract and
+        Action Profile 1.0.0 and tools 1.2.0 provide the contract and
         connections. Test reports record observed behavior; they do not certify
         another service.
       </div>

@@ -3,7 +3,7 @@ export const dynamic = 'force-static';
 export const metadata = {
   title: 'Generate Agentic files',
   description:
-    'Create agentic.txt and agentic.json together. Customize an action or import OpenAPI, then copy or download both files.',
+    'Enter your website URL. Scan public documentation, APIs, llms.txt, and agent connections to generate agentic.json and agentic.txt automatically.',
   alternates: {
     canonical: 'https://ruagentic.org/generate/',
     types: { 'text/markdown': '/generate/index.md' },

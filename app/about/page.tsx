@@ -15,28 +15,30 @@ export default function AboutPage() {
       <div className="page-heading compact-heading">
         <p className="eyebrow">About</p>
         <h1>
-          Clear files for <span>agent actions.</span>
+          Clear files for <span>AI agents.</span>
         </h1>
         <p>
-          Agentic helps an AI agent check the result of an API action—even when
-          the response is interrupted.
+          Agentic helps agents find your documentation, APIs, and agent
+          connections, and gives supporting clients a contract for checking
+          action results.
         </p>
       </div>
       <section className="reading-section">
         <h2>Why does it exist?</h2>
         <p>
-          A service can complete an action before its reply reaches the agent.
-          Repeating that request can create a duplicate. Agentic describes where
-          to look up the original request and what to check before reporting
-          success.
+          Public information is easier to use when an agent can find it in a
+          structured file. For action recovery, a service can complete an action
+          before its reply reaches the agent. Repeating that request can create
+          a duplicate. Agentic describes where to look up the original request
+          and what to check before reporting success.
         </p>
       </section>
       <section className="reading-section">
         <h2>Why two files?</h2>
         <p>
-          <code>agentic.json</code> contains the full action contract.{' '}
-          <code>agentic.txt</code> is a short, generated index of its actions.
-          Update the JSON first, then regenerate the text file.
+          <code>agentic.json</code> contains the structured site profile or
+          action contract. <code>agentic.txt</code> is its readable, generated
+          index. Update the JSON first, then regenerate the text file.
         </p>
         <div className="doc-utilities">
           <a href="/agentic.txt">Our agentic.txt →</a>
@@ -47,11 +49,12 @@ export default function AboutPage() {
       <section className="reading-section">
         <h2>What do I need to use it?</h2>
         <p>
-          An API that supports request tracking, status lookup, and result
-          reads, plus a client that implements the Agentic contract. The project
-          includes a generator, auditor, CLI, and Node and Python clients.
-          Publishing files does not change your API’s behavior or automatically
-          add support to every agent.
+          A public website is enough to generate a site profile. Action recovery
+          additionally requires an API with request tracking, status lookup, and
+          result reads, plus a supporting client. The project includes a
+          generator, auditor, CLI, and Node and Python clients. Publishing files
+          does not change your API’s behavior or automatically add support to
+          every agent.
         </p>
         <div className="doc-utilities">
           <Link href="/generate">Generate files →</Link>
@@ -63,8 +66,8 @@ export default function AboutPage() {
         <p>
           Agentic is maintained by{' '}
           <a href="https://github.com/sam1siam">sam1siam</a>. The specification,
-          schemas, and tools are open source under Apache-2.0. Format 1.0 is the
-          published contract; tools are available as the{' '}
+          schemas, and tools are open source under Apache-2.0. Site Profile 1.1
+          and Action Profile 1.0 are supported; tools are available as the{' '}
           <a href="https://www.npmjs.com/package/ruagentic">
             ruagentic npm package
           </a>
@@ -79,10 +82,10 @@ export default function AboutPage() {
       <section className="reading-section">
         <h2>What does this website run?</h2>
         <p>
-          The generator works in your browser. The auditor reads public HTTPS
-          files. Recovery tools use an isolated ticket service to check
-          interrupted requests with synthetic data. Our root Agentic files
-          describe that service.
+          The website generator and auditor read public HTTPS documents on the
+          server. The advanced manual builder runs in your browser. Recovery
+          tools use an isolated ticket service to check interrupted requests
+          with synthetic data. Our root Agentic files describe that service.
         </p>
         <p>
           MCP, WebMCP, A2A, and Agent Auth connections are documented in the{' '}

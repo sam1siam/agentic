@@ -1,23 +1,23 @@
 # Agentic
 
-> Help agents know what happened.
+**Make your website readable to agents.** Enter your URL to generate `agentic.json` and `agentic.txt` from public documentation, API descriptions, llms.txt, and advertised agent connections.
 
-`agentic.txt` lists the actions your service offers. `agentic.json` tells an agent how to check their results and recover when a response is lost. Generate both files from the same settings and publish them on your domain.
+## Start with your website
 
-## Start here
+1. [Generate](https://ruagentic.org/generate/): scan a public URL, review discovered sources, and download both files.
+2. Publish the pair at `/agentic.json` and `/agentic.txt` on your domain.
+3. [Audit](https://ruagentic.org/audit/): check the published JSON, linked documents, and matching text index.
 
-1. [Generate](https://ruagentic.org/generate/): Describe your action or import OpenAPI. View both files, copy either one, or download the pair.
-2. [Spec](https://ruagentic.org/spec/): Read the file format, required fields, and service responsibilities.
-3. [Audit](https://ruagentic.org/audit/): Check your public files, API operations, and TXT consistency.
-4. [Compare](https://ruagentic.org/compare/): See how Agentic fits alongside related formats.
-5. [About](https://ruagentic.org/about/): Purpose, maintainers, and contribution paths.
+The JSON is the structured source of truth. The TXT file is a readable index generated from it. No central registry is required.
 
-## Connect your API
+## Two profile types
 
-Agentic Action Profile 1.0 connects one submission operation, a request-status lookup, and a resulting-resource read from an OpenAPI 3.1 document. A supporting client saves the request before sending, checks the original result, and records a receipt after verifying the evidence. An unresolved result remains pending or unknown.
+[Site Profile 1.1](SITE-PROFILE.md) describes documentation, OpenAPI operations, and advertised MCP, A2A, or Agent Auth links. It can be generated from public sources. A linked endpoint is not a verified service or an authorization grant. The scanner reads a bounded selection of public sources; it does not execute API actions or MCP tools.
 
-JSON is the authoritative contract. TXT is its optional generated index. The files describe behavior that your service and client must implement; authentication, authorization, durable tracking, and duplicate prevention remain necessary.
+[Action Profile 1.0](SPEC.md) describes how a supporting client submits an action once, checks the original request, and verifies its result after a lost response. Its service must implement durable request tracking and the stated evidence checks. Existing valid action profiles are preserved during generation; missing recovery behavior is never inferred.
 
-Use the [documentation](https://ruagentic.org/docs/) for implementation guides, examples, the local validator, and recovery tools. [Connect an agent](https://ruagentic.org/connect/) through the supported MCP, WebMCP, A2A, and Agent Auth paths. The site's own [TXT](https://ruagentic.org/agentic.txt) and [JSON](https://ruagentic.org/agentic.json) describe its hosted synthetic ticket service.
+## Tools and documentation
 
-Action Profile 1.0.0 and tools 1.1.0 are available under Apache-2.0. No central registry is required. [Source and releases](https://github.com/sam1siam/agentic) · [npm package](https://www.npmjs.com/package/ruagentic)
+Tools 1.2.0 support Site Profile 1.1.0, Action Profile 1.0.0, and their generated TXT indexes. Code and specifications are Apache-2.0. [Install the CLI](GETTING-STARTED.md), [compare formats](COMPARE.md), or [connect an agent](PROTOCOLS.md).
+
+The [hosted platform](PLATFORM.md) also provides synthetic recovery checks and private reports. Our root Agentic files describe that ticket service. The reference consumers and tests are project-authored; no independent adoption or standards endorsement is claimed.

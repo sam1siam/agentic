@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://ruagentic.org'),
   icons: { icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }] },
   title: {
-    default: 'Agentic — A verifiable outcome for agent actions',
+    default: 'Agentic — Make your website readable to agents',
     template: '%s · Agentic',
   },
   description:
-    'Create agentic.txt and agentic.json for your API. Describe actions, check their results, and recover when a response is lost. Generate files, read the spec, and audit your website.',
+    'Generate agentic.json and agentic.txt from your website’s public documentation, APIs, llms.txt, and agent connections. Publish the files and audit them on your domain.',
 };
 export default function RootLayout({
   children,

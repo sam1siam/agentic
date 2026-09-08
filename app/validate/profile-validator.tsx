@@ -7,9 +7,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import sample from '@/examples/tickets/agentic.json';
 import api from '@/examples/tickets/openapi.json';
-import { validateProfile } from '@/lib/validation';
+import { validateAgenticDocument } from '@/lib/site-profile';
 import { registerPageTool } from '@/lib/webmcp';
-type Report = ReturnType<typeof validateProfile>;
+type Report = ReturnType<typeof validateAgenticDocument>;
 export default function ProfileValidator() {
   const [text, setText] = useState(JSON.stringify(sample, null, 2)),
     [apiText, setApiText] = useState(JSON.stringify(api, null, 2)),
@@ -25,7 +25,7 @@ export default function ProfileValidator() {
         throw new Error(
           'Profile limit: 64 KiB. OpenAPI document limit: 256 KiB.',
         );
-      result = validateProfile(
+      result = validateAgenticDocument(
         JSON.parse(profileText),
         openapiText.trim() ? JSON.parse(openapiText) : undefined,
       );
@@ -80,8 +80,9 @@ export default function ProfileValidator() {
           Are you <span>agentic?</span>
         </h1>
         <p>
-          Check a profile against the versioned schema and its OpenAPI operation
-          bindings. Everything stays in this browser.
+          Check a site or action profile against its versioned schema. For
+          action profiles, optionally check OpenAPI operation bindings.
+          Everything stays in this browser.
         </p>
       </div>
       <div className="validator-grid">

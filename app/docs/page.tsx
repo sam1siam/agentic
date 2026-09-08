@@ -11,6 +11,18 @@ export const metadata = {
 };
 const guides = [
   [
+    'Start here',
+    'Generate from your website',
+    'Scan public documentation, APIs, llms.txt, and advertised agent connections to generate both files.',
+    '/docs/GENERATOR.md',
+  ],
+  [
+    'Site format',
+    'Site Profile 1.1',
+    'Structured public resources, API operation indexes, and matching TXT files.',
+    '/docs/SITE-PROFILE.md',
+  ],
+  [
     'Publishing',
     'Audit your files',
     'Check published JSON, API operations, and whether the TXT index matches.',
@@ -74,7 +86,7 @@ const guides = [
 const faq = [
   [
     'Is Agentic available for production use?',
-    'Yes. Action Profile 1.0.0 and tools 1.1.0 are published for direct use. Implement the service and client requirements, validate your profile, and test recovery against your own service before deploying.',
+    'Yes. Tools 1.2.0 support Site Profile 1.1.0 and Action Profile 1.0.0. Generate a site profile from public sources. If you implement action recovery, also validate its bindings and test the service behavior.',
   ],
   [
     'Does stable release mean every agent supports it?',
@@ -86,11 +98,11 @@ const faq = [
   ],
   [
     'What does a service need?',
-    'One JSON POST operation, an authoritative request-status GET, and a resource GET in OpenAPI 3.1, plus atomic request tracking and idempotency scoped to the authenticated principal and action.',
+    'A public website is enough for a site profile. An action contract additionally requires submission, request-status, and resource reads plus durable request tracking and idempotency.',
   ],
   [
     'Does Agentic require other agent files?',
-    'No. Use agentic.json with its referenced OpenAPI document. Our optional agentic.txt summarizes its actions. llms.txt is an optional documentation index. MCP, WebMCP, A2A, and Agent Auth connect through their documented endpoints.',
+    'No. Use agentic.json and its generated agentic.txt index. llms.txt remains an optional documentation source. Protocol links use their own contracts and authorization.',
   ],
   [
     'Does the profile make an API safe to call?',
@@ -113,13 +125,13 @@ export default function DocsPage() {
   return (
     <main className="page wrap">
       <div className="page-heading">
-        <p className="eyebrow">Documentation / 1.0.0</p>
+        <p className="eyebrow">Documentation / Tools 1.2.0</p>
         <h1>
-          From a file to <span>a working contract.</span>
+          Generate, publish, <span>and connect.</span>
         </h1>
         <p>
-          Build a profile, test its behavior, and integrate it into the tools
-          you already use.
+          Create files from your website, check them after publishing, and
+          integrate action recovery when your service supports it.
         </p>
         <div className="doc-utilities">
           <a href="/docs/index.md">Read as Markdown ↗</a>

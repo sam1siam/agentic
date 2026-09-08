@@ -14,6 +14,7 @@ await build({
   },
 });
 await cp('docs/SPEC.md', 'packages/cli/SPEC.md');
+await cp('docs/SITE-PROFILE.md', 'packages/cli/SITE-PROFILE.md');
 await cp('docs/AGENTIC-TXT.md', 'packages/cli/AGENTIC-TXT.md');
 await cp('LICENSE', 'packages/cli/LICENSE');
 console.log('Built standalone Agentic CLI.');

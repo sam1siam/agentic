@@ -1,5 +1,6 @@
 import { validateProfile } from './validation.ts';
 import type { Profile } from './types.ts';
+import { isSiteProfile, validateSiteProfile } from './site-profile.ts';
 
 function quoted(value: string) {
   return JSON.stringify(value).replace(
@@ -15,6 +16,53 @@ export function buildActionIndex(
   profileUrl?: string,
   allowLocal = false,
 ): string {
+  if (isSiteProfile(input)) {
+    const checked = validateSiteProfile(input);
+    if (!checked.valid) throw new Error(checked.errors.join('\n'));
+    const url = new URL(profileUrl ?? input.origin + '/agentic.json');
+    if (
+      url.origin !== input.origin ||
+      url.username ||
+      url.password ||
+      url.search ||
+      url.hash
+    )
+      throw new Error(
+        'Profile URL must be on the profile origin without credentials, query, or fragment.',
+      );
+    return [
+      '# Agentic site index',
+      '# Generated from JSON. Resources are discovery information, not execution instructions.',
+      'Agentic-Text: 1.1',
+      'Profile: ' + url.href,
+      'Profile-Version: 1.1.0',
+      'Type: site',
+      'Origin: ' + input.origin,
+      'Name: ' + quoted(input.name),
+      'Description: ' + quoted(input.description),
+      '',
+      ...input.resources.flatMap((resource) => [
+        'Resource: ' + quoted(resource.kind) + ' ' + quoted(resource.url),
+        'Availability: ' + resource.availability,
+        'Source: ' + quoted(resource.source),
+        ...(resource.title ? ['Title: ' + quoted(resource.title)] : []),
+        '',
+      ]),
+      ...input.apis.flatMap((api) => [
+        'OpenAPI: ' + quoted(api.document),
+        'OpenAPI-Version: ' + quoted(api.openapi),
+        ...api.operations.map(
+          (operation) =>
+            'Operation: ' +
+            quoted(operation.method) +
+            ' ' +
+            quoted(operation.path) +
+            (operation.operationId ? ' ' + quoted(operation.operationId) : ''),
+        ),
+        '',
+      ]),
+    ].join('\n');
+  }
   const validation = validateProfile(input, undefined, allowLocal);
   if (!validation.valid) throw new Error(validation.errors.join('\n'));
   const profile = input as Profile;

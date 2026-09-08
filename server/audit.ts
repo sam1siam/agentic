@@ -3,6 +3,8 @@ import { request as httpsRequest } from 'node:https';
 import ipaddr from 'ipaddr.js';
 import { validateProfile } from '../lib/validation.ts';
 import { buildActionIndex } from '../lib/action-index.ts';
+import { isSiteProfile } from '../lib/site-profile.ts';
+import { auditSiteProfile } from './site-audit.ts';
 
 export function publicAddress(address: string) {
   if (!ipaddr.isValid(address)) return false;
@@ -24,7 +26,16 @@ export function publicUrl(value: string) {
   if (url.href.length > 2048) throw new Error('URL is too long.');
   return url;
 }
-export async function readPublic(value: string, limit = 262144) {
+export async function readPublic(
+  value: string,
+  limit = 262144,
+  options: {
+    redirects?: boolean;
+    signal?: AbortSignal;
+    accept?: string;
+  } = {},
+) {
+  options.signal?.throwIfAborted();
   const url = publicUrl(value),
     hostname = url.hostname.replace(/^\[|\]$/g, '');
   const addresses = ipaddr.isValid(hostname)
@@ -49,6 +60,7 @@ export async function readPublic(value: string, limit = 262144) {
       'The hostname must resolve exclusively to public IP addresses.',
     );
   const pinned = addresses[0];
+  options.signal?.throwIfAborted();
   return new Promise<{
     url: string;
     status: number;
@@ -60,8 +72,9 @@ export async function readPublic(value: string, limit = 262144) {
       {
         method: 'GET',
         agent: false,
+        signal: options.signal,
         headers: {
-          Accept: 'application/json, text/plain;q=0.9',
+          Accept: options.accept ?? 'application/json, text/plain;q=0.9',
           'Accept-Encoding': 'identity',
           'User-Agent': 'Agentic-Auditor/1.1 (+https://ruagentic.org)',
         },
@@ -72,7 +85,16 @@ export async function readPublic(value: string, limit = 262144) {
       },
       (res) => {
         if ((res.statusCode ?? 0) >= 300 && (res.statusCode ?? 0) < 400) {
-          res.resume();
+          res.destroy();
+          if (options.redirects) {
+            resolve({
+              url: url.href,
+              status: res.statusCode!,
+              headers: res.headers,
+              text: '',
+            });
+            return;
+          }
           reject(
             new Error('Redirects are not followed. Supply the final URL.'),
           );
@@ -245,6 +267,8 @@ export async function auditUrl(
     add('json', 'JSON file', 'fail', detail);
     return finish();
   }
+  if (isSiteProfile(profile))
+    return auditSiteProfile(profile, url, reader, observations, checks);
   structure = validateProfile(profile);
   add(
     'structure',
