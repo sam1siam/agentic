@@ -2,7 +2,7 @@ import { AgentCard } from '@a2a-js/sdk';
 import { mcp } from './mcp.ts';
 import { auth, authHandler } from './auth.ts';
 import { agentCard, handleA2a } from './a2a.ts';
-import { auditUrl } from './audit.ts';
+import { auditUrl, normalizeAuditUrl } from './audit.ts';
 import {
   sandboxService,
   sandboxProfile,
@@ -153,8 +153,24 @@ async function route(request: Request) {
     const body = await jsonBody(request, 4096);
     if (typeof body.url !== 'string')
       throw new HttpError(400, 'Provide the profile URL.');
+    let profileUrl: string;
+    try {
+      profileUrl = normalizeAuditUrl(body.url);
+    } catch (error) {
+      // URL validation is local and emits safe input guidance. Do not classify
+      // the word "query" in that guidance as an infrastructure failure.
+      return Response.json(
+        {
+          error:
+            error instanceof Error
+              ? error.message
+              : 'Use a public HTTPS profile URL.',
+        },
+        { status: 400 },
+      );
+    }
     return Response.json(
-      await saveReport(ownerId, 'audit', await auditUrl(body.url)),
+      await saveReport(ownerId, 'audit', await auditUrl(profileUrl)),
     );
   }
   if (path === '/api/platform/auth-check' && request.method === 'POST') {

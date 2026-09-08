@@ -159,6 +159,20 @@ test(
       assert.equal(first.status, 200);
       cookie = first.headers.get('set-cookie')!.split(';')[0];
       ownerId = first.data.id;
+      await t.test(
+        'invalid audit URLs return input guidance instead of an infrastructure error',
+        async () => {
+          for (const url of [
+            'https://service.example/agentic.json?token=private',
+            'http://service.example',
+          ]) {
+            const result = await call('/api/platform/audit', { url });
+            assert.equal(result.status, 400);
+            assert.ok(!result.data.error.includes('temporarily unavailable'));
+            assert.ok(!result.data.error.includes('private'));
+          }
+        },
+      );
       const second = await call('/api/platform/session', {}, '');
       assert.equal(second.status, 200);
       otherCookie = second.headers.get('set-cookie')!.split(';')[0];
@@ -352,7 +366,10 @@ test(
             agentId: connected.agentId,
             capability: 'agentic.validate',
             arguments: {
-              profile: { ...sandboxProfile(), origin: 'https://service.example' },
+              profile: {
+                ...sandboxProfile(),
+                origin: 'https://service.example',
+              },
               openapi: sandboxOpenapi(),
             },
           });
