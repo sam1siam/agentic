@@ -148,7 +148,7 @@ try {
           </a>{' '}
           with Node 24, then initialize or validate a profile.
         </p>
-        <pre className="code-block">{`npm install -g https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.6/ruagentic-0.1.0-draft.6.tgz
+        <pre className="code-block">{`npm install -g ruagentic@0.1.0-draft.6
 agentic init --origin https://your-service.example
 agentic text agentic.json
 agentic validate agentic.json openapi.json`}</pre>

@@ -5,7 +5,7 @@ Version: 0.1.0-draft. Status: project reference implementation; not an adopted s
 Project home: https://ruagentic.org
 Repository: https://github.com/sam1siam/agentic
 
-Install the [CLI from GitHub releases](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.6) with `npm install -g https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.6/ruagentic-0.1.0-draft.6.tgz` (Node 24+), then run `agentic`. See [Get started](https://ruagentic.org/adopt/) for generation, validation, and agent connections.
+Install the [ruagentic CLI from npm](https://www.npmjs.com/package/ruagentic) with `npm install -g ruagentic@0.1.0-draft.6` (Node 24+), then run `agentic`. See [Get started](https://ruagentic.org/adopt/) for generation, validation, and agent connections.
 
 ## What it does
 `agentic.json` is the authoritative action contract. Its optional, generated [`agentic.txt` companion](docs/AGENTIC-TXT.md) lists the actions and links to that JSON. Generate it with `agentic text agentic.json`; use `--check` to detect summary drift.

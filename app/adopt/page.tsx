@@ -74,11 +74,11 @@ export default function AdoptPage() {
       <section className="example-section" id="install">
         <h2>Install the CLI</h2>
         <p>
-          Requires Node 24. Install the versioned GitHub release, then
+          Requires Node 24. Install the versioned npm package, then
           generate and validate a profile.
         </p>
         <CodeSample
-          value={`npm install -g https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.6/ruagentic-0.1.0-draft.6.tgz
+          value={`npm install -g ruagentic@0.1.0-draft.6
 agentic init --origin https://your-service.example
 agentic text agentic.json
 agentic validate agentic.json openapi.json`}

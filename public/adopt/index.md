@@ -17,10 +17,10 @@ The hosted ticket service operates on synthetic data. Your own business actions 
 
 ## Install the CLI
 
-Requires Node 24. Install the versioned [ruagentic CLI release](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.6):
+Requires Node 24. Install the versioned [ruagentic CLI from npm](https://www.npmjs.com/package/ruagentic):
 
 ```sh
-npm install -g https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.6/ruagentic-0.1.0-draft.6.tgz
+npm install -g ruagentic@0.1.0-draft.6
 agentic init --origin https://your-service.example
 agentic text agentic.json
 agentic text agentic.json --check

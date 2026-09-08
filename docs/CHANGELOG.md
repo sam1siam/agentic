@@ -7,6 +7,7 @@
 - Add `agentic text` and `--check` for existing profiles, with same-origin URL checks, escaped summaries, and overwrite protection.
 - Publish live root JSON/TXT files for the synthetic service, a local HTTP TXT endpoint, and an illustrative generated file.
 - Keep llms.txt and the existing protocol endpoints. The Agentic JSON schema and action-execution semantics are unchanged.
+- Publish `ruagentic@0.1.0-draft.6` to npm with the same tarball as the GitHub release; verify a fresh registry installation and update the installation guides.
 
 ## 0.1.0-draft.5 — 2026-09-07
 

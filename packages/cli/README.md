@@ -2,7 +2,7 @@
 
 Experimental tools for the Agentic Action Profile. Node 24 or newer is required.
 
-Install the versioned CLI from [GitHub releases](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.6) using `npm install -g https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.6/ruagentic-0.1.0-draft.6.tgz`. See https://ruagentic.org/adopt/ for current npm availability.
+Install the versioned CLI from [npm](https://www.npmjs.com/package/ruagentic) using `npm install -g ruagentic@0.1.0-draft.6`. The same package and its checksums are available in [GitHub releases](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.6).
 
 ```sh
 agentic init --origin https://your-service.example
