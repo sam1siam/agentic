@@ -147,7 +147,7 @@ npm install -g ruagentic@1.1.0
 agentic audit https://your-service.example
 ```
 
-The same audit is available through the hosted and local MCP tools. See [Connect](https://ruagentic.org/connect/) for setup. To work entirely locally, use `agentic validate agentic.json openapi.json` and `agentic text agentic.json --check`.
+The same audit is available through the hosted MCP tool and the CLI. See [Connect](https://ruagentic.org/connect/) for setup. To work entirely locally, use `agentic validate agentic.json openapi.json` and `agentic text agentic.json --check`.
 
 
 ---
