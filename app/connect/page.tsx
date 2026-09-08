@@ -143,13 +143,14 @@ try {
         <h2>Install the adoption tools</h2>
         <p>
           Install the CLI from{' '}
-          <a href="https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.5">
+          <a href="https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.6">
             GitHub releases
           </a>{' '}
           with Node 24, then initialize or validate a profile.
         </p>
-        <pre className="code-block">{`npm install -g https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.5/ruagentic-0.1.0-draft.5.tgz
+        <pre className="code-block">{`npm install -g https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.6/ruagentic-0.1.0-draft.6.tgz
 agentic init --origin https://your-service.example
+agentic text agentic.json
 agentic validate agentic.json openapi.json`}</pre>
         <p>
           The repository includes a reusable{' '}
@@ -162,7 +163,7 @@ agentic validate agentic.json openapi.json`}</pre>
           </a>
           .
         </p>
-        <pre className="code-block">{`- uses: sam1siam/agentic@v0.1.0-draft.5
+        <pre className="code-block">{`- uses: sam1siam/agentic@v0.1.0-draft.6
   with:
     profile: agentic.json
     openapi: openapi.json`}</pre>

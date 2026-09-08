@@ -14,6 +14,9 @@ This is a draft specification and project-authored reference implementation. No 
 - [Generator](https://ruagentic.org/docs/GENERATOR.md): Browser and command-line profile creation.
 
 ## Specification
+- [agentic.txt companion](https://ruagentic.org/docs/AGENTIC-TXT.md): Generated action index and JSON authority.
+- [Live action index](https://ruagentic.org/agentic.txt): Index for the hosted synthetic ticket service.
+- [Live JSON profile](https://ruagentic.org/agentic.json): Authoritative profile for that synthetic service.
 - [Normative draft](https://ruagentic.org/docs/SPEC.md): Requirements and supported OpenAPI binding.
 - [Profile schema](https://ruagentic.org/schemas/agentic-0.1.schema.json): Versioned JSON Schema.
 - [Receipt schema](https://ruagentic.org/schemas/receipt-0.1.schema.json): Outcome observation format.

@@ -60,6 +60,7 @@ export default function RootLayout({
             <p>Experimental proposal. Open for implementation and critique.</p>
           </div>
           <div className="footer-links">
+            <a href="/agentic.txt">agentic.txt</a>
             <a href="/llms.txt">llms.txt</a>
             <a href="/docs/CHANGELOG.md">Changelog</a>
             <a href="/docs/GOVERNANCE.md">Governance</a>

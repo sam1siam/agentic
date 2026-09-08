@@ -17,6 +17,7 @@ import {
   starterSettings,
 } from '../lib/openapi-import.ts';
 import ticketApi from '../examples/tickets/openapi.json' with { type: 'json' };
+import { buildActionIndex } from '../lib/action-index.ts';
 
 test('public auditor blocks private, special and unsafe addresses', async () => {
   for (const address of [
@@ -54,6 +55,7 @@ test('OpenAPI import produces a complete validated bundle and rejects mismatched
   assert.deepEqual(Object.keys(result.files).sort(), [
     'README.md',
     'agentic.json',
+    'agentic.txt',
     'openapi.json',
   ]);
   assert.equal(
@@ -119,6 +121,40 @@ test(
       return { status: response.status, data, headers: response.headers };
     }
     try {
+      await t.test(
+        'public JSON and TXT describe the same synthetic service',
+        async () => {
+          const manifest = await fetch(base + '/agentic.json', {
+            headers: { Origin: 'https://reader.example' },
+          });
+          assert.equal(manifest.status, 200);
+          assert.equal(
+            manifest.headers.get('access-control-allow-origin'),
+            '*',
+          );
+          const profile = await manifest.json();
+          const index = await fetch(base + '/agentic.txt');
+          assert.match(index.headers.get('content-type')!, /text\/plain/);
+          assert.equal(
+            await index.text(),
+            buildActionIndex(profile, undefined, true),
+          );
+          const nested = await fetch(
+            base + '/api/platform/service/agentic.txt',
+          );
+          assert.equal(
+            await nested.text(),
+            buildActionIndex(
+              profile,
+              base + '/api/platform/service/agentic.json',
+              true,
+            ),
+          );
+          const head = await fetch(base + '/agentic.txt', { method: 'HEAD' });
+          assert.equal(head.status, 200);
+          assert.equal(await head.text(), '');
+        },
+      );
       const first = await call('/api/platform/session', {});
       assert.equal(first.status, 200);
       cookie = first.headers.get('set-cookie')!.split(';')[0];

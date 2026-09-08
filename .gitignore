@@ -46,6 +46,7 @@ __pycache__/
 *.tsbuildinfo
 /packages/cli/dist/
 /packages/cli/SPEC.md
+/packages/cli/AGENTIC-TXT.md
 /packages/cli/LICENSE
 *.tgz
 /.agents/

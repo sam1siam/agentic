@@ -4,6 +4,7 @@ import {
   type StarterSettings,
 } from './profile-generator.ts';
 import { validateProfile } from './validation.ts';
+import { profileFiles } from './action-index.ts';
 export type ImportedOperation = {
   id: string;
   method: 'GET' | 'POST';
@@ -44,12 +45,14 @@ export function importBundle(document: unknown, settings: StarterSettings) {
   listOperations(document);
   const profile = buildProfile(settings),
     validation = validateProfile(profile, document);
-  const instructions = `# Agentic starter bundle\n\nExperimental Agentic Action Profile 0.1.\n\n1. Review the selected operations and evidence pointers.\n2. Serve agentic.json at your service origin. Serve openapi.json at ${settings.openapi}.\n3. Implement durable, principal-scoped request tracking, status lookup and resource verification.\n4. Run the CLI validator against both files.\n5. Use the compatibility runner to test your client against the isolated project fixture. Test your own service only where authorized.\n\nStructural validation does not prove idempotency, authorization, retention or recovery behavior. Import does not add these behaviors to your service.\n\nDocs: https://ruagentic.org/docs/QUICKSTART.md\nCompatibility runner: https://ruagentic.org/docs/COMPATIBILITY.md\n`;
+  const instructions = `# Agentic starter bundle\n\nExperimental Agentic Action Profile 0.1.\n\n1. Review the selected operations and evidence pointers.\n2. Serve agentic.json and the generated agentic.txt at your service origin. Regenerate TXT after changing the profile; JSON remains authoritative. Serve openapi.json at ${settings.openapi}.\n3. Implement durable, principal-scoped request tracking, status lookup and resource verification.\n4. Run the CLI validator against both files.\n5. Use the compatibility runner to test your client against the isolated project fixture. Test your own service only where authorized.\n\nStructural validation does not prove idempotency, authorization, retention or recovery behavior. Import does not add these behaviors to your service.\n\nDocs: https://ruagentic.org/docs/QUICKSTART.md\nCompatibility runner: https://ruagentic.org/docs/COMPATIBILITY.md\n`;
   return {
     profile,
     validation,
     files: {
-      'agentic.json': JSON.stringify(profile, null, 2) + '\n',
+      ...(validation.valid
+        ? profileFiles(profile)
+        : { 'agentic.json': JSON.stringify(profile, null, 2) + '\n' }),
       'openapi.json': JSON.stringify(document, null, 2) + '\n',
       'README.md': instructions,
     },

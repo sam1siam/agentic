@@ -11,6 +11,12 @@ export const metadata = {
 };
 const guides = [
   [
+    'Companion file',
+    'agentic.txt action index',
+    'Generate readable action summaries from the authoritative JSON profile and check for drift.',
+    '/docs/AGENTIC-TXT.md',
+  ],
+  [
     'Protocols',
     'MCP, WebMCP, A2A, and Agent Auth',
     'Connect MCP tools, WebMCP pages, A2A, and Agent Auth through their documented endpoints.',
@@ -68,7 +74,7 @@ const faq = [
   ],
   [
     'Does Agentic require other agent files?',
-    'No. Use agentic.json with its referenced OpenAPI document. llms.txt is an optional documentation index. MCP, WebMCP, A2A, and Agent Auth connect through their documented endpoints.',
+    'No. Use agentic.json with its referenced OpenAPI document. Our optional agentic.txt summarizes its actions. llms.txt is an optional documentation index. MCP, WebMCP, A2A, and Agent Auth connect through their documented endpoints.',
   ],
   [
     'Does the profile make an API safe to call?',

@@ -60,6 +60,15 @@ test(
       );
       assert.equal(data.profile.origin, 'https://pilot.example');
       assert.equal(data.validation.valid, true);
+      assert.deepEqual(Object.keys(data.files).sort(), [
+        'agentic.json',
+        'agentic.txt',
+      ]);
+      assert.ok(
+        data.files['agentic.txt'].includes(
+          'Profile: https://pilot.example/agentic.json\n',
+        ),
+      );
       const checked = await client.callTool({
         name: 'validate_agentic_profile',
         arguments: {

@@ -1,6 +1,6 @@
 {
   "name": "agentic-action-profile",
-  "version": "0.1.0-draft.5",
+  "version": "0.1.0-draft.6",
   "private": true,
   "engines": {
     "node": "24.x"
@@ -17,6 +17,7 @@
     "typecheck": "tsc --noEmit",
     "validate": "node scripts/validate.ts",
     "init": "node scripts/init.ts",
+    "text": "node scripts/text.ts",
     "mcp": "node reference/mcp/server.ts",
     "build:cli": "node scripts/build-cli.mjs",
     "platform:dev": "node --env-file=.env.platform-test scripts/platform-dev.ts",

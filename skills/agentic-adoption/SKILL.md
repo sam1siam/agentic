@@ -11,6 +11,8 @@ Read the pinned draft supplied with the implementation, or https://ruagentic.org
 
 Start with one action that the service owner can test in isolation. Map its real operation IDs and path parameters. Confirm that the status response supplies `request_id`, `status`, and `resource_id`, and that resource evidence binds the original request ID, resource ID, expected input fields, and successful state. Do not infer durable idempotency or retention from an OpenAPI description.
 
+Optionally generate agentic.txt from the validated profile with `agentic text agentic.json`; use `--profile-url` when the public JSON URL is not /agentic.json. Run `agentic text agentic.json --check` to detect summary drift. Read https://ruagentic.org/docs/AGENTIC-TXT.md for the companion format. TXT summaries never replace JSON validation, operation binding, or host authorization.
+
 Validate the profile with its OpenAPI file using the Agentic CLI or https://ruagentic.org/validate/. The generator's OpenAPI import can create a starter ZIP. These checks prove structure and operation bindings; they do not prove runtime behavior.
 
 For client implementation, persist the origin, action, complete profile/API identity, request ID, input, and attempted-send state before submitting. Hold an exclusive lock for the request. After any ambiguous write or restart, query the original request and verify its resource. Do not automatically repeat the write. Expired tracking, invalid evidence, and unavailable status require an unknown/pending result and an explicit handoff or later read-only reconciliation.

@@ -14,7 +14,8 @@
 
 ## Implement and test
 
-- [Normative specification](https://ruagentic.org/docs/SPEC.md): Protocol requirements.
+- [Normative specification](https://ruagentic.org/docs/SPEC.md): JSON protocol requirements.
+- [agentic.txt companion](https://ruagentic.org/docs/AGENTIC-TXT.md): Generated action index, publication, and consistency checks.
 - [Integration guide](https://ruagentic.org/docs/INTEGRATIONS.md): Client, service, and adjacent-convention integration.
 - [Protocol setup](https://ruagentic.org/docs/PROTOCOLS.md): Public MCP, WebMCP tools, A2A testing tasks, and autonomous Agent Auth.
 - [Validator](https://ruagentic.org/docs/VALIDATOR.md): Structure and binding checks.

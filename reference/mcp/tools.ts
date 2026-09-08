@@ -3,11 +3,12 @@ import { McpServer } from '@modelcontextprotocol/server';
 import { z } from 'zod';
 import { buildProfile, starterSettings } from '../../lib/profile-generator.ts';
 import { validateProfile } from '../../lib/validation.ts';
+import { profileFiles } from '../../lib/action-index.ts';
 
 export function createTools(options?: { readSpec?: () => Promise<string> }) {
   const server = new McpServer({
     name: 'agentic-tools',
-    version: '0.1.0-draft.5',
+    version: '0.1.0-draft.6',
   });
   const annotations = {
     readOnlyHint: true,
@@ -66,7 +67,9 @@ export function createTools(options?: { readSpec?: () => Promise<string> }) {
       });
       const validation = validateProfile(profile);
       return output(
-        validation.valid ? { profile, validation } : { validation },
+        validation.valid
+          ? { profile, files: profileFiles(profile), validation }
+          : { validation },
       );
     },
   );

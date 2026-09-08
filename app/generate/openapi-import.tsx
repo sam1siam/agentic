@@ -180,7 +180,7 @@ export default function OpenapiImport() {
               a.click();
               setTimeout(() => URL.revokeObjectURL(url), 1000);
               setMessage(
-                'Downloaded agentic.json, openapi.json and the implementation checklist.',
+                'Downloaded agentic.json, agentic.txt, openapi.json and the implementation checklist.',
               );
             }}
           >

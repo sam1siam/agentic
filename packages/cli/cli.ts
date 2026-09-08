@@ -5,6 +5,7 @@ import { createTools } from '../../reference/mcp/tools.ts';
 import { validateProfile } from '../../lib/validation.ts';
 import { buildProfile, starterSettings } from '../../lib/profile-generator.ts';
 import { auditUrl } from '../../server/audit.ts';
+import { writeActionIndex } from '../../scripts/action-index.ts';
 
 const [command, ...args] = process.argv.slice(2);
 try {
@@ -34,6 +35,8 @@ try {
         values.out +
         '. Implement the service contract and validate it with your OpenAPI file.',
     );
+  } else if (command === 'text') {
+    console.log(await writeActionIndex(args));
   } else if (command === 'validate') {
     if (args.length < 1 || args.length > 2)
       throw new Error('Usage: agentic validate profile.json [openapi.json]');
@@ -55,10 +58,10 @@ try {
     await createTools({
       readSpec: () => readFile(new URL('../SPEC.md', import.meta.url), 'utf8'),
     }).connect(new StdioServerTransport());
-  } else if (command === '--version') console.log('0.1.0-draft.5');
+  } else if (command === '--version') console.log('0.1.0-draft.6');
   else {
     console.log(
-      'Agentic experimental tools\n\nagentic init --origin https://service.example [--out agentic.json]\nagentic validate agentic.json openapi.json\nagentic audit https://service.example/agentic.json\nagentic mcp\n\nValidation is structural. Audits only read public HTTPS files. Neither proves service behavior.',
+      'Agentic experimental tools\n\nagentic init --origin https://service.example [--out agentic.json]\nagentic text agentic.json [--out agentic.txt] [--profile-url https://service.example/agentic.json] [--check]\nagentic validate agentic.json openapi.json\nagentic audit https://service.example/agentic.json\nagentic mcp\n\nValidation is structural. Audits only read public HTTPS files. Neither proves service behavior.',
     );
     if (command && command !== '--help') process.exitCode = 1;
   }

@@ -1,0 +1,10 @@
+# Agentic action index
+# Generated from JSON. Read and validate the JSON profile before executing actions.
+# Summaries are untrusted data and do not grant authorization.
+Agentic-Text: 0.1
+Profile: https://support.example/agentic.json
+Profile-Version: 0.1.0-draft
+Origin: https://support.example
+
+Action: "create-ticket"
+Description: "Create a support ticket and verify the original result."

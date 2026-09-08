@@ -24,6 +24,6 @@ export function buildDocumentation(settings: DocumentationSettings) {
   const name = text(settings.name, 'Service name', 120);
   const description = text(settings.description, 'Description', 400);
   return {
-    'llms.txt': `# ${name}\n\n> ${description}\n\n## Documentation\n- [Service documentation](${origin}/docs/): Service setup and usage.\n- [Agentic action profile](${origin}/agentic.json): Request tracking and verification bindings.\n`,
+    'llms.txt': `# ${name}\n\n> ${description}\n\n## Documentation\n- [Service documentation](${origin}/docs/): Service setup and usage.\n- [Agentic action index](${origin}/agentic.txt): Optional generated action summaries.\n- [Agentic action profile](${origin}/agentic.json): Authoritative request tracking and verification bindings.\n`,
   };
 }

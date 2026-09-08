@@ -1,10 +1,10 @@
 {
   "name": "ruagentic",
-  "version": "0.1.0-draft.5",
+  "version": "0.1.0-draft.6",
   "description": "Experimental Agentic action-profile generator, validator, public URL auditor and MCP tools.",
   "type": "module",
   "bin": { "agentic": "dist/cli.mjs" },
-  "files": ["dist/", "SPEC.md", "LICENSE", "README.md"],
+  "files": ["dist/", "SPEC.md", "AGENTIC-TXT.md", "LICENSE", "README.md"],
   "engines": { "node": ">=24" },
   "license": "Apache-2.0",
   "homepage": "https://ruagentic.org",

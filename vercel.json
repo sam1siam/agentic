@@ -15,6 +15,8 @@
     "api/platform.ts": { "maxDuration": 60, "includeFiles": "docs/SPEC.md" }
   },
   "rewrites": [
+    { "source": "/agentic.json", "destination": "/api/platform" },
+    { "source": "/agentic.txt", "destination": "/api/platform" },
     { "source": "/api/platform/:path*", "destination": "/api/platform" },
     { "source": "/api/auth/:path*", "destination": "/api/platform" },
     { "source": "/mcp", "destination": "/api/platform" },

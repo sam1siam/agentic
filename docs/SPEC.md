@@ -1,7 +1,7 @@
 # Agentic Action Profile 0.1
 Status: Experimental draft. Version: 0.1.0-draft. Date: 2026-09-07.
 Maintainer: [sam1siam](https://github.com/sam1siam). License: Apache-2.0.
-This document is the normative draft; the original proposal is historical context.
+This document is the normative JSON-profile draft; the original proposal is historical context. The optional [agentic.txt companion](AGENTIC-TXT.md) is a separate generated reading aid and does not change this profile schema or its execution requirements.
 
 ## 1. Purpose and boundaries
 Agentic describes how a participating client tracks an action, reconciles an uncertain submission, and verifies its outcome. The initial binding supports a small OpenAPI 3.1 subset: one POST submission, one GET request-status operation, and one GET resource-verification operation.

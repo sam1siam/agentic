@@ -11,6 +11,7 @@ import { httpTransport } from '../lib/http-transport.ts';
 import { validateProfile, validateReceipt } from '../lib/validation.ts';
 import { runDemo, SimulatedService } from '../lib/simulator.ts';
 import type { Profile } from '../lib/types.ts';
+import { buildActionIndex } from '../lib/action-index.ts';
 const sample = JSON.parse(
   await readFile('examples/tickets/agentic.json', 'utf8'),
 ) as Profile;
@@ -207,6 +208,13 @@ async function ticketCount(origin: string) {
 }
 test('real HTTP drop and SQLite service support both reference consumers', async () => {
   await withService('response-lost', async (origin, dir) => {
+    const profile = await (await fetch(origin + '/agentic.json')).json();
+    const index = await fetch(origin + '/agentic.txt');
+    assert.match(index.headers.get('content-type')!, /text\/plain/);
+    assert.equal(
+      await index.text(),
+      buildActionIndex(profile, undefined, true),
+    );
     const a = await command(process.execPath, [
       'reference/node/client.ts',
       origin,

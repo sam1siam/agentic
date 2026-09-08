@@ -20,6 +20,8 @@ This inventory distinguishes browser tools, hosted services and the separate loc
 | /.well-known/agent-configuration | Live autonomous Agent Auth provider discovery |
 | /api/platform/* | Isolated sandbox, auditing, sessions and evidence reports |
 | /api/auth/* | Official Agent Auth registration, grants, execution and revocation |
+| /agentic.txt | Generated action index for the hosted synthetic ticket service |
+| /agentic.json | Authoritative JSON profile of that service |
 | /llms.txt | Concise Markdown documentation index |
 | /llms-full.txt | Optional combined documentation bundle |
 | /docs/*.md | Plain Markdown source documents |
@@ -32,4 +34,4 @@ This inventory distinguishes browser tools, hosted services and the separate loc
 
 Every human route has an `index.md` alternative. HTML metadata exposes `rel="alternate"` with `type="text/markdown"`; the deployment's Link header also identifies the relevant alternate and `/llms.txt` as `describedby`.
 
-The hosted runtime uses PostgreSQL and Node 24 Vercel Functions; see [platform operations](PLATFORM.md). It provides synthetic testing, not customer actions or payments. The separate local Python reference server still serves `/agentic.json`, `/openapi.json`, `/tickets`, `/requests/{requestId}`, and `/tickets/{ticketId}` on loopback only. Optional WebMCP tools remain conditional on browser support.
+The hosted runtime uses PostgreSQL and Node 24 Vercel Functions; see [platform operations](PLATFORM.md). It provides synthetic testing, not customer actions or payments. The separate local Python reference server serves `/agentic.txt`, `/agentic.json`, `/openapi.json`, `/tickets`, `/requests/{requestId}`, and `/tickets/{ticketId}` on loopback only. Optional WebMCP tools remain conditional on browser support.

@@ -1,9 +1,16 @@
 import { cp, mkdir, readFile, writeFile, readdir } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
+import { buildActionIndex } from '../lib/action-index.ts';
 execFileSync(process.execPath, ['scripts/compile-validators.mjs'], {
   stdio: 'inherit',
 });
 await mkdir('public', { recursive: true });
+await writeFile(
+  'examples/tickets/agentic.txt',
+  buildActionIndex(
+    JSON.parse(await readFile('examples/tickets/agentic.json', 'utf8')),
+  ),
+);
 for (const dir of ['schemas', 'docs', 'examples', 'reports', 'brand'])
   await cp(dir, 'public/' + dir, { recursive: true });
 await mkdir('public/pilots', { recursive: true });
@@ -49,7 +56,9 @@ const index = [
   '- [Connect an agent](https://ruagentic.org/connect/): MCP, WebMCP, A2A and Agent Auth setup.',
   '',
   '## Start here',
-  '- [Get started](' + site + '/docs/GETTING-STARTED.md): Generate files, install tools, and integrate a service.',
+  '- [Get started](' +
+    site +
+    '/docs/GETTING-STARTED.md): Generate files, install tools, and integrate a service.',
   '- [Quick start](' +
     site +
     '/docs/QUICKSTART.md): Install and run a real interrupted HTTP action.',
@@ -62,6 +71,15 @@ const index = [
     '/docs/GENERATOR.md): Browser and command-line profile creation.',
   '',
   '## Specification',
+  '- [agentic.txt companion](' +
+    site +
+    '/docs/AGENTIC-TXT.md): Generated action index and JSON authority.',
+  '- [Live action index](' +
+    site +
+    '/agentic.txt): Index for the hosted synthetic ticket service.',
+  '- [Live JSON profile](' +
+    site +
+    '/agentic.json): Authoritative profile for that synthetic service.',
   '- [Normative draft](' +
     site +
     '/docs/SPEC.md): Requirements and supported OpenAPI binding.',

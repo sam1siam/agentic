@@ -1,6 +1,6 @@
 # Agent file generators
 
-Open [the browser generator](https://ruagentic.org/generate/) to customize a ticket-contract starter. It runs locally in the browser and makes no service calls. Valid output can be copied or downloaded as `agentic.json`.
+Open [the browser generator](https://ruagentic.org/generate/) to customize a ticket-contract starter. It runs locally in the browser and makes no service calls. Select the `agentic.json` or `agentic.txt` preview, copy or download either file, or choose **Download both**. The TXT index is generated from the validated JSON profile. JSON remains authoritative; see [the companion guide](AGENTIC-TXT.md).
 
 Editable settings: canonical HTTPS origin, action ID and description, OpenAPI path, submit/status/verify operation IDs, retention window, read path parameter names, resource/request/state JSON Pointers, accepted resource states, and one input/resource evidence pair. The full schema permits more evidence pairs and actions; edit the JSON for those cases.
 
@@ -20,12 +20,12 @@ Optional `--action-id` changes the action identifier. Other ticket bindings rema
 
 Select **Import OpenAPI** and upload or paste an OpenAPI 3.1 JSON document, up to 256 KiB. Choose the POST submission, GET request-status operation and GET resource-read operation. Set the service origin, tracking window, successful states and evidence pointers. The importer derives each read path parameter from the selected operation.
 
-The preview validates the generated profile against the imported API. Resolve unsupported operation shapes and evidence requirements before downloading. **Download starter ZIP** includes `agentic.json`, the imported `openapi.json`, and an implementation checklist. It never uploads the file or infers durable tracking from the API description.
+The preview validates the generated profile against the imported API. Resolve unsupported operation shapes and evidence requirements before downloading. **Download starter ZIP** includes `agentic.json`, its generated `agentic.txt`, the imported `openapi.json`, and an implementation checklist. It never uploads the file or infers durable tracking from the API description.
 
 ## Optional documentation index
 
-Select **Documentation index** to create an llms.txt starter. Enter your service name, origin, and description, then copy or download the file. It links to /docs/ and /agentic.json on that origin; edit the links to match your published files. The generator makes no network calls and does not enable protocols or grant authorization.
+Select **Documentation index** to create an llms.txt starter. Enter your service name, origin, and description, then copy or download the file. It links to /docs/, /agentic.txt, and /agentic.json on that origin; edit the links to match your published files and omit unpublished optional files. The generator makes no network calls and does not enable protocols or grant authorization.
 
-The generator produces Agentic profiles, OpenAPI starter bundles, and this optional documentation index. It does not produce agents.txt or agents.json.
+The generator produces Agentic JSON profiles and TXT companions, OpenAPI starter bundles, and this optional documentation index. It does not produce agents.txt or agents.json.
 
 See [Protocol setup and status](PROTOCOLS.md) for direct MCP, WebMCP, A2A, and Agent Auth connections. Agentic does not require another project's discovery manifest.

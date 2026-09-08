@@ -28,7 +28,11 @@ for (const route of routes) {
     (m) => m[1],
   );
   for (const link of links) {
-    if (/^\/(?:api\/platform\/|mcp\/?$|a2a\/?$|\.well-known\/)/.test(link))
+    if (
+      /^\/(?:agentic\.(?:txt|json)$|api\/platform\/|mcp\/?$|a2a\/?$|\.well-known\/)/.test(
+        link,
+      )
+    )
       continue;
     const target = 'dist/client' + link;
     if (link.endsWith('/')) await access(target + 'index.html');
@@ -45,6 +49,8 @@ for (const file of [
   'docs/COMPATIBILITY.md',
   'schemas/agentic-0.1.schema.json',
   'examples/tickets/agentic.json',
+  'examples/tickets/agentic.txt',
+  'docs/AGENTIC-TXT.md',
   'examples/tickets/openapi.json',
   'reports/benchmark.json',
   'llms.txt',

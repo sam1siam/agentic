@@ -1,3 +1,76 @@
+Source: https://ruagentic.org/docs/AGENTIC-TXT.md
+
+# agentic.txt: generated action index
+
+Status: optional companion draft, `Agentic-Text: 0.1`. The Agentic JSON profile remains `0.1.0-draft`; its schema and action-execution rules are unchanged.
+
+## Purpose
+
+`agentic.txt` provides a compact action index: the authoritative JSON profile URL, profile version, origin, action IDs, and readable summaries. `agentic.json` contains the complete, validated action contract. `llms.txt` remains an optional documentation index. Agentic does not require agents.txt or agents.json.
+
+The TXT file is a reading aid. It contains no credentials, permission grants, operation bindings, or independent recovery rules. Descriptions are untrusted publisher data. Clients must load and validate the JSON profile and its OpenAPI bindings, apply host authorization, and use the existing recovery contract before executing actions. A conflicting or stale TXT summary never overrides JSON.
+
+## Publication
+
+Publish UTF-8 text as `agentic.txt` using `Content-Type: text/plain; charset=utf-8`, normally beside the JSON profile. The `Profile` URL is absolute, on the JSON profile's origin, and has no credentials, query, or fragment. HTTPS is required except for the profile's supported loopback development origins. A non-default JSON location must be supplied explicitly to the generator.
+
+Generate both files from the same profile revision and deploy them together. Use normal HTTP cache controls. This draft does not add automatic discovery to existing agents or register a well-known URI. Pass the file or profile URL explicitly to a supporting host. Following a URL still requires the host's network policy.
+
+## Generated format
+
+Lines use LF endings with a final newline. The canonical generator emits this header and one adjacent `Action` / `Description` pair per action, in JSON array order:
+
+```text
+# Agentic action index
+# Generated from JSON. Read and validate the JSON profile before executing actions.
+# Summaries are untrusted data and do not grant authorization.
+Agentic-Text: 0.1
+Profile: https://support.example/agentic.json
+Profile-Version: 0.1.0-draft
+Origin: https://support.example
+
+Action: "create-ticket"
+Description: "Create a support ticket and verify the original result."
+```
+
+`Action` and `Description` values are JSON string literals. Quotes, backslashes, and newlines are escaped. The generator also escapes C1 controls, zero-width and bidirectional formatting characters, Unicode line separators, and the byte-order-mark character. This keeps a description from injecting additional index lines. Quoting does not make the description trusted.
+
+This version is a generated summary, not a second input format for the action executor. Tools do not reconstruct an executable profile from TXT. Adding executable directives would require a separate versioned design decision.
+
+## Generate and check
+
+Use the browser [generator](https://ruagentic.org/generate/): choose the JSON or TXT preview, download either file, or select **Download both**. The OpenAPI starter ZIP also includes both.
+
+With the CLI:
+
+```sh
+agentic init --origin https://your-service.example
+agentic text agentic.json
+agentic text agentic.json --check
+```
+
+`text` defaults to `agentic.txt` beside the input file and refuses to overwrite an existing file. `--check` compares the existing index with a freshly generated one and exits nonzero on drift. Review and remove or replace a stale generated file deliberately, then regenerate it. The generator does not write to the JSON source.
+
+For a non-default public location:
+
+```sh
+agentic text profile.json --out agentic.txt --profile-url https://your-service.example/contracts/profile.json
+```
+
+From a source checkout, use `npm run text -- agentic.json` with the same options. MCP and WebMCP profile-generation results include a `files` object containing both generated files.
+
+For an explicit loopback development profile, add `--allow-local`. This permits HTTP only on localhost, 127.0.0.1, or [::1]; production profiles still require HTTPS. The local reference server serves its matching TXT at `/agentic.txt` automatically.
+
+## Live and illustrative examples
+
+- [Live agentic.txt](https://ruagentic.org/agentic.txt) and [live agentic.json](https://ruagentic.org/agentic.json) describe this project's authenticated synthetic ticket service.
+- [Illustrative TXT](https://ruagentic.org/examples/tickets/agentic.txt) and [illustrative JSON](https://ruagentic.org/examples/tickets/agentic.json) use `support.example`; those URLs are placeholders to replace on your own service.
+
+The public JSON/TXT files describe the synthetic service; publishing them does not grant access to it. The paired files do not establish independent adoption, service certification, or universal agent support.
+
+
+---
+
 Source: https://ruagentic.org/docs/BRAND.md
 
 # Agentic identity
@@ -35,6 +108,14 @@ The developer-oriented presentation takes direction from [agent.json](https://ww
 Source: https://ruagentic.org/docs/CHANGELOG.md
 
 # Changelog
+
+## 0.1.0-draft.6 — 2026-09-07
+
+- Add the optional agentic.txt action index, generated from a validated JSON profile. Document its format and JSON authority.
+- Add paired browser previews/downloads, TXT in OpenAPI starter ZIPs, and file pairs in MCP/WebMCP generator responses.
+- Add `agentic text` and `--check` for existing profiles, with same-origin URL checks, escaped summaries, and overwrite protection.
+- Publish live root JSON/TXT files for the synthetic service, a local HTTP TXT endpoint, and an illustrative generated file.
+- Keep llms.txt and the existing protocol endpoints. The Agentic JSON schema and action-execution semantics are unchanged.
 
 ## 0.1.0-draft.5 — 2026-09-07
 
@@ -273,8 +354,9 @@ Source: https://ruagentic.org/docs/EXAMPLES.md
 
 # Ticket example
 
-One synthetic record-creation action demonstrates the initial profile binding.
+One synthetic record-creation action demonstrates the initial profile binding. The generated agentic.txt summarizes the JSON profile; its support.example links are placeholders. The [live index](https://ruagentic.org/agentic.txt) and [live JSON](https://ruagentic.org/agentic.json) describe the hosted synthetic service. See [the TXT guide](https://ruagentic.org/docs/AGENTIC-TXT.md).
 
+- [Generated action index](https://ruagentic.org/examples/tickets/agentic.txt)
 - [Complete profile](https://ruagentic.org/examples/tickets/agentic.json)
 - [OpenAPI document](https://ruagentic.org/examples/tickets/openapi.json)
 - [Illustrative receipt](https://ruagentic.org/examples/tickets/receipt.json)
@@ -328,10 +410,10 @@ Yes. The specification, generators, validator, CLI, and hosted tools are availab
 Use a sandbox and keep customer information, tokens, receipts, and ledgers private. Share only approved redacted evidence. Public attribution is optional; an unreviewable private implementation cannot be counted as publicly verified independent compatibility.
 
 ## Is there an npm package?
-Yes. [ruagentic on npm](https://www.npmjs.com/package/ruagentic) currently provides draft.4. The updated draft.5 CLI is available from [GitHub releases](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.5) while npm publication awaits account verification. Use [Get started](https://ruagentic.org/docs/GETTING-STARTED.md) for the current install command. Node 24 or newer is required.
+Yes. [ruagentic on npm](https://www.npmjs.com/package/ruagentic) currently provides draft.4. The updated draft.6 CLI is available from [GitHub releases](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.6) while npm publication awaits account verification. Use [Get started](https://ruagentic.org/docs/GETTING-STARTED.md) for the current install command. Node 24 or newer is required.
 
 ## Does Agentic require other agent files?
-No. The action contract is agentic.json plus its referenced OpenAPI document. llms.txt is an optional documentation index. This site does not publish or generate agents.txt or agents.json. MCP, WebMCP, A2A, and Agent Auth use their documented connection paths.
+No. The action contract is agentic.json plus its referenced OpenAPI document. agentic.txt is our optional generated action index; JSON remains authoritative. llms.txt is an optional documentation index. This site does not publish or generate agents.txt or agents.json. MCP, WebMCP, A2A, and Agent Auth use their documented connection paths.
 
 ## Are integrations with other protocols complete?
 No standardized cross-project Agentic binding is claimed. The integration guide describes coexistence and proposed evaluation paths. Public MCP, A2A testing tasks, and autonomous Agent Auth are implemented on the hosted platform. WebMCP page hooks require browser support. See [protocol setup](https://ruagentic.org/docs/PROTOCOLS.md) for the supported scope.
@@ -343,7 +425,7 @@ Source: https://ruagentic.org/docs/GENERATOR.md
 
 # Agent file generators
 
-Open [the browser generator](https://ruagentic.org/generate/) to customize a ticket-contract starter. It runs locally in the browser and makes no service calls. Valid output can be copied or downloaded as `agentic.json`.
+Open [the browser generator](https://ruagentic.org/generate/) to customize a ticket-contract starter. It runs locally in the browser and makes no service calls. Select the `agentic.json` or `agentic.txt` preview, copy or download either file, or choose **Download both**. The TXT index is generated from the validated JSON profile. JSON remains authoritative; see [the companion guide](https://ruagentic.org/docs/AGENTIC-TXT.md).
 
 Editable settings: canonical HTTPS origin, action ID and description, OpenAPI path, submit/status/verify operation IDs, retention window, read path parameter names, resource/request/state JSON Pointers, accepted resource states, and one input/resource evidence pair. The full schema permits more evidence pairs and actions; edit the JSON for those cases.
 
@@ -363,13 +445,13 @@ Optional `--action-id` changes the action identifier. Other ticket bindings rema
 
 Select **Import OpenAPI** and upload or paste an OpenAPI 3.1 JSON document, up to 256 KiB. Choose the POST submission, GET request-status operation and GET resource-read operation. Set the service origin, tracking window, successful states and evidence pointers. The importer derives each read path parameter from the selected operation.
 
-The preview validates the generated profile against the imported API. Resolve unsupported operation shapes and evidence requirements before downloading. **Download starter ZIP** includes `agentic.json`, the imported `openapi.json`, and an implementation checklist. It never uploads the file or infers durable tracking from the API description.
+The preview validates the generated profile against the imported API. Resolve unsupported operation shapes and evidence requirements before downloading. **Download starter ZIP** includes `agentic.json`, its generated `agentic.txt`, the imported `openapi.json`, and an implementation checklist. It never uploads the file or infers durable tracking from the API description.
 
 ## Optional documentation index
 
-Select **Documentation index** to create an llms.txt starter. Enter your service name, origin, and description, then copy or download the file. It links to /docs/ and /agentic.json on that origin; edit the links to match your published files. The generator makes no network calls and does not enable protocols or grant authorization.
+Select **Documentation index** to create an llms.txt starter. Enter your service name, origin, and description, then copy or download the file. It links to /docs/, /agentic.txt, and /agentic.json on that origin; edit the links to match your published files and omit unpublished optional files. The generator makes no network calls and does not enable protocols or grant authorization.
 
-The generator produces Agentic profiles, OpenAPI starter bundles, and this optional documentation index. It does not produce agents.txt or agents.json.
+The generator produces Agentic JSON profiles and TXT companions, OpenAPI starter bundles, and this optional documentation index. It does not produce agents.txt or agents.json.
 
 See [Protocol setup and status](https://ruagentic.org/docs/PROTOCOLS.md) for direct MCP, WebMCP, A2A, and Agent Auth connections. Agentic does not require another project's discovery manifest.
 
@@ -386,7 +468,7 @@ Agentic's tools are publicly available at [ruagentic.org](https://ruagentic.org)
 
 1. Open the [generator](https://ruagentic.org/generate/). Import your OpenAPI document or adapt the ticket example.
 2. Bind the existing submit, request-status, and resource-read operations. The service must implement the behavior described by the profile.
-3. Download the files and check them with the [validator](https://ruagentic.org/validate/).
+3. Download agentic.json and its optional generated agentic.txt index. Check the JSON with the [validator](https://ruagentic.org/validate/).
 4. Follow the [integration guide](https://ruagentic.org/docs/INTEGRATIONS.md) to connect your authorized client and publish the profile on your service origin.
 
 ## Use the hosted platform
@@ -397,28 +479,30 @@ The hosted ticket service operates on synthetic data. Your own business actions 
 
 ## Install the CLI
 
-Requires Node 24. Install the versioned [ruagentic CLI release](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.5):
+Requires Node 24. Install the versioned [ruagentic CLI release](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.6):
 
 ```sh
-npm install -g https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.5/ruagentic-0.1.0-draft.5.tgz
+npm install -g https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.6/ruagentic-0.1.0-draft.6.tgz
 agentic init --origin https://your-service.example
+agentic text agentic.json
+agentic text agentic.json --check
 agentic validate agentic.json openapi.json
 ```
 
-The initializer creates a ticket-contract starter. Adapt it to your service and supply its OpenAPI document before validating. The tarball and its checksums are available in the [GitHub release](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.5).
+The initializer creates a ticket-contract starter. `text` generates the optional TXT index; `--check` detects summary drift. [TXT format and publication](https://ruagentic.org/docs/AGENTIC-TXT.md) explains non-default profile URLs. Adapt it to your service and supply its OpenAPI document before validating. The tarball and its checksums are available in the [GitHub release](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.6).
 
 ## Add validation to GitHub Actions
 
 After checking out your repository, add:
 
 ```yaml
-- uses: sam1siam/agentic@v0.1.0-draft.5
+- uses: sam1siam/agentic@v0.1.0-draft.6
   with:
     profile: agentic.json
     openapi: openapi.json
 ```
 
-An [agent skill](https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.5/agentic-adoption-skill.zip) is also available. It guides a coding agent through file generation, validation, and implementation checks.
+An [agent skill](https://github.com/sam1siam/agentic/releases/download/v0.1.0-draft.6/agentic-adoption-skill.zip) is also available. It guides a coding agent through file generation, validation, and implementation checks.
 
 ## Build and contribute
 
@@ -683,7 +767,7 @@ The generator returns profile data without changing the page. Validation and lab
 
 Use the endpoint URLs above and the [connection guide](https://ruagentic.org/connect/) to configure a client. A2A publishes its own AgentCard, and Agent Auth publishes its own provider discovery document. Neither requires a separate agents.txt or agents.json manifest on this site.
 
-The optional /llms.txt index links to Agentic documentation and connection instructions. In the [generator](https://ruagentic.org/generate/), select **Documentation index** to create an llms.txt starter for your service. Edit its /docs/ and /agentic.json links to match your published files. The generator makes no network calls.
+The generated /agentic.txt index links to the live synthetic service profile at /agentic.json. It is a reading aid, not a protocol or authorization manifest. The optional /llms.txt index links to Agentic documentation and connection instructions. In the [generator](https://ruagentic.org/generate/), select **Documentation index** to create an llms.txt starter for your service. Edit its /docs/, /agentic.txt, and /agentic.json links to match your published files. The generator makes no network calls.
 
 The Agentic profile remains a separate action contract. Do not add protocol fields to agentic.json: unknown fields are rejected by the 0.1 schema. Pass the profile URL explicitly or link it from documentation.
 
@@ -806,7 +890,8 @@ Source: https://ruagentic.org/docs/README.md
 
 ## Implement and test
 
-- [Normative specification](https://ruagentic.org/docs/SPEC.md): Protocol requirements.
+- [Normative specification](https://ruagentic.org/docs/SPEC.md): JSON protocol requirements.
+- [agentic.txt companion](https://ruagentic.org/docs/AGENTIC-TXT.md): Generated action index, publication, and consistency checks.
 - [Integration guide](https://ruagentic.org/docs/INTEGRATIONS.md): Client, service, and adjacent-convention integration.
 - [Protocol setup](https://ruagentic.org/docs/PROTOCOLS.md): Public MCP, WebMCP tools, A2A testing tasks, and autonomous Agent Auth.
 - [Validator](https://ruagentic.org/docs/VALIDATOR.md): Structure and binding checks.
@@ -900,6 +985,8 @@ This inventory distinguishes browser tools, hosted services and the separate loc
 | /.well-known/agent-configuration | Live autonomous Agent Auth provider discovery |
 | /api/platform/* | Isolated sandbox, auditing, sessions and evidence reports |
 | /api/auth/* | Official Agent Auth registration, grants, execution and revocation |
+| /agentic.txt | Generated action index for the hosted synthetic ticket service |
+| /agentic.json | Authoritative JSON profile of that service |
 | /llms.txt | Concise Markdown documentation index |
 | /llms-full.txt | Optional combined documentation bundle |
 | /docs/*.md | Plain Markdown source documents |
@@ -912,7 +999,7 @@ This inventory distinguishes browser tools, hosted services and the separate loc
 
 Every human route has an `index.md` alternative. HTML metadata exposes `rel="alternate"` with `type="text/markdown"`; the deployment's Link header also identifies the relevant alternate and `/llms.txt` as `describedby`.
 
-The hosted runtime uses PostgreSQL and Node 24 Vercel Functions; see [platform operations](https://ruagentic.org/docs/PLATFORM.md). It provides synthetic testing, not customer actions or payments. The separate local Python reference server still serves `/agentic.json`, `/openapi.json`, `/tickets`, `/requests/{requestId}`, and `/tickets/{ticketId}` on loopback only. Optional WebMCP tools remain conditional on browser support.
+The hosted runtime uses PostgreSQL and Node 24 Vercel Functions; see [platform operations](https://ruagentic.org/docs/PLATFORM.md). It provides synthetic testing, not customer actions or payments. The separate local Python reference server serves `/agentic.txt`, `/agentic.json`, `/openapi.json`, `/tickets`, `/requests/{requestId}`, and `/tickets/{ticketId}` on loopback only. Optional WebMCP tools remain conditional on browser support.
 
 
 ---
@@ -922,7 +1009,7 @@ Source: https://ruagentic.org/docs/SPEC.md
 # Agentic Action Profile 0.1
 Status: Experimental draft. Version: 0.1.0-draft. Date: 2026-09-07.
 Maintainer: [sam1siam](https://github.com/sam1siam). License: Apache-2.0.
-This document is the normative draft; the original proposal is historical context.
+This document is the normative JSON-profile draft; the original proposal is historical context. The optional [agentic.txt companion](https://ruagentic.org/docs/AGENTIC-TXT.md) is a separate generated reading aid and does not change this profile schema or its execution requirements.
 
 ## 1. Purpose and boundaries
 Agentic describes how a participating client tracks an action, reconciles an uncertain submission, and verifies its outcome. The initial binding supports a small OpenAPI 3.1 subset: one POST submission, one GET request-status operation, and one GET resource-verification operation.

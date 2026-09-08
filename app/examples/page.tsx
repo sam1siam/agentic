@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { CodeSample } from '../code-sample';
 import profile from '@/examples/tickets/agentic.json';
 import receipt from '@/examples/tickets/receipt.json';
+import { buildActionIndex } from '@/lib/action-index';
 export const dynamic = 'force-static';
 export const metadata = {
   title: 'Examples',
@@ -49,6 +50,22 @@ export default function ExamplesPage() {
             Download agentic.json ↓
           </a>
           <Link href="/validate">Validate the profile →</Link>
+        </div>
+      </section>
+      <section className="example-section">
+        <h2>A generated action index</h2>
+        <p className="muted">
+          agentic.txt provides a short index of the actions in this profile.
+          Read and validate the linked JSON before executing an action.
+        </p>
+        <CodeSample value={buildActionIndex(profile)} />
+        <div className="doc-utilities">
+          <a href="/examples/tickets/agentic.txt" download>
+            Download agentic.txt ↓
+          </a>
+          <a href="/docs/AGENTIC-TXT.md">Format guide →</a>
+          <a href="/agentic.txt">Live synthetic service index ↗</a>
+          <a href="/agentic.json">Live synthetic service profile ↗</a>
         </div>
       </section>
       <section className="example-section">

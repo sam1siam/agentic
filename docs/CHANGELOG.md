@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-draft.6 — 2026-09-07
+
+- Add the optional agentic.txt action index, generated from a validated JSON profile. Document its format and JSON authority.
+- Add paired browser previews/downloads, TXT in OpenAPI starter ZIPs, and file pairs in MCP/WebMCP generator responses.
+- Add `agentic text` and `--check` for existing profiles, with same-origin URL checks, escaped summaries, and overwrite protection.
+- Publish live root JSON/TXT files for the synthetic service, a local HTTP TXT endpoint, and an illustrative generated file.
+- Keep llms.txt and the existing protocol endpoints. The Agentic JSON schema and action-execution semantics are unchanged.
+
 ## 0.1.0-draft.5 — 2026-09-07
 
 - Remove agents.txt and agents.json publishing, generator outputs, and auditor requests. Keep llms.txt as an optional documentation index.

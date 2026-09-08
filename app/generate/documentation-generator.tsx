@@ -99,8 +99,8 @@ export default function DocumentationGenerator() {
           {message}
         </p>
         <div className="notice">
-          This starter assumes /docs/ and /agentic.json exist on your service.
-          Edit the links to match your published files. A documentation index
+          This starter links to /docs/, /agentic.txt, and /agentic.json on your service.
+          Edit the links to match your published files and omit unpublished files. A documentation index
           does not enable protocols or grant permission to execute actions.
         </div>
         <div className="doc-utilities">

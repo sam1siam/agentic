@@ -1,7 +1,8 @@
 # Ticket example
 
-One synthetic record-creation action demonstrates the initial profile binding.
+One synthetic record-creation action demonstrates the initial profile binding. The generated agentic.txt summarizes the JSON profile; its support.example links are placeholders. The [live index](https://ruagentic.org/agentic.txt) and [live JSON](https://ruagentic.org/agentic.json) describe the hosted synthetic service. See [the TXT guide](AGENTIC-TXT.md).
 
+- [Generated action index](https://ruagentic.org/examples/tickets/agentic.txt)
 - [Complete profile](https://ruagentic.org/examples/tickets/agentic.json)
 - [OpenAPI document](https://ruagentic.org/examples/tickets/openapi.json)
 - [Illustrative receipt](https://ruagentic.org/examples/tickets/receipt.json)

@@ -1,5 +1,6 @@
 import { createHmac, timingSafeEqual, randomUUID } from 'node:crypto';
 import { buildProfile, starterSettings } from '../lib/profile-generator.ts';
+import { buildActionIndex } from '../lib/action-index.ts';
 import ticketApi from '../examples/tickets/openapi.json' with { type: 'json' };
 import { executeAction } from '../lib/client.ts';
 import { canonical } from '../lib/validation.ts';
@@ -87,6 +88,17 @@ export async function sandboxService(
     return Response.json(sandboxOpenapi());
   if (request.method === 'GET' && path === '/agentic.json')
     return Response.json(sandboxProfile());
+  if (request.method === 'GET' && path === '/agentic.txt')
+    return new Response(
+      buildActionIndex(
+        sandboxProfile(),
+        publicOrigin() + '/api/platform/service/agentic.json',
+        process.env.AGENTIC_ALLOW_LOCAL === '1',
+      ),
+      {
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+      },
+    );
   const ownerId = await serviceOwner(request);
   if (request.method === 'POST' && path === '/tickets') {
     const key = request.headers.get('idempotency-key');

@@ -11,6 +11,8 @@ import {
 } from '@/lib/profile-generator';
 import { validateProfile } from '@/lib/validation';
 import { registerPageTool } from '@/lib/webmcp';
+import { profileFiles } from '@/lib/action-index';
+import { zipSync, strToU8 } from 'fflate';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import DocumentationGenerator from './documentation-generator';
 import OpenapiImport from './openapi-import';
@@ -38,9 +40,13 @@ const evidence: [keyof StarterSettings, string][] = [
 export default function ProfileGenerator() {
   const [settings, setSettings] = useState({ ...starterSettings });
   const [message, setMessage] = useState('');
+  const [file, setFile] = useState('agentic.json');
   const profile = buildProfile(settings);
   const report = validateProfile(profile);
   const json = JSON.stringify(profile, null, 2);
+  const files = report.valid ? profileFiles(profile) : null;
+  const selected =
+    file === 'agentic.json' ? json : (files?.['agentic.txt'] ?? '');
   useEffect(
     () =>
       registerPageTool({
@@ -68,7 +74,11 @@ export default function ProfileGenerator() {
           });
           const checked = validateProfile(result);
           return checked.valid
-            ? { profile: result, validation: checked }
+            ? {
+                profile: result,
+                files: profileFiles(result),
+                validation: checked,
+              }
             : { validation: checked };
         },
       }),
@@ -95,16 +105,16 @@ export default function ProfileGenerator() {
   }
   function download() {
     const url = URL.createObjectURL(
-      new Blob([json + '\n'], { type: 'application/json' }),
+      new Blob([selected.endsWith('\n') ? selected : selected + '\n'], {
+        type: file === 'agentic.json' ? 'application/json' : 'text/plain',
+      }),
     );
     const anchor = document.createElement('a');
     anchor.href = url;
-    anchor.download = 'agentic.json';
+    anchor.download = file;
     anchor.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
-    setMessage(
-      'Profile downloaded. Validate it with your service’s OpenAPI document next.',
-    );
+    setMessage(file + ' downloaded. The JSON profile remains authoritative.');
   }
   return (
     <main className="page wrap">
@@ -156,18 +166,36 @@ export default function ProfileGenerator() {
             </section>
             <section className="generator-preview">
               <div className="code-title">
-                <span>agentic.json</span>
+                <span>Generated action files</span>
                 <span>
                   {report.valid ? 'Structure valid' : 'Needs changes'}
                 </span>
               </div>
-              <pre
-                className="code-block"
-                tabIndex={0}
-                aria-label="Generated agentic.json"
-              >
-                {json}
-              </pre>
+              <Tabs value={file} onValueChange={setFile} className="file-tabs">
+                <TabsList aria-label="Generated action file">
+                  <TabsTrigger value="agentic.json">agentic.json</TabsTrigger>
+                  <TabsTrigger value="agentic.txt">agentic.txt</TabsTrigger>
+                </TabsList>
+                <TabsContent value="agentic.json">
+                  <pre
+                    className="code-block"
+                    tabIndex={0}
+                    aria-label="Generated agentic.json"
+                  >
+                    {json}
+                  </pre>
+                </TabsContent>
+                <TabsContent value="agentic.txt">
+                  <pre
+                    className="code-block"
+                    tabIndex={0}
+                    aria-label="Generated agentic.txt"
+                  >
+                    {files?.['agentic.txt'] ??
+                      'Complete a valid profile to generate its action index.'}
+                  </pre>
+                </TabsContent>
+              </Tabs>
               {!report.valid && (
                 <ul className="error-list" aria-live="polite">
                   {report.errors.map((error, i) => (
@@ -178,18 +206,18 @@ export default function ProfileGenerator() {
               <div className="actions">
                 <Button disabled={!report.valid} onClick={download}>
                   <Download size={16} />
-                  Download JSON
+                  Download {file === 'agentic.json' ? 'JSON' : 'TXT'}
                 </Button>
                 <Button
                   variant="outline"
                   disabled={!report.valid}
                   onClick={async () => {
                     try {
-                      await navigator.clipboard.writeText(json);
+                      await navigator.clipboard.writeText(selected);
                       setMessage('Copied to clipboard.');
                     } catch {
                       setMessage(
-                        'Clipboard unavailable. Select the JSON above or use Download JSON.',
+                        'Clipboard unavailable. Select the text above or use Download.',
                       );
                     }
                   }}
@@ -197,18 +225,49 @@ export default function ProfileGenerator() {
                   <Copy size={16} />
                   Copy
                 </Button>
+                <Button
+                  variant="outline"
+                  disabled={!files}
+                  onClick={() => {
+                    if (!files) return;
+                    const zipped = zipSync(
+                      Object.fromEntries(
+                        Object.entries(files).map(([name, value]) => [
+                          name,
+                          strToU8(value),
+                        ]),
+                      ),
+                    );
+                    const url = URL.createObjectURL(
+                      new Blob([new Uint8Array(zipped)], {
+                        type: 'application/zip',
+                      }),
+                    );
+                    const anchor = document.createElement('a');
+                    anchor.href = url;
+                    anchor.download = 'agentic-files.zip';
+                    anchor.click();
+                    setTimeout(() => URL.revokeObjectURL(url), 1000);
+                    setMessage('Downloaded agentic.json and agentic.txt.');
+                  }}
+                >
+                  <Download size={16} />
+                  Download both
+                </Button>
               </div>
               <p className="small muted" role="status">
                 {message}
               </p>
               <div className="notice">
-                Next, validate this profile with your OpenAPI file. Then run the
-                service tests to check request tracking and recovery.
+                agentic.txt summarizes this JSON profile. Validate the JSON with
+                your OpenAPI file, then run the service tests to check request
+                tracking and recovery.
               </div>
               <div className="doc-utilities">
                 <Link href="/validate">Open the validator →</Link>
                 <Link href="/docs#quickstart">Implementation guide →</Link>
                 <a href="/generate/index.md">Read as Markdown ↗</a>
+                <a href="/docs/AGENTIC-TXT.md">About agentic.txt →</a>
               </div>
             </section>
           </div>

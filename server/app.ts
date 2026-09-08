@@ -3,7 +3,13 @@ import { mcp } from './mcp.ts';
 import { auth, authHandler } from './auth.ts';
 import { agentCard, handleA2a } from './a2a.ts';
 import { auditUrl } from './audit.ts';
-import { sandboxService, runSandbox, saveReport } from './sandbox.ts';
+import {
+  sandboxService,
+  sandboxProfile,
+  runSandbox,
+  saveReport,
+} from './sandbox.ts';
+import { buildActionIndex } from '../lib/action-index.ts';
 import { runAuthDemo } from './auth-demo.ts';
 import { database } from './db.ts';
 import {
@@ -22,6 +28,28 @@ import {
 async function route(request: Request) {
   const url = new URL(request.url),
     path = url.pathname.replace(/\/$/, '');
+  if (
+    ['GET', 'HEAD'].includes(request.method) &&
+    (path === '/agentic.json' || path === '/agentic.txt')
+  ) {
+    const profile = sandboxProfile();
+    const headers = {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type':
+        path === '/agentic.json'
+          ? 'application/json'
+          : 'text/plain; charset=utf-8',
+    };
+    const body =
+      path === '/agentic.json'
+        ? JSON.stringify(profile, null, 2) + '\n'
+        : buildActionIndex(
+            profile,
+            undefined,
+            process.env.AGENTIC_ALLOW_LOCAL === '1',
+          );
+    return new Response(request.method === 'HEAD' ? null : body, { headers });
+  }
   checkOrigin(request);
   if (path === '/api/platform/health' && request.method === 'GET') {
     await database().query('SELECT 1');

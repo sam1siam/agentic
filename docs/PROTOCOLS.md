@@ -56,7 +56,7 @@ The generator returns profile data without changing the page. Validation and lab
 
 Use the endpoint URLs above and the [connection guide](https://ruagentic.org/connect/) to configure a client. A2A publishes its own AgentCard, and Agent Auth publishes its own provider discovery document. Neither requires a separate agents.txt or agents.json manifest on this site.
 
-The optional /llms.txt index links to Agentic documentation and connection instructions. In the [generator](https://ruagentic.org/generate/), select **Documentation index** to create an llms.txt starter for your service. Edit its /docs/ and /agentic.json links to match your published files. The generator makes no network calls.
+The generated /agentic.txt index links to the live synthetic service profile at /agentic.json. It is a reading aid, not a protocol or authorization manifest. The optional /llms.txt index links to Agentic documentation and connection instructions. In the [generator](https://ruagentic.org/generate/), select **Documentation index** to create an llms.txt starter for your service. Edit its /docs/, /agentic.txt, and /agentic.json links to match your published files. The generator makes no network calls.
 
 The Agentic profile remains a separate action contract. Do not add protocol fields to agentic.json: unknown fields are rejected by the 0.1 schema. Pass the profile URL explicitly or link it from documentation.
 

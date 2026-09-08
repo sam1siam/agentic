@@ -28,10 +28,10 @@ Yes. The specification, generators, validator, CLI, and hosted tools are availab
 Use a sandbox and keep customer information, tokens, receipts, and ledgers private. Share only approved redacted evidence. Public attribution is optional; an unreviewable private implementation cannot be counted as publicly verified independent compatibility.
 
 ## Is there an npm package?
-Yes. [ruagentic on npm](https://www.npmjs.com/package/ruagentic) currently provides draft.4. The updated draft.5 CLI is available from [GitHub releases](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.5) while npm publication awaits account verification. Use [Get started](GETTING-STARTED.md) for the current install command. Node 24 or newer is required.
+Yes. [ruagentic on npm](https://www.npmjs.com/package/ruagentic) currently provides draft.4. The updated draft.6 CLI is available from [GitHub releases](https://github.com/sam1siam/agentic/releases/tag/v0.1.0-draft.6) while npm publication awaits account verification. Use [Get started](GETTING-STARTED.md) for the current install command. Node 24 or newer is required.
 
 ## Does Agentic require other agent files?
-No. The action contract is agentic.json plus its referenced OpenAPI document. llms.txt is an optional documentation index. This site does not publish or generate agents.txt or agents.json. MCP, WebMCP, A2A, and Agent Auth use their documented connection paths.
+No. The action contract is agentic.json plus its referenced OpenAPI document. agentic.txt is our optional generated action index; JSON remains authoritative. llms.txt is an optional documentation index. This site does not publish or generate agents.txt or agents.json. MCP, WebMCP, A2A, and Agent Auth use their documented connection paths.
 
 ## Are integrations with other protocols complete?
 No standardized cross-project Agentic binding is claimed. The integration guide describes coexistence and proposed evaluation paths. Public MCP, A2A testing tasks, and autonomous Agent Auth are implemented on the hosted platform. WebMCP page hooks require browser support. See [protocol setup](PROTOCOLS.md) for the supported scope.

@@ -14,7 +14,8 @@
 
 ## Implement and test
 
-- [Normative specification](SPEC.md): Protocol requirements.
+- [Normative specification](SPEC.md): JSON protocol requirements.
+- [agentic.txt companion](AGENTIC-TXT.md): Generated action index, publication, and consistency checks.
 - [Integration guide](INTEGRATIONS.md): Client, service, and adjacent-convention integration.
 - [Protocol setup](PROTOCOLS.md): Public MCP, WebMCP tools, A2A testing tasks, and autonomous Agent Auth.
 - [Validator](VALIDATOR.md): Structure and binding checks.
