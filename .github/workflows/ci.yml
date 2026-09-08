@@ -36,6 +36,7 @@ jobs:
       - run: npm run platform:migrate
       - run: npm test
       - run: npm run typecheck
+      - run: npm run lint
       - run: npm run build:cli
       - run: node packages/cli/dist/cli.mjs validate examples/tickets/agentic.json examples/tickets/openapi.json
       - run: node packages/cli/dist/cli.mjs validate examples/site/agentic.json

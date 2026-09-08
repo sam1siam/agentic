@@ -59,6 +59,7 @@ export function matchesTextIndex(
 function prose(value: string, limit = 600) {
   return value
     .replace(
+      // oxlint-disable-next-line no-control-regex -- strips control, zero-width and bidi characters
       /[\u0000-\u001f\u007f-\u009f\u200b-\u200f\u2028-\u202e\u2060-\u206f\ufeff]/g,
       ' ',
     )
@@ -68,7 +69,7 @@ function prose(value: string, limit = 600) {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(/[\\`*{}\[\]()!|#]/g, '\\$&');
+    .replace(/[\\`*{}[\]()!|#]/g, '\\$&');
 }
 function link(label: string, url: string) {
   return (

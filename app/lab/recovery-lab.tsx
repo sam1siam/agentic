@@ -25,7 +25,11 @@ const labels = {
   idempotent: 'Idempotent retry',
   agentic: 'Agentic profile',
 };
-export default function RecoveryLab({ initial }: { initial: SimulationResult[] }) {
+export default function RecoveryLab({
+  initial,
+}: {
+  initial: SimulationResult[];
+}) {
   const [scenario, setScenario] = useState<Scenario>('response-lost'),
     [results, setResults] = useState(initial),
     [shown, setShown] = useState<Scenario>('response-lost'),
@@ -130,9 +134,9 @@ export default function RecoveryLab({ initial }: { initial: SimulationResult[] }
       </div>
       <section className="lab-controls panel">
         <div>
-          <label id="scenario-label" className="field-label">
+          <span id="scenario-label" className="field-label">
             Failure scenario
-          </label>
+          </span>
           <Select
             value={scenario}
             onValueChange={(v) => {

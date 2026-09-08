@@ -49,13 +49,15 @@ try {
         'Usage: agentic discover https://your-site.com [--out new-directory]',
       );
     const result = await discoverWebsite(positionals[0]);
-    const { mkdir } = await import('node:fs/promises');
-    const { join } = await import('node:path');
-    await mkdir(values.out, { recursive: false });
+    const fsp = await import('node:fs/promises');
+    const nodePath = await import('node:path');
+    await fsp.mkdir(values.out, { recursive: false });
     for (const [name, content] of Object.entries(result.files))
-      await writeFile(join(values.out, name), content, { flag: 'wx' });
+      await writeFile(nodePath.join(values.out, name), content, {
+        flag: 'wx',
+      });
     await writeFile(
-      join(values.out, 'discovery-report.json'),
+      nodePath.join(values.out, 'discovery-report.json'),
       JSON.stringify(result, null, 2) + '\n',
       { flag: 'wx' },
     );
@@ -84,11 +86,13 @@ try {
     if (Buffer.byteLength(source) > 65536)
       throw new Error('Profile exceeds 64 KiB.');
     const files = publicationFiles(JSON.parse(source), values['profile-url']);
-    const { mkdir } = await import('node:fs/promises');
-    const { join } = await import('node:path');
-    await mkdir(values.out, { recursive: false });
+    const fsp = await import('node:fs/promises');
+    const nodePath = await import('node:path');
+    await fsp.mkdir(values.out, { recursive: false });
     for (const [name, content] of Object.entries(files))
-      await writeFile(join(values.out, name), content, { flag: 'wx' });
+      await writeFile(nodePath.join(values.out, name), content, {
+        flag: 'wx',
+      });
     console.log(
       'Created agentic.json, agentic.txt, README.md and LISTING.md in ' +
         values.out +

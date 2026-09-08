@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Check, Copy, FileCheck, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -10,35 +10,39 @@ import api from '@/examples/tickets/openapi.json';
 import { validateAgenticDocument } from '@/lib/site-profile';
 import { registerPageTool } from '@/lib/webmcp';
 type Report = ReturnType<typeof validateAgenticDocument>;
+/** Pure structural validation with the browser-side size limits. */
+function runValidation(profileText: string, openapiText: string): Report {
+  try {
+    if (
+      new TextEncoder().encode(profileText).length > 65536 ||
+      new TextEncoder().encode(openapiText).length > 262144
+    )
+      throw new Error(
+        'Profile limit: 64 KiB. OpenAPI document limit: 256 KiB.',
+      );
+    return validateAgenticDocument(
+      JSON.parse(profileText),
+      openapiText.trim() ? JSON.parse(openapiText) : undefined,
+    );
+  } catch (e) {
+    return { valid: false, errors: [(e as Error).message], warnings: [] };
+  }
+}
 export default function ProfileValidator() {
   const [text, setText] = useState(JSON.stringify(sample, null, 2)),
     [apiText, setApiText] = useState(JSON.stringify(api, null, 2)),
     [report, setReport] = useState<Report | null>(null),
     [copied, setCopied] = useState(false);
-  const validate = useCallback((profileText: string, openapiText: string) => {
-    let result: Report;
-    try {
-      if (
-        new TextEncoder().encode(profileText).length > 65536 ||
-        new TextEncoder().encode(openapiText).length > 262144
-      )
-        throw new Error(
-          'Profile limit: 64 KiB. OpenAPI document limit: 256 KiB.',
-        );
-      result = validateAgenticDocument(
-        JSON.parse(profileText),
-        openapiText.trim() ? JSON.parse(openapiText) : undefined,
-      );
-    } catch (e) {
-      result = { valid: false, errors: [(e as Error).message], warnings: [] };
-    }
+  // Only stable state setters are captured, so the page tool registers once.
+  const validate = (profileText: string, openapiText: string) => {
+    const result = runValidation(profileText, openapiText);
     flushSync(() => {
       setText(profileText);
       setApiText(openapiText);
       setReport(result);
     });
     return result;
-  }, []);
+  };
   useEffect(
     () =>
       registerPageTool({
@@ -69,7 +73,9 @@ export default function ProfileValidator() {
           return validate(value.profile, (value.openapi as string) ?? '');
         },
       }),
-    [validate],
+    // eslint-style exhaustive deps are intentionally omitted: validate only
+    // uses stable setters and a pure function.
+    [],
   );
   const stale = () => setReport(null);
   return (

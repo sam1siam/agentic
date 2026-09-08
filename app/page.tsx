@@ -15,8 +15,7 @@ export default function Home() {
       <section className="home-intro">
         <p className="eyebrow">An open file convention for AI agents</p>
         <h1>
-          Make your website
-          <br />
+          Make your website <br />
           <span>readable to agents.</span>
         </h1>
         <p className="lead">

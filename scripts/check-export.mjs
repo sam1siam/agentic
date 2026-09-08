@@ -24,10 +24,10 @@ for (const route of routes) {
   if (!html.includes('text/markdown'))
     throw new Error('Missing Markdown discovery metadata: ' + route);
   const assets = [
-    ...html.matchAll(/(?:src|href)="(\/_next\/static\/[^"?#]+)(?:[^\"]*)"/g),
+    ...html.matchAll(/(?:src|href)="(\/_next\/static\/[^"?#]+)(?:[^"]*)"/g),
   ].map((match) => match[1]);
   for (const asset of assets) await access('dist/client' + asset);
-  const links = [...html.matchAll(/href="(\/[^"?#]*)(?:[^\"]*)"/g)].map(
+  const links = [...html.matchAll(/href="(\/[^"?#]*)(?:[^"]*)"/g)].map(
     (m) => m[1],
   );
   for (const link of links) {

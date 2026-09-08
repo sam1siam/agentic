@@ -55,24 +55,27 @@ export function discoveryRedirectAllowed(from: string, to: string) {
   );
 }
 function clean(value: string, limit: number) {
-  return value
-    .replace(/&quot;/gi, '"')
-    .replace(/&apos;|&#39;/gi, "'")
-    .replace(/&amp;/gi, '&')
-    .replace(/&lt;/gi, '<')
-    .replace(/&gt;/gi, '>')
-    .replace(/&#(x[\da-f]+|\d+);/gi, (_, code: string) => {
-      const n =
-        code[0].toLowerCase() === 'x'
-          ? parseInt(code.slice(1), 16)
-          : Number(code);
-      return n >= 32 && n <= 0x10ffff ? String.fromCodePoint(n) : ' ';
-    })
-    .replace(/<[^<>]{0,8192}>/g, ' ')
-    .replace(/[\u0000-\u001f\u007f-\u009f\u202a-\u202e\u2066-\u2069]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .slice(0, limit);
+  return (
+    value
+      .replace(/&quot;/gi, '"')
+      .replace(/&apos;|&#39;/gi, "'")
+      .replace(/&amp;/gi, '&')
+      .replace(/&lt;/gi, '<')
+      .replace(/&gt;/gi, '>')
+      .replace(/&#(x[\da-f]+|\d+);/gi, (_, code: string) => {
+        const n =
+          code[0].toLowerCase() === 'x'
+            ? parseInt(code.slice(1), 16)
+            : Number(code);
+        return n >= 32 && n <= 0x10ffff ? String.fromCodePoint(n) : ' ';
+      })
+      .replace(/<[^<>]{0,8192}>/g, ' ')
+      // oxlint-disable-next-line no-control-regex -- strips control and bidi characters from untrusted text
+      .replace(/[\u0000-\u001f\u007f-\u009f\u202a-\u202e\u2066-\u2069]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, limit)
+  );
 }
 function attributes(tag: string) {
   const result: Record<string, string> = {};
@@ -186,9 +189,10 @@ function parsePage(text: string) {
 function classify(url: URL, title = ''): ResourceKind | undefined {
   const path = url.pathname.toLowerCase();
   if (/(?:^|\/)agentic\.json$/.test(path)) return 'agentic';
-  if (/\/llms(?:-full)?\.txt$/.test(path)) return 'llms';
-  if (/agent-card\.json$/.test(path)) return 'a2a';
-  if (/\/\.well-known\/agent-configuration$/.test(path)) return 'agent-auth';
+  if (path.endsWith('/llms.txt') || path.endsWith('/llms-full.txt'))
+    return 'llms';
+  if (path.endsWith('agent-card.json')) return 'a2a';
+  if (path.endsWith('/.well-known/agent-configuration')) return 'agent-auth';
   if (
     /(?:^|\/)mcp(?:\/|$)/.test(path) &&
     !/\/(docs|guides?|reference)\//.test(path)
@@ -377,7 +381,7 @@ export async function discoverWebsite(
     const isApi =
       json &&
       typeof json.openapi === 'string' &&
-      /^3\./.test(json.openapi) &&
+      json.openapi.startsWith('3.') &&
       json.paths &&
       typeof json.paths === 'object';
     if (isApi) {

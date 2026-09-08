@@ -27,6 +27,18 @@ import {
   sessionCookie,
 } from './security.ts';
 
+let healthCheckedAt = 0;
+const sessionRoutes = new Set([
+  '/api/platform/session',
+  '/api/platform/session/revoke',
+  '/api/platform/session/token',
+  '/a2a',
+  '/api/platform/run',
+  '/api/platform/audit',
+  '/api/platform/discover',
+  '/api/platform/auth-check',
+  '/api/platform/reports',
+]);
 async function route(request: Request) {
   const url = new URL(request.url),
     path = url.pathname.replace(/\/$/, '');
@@ -53,15 +65,19 @@ async function route(request: Request) {
     return new Response(request.method === 'HEAD' ? null : body, { headers });
   }
   checkOrigin(request);
+  await rateLimit('ip:' + clientAddress(request), 120);
   if (path === '/api/platform/health' && request.method === 'GET') {
-    await database().query('SELECT 1');
+    // One database probe per instance every ten seconds is enough for monitors.
+    if (Date.now() - healthCheckedAt > 10000) {
+      await database().query('SELECT 1');
+      healthCheckedAt = Date.now();
+    }
     return Response.json({
       status: 'ok',
       service: 'Agentic platform',
       version: '1.3.0',
     });
   }
-  await rateLimit('ip:' + clientAddress(request), 120);
   if (path === '/mcp' || path === '/api/mcp') {
     const body =
       request.method === 'POST' ? await jsonBody(request) : undefined;
@@ -114,6 +130,8 @@ async function route(request: Request) {
     );
     return Response.json({ cleaned: true });
   }
+  if (!sessionRoutes.has(path) && !path.startsWith('/api/platform/reports/'))
+    throw new HttpError(404, 'Platform endpoint not found.');
   const ownerId = await owner(request);
   if (path === '/api/platform/session' && request.method === 'GET')
     return Response.json({ id: ownerId });

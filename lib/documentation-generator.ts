@@ -11,6 +11,7 @@ function text(value: string, label: string, limit: number) {
   if (
     !value.trim() ||
     value.length > limit ||
+    // oxlint-disable-next-line no-control-regex -- rejects control, zero-width and bidi characters
     /[\u0000-\u001f\u007f-\u009f\u200b-\u200f\u2028-\u202e\ufeff]/u.test(value)
   )
     throw new Error(

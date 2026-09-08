@@ -279,9 +279,7 @@ export default function PlatformConsole() {
           </section>
         </TabsContent>
       </Tabs>
-      <p role="status" className="platform-status">
-        {message}
-      </p>
+      <output className="platform-status">{message}</output>
       {report && (
         <section className="example-section platform-result">
           <div className="section-head">
@@ -350,6 +348,7 @@ export default function PlatformConsole() {
           )}
           <details>
             <summary>Inspect the complete JSON report</summary>
+            {/* oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- a scrolling code block must stay keyboard reachable */}
             <pre className="code-block" tabIndex={0}>
               {JSON.stringify(report, null, 2)}
             </pre>

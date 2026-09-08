@@ -51,7 +51,7 @@ export async function readPublic(
         },
       ]
     : await Promise.race([
-        lookup(hostname, { all: true, verbatim: true }),
+        lookup(hostname, { all: true, order: 'verbatim' }),
         new Promise<never>((_, reject) => {
           const timer = setTimeout(
             () => reject(new Error('DNS lookup exceeded 5 seconds.')),

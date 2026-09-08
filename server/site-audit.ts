@@ -118,7 +118,7 @@ export async function auditSiteProfile(
           if (
             !api?.paths ||
             typeof api.openapi !== 'string' ||
-            !/^3\./.test(api.openapi)
+            !api.openapi.startsWith('3.')
           )
             throw new Error('The response is not an OpenAPI 3 document.');
           for (const item of profile.apis.filter(

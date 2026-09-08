@@ -4,7 +4,7 @@ export interface PageTool {
   description: string;
   inputSchema: object;
   annotations: { readOnlyHint: boolean; untrustedContentHint: boolean };
-  execute: (input: unknown) => unknown | Promise<unknown>;
+  execute: (input: unknown) => unknown;
 }
 export function registerPageTool(tool: PageTool): () => void {
   const context = (

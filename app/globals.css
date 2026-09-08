@@ -586,6 +586,7 @@ td {
   font: inherit;
 }
 .platform-status {
+  display: block;
   min-height: 24px;
   margin: 20px 0;
   color: var(--primary);
@@ -1929,6 +1930,8 @@ td {
   margin-top: 8px;
   padding: 8px 0;
   height: auto;
+  border: 0;
+  background: none;
   white-space: normal;
   text-align: left;
 }
