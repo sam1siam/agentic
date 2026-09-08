@@ -6,21 +6,42 @@
   "cleanUrls": true,
   "redirects": [
     {
-      "source": "/:page(spec|lab|validate|adopt|generate|examples|docs|platform|connect)",
+      "source": "/:page(spec|lab|validate|adopt|generate|examples|docs|platform|connect|audit|compare|about)",
       "destination": "/:page/",
       "permanent": true
     }
   ],
   "functions": {
-    "api/platform.ts": { "maxDuration": 60, "includeFiles": "docs/SPEC.md" }
+    "api/platform.ts": {
+      "maxDuration": 60,
+      "includeFiles": "docs/SPEC.md"
+    }
   },
   "rewrites": [
-    { "source": "/agentic.json", "destination": "/api/platform" },
-    { "source": "/agentic.txt", "destination": "/api/platform" },
-    { "source": "/api/platform/:path*", "destination": "/api/platform" },
-    { "source": "/api/auth/:path*", "destination": "/api/platform" },
-    { "source": "/mcp", "destination": "/api/platform" },
-    { "source": "/a2a", "destination": "/api/platform" },
+    {
+      "source": "/agentic.json",
+      "destination": "/api/platform"
+    },
+    {
+      "source": "/agentic.txt",
+      "destination": "/api/platform"
+    },
+    {
+      "source": "/api/platform/:path*",
+      "destination": "/api/platform"
+    },
+    {
+      "source": "/api/auth/:path*",
+      "destination": "/api/platform"
+    },
+    {
+      "source": "/mcp",
+      "destination": "/api/platform"
+    },
+    {
+      "source": "/a2a",
+      "destination": "/api/platform"
+    },
     {
       "source": "/.well-known/agent-card.json",
       "destination": "/api/platform"
@@ -30,23 +51,37 @@
       "destination": "/api/platform"
     }
   ],
-  "crons": [{ "path": "/api/platform/cleanup", "schedule": "0 5 * * *" }],
+  "crons": [
+    {
+      "path": "/api/platform/cleanup",
+      "schedule": "0 5 * * *"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
         {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
         },
-        { "key": "Link", "value": "</llms.txt>; rel=\"describedby\"" }
+        {
+          "key": "Link",
+          "value": "</llms.txt>; rel=\"describedby\""
+        }
       ]
     },
     {
       "source": "/platform/",
       "headers": [
-        { "key": "Referrer-Policy", "value": "no-referrer" },
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        },
         {
           "key": "Link",
           "value": "</platform/index.md>; rel=\"alternate\"; type=\"text/markdown\", </llms.txt>; rel=\"describedby\""
@@ -136,7 +171,39 @@
     },
     {
       "source": "/schemas/(.*)",
-      "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    },
+    {
+      "source": "/audit/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</audit/index.md>; rel=\"alternate\"; type=\"text/markdown\", </llms.txt>; rel=\"describedby\""
+        }
+      ]
+    },
+    {
+      "source": "/compare/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</compare/index.md>; rel=\"alternate\"; type=\"text/markdown\", </llms.txt>; rel=\"describedby\""
+        }
+      ]
+    },
+    {
+      "source": "/about/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</about/index.md>; rel=\"alternate\"; type=\"text/markdown\", </llms.txt>; rel=\"describedby\""
+        }
+      ]
     }
   ]
 }

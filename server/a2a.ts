@@ -18,7 +18,7 @@ export function agentCard() {
     name: 'Agentic testing agent',
     description:
       'Run synthetic recovery checks or read-only public URL audits. Results are saved as task artifacts.',
-    version: '1.0.0',
+    version: '1.1.0',
     documentationUrl: publicOrigin() + '/connect/',
     provider: { organization: 'Agentic project', url: publicOrigin() },
     supportedInterfaces: [
@@ -100,16 +100,14 @@ const taskStore: TaskStore = {
       : 0;
     const pageSize = Math.min(Math.max(params.pageSize || 20, 1), 100),
       totalSize = tasks.length;
-    tasks = tasks
-      .slice(offset, offset + pageSize)
-      .map((t) => ({
-        ...t,
-        artifacts: params.includeArtifacts ? t.artifacts : [],
-        history:
-          params.historyLength === undefined
-            ? t.history
-            : t.history.slice(-params.historyLength),
-      }));
+    tasks = tasks.slice(offset, offset + pageSize).map((t) => ({
+      ...t,
+      artifacts: params.includeArtifacts ? t.artifacts : [],
+      history:
+        params.historyLength === undefined
+          ? t.history
+          : t.history.slice(-params.historyLength),
+    }));
     return {
       tasks,
       totalSize,

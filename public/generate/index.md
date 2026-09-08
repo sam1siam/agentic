@@ -1,6 +1,8 @@
 # Agent file generators
 
-Open [the browser generator](https://ruagentic.org/generate/) to customize a ticket-contract starter. It runs locally in the browser and makes no service calls. Select the `agentic.json` or `agentic.txt` preview, copy or download either file, or choose **Download both**. The TXT index is generated from the validated JSON profile. JSON remains authoritative; see [the companion guide](https://ruagentic.org/docs/AGENTIC-TXT.md).
+Open [the browser generator](https://ruagentic.org/generate/) to customize a ticket-contract starter. It runs locally in the browser and makes no service calls. Both `agentic.txt` and `agentic.json` are shown together. Copy or download either file, or choose **Download both files** for a ZIP containing the pair. The TXT index is generated from the validated JSON profile. JSON remains authoritative; see [the companion guide](https://ruagentic.org/docs/AGENTIC-TXT.md).
+
+Start with your service URL, action ID, and description. Expand **API settings** for the operation and evidence fields. HTTPS origins are normalized to remove a trailing slash. Downloads are disabled until the profile is valid.
 
 Editable settings: canonical HTTPS origin, action ID and description, OpenAPI path, submit/status/verify operation IDs, retention window, read path parameter names, resource/request/state JSON Pointers, accepted resource states, and one input/resource evidence pair. The full schema permits more evidence pairs and actions; edit the JSON for those cases.
 
@@ -24,7 +26,7 @@ The preview validates the generated profile against the imported API. Resolve un
 
 ## Optional documentation index
 
-Select **Documentation index** to create an llms.txt starter. Enter your service name, origin, and description, then copy or download the file. It links to /docs/, /agentic.txt, and /agentic.json on that origin; edit the links to match your published files and omit unpublished optional files. The generator makes no network calls and does not enable protocols or grant authorization.
+Expand **Optional: create an llms.txt documentation index** to create an llms.txt starter. Enter your service name, origin, and description, then copy or download the file. It links to /docs/, /agentic.txt, and /agentic.json on that origin; edit the links to match your published files and omit unpublished optional files. The generator makes no network calls and does not enable protocols or grant authorization.
 
 The generator produces Agentic JSON profiles and TXT companions, OpenAPI starter bundles, and this optional documentation index. It does not produce agents.txt or agents.json.
 

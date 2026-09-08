@@ -11,10 +11,9 @@ export const metadata: Metadata = {
   },
 };
 export const dynamic = 'force-static';
-const release =
-  'https://github.com/sam1siam/agentic/releases/tag/v1.0.0';
+const release = 'https://github.com/sam1siam/agentic/releases/tag/v1.1.0';
 const cli =
-  'https://github.com/sam1siam/agentic/releases/download/v1.0.0/ruagentic-1.0.0.tgz';
+  'https://github.com/sam1siam/agentic/releases/download/v1.1.0/ruagentic-1.1.0.tgz';
 
 export default function AdoptPage() {
   return (
@@ -74,11 +73,11 @@ export default function AdoptPage() {
       <section className="example-section" id="install">
         <h2>Install the CLI</h2>
         <p>
-          Requires Node 24. Install the versioned npm package, then
-          generate and validate a profile.
+          Requires Node 24. Install the versioned npm package, then generate and
+          validate a profile.
         </p>
         <CodeSample
-          value={`npm install -g ruagentic@1.0.0
+          value={`npm install -g ruagentic@1.1.0
 agentic init --origin https://your-service.example
 agentic text agentic.json
 agentic validate agentic.json openapi.json`}
@@ -88,7 +87,7 @@ agentic validate agentic.json openapi.json`}
           service and provide its OpenAPI document before validating.
         </p>
         <div className="doc-utilities">
-          <a href="https://github.com/sam1siam/agentic/releases/tag/v1.0.0">
+          <a href="https://github.com/sam1siam/agentic/releases/tag/v1.1.0">
             Release notes ↗
           </a>
           <a href={cli}>Download CLI ↓</a>
@@ -103,7 +102,7 @@ agentic validate agentic.json openapi.json`}
           your profile and its OpenAPI operation bindings.
         </p>
         <CodeSample
-          value={`- uses: sam1siam/agentic@v1.0.0
+          value={`- uses: sam1siam/agentic@v1.1.0
   with:
     profile: agentic.json
     openapi: openapi.json`}
@@ -112,7 +111,7 @@ agentic validate agentic.json openapi.json`}
           <a href="https://github.com/sam1siam/agentic/blob/main/action.yml">
             Action reference ↗
           </a>
-          <a href="https://github.com/sam1siam/agentic/releases/download/v1.0.0/agentic-adoption-skill.zip">
+          <a href="https://github.com/sam1siam/agentic/releases/download/v1.1.0/agentic-adoption-skill.zip">
             Download the agent skill ↓
           </a>
         </div>
@@ -153,9 +152,9 @@ agentic validate agentic.json openapi.json`}
         </div>
       </section>
       <div className="notice">
-        Agentic 1.0.0 is the stable specification and tool release. Pin
-        versions and review the service requirements before
-        integrating it. The hosted recovery service uses synthetic data.
+        Action Profile 1.0.0 and tools 1.1.0 are published. Pin versions and
+        review the service requirements before integrating it. The hosted
+        recovery service uses synthetic data.
       </div>
     </main>
   );

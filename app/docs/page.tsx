@@ -11,6 +11,18 @@ export const metadata = {
 };
 const guides = [
   [
+    'Publishing',
+    'Audit your files',
+    'Check published JSON, API operations, and whether the TXT index matches.',
+    '/docs/AUDIT.md',
+  ],
+  [
+    'Overview',
+    'Compare the formats',
+    'Understand how Agentic fits alongside documentation, APIs, and agent tools.',
+    '/docs/COMPARE.md',
+  ],
+  [
     'Companion file',
     'agentic.txt action index',
     'Generate readable action summaries from the authoritative JSON profile and check for drift.',
@@ -62,7 +74,7 @@ const guides = [
 const faq = [
   [
     'Is Agentic available for production use?',
-    'Yes. Agentic 1.0.0 is the stable release of the specification and tools. Implement the service and client requirements, validate your profile, and test recovery against your own service before deploying.',
+    'Yes. Action Profile 1.0.0 and tools 1.1.0 are published for direct use. Implement the service and client requirements, validate your profile, and test recovery against your own service before deploying.',
   ],
   [
     'Does stable release mean every agent supports it?',

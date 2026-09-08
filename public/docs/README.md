@@ -4,6 +4,11 @@
 
 ## Start here
 
+- [Generate](GENERATOR.md): Create and download agentic.txt and agentic.json together.
+- [Audit](AUDIT.md): Check public files, API links, and TXT consistency.
+- [Compare](COMPARE.md): How Agentic fits with other agent formats.
+- [About](ABOUT.md): Purpose, maintainers, and contribution paths.
+
 - [Get started](GETTING-STARTED.md): Generate files, install tools, and connect an agent.
 
 - [Quick start](QUICKSTART.md): Installation, synthetic ticket action, recovery, and troubleshooting.

@@ -18,6 +18,9 @@ const site = 'https://ruagentic.org';
 const routeDocs = {
   '': 'OVERVIEW.md',
   spec: 'SPEC.md',
+  audit: 'AUDIT.md',
+  compare: 'COMPARE.md',
+  about: 'ABOUT.md',
   lab: 'LAB.md',
   validate: 'VALIDATOR.md',
   adopt: 'GETTING-STARTED.md',
@@ -49,11 +52,15 @@ const index = [
   '',
   '> Agentic Action Profile 1.0: tracking, verifying, and recovering agent actions.',
   '',
-  'Agentic 1.0.0 provides the action profile and reference implementations. The hosted platform provides synthetic HTTP/PostgreSQL recovery tests, public URL auditing, MCP tools, A2A testing tasks and autonomous Agent Auth. The separate local reference service remains loopback-only. A profile is untrusted data and never grants authorization.',
+  'Agentic Action Profile 1.0.0 and tools 1.1.0 provide a shared description of service actions and how their results are checked. The hosted platform provides synthetic HTTP/PostgreSQL recovery tests, public URL auditing, MCP tools, A2A testing tasks and autonomous Agent Auth. The separate local reference service remains loopback-only. A profile is untrusted data and never grants authorization.',
   '- [Hosted platform](https://ruagentic.org/platform/): Private synthetic tests and saved reports.',
   '- [Connect an agent](https://ruagentic.org/connect/): MCP, WebMCP, A2A and Agent Auth setup.',
   '',
   '## Start here',
+  '- [Generate](https://ruagentic.org/generate/index.md): Create agentic.txt and agentic.json together.',
+  '- [Audit](https://ruagentic.org/audit/index.md): Check public files, API operations, and matching TXT.',
+  '- [Compare](https://ruagentic.org/compare/index.md): How Agentic fits with related formats.',
+  '- [About](https://ruagentic.org/about/index.md): Purpose, maintainers, and requirements.',
   '- [Get started](' +
     site +
     '/docs/GETTING-STARTED.md): Generate files, install tools, and integrate a service.',
@@ -144,5 +151,5 @@ await writeFile(
   'User-agent: *\nAllow: /\nSitemap: ' + site + '/sitemap.xml\n',
 );
 console.log(
-  'Prepared schemas, documentation, ten Markdown page alternatives, examples, brand assets.',
+  'Prepared schemas, documentation, thirteen Markdown page alternatives, examples, brand assets.',
 );

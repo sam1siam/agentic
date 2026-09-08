@@ -184,12 +184,12 @@ export default function PlatformConsole() {
           <section className="panel platform-panel">
             <h2>Inspect a public action profile</h2>
             <p>
-              Check its structure, same-origin OpenAPI operation bindings,
-              optional llms.txt documentation, and response headers. This audit
-              makes GET requests and does not execute actions.
+              Check its JSON, API operations, matching agentic.txt, optional
+              llms.txt, and response headers. This audit makes GET requests and
+              does not execute actions.
             </p>
             <label className="field-label" htmlFor="audit-url">
-              Public HTTPS profile URL
+              Website or public HTTPS JSON URL
             </label>
             <Input
               id="audit-url"

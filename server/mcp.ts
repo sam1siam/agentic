@@ -10,7 +10,7 @@ export const mcp = createMcpHandler(
       'audit_agentic_url',
       {
         description:
-          'Read a public HTTPS Agentic profile, its same-origin OpenAPI files and optional llms.txt documentation index. Does not submit actions or verify service behavior.',
+          'Audit a website or public HTTPS Agentic JSON URL. Check the profile, API operations, matching agentic.txt, and optional llms.txt. Does not execute actions.',
         inputSchema: z.object({ url: z.string().max(2048) }).strict(),
         annotations: {
           readOnlyHint: true,

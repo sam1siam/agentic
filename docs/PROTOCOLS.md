@@ -4,12 +4,12 @@ Agentic 1.0 describes action tracking and recovery through OpenAPI. Discovery, t
 
 ## Current implementation
 
-| Protocol | Available | Not implemented |
-| --- | --- | --- |
-| MCP | Public Streamable HTTP at `/mcp`, plus local stdio. Specification, generation, validation and hosted URL auditing. | Hosted mutation tools. |
-| WebMCP | Generator, validator, and recovery lab register page tools when the browser exposes the supported API. | Support in every browser or every agent host. |
-| A2A | Hosted A2A 1.0 JSON-RPC testing agent, PostgreSQL tasks and report artifacts. | Streaming, push notifications and cancellation after dispatch. |
-| Agent Auth | Official provider: registration, signatures, autonomous grants, execution, replay protection and revocation. | Human account delegation and payments. |
+| Protocol   | Available                                                                                                          | Not implemented                                                |
+| ---------- | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
+| MCP        | Public Streamable HTTP at `/mcp`, plus local stdio. Specification, generation, validation and hosted URL auditing. | Hosted mutation tools.                                         |
+| WebMCP     | Generator, validator, and recovery lab register page tools when the browser exposes the supported API.             | Support in every browser or every agent host.                  |
+| A2A        | Hosted A2A 1.0 JSON-RPC testing agent, PostgreSQL tasks and report artifacts.                                      | Streaming, push notifications and cancellation after dispatch. |
+| Agent Auth | Official provider: registration, signatures, autonomous grants, execution, replay protection and revocation.       | Human account delegation and payments.                         |
 
 Use the [connection guide](https://ruagentic.org/connect/) for client examples and the [platform](https://ruagentic.org/platform/) for live verification. Hosted services use one PostgreSQL-backed testing engine. See [platform operations and retention](PLATFORM.md).
 
@@ -56,7 +56,7 @@ The generator returns profile data without changing the page. Validation and lab
 
 Use the endpoint URLs above and the [connection guide](https://ruagentic.org/connect/) to configure a client. A2A publishes its own AgentCard, and Agent Auth publishes its own provider discovery document. Neither requires a separate agents.txt or agents.json manifest on this site.
 
-The generated /agentic.txt index links to the live synthetic service profile at /agentic.json. It is a reading aid, not a protocol or authorization manifest. The optional /llms.txt index links to Agentic documentation and connection instructions. In the [generator](https://ruagentic.org/generate/), select **Documentation index** to create an llms.txt starter for your service. Edit its /docs/, /agentic.txt, and /agentic.json links to match your published files. The generator makes no network calls.
+The generated /agentic.txt index links to the live synthetic service profile at /agentic.json. It is a reading aid, not a protocol or authorization manifest. The optional /llms.txt index links to Agentic documentation and connection instructions. In the [generator](https://ruagentic.org/generate/), expand **Optional: create an llms.txt documentation index** to create an llms.txt starter for your service. Edit its /docs/, /agentic.txt, and /agentic.json links to match your published files. The generator makes no network calls.
 
 The Agentic profile remains a separate action contract. Do not add protocol fields to agentic.json: unknown fields are rejected by the 1.0 schema. Pass the profile URL explicitly or link it from documentation.
 

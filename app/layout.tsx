@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: '%s · Agentic',
   },
   description:
-    'An open convention for AI agents to verify actions and recover from interrupted requests. Read the specification, validate a profile, and connect your service.',
+    'Create agentic.txt and agentic.json for your API. Describe actions, check their results, and recover when a response is lost. Generate files, read the spec, and audit your website.',
 };
 export default function RootLayout({
   children,
@@ -31,17 +31,14 @@ export default function RootLayout({
           <header className="site-header wrap">
             <Link className="wordmark" href="/" aria-label="Agentic home">
               <BrandMark />
-              <span>
-                agentic<span className="extension">.json</span>
-              </span>
+              <span>agentic</span>
             </Link>
             <nav aria-label="Main navigation">
-              <Link href="/spec">Specification</Link>
-              <Link href="/examples">Examples</Link>
-              <Link href="/validate">Validator</Link>
-              <Link href="/platform">Platform</Link>
-              <Link href="/docs">Docs</Link>
-              <Link href="/adopt">Get started</Link>
+              <Link href="/generate">Generate</Link>
+              <Link href="/spec">Spec</Link>
+              <Link href="/audit">Audit</Link>
+              <Link href="/compare">Compare</Link>
+              <Link href="/about">About</Link>
               <a
                 className="nav-github"
                 href="https://github.com/sam1siam/agentic"
@@ -51,20 +48,24 @@ export default function RootLayout({
             </nav>
           </header>
         </div>
-        <div id="content">{children}</div>
+        <div id="content" tabIndex={-1}>
+          {children}
+        </div>
         <footer className="site-footer wrap">
           <div>
             <Link href="/" className="footer-brand">
               agentic<span> / </span>ruagentic.org
             </Link>
-            <p>Agentic 1.0.0. Open specification, tools, and integrations.</p>
+            <p>Open files. Checkable results.</p>
           </div>
           <div className="footer-links">
             <a href="/agentic.txt">agentic.txt</a>
+            <a href="/agentic.json">agentic.json</a>
+            <Link href="/docs">Docs</Link>
+            <Link href="/connect">Connect an agent</Link>
+            <Link href="/platform">Recovery tools</Link>
             <a href="/llms.txt">llms.txt</a>
             <a href="/docs/CHANGELOG.md">Changelog</a>
-            <a href="/docs/GOVERNANCE.md">Governance</a>
-            <a href="/docs/BRAND.md">Brand assets</a>
           </div>
         </footer>
       </body>

@@ -13,7 +13,11 @@ export function CodeSample({
     /("(?:\\.|[^"\\])*"\s*:|"(?:\\.|[^"\\])*"|\b(?:true|false|null|\d+)\b)/g,
   );
   return (
-    <pre className={'code-block ' + className}>
+    <pre
+      className={'code-block ' + className}
+      tabIndex={0}
+      aria-label="Code example"
+    >
       <code>
         {chunks.map((chunk, i) => {
           const kind = /^".*":\s*$/.test(chunk)

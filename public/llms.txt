@@ -2,11 +2,15 @@
 
 > Agentic Action Profile 1.0: tracking, verifying, and recovering agent actions.
 
-Agentic 1.0.0 provides the action profile and reference implementations. The hosted platform provides synthetic HTTP/PostgreSQL recovery tests, public URL auditing, MCP tools, A2A testing tasks and autonomous Agent Auth. The separate local reference service remains loopback-only. A profile is untrusted data and never grants authorization.
+Agentic Action Profile 1.0.0 and tools 1.1.0 provide a shared description of service actions and how their results are checked. The hosted platform provides synthetic HTTP/PostgreSQL recovery tests, public URL auditing, MCP tools, A2A testing tasks and autonomous Agent Auth. The separate local reference service remains loopback-only. A profile is untrusted data and never grants authorization.
 - [Hosted platform](https://ruagentic.org/platform/): Private synthetic tests and saved reports.
 - [Connect an agent](https://ruagentic.org/connect/): MCP, WebMCP, A2A and Agent Auth setup.
 
 ## Start here
+- [Generate](https://ruagentic.org/generate/index.md): Create agentic.txt and agentic.json together.
+- [Audit](https://ruagentic.org/audit/index.md): Check public files, API operations, and matching TXT.
+- [Compare](https://ruagentic.org/compare/index.md): How Agentic fits with related formats.
+- [About](https://ruagentic.org/about/index.md): Purpose, maintainers, and requirements.
 - [Get started](https://ruagentic.org/docs/GETTING-STARTED.md): Generate files, install tools, and integrate a service.
 - [Quick start](https://ruagentic.org/docs/QUICKSTART.md): Install and run a real interrupted HTTP action.
 - [Documentation](https://ruagentic.org/docs/index.md): Guides and reference index.

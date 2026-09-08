@@ -1,5 +1,16 @@
 # Changelog
 
+## Tools 1.1.0 — 2026-09-07
+
+- Simplified navigation: Generate, Spec, Audit, Compare, and About.
+- Paired TXT and JSON previews, individual copy/download controls, and one ZIP containing both files. OpenAPI imports use the same paired view.
+- Dedicated public audit with readable checks, downloadable reports, TXT consistency, and partial results when linked files fail.
+- Website and directory URL normalization, explicit query rejection, exact content-type checks, and bounded concurrent file reads. Existing public-network, no-redirect, and size restrictions remain enforced.
+- Clearer copy, responsive spacing, keyboard-accessible code panes, and Markdown alternatives for all thirteen pages.
+- Profile and receipt version 1.0.0, schemas, and TXT 1.0 are unchanged. No format migration is required from tools 1.0.0.
+
+See [audit report semantics](AUDIT.md) for the distinction between JSON/API validity and TXT consistency.
+
 ## 1.0.0 — 2026-09-07
 
 Agentic 1.0.0 publishes the action profile, supporting tools, and hosted services as a versioned release.

@@ -4,6 +4,7 @@ import { zipSync, strToU8 } from 'fflate';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import FilePair from '../file-pair';
 import {
   importBundle,
   listOperations,
@@ -19,6 +20,8 @@ export default function OpenapiImport() {
     error = '';
   try {
     if (text) {
+      if (new TextEncoder().encode(text).byteLength > 262144)
+        throw new Error('Use an OpenAPI document smaller than 256 KiB.');
       const api = JSON.parse(text);
       operations = listOperations(api);
       bundle = importBundle(api, settings);
@@ -39,7 +42,7 @@ export default function OpenapiImport() {
     ['retentionSeconds', 'Tracking window (seconds)'],
   ] as const;
   return (
-    <div className="two-col">
+    <div className="import-layout">
       <section className="panel generator-form">
         <h2>Import your OpenAPI document</h2>
         <p className="small">
@@ -57,11 +60,21 @@ export default function OpenapiImport() {
             const file = e.target.files?.[0];
             if (!file) return;
             if (file.size > 262144) {
+              setText('');
               setMessage('Use a file smaller than 256 KiB.');
               return;
             }
-            setText(await file.text());
-            setMessage('Document imported. Select the three operations below.');
+            try {
+              setText(await file.text());
+              setMessage(
+                'Document imported. Select the three operations below.',
+              );
+            } catch {
+              setText('');
+              setMessage(
+                'The file could not be read. Select it again or paste its JSON.',
+              );
+            }
           }}
         />
         <label className="field-label" htmlFor="openapi-source">
@@ -70,7 +83,10 @@ export default function OpenapiImport() {
         <Textarea
           id="openapi-source"
           value={text}
-          onChange={(e) => setText(e.target.value.slice(0, 262144))}
+          onChange={(e) => {
+            setText(e.target.value);
+            setMessage('');
+          }}
           rows={8}
           spellCheck={false}
           placeholder={'{"openapi":"3.1.0","paths":{...}}'}
@@ -139,18 +155,26 @@ export default function OpenapiImport() {
           ))}
         </div>
       </section>
-      <section className="generator-output">
+      <section className="generator-output import-output">
         <div className="code-title">
           <span>Starter bundle</span>
           <span>
             {bundle?.validation.valid ? 'Bindings valid' : 'Review required'}
           </span>
         </div>
-        <pre className="code-block" tabIndex={0}>
-          {bundle
-            ? JSON.stringify(bundle.profile, null, 2)
-            : 'Import an OpenAPI document to begin.'}
-        </pre>
+        {bundle?.validation.valid && 'agentic.txt' in bundle.files ? (
+          <FilePair
+            files={{
+              'agentic.txt': bundle.files['agentic.txt'],
+              'agentic.json': bundle.files['agentic.json'],
+            }}
+          />
+        ) : (
+          <p className="empty-output">
+            Import an OpenAPI document and match its operations to generate both
+            files.
+          </p>
+        )}
         {bundle && !bundle.validation.valid && (
           <ul className="error-list">
             {bundle.validation.errors.map((e, i) => (

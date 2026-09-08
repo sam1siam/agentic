@@ -1,193 +1,212 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowDownToLine, ArrowUpRight } from 'lucide-react';
 import sample from '@/examples/tickets/agentic.json';
-export const metadata: Metadata = {
-  title: 'Specification · 1.0.0',
+import { profileFiles } from '@/lib/action-index';
+import FilePair from '../file-pair';
+export const dynamic = 'force-static';
+export const metadata = {
+  title: 'Specification',
+  description:
+    'Agentic 1.0: file format, API bindings, request recovery, and verified results.',
   alternates: {
     canonical: 'https://ruagentic.org/spec/',
     types: { 'text/markdown': '/spec/index.md' },
   },
 };
-export const dynamic = 'force-static';
-const fields = [
-  ['agentic', 'The exact profile version.'],
-  ['origin', 'The authoritative HTTPS service origin.'],
-  ['submit / status / verify', 'Three operation IDs in your OpenAPI document.'],
-  ['request', 'Idempotency key scope and tracking window.'],
-  ['bindings', 'Request and resource path parameter names.'],
-  [
-    'evidence',
-    'Resource identity, original request, state, and matching input.',
-  ],
-  ['recovery', 'Bounded checks and no automatic repeat writes.'],
-];
 export default function SpecPage() {
   return (
-    <main className="page wrap">
-      <div className="page-heading">
-        <p className="eyebrow">Agentic Action Profile / 1.0.0</p>
+    <main className="page wrap simple-page">
+      <div className="page-heading compact-heading">
+        <p className="eyebrow">Specification · 1.0</p>
         <h1>
-          A small contract.
-          <br />
-          <span>A checkable result.</span>
+          The Agentic <span>file format.</span>
         </h1>
         <p>
-          An open profile for tracking, reconciling, and verifying
-          actions through existing OpenAPI operations.
+          Describe an action, keep its request identity, and check the result
+          before reporting success.
         </p>
-        <div className="actions">
-          <a className="action primary" href="/docs/SPEC.md">
-            <ArrowDownToLine size={17} />
-            Read the specification
-          </a>
-          <a
-            className="action secondary"
-            href="/schemas/agentic-1.0.schema.json"
-          >
-            JSON Schema <ArrowUpRight size={17} />
-          </a>
+        <div className="doc-utilities">
+          <a href="/docs/SPEC.md">Full specification →</a>
+          <a href="/schemas/agentic-1.0.schema.json">JSON Schema →</a>
+          <a href="/docs/AGENTIC-TXT.md">TXT format →</a>
         </div>
       </div>
-      <div className="spec-layout">
-        <aside className="spec-toc">
-          <span className="eyebrow">On this page</span>
-          <a href="#scope">01 / Scope</a>
-          <a href="#profile">02 / The file</a>
-          <a href="#lifecycle">03 / Lifecycle</a>
-          <a href="#receipts">04 / Receipts</a>
-          <a href="#boundaries">05 / Boundaries</a>
-          <a href="#status">06 / Release and implementation</a>
-        </aside>
-        <article className="prose">
-          <section id="scope">
-            <h2>01 / One action, three operations.</h2>
-            <p>
-              A profile points to a submission operation, an authoritative
-              request-status operation, and a resource read. The first binding
-              supports one POST and two GET operations from an OpenAPI 3.1
-              document.
-            </p>
-            <p>
-              Agentic builds on existing techniques. It provides
-              a consistent, testable set of rules that multiple clients can
-              implement. It is not a new transport, a permission grant, or an
-              exactly-once guarantee.
-            </p>
-          </section>
-          <section id="profile">
-            <h2>02 / The file.</h2>
-            <p>
-              Publish <code>agentic.json</code> or provide its URL directly to a
-              supporting client. Use ordinary JSON and the versioned schema.
-              Agents do not automatically discover or support this filename.
-            </p>
-            <div className="table-scroll">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Field</th>
-                    <th>Purpose</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {fields.map(([field, purpose]) => (
-                    <tr key={field}>
-                      <td className="mono">{field}</td>
-                      <td>{purpose}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <pre className="code-block">{JSON.stringify(sample, null, 2)}</pre>
-            <p>
-              <Link href="/validate">
-                Check this example in the validator →
-              </Link>
-            </p>
-          </section>
-          <section id="lifecycle">
-            <h2>03 / The action lifecycle.</h2>
-            <ol>
-              <li>
-                Authorize the requested action using the host’s existing policy.
-              </li>
-              <li>
-                Save the request ID and bind it to the origin, action, input,
-                and profile snapshot before sending.
-              </li>
-              <li>Submit once. A lost response leaves the outcome unknown.</li>
-              <li>
-                Look up the original request. Use its resource ID to read the
-                resulting record.
-              </li>
-              <li>
-                Verify the resource ID, request ID, state, and required input
-                evidence.
-              </li>
-              <li>
-                Save a receipt. Preserve pending or unknown when completion
-                cannot be verified.
-              </li>
-            </ol>
-            <p>
-              After restart, the saved request is reconciled without
-              automatically submitting another write. Expired tracking requires
-              a handoff.
-            </p>
-          </section>
-          <section id="receipts">
-            <h2>04 / Keep the evidence.</h2>
-            <p>
-              A receipt records the request, action, origin, outcome,
-              observation time, and resulting resource. Successful receipts
-              include the evidence source and checks performed.
-            </p>
-            <p>
-              Receipts belong in the authorized client’s storage. They can
-              contain sensitive information and do not belong in the public
-              manifest. A receipt records an observation; it is not a signature
-              or a guarantee that the service is honest.
-            </p>
-            <a href="/schemas/receipt-1.0.schema.json">Receipt schema ↗</a>
-          </section>
-          <section id="boundaries">
-            <h2>05 / Explicit boundaries.</h2>
-            <p>
-              The service must actually implement atomic request tracking and
-              deduplication. The client must enforce authorization, approved
-              destinations, account isolation, timeouts, and response limits.
-              The file cannot provide those controls on its own.
-            </p>
-            <p>
-              Version 1.0.0 supports a same-origin OpenAPI binding. General
-              workflow programming, cross-origin execution, payments, identity,
-              and automatic mutation retries are outside its scope.
-            </p>
-            <p>
-              <a href="/docs/SECURITY.md">Operational limits</a> ·{' '}
-              <a href="/docs/PRIOR-ART.md">Relationship to existing work</a>
-            </p>
-          </section>
-          <section id="status">
-            <h2>06 / A stable contract to implement.</h2>
-            <p>
-              The repository includes Node and Python reference clients, a
-              loopback HTTP/SQLite service, and failure tests. The hosted
-              platform provides recovery checks and protocol integrations.
-              Use these tools to verify your implementation against the
-              requirements of Agentic 1.0.0.
-            </p>
-            <p>
-              This page is a reading guide.{' '}
-              <a href="/docs/SPEC.md">The specification</a> and versioned
-              schemas define the actual requirements.
-            </p>
-            <Link href="/adopt">Build with Agentic →</Link>
-          </section>
-        </article>
-      </div>
+      <nav className="spec-toc" aria-label="On this page">
+        <a href="#files">1. Files</a>
+        <a href="#profile">2. JSON fields</a>
+        <a href="#flow">3. Action flow</a>
+        <a href="#publish">4. Publishing</a>
+        <a href="#example">5. Example</a>
+        <a href="#requirements">6. Implementation</a>
+      </nav>
+      <section id="files" className="reading-section">
+        <h2>1. Two files, one source of truth</h2>
+        <p>
+          <code>agentic.json</code> is the action contract. A supporting client
+          reads it to find the right API operations and decide what evidence to
+          check. <code>agentic.txt</code> is an optional index generated from
+          that JSON.
+        </p>
+        <div className="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>File</th>
+                <th>Contains</th>
+                <th>Content type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>agentic.json</td>
+                <td>
+                  Version, service origin, actions, API links, result checks,
+                  and recovery limits.
+                </td>
+                <td>application/json</td>
+              </tr>
+              <tr>
+                <td>agentic.txt</td>
+                <td>
+                  JSON profile URL, version, origin, action IDs, and short
+                  descriptions.
+                </td>
+                <td>text/plain; charset=utf-8</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section id="profile" className="reading-section">
+        <h2>2. What goes in the JSON?</h2>
+        <p>
+          A profile names your service and between one and 32 actions. Each
+          action links to three operations in an OpenAPI 3.1 document.
+        </p>
+        <div className="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Meaning</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['agentic', 'The profile version: 1.0.0.'],
+                ['origin', 'Your service’s HTTPS origin.'],
+                [
+                  'actions[].id / description',
+                  'A stable action name and a short explanation.',
+                ],
+                [
+                  'actions[].openapi',
+                  'A path to the OpenAPI document on the same service.',
+                ],
+                [
+                  'actions[].submit / actions[].status / actions[].verify',
+                  'The operation IDs for creating the action, checking its request, and reading its result.',
+                ],
+                [
+                  'actions[].request / actions[].bindings',
+                  'How request IDs are tracked and placed in the API URLs.',
+                ],
+                [
+                  'actions[].evidence',
+                  'The fields that connect the result to the original request and input.',
+                ],
+                [
+                  'actions[].recovery',
+                  'Bounded status checks, timeouts, and no automatic repeat write.',
+                ],
+              ].map(([field, detail]) => (
+                <tr key={field}>
+                  <td>
+                    <code>{field}</code>
+                  </td>
+                  <td>{detail}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p>
+          The <a href="/docs/SPEC.md">full specification</a> defines required
+          fields, limits, and exact validation rules.
+        </p>
+      </section>
+      <section id="flow" className="reading-section">
+        <h2>3. How an action is checked</h2>
+        <ol className="plain-steps">
+          <li>
+            <strong>Save the request.</strong> Keep its ID, input, and original
+            contract before sending.
+          </li>
+          <li>
+            <strong>Submit once.</strong> Send the action with its idempotency
+            key.
+          </li>
+          <li>
+            <strong>Look up the same request.</strong> If the response is lost,
+            check status without repeating the write.
+          </li>
+          <li>
+            <strong>Verify the result.</strong> Check the resource’s IDs, state,
+            and relevant input values.
+          </li>
+          <li>
+            <strong>Record the outcome.</strong> Save a receipt. If the result
+            cannot be verified, keep it pending or unknown.
+          </li>
+        </ol>
+      </section>
+      <section id="publish" className="reading-section">
+        <h2>4. Publish the pair</h2>
+        <p>
+          Serve UTF-8 files at <code>/agentic.json</code> and{' '}
+          <code>/agentic.txt</code>, normally from your site’s public folder.
+          Update the JSON first, regenerate TXT, and publish both together. Pass
+          the profile URL to your Agentic-compatible client.
+        </p>
+        <p>
+          The TXT file declares <code>Agentic-Text: 1.0</code> and a{' '}
+          <code>Profile:</code> URL on the same origin. Action IDs and
+          descriptions are quoted strings. The TXT file never overrides the JSON
+          or grants permission to execute actions.
+        </p>
+        <div className="doc-utilities">
+          <Link href="/generate">Generate both files →</Link>
+          <Link href="/audit">Audit published files →</Link>
+        </div>
+      </section>
+      <section id="example" className="reading-section">
+        <h2>5. A complete example</h2>
+        <p>
+          This support-ticket profile shows the required fields. Replace the
+          example origin and operations with your service’s values.
+        </p>
+        <FilePair files={profileFiles(sample)} />
+      </section>
+      <section id="requirements" className="reading-section">
+        <h2>6. What the service and client must do</h2>
+        <p>
+          Your service must track requests durably, prevent duplicate effects
+          for the same request, and provide reliable status and resource reads.
+          Your client must enforce authorization, preserve request identity, and
+          check the evidence. Files describe these rules; the implementation
+          enforces them.
+        </p>
+        <p>
+          All action operations stay on the declared origin. Clients reject
+          execution redirects and keep credentials, ledgers, and private
+          receipts out of public files.
+        </p>
+        <div className="doc-utilities">
+          <a href="/docs/INTEGRATIONS.md">Implementation guide →</a>
+          <a href="/docs/MIGRATION.md">Version migration →</a>
+          <a href="/schemas/receipt-1.0.schema.json">Receipt schema →</a>
+          <Link href="/compare">Compare formats →</Link>
+        </div>
+      </section>
     </main>
   );
 }

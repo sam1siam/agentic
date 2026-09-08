@@ -1,18 +1,23 @@
 # Agentic
 
-> A JSON profile for verifying agent actions and recovering interrupted requests.
+> Help agents know what happened.
 
-`agentic.json` connects a submission operation, authoritative request-status lookup, and a resulting-resource read. It references an existing OpenAPI 3.1 document. The client saves its request identity before sending, reconciles uncertainty, and emits a receipt only after checking evidence.
+`agentic.txt` lists the actions your service offers. `agentic.json` tells an agent how to check their results and recover when a response is lost. Generate both files from the same settings and publish them on your domain.
 
-The production website includes generators, validation, public MCP tools, a hosted HTTP/PostgreSQL recovery sandbox, URL audits, saved reports, A2A tasks, and autonomous Agent Auth. Its browser recovery lab is a separate simulation; the local reference application also supports real HTTP disconnection tests. No independent adoption or universal agent support is claimed.
+## Start here
 
-## Start
+1. [Generate](https://ruagentic.org/generate/): Describe your action or import OpenAPI. View both files, copy either one, or download the pair.
+2. [Spec](https://ruagentic.org/spec/): Read the file format, required fields, and service responsibilities.
+3. [Audit](https://ruagentic.org/audit/): Check your public files, API operations, and TXT consistency.
+4. [Compare](https://ruagentic.org/compare/): See how Agentic fits alongside related formats.
+5. [About](https://ruagentic.org/about/): Purpose, maintainers, and contribution paths.
 
-- [Quick start](https://ruagentic.org/docs/QUICKSTART.md): Run a real dropped-response example.
-- [Normative specification](https://ruagentic.org/docs/SPEC.md): Requirements, fields, and boundaries.
-- [Generator guide](https://ruagentic.org/docs/GENERATOR.md): Build and download a starting profile.
-- [Examples](https://ruagentic.org/docs/EXAMPLES.md): Profile, OpenAPI document, and synthetic receipt.
-- [Get started](https://ruagentic.org/adopt/): Install tools, connect an agent, and integrate your service.
-- [Repository](https://github.com/sam1siam/agentic): Source, issues, and releases.
+## Connect your API
 
-Keep request identity durable. Check the original result. Preserve unknown when evidence is insufficient. Existing authentication, authorization, and idempotency remain necessary.
+Agentic Action Profile 1.0 connects one submission operation, a request-status lookup, and a resulting-resource read from an OpenAPI 3.1 document. A supporting client saves the request before sending, checks the original result, and records a receipt after verifying the evidence. An unresolved result remains pending or unknown.
+
+JSON is the authoritative contract. TXT is its optional generated index. The files describe behavior that your service and client must implement; authentication, authorization, durable tracking, and duplicate prevention remain necessary.
+
+Use the [documentation](https://ruagentic.org/docs/) for implementation guides, examples, the local validator, and recovery tools. [Connect an agent](https://ruagentic.org/connect/) through the supported MCP, WebMCP, A2A, and Agent Auth paths. The site's own [TXT](https://ruagentic.org/agentic.txt) and [JSON](https://ruagentic.org/agentic.json) describe its hosted synthetic ticket service.
+
+Action Profile 1.0.0 and tools 1.1.0 are available under Apache-2.0. No central registry is required. [Source and releases](https://github.com/sam1siam/agentic) · [npm package](https://www.npmjs.com/package/ruagentic)

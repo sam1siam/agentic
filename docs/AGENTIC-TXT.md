@@ -37,7 +37,7 @@ This version is a generated summary, not a second input format for the action ex
 
 ## Generate and check
 
-Use the browser [generator](https://ruagentic.org/generate/): choose the JSON or TXT preview, download either file, or select **Download both**. The OpenAPI starter ZIP also includes both.
+Use the browser [generator](https://ruagentic.org/generate/): view JSON and TXT together, copy or download either file, or select **Download both files**. The OpenAPI starter ZIP also includes both.
 
 With the CLI:
 

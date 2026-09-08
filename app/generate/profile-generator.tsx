@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Copy, Download, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -12,48 +11,83 @@ import {
 import { validateProfile } from '@/lib/validation';
 import { registerPageTool } from '@/lib/webmcp';
 import { profileFiles } from '@/lib/action-index';
-import { zipSync, strToU8 } from 'fflate';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import DocumentationGenerator from './documentation-generator';
+import FilePair from '../file-pair';
 import OpenapiImport from './openapi-import';
-
-const basics: [keyof StarterSettings, string][] = [
-  ['origin', 'Service origin'],
-  ['actionId', 'Action ID'],
-  ['description', 'Action description'],
-  ['openapi', 'OpenAPI path'],
-  ['submit', 'Submit operation ID'],
-  ['status', 'Status operation ID'],
-  ['verify', 'Resource-read operation ID'],
-  ['retentionSeconds', 'Tracking window (seconds)'],
-];
-const evidence: [keyof StarterSettings, string][] = [
-  ['statusRequestId', 'Status path parameter'],
-  ['verifyResourceId', 'Resource path parameter'],
-  ['resourceIdPointer', 'Resource ID pointer'],
-  ['requestIdPointer', 'Request ID pointer'],
-  ['statePointer', 'Resource state pointer'],
-  ['successValues', 'Successful states (comma-separated)'],
-  ['inputPointer', 'Input evidence pointer'],
-  ['resourcePointer', 'Matching resource pointer'],
+import DocumentationGenerator from './documentation-generator';
+const apiFields: [keyof StarterSettings, string, string][] = [
+  ['openapi', 'OpenAPI file path', 'For example, /openapi.json'],
+  [
+    'submit',
+    'Create action · operation ID',
+    'The POST operation that performs the action.',
+  ],
+  [
+    'status',
+    'Check request · operation ID',
+    'The GET operation that looks up the original request.',
+  ],
+  [
+    'verify',
+    'Read result · operation ID',
+    'The GET operation that returns the created resource.',
+  ],
+  [
+    'retentionSeconds',
+    'Request tracking · seconds',
+    'How long your service remembers a request ID.',
+  ],
+  [
+    'statusRequestId',
+    'Request ID parameter',
+    'The parameter in your request-status URL.',
+  ],
+  [
+    'verifyResourceId',
+    'Resource ID parameter',
+    'The parameter in your resource URL.',
+  ],
+  ['resourceIdPointer', 'Resource ID field', 'JSON Pointer, for example /id.'],
+  [
+    'requestIdPointer',
+    'Original request ID field',
+    'JSON Pointer, for example /request_id.',
+  ],
+  ['statePointer', 'Result status field', 'JSON Pointer, for example /status.'],
+  [
+    'successValues',
+    'Successful status values',
+    'Separate multiple values with commas.',
+  ],
+  [
+    'inputPointer',
+    'Input field to match',
+    'JSON Pointer, for example /subject.',
+  ],
+  [
+    'resourcePointer',
+    'Matching result field',
+    'JSON Pointer, for example /subject.',
+  ],
 ];
 export default function ProfileGenerator() {
   const [settings, setSettings] = useState({ ...starterSettings });
-  const [message, setMessage] = useState('');
-  const [file, setFile] = useState('agentic.json');
+  const [mode, setMode] = useState<'setup' | 'import'>('setup');
   const profile = buildProfile(settings);
-  const report = validateProfile(profile);
-  const json = JSON.stringify(profile, null, 2);
-  const files = report.valid ? profileFiles(profile) : null;
-  const selected =
-    file === 'agentic.json' ? json : (files?.['agentic.txt'] ?? '');
+  const validation = validateProfile(profile);
+  const files = validation.valid
+    ? profileFiles(profile)
+    : {
+        'agentic.json': JSON.stringify(profile, null, 2) + '\n',
+        'agentic.txt':
+          'Complete the required settings to generate your action index.\n',
+      };
   useEffect(
     () =>
       registerPageTool({
         name: 'generate_agentic_profile',
-        title: 'Generate an Agentic profile',
+        title: 'Generate Agentic files',
         description:
-          'Generate a ticket-contract profile for an HTTPS origin. Returns JSON without downloading, submitting, or changing the page.',
+          'Create agentic.txt and agentic.json for an HTTPS service. Returns files without uploading data or calling the service.',
         inputSchema: {
           type: 'object',
           properties: { origin: { type: 'string' } },
@@ -67,7 +101,7 @@ export default function ProfileGenerator() {
             typeof input !== 'object' ||
             typeof (input as { origin?: unknown }).origin !== 'string'
           )
-            throw new Error('Provide an HTTPS origin.');
+            throw new Error('Provide an HTTPS service URL.');
           const result = buildProfile({
             ...starterSettings,
             origin: (input as { origin: string }).origin,
@@ -84,8 +118,12 @@ export default function ProfileGenerator() {
       }),
     [],
   );
-  function fields(items: typeof basics) {
-    return items.map(([key, label]) => (
+  function field(key: keyof StarterSettings, label: string, help?: string) {
+    const invalid =
+      key === 'origin' &&
+      !validation.valid &&
+      validation.errors.some((error) => /origin/i.test(error));
+    return (
       <div key={key} className={key === 'description' ? 'full-width' : ''}>
         <label className="field-label" htmlFor={'generator-' + key}>
           {label}
@@ -95,236 +133,135 @@ export default function ProfileGenerator() {
           value={settings[key]}
           type={key === 'retentionSeconds' ? 'number' : 'text'}
           spellCheck={false}
-          onChange={(e) => {
-            setSettings({ ...settings, [key]: e.target.value });
-            setMessage('');
-          }}
+          aria-invalid={invalid || undefined}
+          aria-describedby={
+            [
+              help ? 'help-' + key : '',
+              !validation.valid ? 'generator-errors' : '',
+            ]
+              .filter(Boolean)
+              .join(' ') || undefined
+          }
+          onChange={(event) =>
+            setSettings((current) => ({
+              ...current,
+              [key]: event.target.value,
+            }))
+          }
         />
+        {help && (
+          <p id={'help-' + key} className="field-help">
+            {help}
+          </p>
+        )}
       </div>
-    ));
-  }
-  function download() {
-    const url = URL.createObjectURL(
-      new Blob([selected.endsWith('\n') ? selected : selected + '\n'], {
-        type: file === 'agentic.json' ? 'application/json' : 'text/plain',
-      }),
     );
-    const anchor = document.createElement('a');
-    anchor.href = url;
-    anchor.download = file;
-    anchor.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-    setMessage(file + ' downloaded. The JSON profile remains authoritative.');
   }
   return (
-    <main className="page wrap">
-      <div className="page-heading">
-        <p className="eyebrow">Developer tools / generate</p>
+    <main className="page wrap simple-page">
+      <div className="page-heading compact-heading">
+        <p className="eyebrow">Generate</p>
         <h1>
-          Generate your <span>agent files.</span>
+          Create your <span>Agentic files.</span>
         </h1>
         <p>
-          Create an action profile or an optional documentation index. Edit,
-          copy, and download locally. Your inputs stay in this browser.
+          Describe an action your API supports. Download its readable index and
+          JSON contract together.
         </p>
       </div>
-      <Tabs defaultValue="profile" className="generator-tabs">
-        <TabsList aria-label="Generator type">
-          <TabsTrigger value="profile">Action profile</TabsTrigger>
-          <TabsTrigger value="documentation">Documentation index</TabsTrigger>
-          <TabsTrigger value="openapi">Import OpenAPI</TabsTrigger>
-        </TabsList>
-        <TabsContent value="profile">
-          <div className="two-col">
-            <section className="panel generator-form">
-              <div className="section-head">
-                <h2>One action to start</h2>
-                <Button
-                  variant="ghost"
-                  onClick={() => {
-                    setSettings({ ...starterSettings });
-                    setMessage('Starter restored.');
-                  }}
-                >
-                  <RotateCcw size={15} />
-                  Reset
-                </Button>
-              </div>
-              <p className="small">
-                Use an HTTPS origin with no trailing slash. Your service must
-                implement the advertised tracking, status, and evidence
-                behavior.
+      <div className="mode-controls" aria-label="Generation method">
+        <Button
+          variant={mode === 'setup' ? 'default' : 'outline'}
+          aria-pressed={mode === 'setup'}
+          onClick={() => setMode('setup')}
+        >
+          Start from an example
+        </Button>
+        <Button
+          variant={mode === 'import' ? 'default' : 'outline'}
+          aria-pressed={mode === 'import'}
+          onClick={() => setMode('import')}
+        >
+          Import OpenAPI
+        </Button>
+      </div>
+      {mode === 'import' ? (
+        <OpenapiImport />
+      ) : (
+        <>
+          <section className="setup-section">
+            <div className="section-head">
+              <h2>1. Describe your action</h2>
+              <Button
+                variant="ghost"
+                onClick={() => setSettings({ ...starterSettings })}
+              >
+                Reset example
+              </Button>
+            </div>
+            <p className="muted">
+              This example creates a support ticket. Replace the details with
+              your service’s values.
+            </p>
+            <div className="field-grid">
+              {field(
+                'origin',
+                'Service URL',
+                'Use an HTTPS origin, such as https://api.yoursite.com. A trailing slash is accepted.',
+              )}
+              {field(
+                'actionId',
+                'Action ID',
+                'A short name such as create-ticket or create-order.',
+              )}
+              {field('description', 'What does the action do?')}
+            </div>
+            <details className="disclosure">
+              <summary>API settings · operations and result fields</summary>
+              <p>
+                Match these values to your OpenAPI 3.1 file. Agents need an
+                operation to perform the action, one to check the request, and
+                one to read the result.
               </p>
-              <div className="field-grid">{fields(basics)}</div>
-              <h2 className="generator-subheading">Bindings and evidence</h2>
-              <p className="small">
-                JSON Pointers select values in the response. This starter
-                matches one input field; add more in the JSON when your action
-                needs them.
-              </p>
-              <div className="field-grid">{fields(evidence)}</div>
-            </section>
-            <section className="generator-output">
-              <div className="code-title">
-                <span>Generated action files</span>
-                <span>
-                  {report.valid ? 'Structure valid' : 'Needs changes'}
-                </span>
+              <div className="field-grid">
+                {apiFields.map(([key, label, help]) => field(key, label, help))}
               </div>
-              <Tabs value={file} onValueChange={setFile} className="file-tabs">
-                <TabsList aria-label="Generated action file">
-                  <TabsTrigger value="agentic.json">agentic.json</TabsTrigger>
-                  <TabsTrigger value="agentic.txt">agentic.txt</TabsTrigger>
-                </TabsList>
-                <TabsContent value="agentic.json">
-                  <pre
-                    className="code-block"
-                    tabIndex={0}
-                    aria-label="Generated agentic.json"
-                  >
-                    {json}
-                  </pre>
-                </TabsContent>
-                <TabsContent value="agentic.txt">
-                  <pre
-                    className="code-block"
-                    tabIndex={0}
-                    aria-label="Generated agentic.txt"
-                  >
-                    {files?.['agentic.txt'] ??
-                      'Complete a valid profile to generate its action index.'}
-                  </pre>
-                </TabsContent>
-              </Tabs>
-              {!report.valid && (
-                <ul className="error-list" aria-live="polite">
-                  {report.errors.map((error, i) => (
-                    <li key={i}>{error}</li>
+            </details>
+          </section>
+          <section className="output-section">
+            <h2>2. Download both files</h2>
+            {!validation.valid && (
+              <div id="generator-errors" className="inline-error" role="alert">
+                <p>Check these settings before downloading:</p>
+                <ul>
+                  {validation.errors.map((error) => (
+                    <li key={error}>{error}</li>
                   ))}
                 </ul>
-              )}
-              <div className="actions">
-                <Button disabled={!report.valid} onClick={download}>
-                  <Download size={16} />
-                  Download {file === 'agentic.json' ? 'JSON' : 'TXT'}
-                </Button>
-                <Button
-                  variant="outline"
-                  disabled={!report.valid}
-                  onClick={async () => {
-                    try {
-                      await navigator.clipboard.writeText(selected);
-                      setMessage('Copied to clipboard.');
-                    } catch {
-                      setMessage(
-                        'Clipboard unavailable. Select the text above or use Download.',
-                      );
-                    }
-                  }}
-                >
-                  <Copy size={16} />
-                  Copy
-                </Button>
-                <Button
-                  variant="outline"
-                  disabled={!files}
-                  onClick={() => {
-                    if (!files) return;
-                    const zipped = zipSync(
-                      Object.fromEntries(
-                        Object.entries(files).map(([name, value]) => [
-                          name,
-                          strToU8(value),
-                        ]),
-                      ),
-                    );
-                    const url = URL.createObjectURL(
-                      new Blob([new Uint8Array(zipped)], {
-                        type: 'application/zip',
-                      }),
-                    );
-                    const anchor = document.createElement('a');
-                    anchor.href = url;
-                    anchor.download = 'agentic-files.zip';
-                    anchor.click();
-                    setTimeout(() => URL.revokeObjectURL(url), 1000);
-                    setMessage('Downloaded agentic.json and agentic.txt.');
-                  }}
-                >
-                  <Download size={16} />
-                  Download both
-                </Button>
               </div>
-              <p className="small muted" role="status">
-                {message}
-              </p>
-              <div className="notice">
-                agentic.txt summarizes this JSON profile. Validate the JSON with
-                your OpenAPI file, then run the service tests to check request
-                tracking and recovery.
-              </div>
-              <div className="doc-utilities">
-                <Link href="/validate">Open the validator →</Link>
-                <Link href="/docs#quickstart">Implementation guide →</Link>
-                <a href="/generate/index.md">Read as Markdown ↗</a>
-                <a href="/docs/AGENTIC-TXT.md">About agentic.txt →</a>
-              </div>
-            </section>
-          </div>
-        </TabsContent>
-        <TabsContent value="documentation">
-          <DocumentationGenerator />
-        </TabsContent>
-        <TabsContent value="openapi">
-          <OpenapiImport />
-        </TabsContent>
-      </Tabs>
-      <section className="example-section" id="protocols">
-        <h2>What is connected today?</h2>
-        <p className="muted">
-          Agentic describes request recovery. These protocols provide other
-          parts of an agent integration.
+            )}
+            <FilePair files={files} disabled={!validation.valid} />
+          </section>
+        </>
+      )}
+      <section className="publish-guide">
+        <h2>3. Put the files on your service</h2>
+        <p>
+          Place both files in your site’s public folder, or serve them from your
+          API. They should be available at <code>/agentic.txt</code> and{' '}
+          <code>/agentic.json</code>. Your API must support the operations
+          described in the JSON.
         </p>
-        <div className="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>Protocol</th>
-                <th>Available here</th>
-                <th>Scope</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>MCP</td>
-                <td>Public HTTP and local stdio tool servers</td>
-                <td>
-                  Specification, generation, validation, and read-only URL
-                  audits.
-                </td>
-              </tr>
-              <tr>
-                <td>WebMCP</td>
-                <td>Generator, validator, and lab page tools</td>
-                <td>Requires a browser with a supported WebMCP API.</td>
-              </tr>
-              <tr>
-                <td>A2A</td>
-                <td>Hosted testing agent and persistent tasks</td>
-                <td>A2A 1.0 JSON-RPC with private sandbox credentials.</td>
-              </tr>
-              <tr>
-                <td>Agent Auth</td>
-                <td>Registration, signed execution, grants, and revocation</td>
-                <td>Autonomous validation and isolated synthetic testing.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
         <div className="doc-utilities">
-          <Link href="/connect">Connect protocols →</Link>
+          <Link href="/audit">Audit your published files →</Link>
+          <Link href="/spec">Read the format →</Link>
+          <Link href="/validate">Validate with an OpenAPI file →</Link>
         </div>
       </section>
+      <details className="disclosure optional-index">
+        <summary>Optional: create an llms.txt documentation index</summary>
+        <DocumentationGenerator />
+      </details>
     </main>
   );
 }

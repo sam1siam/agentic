@@ -20,11 +20,30 @@ export const starterSettings = {
 };
 export type StarterSettings = typeof starterSettings;
 
+export function normalizeServiceOrigin(value: string) {
+  const trimmed = value.trim();
+  try {
+    const url = new URL(trimmed);
+    if (
+      url.protocol === 'https:' &&
+      url.pathname === '/' &&
+      !url.username &&
+      !url.password &&
+      !url.search &&
+      !url.hash
+    )
+      return url.origin;
+  } catch {
+    /* Keep invalid input visible to the validator. */
+  }
+  return trimmed;
+}
+
 export function buildProfile(settings: StarterSettings): Profile {
   return {
     $schema: 'https://ruagentic.org/schemas/agentic-1.0.schema.json',
     agentic: '1.0.0',
-    origin: settings.origin.trim(),
+    origin: normalizeServiceOrigin(settings.origin),
     actions: [
       {
         id: settings.actionId.trim(),

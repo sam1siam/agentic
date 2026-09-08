@@ -4,6 +4,11 @@
 
 ## Start here
 
+- [Generate](https://ruagentic.org/docs/GENERATOR.md): Create and download agentic.txt and agentic.json together.
+- [Audit](https://ruagentic.org/docs/AUDIT.md): Check public files, API links, and TXT consistency.
+- [Compare](https://ruagentic.org/docs/COMPARE.md): How Agentic fits with other agent formats.
+- [About](https://ruagentic.org/docs/ABOUT.md): Purpose, maintainers, and contribution paths.
+
 - [Get started](https://ruagentic.org/docs/GETTING-STARTED.md): Generate files, install tools, and connect an agent.
 
 - [Quick start](https://ruagentic.org/docs/QUICKSTART.md): Installation, synthetic ticket action, recovery, and troubleshooting.

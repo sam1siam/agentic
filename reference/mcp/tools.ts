@@ -8,7 +8,7 @@ import { profileFiles } from '../../lib/action-index.ts';
 export function createTools(options?: { readSpec?: () => Promise<string> }) {
   const server = new McpServer({
     name: 'agentic-tools',
-    version: '1.0.0',
+    version: '1.1.0',
   });
   const annotations = {
     readOnlyHint: true,
@@ -27,8 +27,7 @@ export function createTools(options?: { readSpec?: () => Promise<string> }) {
   server.registerTool(
     'get_agentic_spec',
     {
-      description:
-        'Read the Agentic specification bundled with this checkout.',
+      description: 'Read the Agentic specification bundled with this checkout.',
       inputSchema: z.object({}).strict(),
       annotations,
     },

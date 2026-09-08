@@ -16,7 +16,7 @@ The service profile is at https://ruagentic.org/api/platform/service/agentic.jso
 
 ## Public URL auditor
 
-The auditor reads a supplied HTTPS profile URL, same-origin OpenAPI bindings, and the optional llms.txt documentation index. It reports content types, sizes, and status codes. It makes no action submissions and does not prove runtime idempotency, authorization, retention, or recovery behavior.
+The [auditor](https://ruagentic.org/audit/) accepts a website or full JSON URL and reads its profile, same-origin OpenAPI bindings, matching TXT index, and optional llms.txt documentation index. See [audit checks and report semantics](https://ruagentic.org/docs/AUDIT.md). It reports content types, sizes, and status codes. It makes no action submissions and does not prove runtime idempotency, authorization, retention, or recovery behavior.
 
 Only public HTTPS on port 443 is accepted. All resolved IP addresses must be public. Connections pin the resolved address while retaining TLS hostname verification. Redirects, compressed responses, private networks, credentials in URLs, oversized bodies, and long requests are rejected. The profile limit is 64 KiB; OpenAPI is 256 KiB per document, up to five documents.
 

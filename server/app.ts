@@ -56,7 +56,7 @@ async function route(request: Request) {
     return Response.json({
       status: 'ok',
       service: 'Agentic platform',
-      version: '1.0.0',
+      version: '1.1.0',
     });
   }
   await rateLimit('ip:' + clientAddress(request), 120);

@@ -2,6 +2,9 @@ import { access, readFile } from 'node:fs/promises';
 const routes = [
   '',
   'spec/',
+  'audit/',
+  'compare/',
+  'about/',
   'lab/',
   'validate/',
   'adopt/',
@@ -43,6 +46,9 @@ for (const route of routes) {
 }
 for (const file of [
   'docs/SPEC.md',
+  'docs/AUDIT.md',
+  'docs/COMPARE.md',
+  'docs/ABOUT.md',
   'docs/GOVERNANCE.md',
   'docs/CONFORMANCE.md',
   'docs/GETTING-STARTED.md',
@@ -68,5 +74,5 @@ for (const file of ['agents.txt', 'agents.json']) {
   if (exists) throw new Error('Removed companion file still exported: ' + file);
 }
 console.log(
-  'Verified all ten exported pages, local links, Markdown alternatives, assets, and core downloads.',
+  'Verified all thirteen exported pages, local links, Markdown alternatives, assets, and core downloads.',
 );
