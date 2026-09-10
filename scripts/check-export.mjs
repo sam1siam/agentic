@@ -23,6 +23,15 @@ for (const route of routes) {
   await access('dist/client/' + route + 'index.txt');
   if (!html.includes('text/markdown'))
     throw new Error('Missing Markdown discovery metadata: ' + route);
+  for (const tag of [
+    'property="og:image"',
+    'name="twitter:card"',
+    'rel="apple-touch-icon"',
+    'rel="manifest"',
+    'name="description"',
+  ])
+    if (!html.includes(tag))
+      throw new Error('Missing ' + tag + ' on route: ' + route);
   const assets = [
     ...html.matchAll(/(?:src|href)="(\/_next\/static\/[^"?#]+)(?:[^"]*)"/g),
   ].map((match) => match[1]);
@@ -74,6 +83,13 @@ for (const file of [
   'docs/PROTOCOLS.md',
   'brand/agentic-mark.svg',
   'examples/tickets/receipt.json',
+  'favicon.svg',
+  'favicon.ico',
+  'apple-touch-icon.png',
+  'icon-192.png',
+  'icon-512.png',
+  'manifest.webmanifest',
+  'og.png',
 ])
   await access('dist/client/' + file);
 for (const file of ['agents.txt', 'agents.json']) {

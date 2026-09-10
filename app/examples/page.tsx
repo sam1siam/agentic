@@ -6,6 +6,8 @@ import { buildActionIndex } from '@/lib/action-index';
 export const dynamic = 'force-static';
 export const metadata = {
   title: 'Examples',
+  description:
+    'Follow one support-ticket action from its profile through the service contract to a verification receipt.',
   alternates: {
     canonical: 'https://ruagentic.org/examples/',
     types: { 'text/markdown': '/examples/index.md' },
@@ -113,8 +115,8 @@ export default function ExamplesPage() {
       <section className="example-section">
         <h2>3. Keep a receipt</h2>
         <p className="muted">
-          This synthetic receipt shows the format. It is not a record of
-          a real customer action.
+          This synthetic receipt shows the format. It is not a record of a real
+          customer action.
         </p>
         <CodeSample value={receipt} />
         <div className="doc-utilities">

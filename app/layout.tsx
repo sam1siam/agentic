@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Instrument_Sans, JetBrains_Mono } from 'next/font/google';
 import Link from 'next/link';
 import './globals.css';
@@ -8,14 +8,39 @@ const ui = Instrument_Sans({ variable: '--font-ui', subsets: ['latin'] });
 const code = JetBrains_Mono({ variable: '--font-code', subsets: ['latin'] });
 export const metadata: Metadata = {
   metadataBase: new URL('https://ruagentic.org'),
-  icons: { icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }] },
+  applicationName: 'Agentic',
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: '48x48' },
+    ],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
+  },
+  manifest: '/manifest.webmanifest',
   title: {
     default: 'Agentic — Make your website readable to agents',
     template: '%s · Agentic',
   },
   description:
     'Generate agentic.json, agentic.txt, README, and listing text from your website’s public documentation, APIs, llms.txt, and agent connections. Publish the files and audit them on your domain.',
+  // Titles and descriptions are inherited per page; one site image serves
+  // every page of the static export.
+  openGraph: {
+    type: 'website',
+    siteName: 'Agentic',
+    locale: 'en_US',
+    images: [
+      {
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: 'Agentic — make your website readable to agents',
+      },
+    ],
+  },
+  twitter: { card: 'summary_large_image' },
 };
+export const viewport: Viewport = { themeColor: '#05080c' };
 const navigation = [
   ['Generate', '/generate'],
   ['Spec', '/spec'],

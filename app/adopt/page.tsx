@@ -5,6 +5,8 @@ import { CodeSample } from '../code-sample';
 
 export const metadata: Metadata = {
   title: 'Get started',
+  description:
+    'Generate files from your website, connect an agent, install the CLI and GitHub Action, or contribute to the project.',
   alternates: {
     canonical: 'https://ruagentic.org/adopt/',
     types: { 'text/markdown': '/adopt/index.md' },

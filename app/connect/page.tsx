@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Connect an agent',
+  description:
+    'Connect an agent to Agentic through the public MCP server, WebMCP page tools, the A2A testing agent or Agent Auth.',
   alternates: {
     canonical: 'https://ruagentic.org/connect/',
     types: { 'text/markdown': '/connect/index.md' },

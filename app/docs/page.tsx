@@ -4,6 +4,8 @@ import { CodeSample } from '../code-sample';
 export const dynamic = 'force-static';
 export const metadata = {
   title: 'Documentation',
+  description:
+    'Guides for generating, publishing and auditing Agentic files, plus the specification, protocols, integration and conformance references.',
   alternates: {
     canonical: 'https://ruagentic.org/docs/',
     types: { 'text/markdown': '/docs/index.md' },
