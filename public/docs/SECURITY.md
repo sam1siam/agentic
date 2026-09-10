@@ -1,4 +1,5 @@
 # Security and operational limits
+
 Agentic profiles describe action behavior. Authorization remains the responsibility of the host and service, including when they use the hosted Agent Auth integration.
 
 Report vulnerabilities through the repository's private security reporting feature if available. Do not publish credentials, private receipts, or exploitable details in an issue. For non-sensitive bugs, include a minimal reproduction and affected version.
@@ -10,3 +11,5 @@ The local reference service binds to 127.0.0.1 and has no authentication. Its fa
 SQLite ledgers store inputs and receipts. Protect their directory, keep them out of Git, and define a retention policy. The included locks work only among processes on a single machine; PID reuse fails closed. They are not distributed leases.
 
 No static declaration or receipt establishes service honesty or prevents prompt injection. JSON Schema validation is one parsing check, not authorization or a trust decision.
+
+A machine-readable contact record is published at `https://ruagentic.org/.well-known/security.txt` (RFC 9116); it points at the repository's private security reporting form and expires in September 2027, so move its `Expires` line forward before then.

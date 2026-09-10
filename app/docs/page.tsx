@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { CodeSample } from '../code-sample';
+import JsonLd, { techArticleJsonLd } from '../json-ld';
 export const dynamic = 'force-static';
 export const metadata = {
   title: 'Documentation',
@@ -126,6 +127,14 @@ const faq = [
 export default function DocsPage() {
   return (
     <main className="page wrap">
+      <JsonLd
+        data={techArticleJsonLd({
+          path: '/docs/',
+          headline: 'Agentic documentation',
+          description:
+            'Guides for generating, publishing and auditing Agentic files, plus the specification, protocols, integration and conformance references.',
+        })}
+      />
       <div className="page-heading">
         <p className="eyebrow">Documentation / Tools 1.3.0</p>
         <h1>

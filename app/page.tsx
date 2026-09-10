@@ -2,6 +2,7 @@ import Link from 'next/link';
 import sample from '@/examples/site/agentic.json';
 import { publicationFiles } from '@/lib/publication';
 import FilePair from './file-pair';
+import JsonLd, { organizationJsonLd, websiteJsonLd } from './json-ld';
 export const dynamic = 'force-static';
 export const metadata = {
   alternates: {
@@ -12,6 +13,7 @@ export const metadata = {
 export default function Home() {
   return (
     <main className="wrap simple-home">
+      <JsonLd data={[websiteJsonLd, organizationJsonLd]} />
       <section className="home-intro">
         <p className="eyebrow">An open file convention for AI agents</p>
         <h1>

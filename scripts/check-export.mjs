@@ -23,6 +23,11 @@ for (const route of routes) {
   await access('dist/client/' + route + 'index.txt');
   if (!html.includes('text/markdown'))
     throw new Error('Missing Markdown discovery metadata: ' + route);
+  if (
+    ['', 'spec/', 'docs/'].includes(route) &&
+    !html.includes('application/ld+json')
+  )
+    throw new Error('Missing JSON-LD on route: ' + route);
   for (const tag of [
     'property="og:image"',
     'name="twitter:card"',
@@ -90,6 +95,7 @@ for (const file of [
   'icon-512.png',
   'manifest.webmanifest',
   'og.png',
+  '.well-known/security.txt',
 ])
   await access('dist/client/' + file);
 for (const file of ['agents.txt', 'agents.json']) {

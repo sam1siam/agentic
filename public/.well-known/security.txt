@@ -1,0 +1,6 @@
+# Security contact for the Agentic convention site (RFC 9116)
+Contact: https://github.com/sam1siam/agentic/security/advisories/new
+Expires: 2027-09-09T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://ruagentic.org/.well-known/security.txt
+Policy: https://ruagentic.org/docs/SECURITY.md

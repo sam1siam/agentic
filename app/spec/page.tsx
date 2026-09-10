@@ -2,6 +2,7 @@ import Link from 'next/link';
 import sample from '@/examples/site/agentic.json';
 import { publicationFiles } from '@/lib/publication';
 import FilePair from '../file-pair';
+import JsonLd, { techArticleJsonLd } from '../json-ld';
 export const dynamic = 'force-static';
 export const metadata = {
   title: 'Specification',
@@ -15,6 +16,14 @@ export const metadata = {
 export default function SpecPage() {
   return (
     <main className="page wrap simple-page">
+      <JsonLd
+        data={techArticleJsonLd({
+          path: '/spec/',
+          headline: 'The Agentic file format',
+          description:
+            'Agentic site profiles, action contracts, and matching JSON and TXT files.',
+        })}
+      />
       <div className="page-heading compact-heading">
         <p className="eyebrow">Specification · Site 1.1 / Action 1.0</p>
         <h1>
