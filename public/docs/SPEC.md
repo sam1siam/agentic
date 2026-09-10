@@ -95,6 +95,8 @@ The host MUST authorize the action before calling the client. The host MUST isol
 
 Host adapters MUST serialize concurrent execution of a request or provide equivalent atomic coordination. The Node and Python SQLite ledgers coordinate local processes and reclaim a lock only if its owning process has exited. They are single-host examples; distributed leasing and account-aware storage are outside their scope.
 
+Design note (non-normative). The request ID is minted by the client and persisted before the nondeterministic model or tool step runs, and it is forwarded unchanged as the service's Idempotency-Key. It is deliberately not derived from the tool arguments: an agent that retries after re-entering the model can produce different arguments for the same intended action, and two intentionally distinct actions can share identical arguments, so an arguments-derived key both drifts and collides. Deduplication therefore happens on the service side (section 5), while the client-side ledger only replays a recorded outcome or fails closed on an in-flight request; it never guesses whether a lost response completed. This is the same split as a payment processor's idempotency key: framework-side result caching alone cannot prevent a duplicate side effect whose first acknowledgement was lost.
+
 ## 7. Receipts
 Receipts MUST validate against schemas/receipt-1.0.schema.json. They include the version, request ID, action ID, origin, outcome, observation time, resource ID or null, and a reason.
 

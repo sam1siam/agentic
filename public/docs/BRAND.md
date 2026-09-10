@@ -1,6 +1,6 @@
 # Agentic identity
 
-The mark combines two JSON-style braces with a check: a described action and an observed result. The wordmark is `agentic.json`, set in a monospace face. The project name remains **Agentic**, and its home is **ruagentic.org**.
+The mark places a capital A between two JSON-style braces, the same {A} mark used by the RUAGENTIC directory. The wordmark is `agentic.json`, set in a monospace face. The project name remains **Agentic**, and its home is **ruagentic.org**.
 
 ## Assets
 
@@ -13,16 +13,16 @@ These original project assets are included under the repository's Apache-2.0 lic
 
 ## Palette and typography
 
-| Role | Value |
-| --- | --- |
-| Background | #0A0B10 |
-| Surface | #11131C |
-| Border | #2A2D3C |
-| Text | #E9EAF2 |
-| Muted text | #A3A8BA |
-| Blue accent | #83B4FF |
-| Primary button | #2563EB with white text |
+| Role              | Value                                                        |
+| ----------------- | ------------------------------------------------------------ |
+| Background        | #05080C                                                      |
+| Glass surface     | white at 10% to 3.5% over the background, 1 px border at 14% |
+| Text              | #F2F8FC                                                      |
+| Body text         | #C9D6E2                                                      |
+| Muted text        | #8FA6B6                                                      |
+| Primary (sand)    | #FFB020 with #1A1200 text                                    |
+| Accent (ice blue) | #5CE1E6                                                      |
 
-The website uses Geist for prose and Geist Mono for code and the wordmark. Keep the mark legible at 24 px or larger, preserve its aspect ratio, and allow clear space around it. Use the dark wordmark on dark surfaces and the light version on light surfaces.
+The website uses Instrument Sans for prose and JetBrains Mono for code, labels and the wordmark, sharing the RUAGENTIC directory's styling with the two colours swapped: sand is the primary where the directory uses ice blue, and ice blue is the accent where the directory uses sand. Keep the mark legible at 24 px or larger, preserve its aspect ratio, and allow clear space around it. Use the dark wordmark on dark surfaces and the light version on light surfaces.
 
-The developer-oriented presentation takes direction from [agent.json](https://www.agent-json.org/): dark surfaces, blue accents, monospace identity, and visible code examples. The Agentic mark and layout are original; no affiliation or endorsement is implied.
+The developer-oriented presentation takes direction from [agent.json](https://www.agent-json.org/): dark surfaces, a single accent colour, monospace identity, and visible code examples. The Agentic mark and layout are original; no affiliation or endorsement is implied.

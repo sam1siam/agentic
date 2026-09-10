@@ -146,7 +146,7 @@ Source: https://ruagentic.org/docs/BRAND.md
 
 # Agentic identity
 
-The mark combines two JSON-style braces with a check: a described action and an observed result. The wordmark is `agentic.json`, set in a monospace face. The project name remains **Agentic**, and its home is **ruagentic.org**.
+The mark places a capital A between two JSON-style braces, the same {A} mark used by the RUAGENTIC directory. The wordmark is `agentic.json`, set in a monospace face. The project name remains **Agentic**, and its home is **ruagentic.org**.
 
 ## Assets
 
@@ -159,19 +159,19 @@ These original project assets are included under the repository's Apache-2.0 lic
 
 ## Palette and typography
 
-| Role | Value |
-| --- | --- |
-| Background | #0A0B10 |
-| Surface | #11131C |
-| Border | #2A2D3C |
-| Text | #E9EAF2 |
-| Muted text | #A3A8BA |
-| Blue accent | #83B4FF |
-| Primary button | #2563EB with white text |
+| Role              | Value                                                        |
+| ----------------- | ------------------------------------------------------------ |
+| Background        | #05080C                                                      |
+| Glass surface     | white at 10% to 3.5% over the background, 1 px border at 14% |
+| Text              | #F2F8FC                                                      |
+| Body text         | #C9D6E2                                                      |
+| Muted text        | #8FA6B6                                                      |
+| Primary (sand)    | #FFB020 with #1A1200 text                                    |
+| Accent (ice blue) | #5CE1E6                                                      |
 
-The website uses Geist for prose and Geist Mono for code and the wordmark. Keep the mark legible at 24 px or larger, preserve its aspect ratio, and allow clear space around it. Use the dark wordmark on dark surfaces and the light version on light surfaces.
+The website uses Instrument Sans for prose and JetBrains Mono for code, labels and the wordmark, sharing the RUAGENTIC directory's styling with the two colours swapped: sand is the primary where the directory uses ice blue, and ice blue is the accent where the directory uses sand. Keep the mark legible at 24 px or larger, preserve its aspect ratio, and allow clear space around it. Use the dark wordmark on dark surfaces and the light version on light surfaces.
 
-The developer-oriented presentation takes direction from [agent.json](https://www.agent-json.org/): dark surfaces, blue accents, monospace identity, and visible code examples. The Agentic mark and layout are original; no affiliation or endorsement is implied.
+The developer-oriented presentation takes direction from [agent.json](https://www.agent-json.org/): dark surfaces, a single accent colour, monospace identity, and visible code examples. The Agentic mark and layout are original; no affiliation or endorsement is implied.
 
 
 ---
@@ -1441,6 +1441,8 @@ The host MUST authorize the action before calling the client. The host MUST isol
 10. A previously saved successful receipt MAY be returned for the identical request without another read. Its observed_at timestamp makes clear that it records an earlier observation, not a fresh assertion about the resource's current state.
 
 Host adapters MUST serialize concurrent execution of a request or provide equivalent atomic coordination. The Node and Python SQLite ledgers coordinate local processes and reclaim a lock only if its owning process has exited. They are single-host examples; distributed leasing and account-aware storage are outside their scope.
+
+Design note (non-normative). The request ID is minted by the client and persisted before the nondeterministic model or tool step runs, and it is forwarded unchanged as the service's Idempotency-Key. It is deliberately not derived from the tool arguments: an agent that retries after re-entering the model can produce different arguments for the same intended action, and two intentionally distinct actions can share identical arguments, so an arguments-derived key both drifts and collides. Deduplication therefore happens on the service side (section 5), while the client-side ledger only replays a recorded outcome or fails closed on an in-flight request; it never guesses whether a lost response completed. This is the same split as a payment processor's idempotency key: framework-side result caching alone cannot prevent a duplicate side effect whose first acknowledgement was lost.
 
 ## 7. Receipts
 Receipts MUST validate against schemas/receipt-1.0.schema.json. They include the version, request ID, action ID, origin, outcome, observation time, resource ID or null, and a reason.
